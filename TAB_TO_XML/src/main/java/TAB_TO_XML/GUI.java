@@ -2,8 +2,11 @@ package TAB_TO_XML;
 
 
 import java.awt.Desktop;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,10 +32,10 @@ import javafx.stage.Stage;
 
 public class GUI extends Application {
 
-	private Desktop dt = Desktop.getDesktop(); //User Desktop
+	private Desktop dt = Desktop.getDesktop(); //User Desktop 
 	
-	 final Button ob = new Button();
-	 final FileChooser fc = new FileChooser();
+	 final Button ob = new Button(); //Clickable button for opening the tab to search for the file to open
+	 final FileChooser fc = new FileChooser(); //
 	 final Label ol = new Label();
 	 final Label obl = new Label();
 	 final Label el = new Label();
@@ -108,15 +111,14 @@ public class GUI extends Application {
         }); 
         
         //Restricts the allowable columns and rows for the location of each text or button
-        GridPane.setConstraints(ob, 1, 2);
-        GridPane.setConstraints(obl, 0, 2);
-        GridPane.setConstraints(el, 0, 1);
-        GridPane.setConstraints(ol, 0, 0);
-        
-        inputValues.setHgap(6); //The width of the horizontal gaps between columns.
-        inputValues.setVgap(6); //The length of the vertical gaps between rows
-        inputValues.getChildren().addAll(ob, ol, el, obl); 
+
         inputValues.add(dropDownMenu, 2, 5);  //adds the drop-down menu 
+        inputValues.add(ob, 1, 2);
+        inputValues.add(obl, 0, 2);
+        inputValues.add(el, 0, 1);
+        inputValues.add(ol, 0, 0);
+        inputValues.setHgap(6); //The width of the horizontal gaps between columns.
+        inputValues.setVgap(6); //The length of the vertical gaps between rows       
         
         rg.getChildren().addAll(inputValues); //method from superclass 'Pane', this gets all the children and places them in the GUI
         rg.setPadding(new Insets(12, 12, 12, 12));
@@ -128,18 +130,39 @@ public class GUI extends Application {
     }
     
     /**
-	 * The method that opens fc and takes a input file
+	 * The method that opens fc and takes a input file. Throws an IOException when the file is corrupted.
 	 * @param fi is the file to be opened
 	 */
     private void openFile(File fi) {
+    	
+    	//This opens the file of your choice, but it's not necessary at the moment as it's only for testing whether this method works or not
+    	/**
     	try {
             dt.open(fi); 
         } catch (IOException ex) {
-            Logger.getLogger(
-                GUI.class.getName()).log(
-                    Level.SEVERE, null, ex
-                );
+            Logger.getLogger(GUI.class.getName())
+            .log(Level.SEVERE, null, ex);
+        } 
+    	*/ 
+    	
+    	try (BufferedReader reader = new BufferedReader(new FileReader(fi))) { //Reads the file that was selected by the user
+
+            ArrayList<Character> datain = new ArrayList<Character>(); //Arraylist that stores the data from the txt file character by character
+            int i = 0;
+            int j = 0;
+            while ((i = reader.read()) != -1) {
+            	char ch = (char) i;
+            	datain.add(ch);
+            	/**
+            	System.out.println(datain.get(j));
+            	j++;
+            	*/
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    	
     }
     
     /**
