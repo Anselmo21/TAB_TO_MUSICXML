@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -18,11 +19,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -71,7 +77,6 @@ public class GUI extends Application {
         
         
         
-        
         //Text Customization
         Font font = Font.font("Browsed", FontWeight.EXTRA_BOLD, 40); //Font for the buttons
         Font font1 = Font.font("label font", FontWeight.NORMAL, 20); //Font for the plan texts
@@ -110,6 +115,53 @@ public class GUI extends Application {
         
         }); 
         
+        // Drag & Drop feature 
+        Label label = new Label("Drag And Drop A File Here");
+        Label dropped = new Label("");
+        VBox dragTarget = new VBox();
+        dragTarget.getChildren().addAll(label,dropped);
+        dragTarget.setOnDragOver(new EventHandler<DragEvent>() {
+
+            @Override
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != dragTarget
+                        && event.getDragboard().hasFiles()) { 
+                    /* allow for both copying and moving, whatever user chooses */
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                }
+                event.consume(); // you don't want the event to be dispatched to any further event listeners.
+            //events are dispatched in last in, first out fashion
+            }
+        });
+        
+        dragTarget.setOnDragDropped(new EventHandler<DragEvent>() {
+
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasFiles()) {
+                    dropped.setText(db.getFiles().toString());
+                    success = true;
+                }
+                /* let the source know whether the string was successfully 
+                 * transferred and used */
+                event.setDropCompleted(success);
+
+                event.consume();
+            }
+        });
+        
+        StackPane root = new StackPane();
+        inputValues.add(dragTarget, 1, 6);
+        // For some reason it's not letting me drop anything stil....lol
+
+       
+
+
+        
+        
+        		
         //Restricts the allowable columns and rows for the location of each text or button
 
         inputValues.add(dropDownMenu, 2, 5);  //adds the drop-down menu 
