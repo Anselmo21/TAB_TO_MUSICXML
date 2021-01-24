@@ -126,7 +126,8 @@ public class GUI extends Application {
             public void handle(DragEvent event) {
                 if (event.getGestureSource() != dragTarget
                         && event.getDragboard().hasFiles()) { 
-                    /* allow for both copying and moving, whatever user chooses */
+                    
+                	/* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
                 event.consume(); // you don't want the event to be dispatched to any further event listeners.
@@ -138,17 +139,19 @@ public class GUI extends Application {
 
             @Override
             public void handle(DragEvent event) {
-                Dragboard db = event.getDragboard();
+                Dragboard db = event.getDragboard(); //assign event's dragboard to a variable for ease 
                 boolean success = false;
                 if (db.hasFiles()) {
-                    dropped.setText(db.getFiles().toString());
+                    dropped.setText(db.getFiles().toString()); //The text to display in the label. 
                     success = true;
+                   
                 }
+                openFile(db.getFiles().get(0));
                 /* let the source know whether the string was successfully 
                  * transferred and used */
                 event.setDropCompleted(success);
 
-                event.consume();
+                event.consume(); 
             }
         });
         
