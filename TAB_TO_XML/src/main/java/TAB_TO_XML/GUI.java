@@ -42,6 +42,7 @@ public class GUI extends Application {
 	private Desktop dt = Desktop.getDesktop(); //User Desktop 
 
 	final Button ob = new Button(); //Clickable button for opening the tab to search for the file to open
+	final Button ob2 = new Button(); // Clickable button for converting
 	final FileChooser fc = new FileChooser(); //
 	final Label ol = new Label();
 	final Label obl = new Label();
@@ -77,10 +78,16 @@ public class GUI extends Application {
 
 
 
+	      
+
 
 		//Text Customization
 		Font font = Font.font("Browsed", FontWeight.EXTRA_BOLD, 40); //Font for the buttons
 		Font font1 = Font.font("label font", FontWeight.NORMAL, 20); //Font for the plan texts
+		
+		ob2.setText("Convert"); //Convert button
+	    ob2.setFont(font);
+	    ob2.setStyle("-fx-text-fill: #0000ff"); //blue font
 
 		ob.setFont(font);
 		obl.setFont(font1);
@@ -116,6 +123,8 @@ public class GUI extends Application {
 
 				}); 
 
+		
+		
 		// Drag & Drop feature 
 		Label label = new Label("Drag And Drop A File Here");
 		Label dropped = new Label("");
@@ -174,14 +183,10 @@ public class GUI extends Application {
 			// For some reason it's not letting me drop anything stil....lol
 
 
-
-
-
-
-
 			//Restricts the allowable columns and rows for the location of each text or button
 
 			inputValues.add(dropDownMenu, 2, 5);  //adds the drop-down menu 
+			inputValues.add(ob2,2,2);
 			inputValues.add(ob, 1, 2);
 			inputValues.add(obl, 0, 2);
 			inputValues.add(el, 0, 1);
