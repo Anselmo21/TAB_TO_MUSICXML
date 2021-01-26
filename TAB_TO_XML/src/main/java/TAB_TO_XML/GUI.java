@@ -92,8 +92,10 @@ public class GUI extends Application {
 		ob.setFont(font);
 		obl.setFont(font1);
 		ol.setFont(font1);
+		
+		ob.setOnAction(new SingleFcButtonListener());
 
-		ob.setOnAction( //Sets the value of the button on Action.
+		 ob.setOnAction( //Sets the value of the button on Action.
 
 				new EventHandler<ActionEvent>() { //Interface for handling events
 
@@ -251,6 +253,32 @@ public class GUI extends Application {
 			e.printStackTrace();
 		}
 
+	}
+	/**
+	 * Private helper class
+	 */
+	private class SingleFcButtonListener implements EventHandler<ActionEvent> {
+
+	    @Override
+	    public void handle(ActionEvent e) {
+
+	        showSingleFileChooser();
+	    }
+	    
+	    private void showSingleFileChooser() {
+
+	    	  try (BufferedReader reader = new BufferedReader(new FileReader(new File("file.txt")))) {
+
+	    	        String line;
+	    	        while ((line = reader.readLine()) != null)
+	    	            System.out.println(line);
+
+	    	    } 
+
+	    		catch (IOException e) {
+	    	        e.printStackTrace();
+	    	    }
+	    	}
 	}
 
 	/**
