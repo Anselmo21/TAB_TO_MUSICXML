@@ -20,6 +20,8 @@ public class FileReader {
 			fileContent = fileContent.concat(second_scan.nextLine() + "\n");	
 		}
 		System.out.println(fileContent);
+		first_scan.close();
+		second_scan.close();
 	}
 
 	
