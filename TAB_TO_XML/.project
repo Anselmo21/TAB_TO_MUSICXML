@@ -20,4 +20,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Capricho Arabe.txt</name>
+			<type>1</type>
+			<location>C:/Users/rafae/OneDrive/Desktop/Capricho Arabe.txt</location>
+		</link>
+	</linkedResources>
 </projectDescription>
