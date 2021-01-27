@@ -1,0 +1,10 @@
+package TAB_TO_XML;
+
+public class LabTask {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
