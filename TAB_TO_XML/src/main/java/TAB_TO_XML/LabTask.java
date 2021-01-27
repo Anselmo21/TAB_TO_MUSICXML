@@ -4,6 +4,7 @@ public class LabTask {
 
 	public static void main(String[] args) {
 		//conflict test 2
+		//test 2
 	}
 
 }
