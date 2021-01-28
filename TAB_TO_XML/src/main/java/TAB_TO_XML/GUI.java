@@ -38,7 +38,9 @@ import javafx.stage.Stage;
  */
 
 public class GUI extends Application {
-
+	
+	public static final String xmlFilePath = "C:\\Users\\xmlfile.xml";
+	
 	private Desktop dt = Desktop.getDesktop(); //User Desktop 
 
 	final Button ob = new Button(); //Clickable button for opening the tab to search for the file to open
@@ -234,10 +236,10 @@ public class GUI extends Application {
             .log(Level.SEVERE, null, ex);
         } 
 		 */ 
-
+		ArrayList<Character> datain = new ArrayList<Character>();
+		
 		try (BufferedReader reader = new BufferedReader(new FileReader(fi))) { //Reads the file that was selected by the user
 
-			ArrayList<Character> datain = new ArrayList<Character>(); //Arraylist that stores the data from the txt file character by character
 			int i = 0;
 			int j = 0;
 			while ((i = reader.read()) != -1) {
@@ -251,6 +253,14 @@ public class GUI extends Application {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		
+		if (dropDownMenu.getValue() == "Guitar") { //Calls methods that sends the input from the file to XML, the class that is called for methods depends on dropdownmenu input
+			Guitar.convert(datain);
+		}	else if (dropDownMenu.getValue() == "Drum") {
+			
+		}	else if (dropDownMenu.getValue() == "Bass") {
+			
 		}
 
 	}
