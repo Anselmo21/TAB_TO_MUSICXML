@@ -2,21 +2,22 @@ package TAB_TO_XML;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner; 
-
+import java.util.Scanner;
 
 public class FileReader {
 	
 	public static void main(String[] args) throws FileNotFoundException { 
 		
-		File file = new File("\"C:\\Users\\rafae\\OneDrive\\Desktop\\Map.java\"");
+		File file = new File("/Users/rafae/OneDrive/Desktop/Capricho Arabe.txt");
 		Scanner scan = new Scanner(file);
-		while(scan.hasNextLine()) { 
-			System.out.println(scan.hasNextLine());
+		
+		while (scan.hasNextLine()) {
+		
+		
+		System.out.println(scan.nextLine());
+			
 		}
-		scan.close();
-	}
-
 	
+}
 	
 }
