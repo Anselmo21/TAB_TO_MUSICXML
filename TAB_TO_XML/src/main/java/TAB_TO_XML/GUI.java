@@ -51,9 +51,9 @@ import javafx.stage.Stage;
  */
 
 public class GUI extends Application {
-	
+
 	public static final String xmlFilePath = "C:\\Users\\xmlfile.xml";
-	
+
 	private Desktop dt = Desktop.getDesktop(); //User Desktop 
 
 	final Button ob = new Button(); //Clickable button for opening the tab to search for the file to open
@@ -65,6 +65,36 @@ public class GUI extends Application {
 	final ComboBox dropDownMenu = new ComboBox();
 	final GridPane inputValues = new GridPane(); //The parent which concludes of children such as buttons and labels
 	Transformer th;
+
+	/*
+	 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	 * ACCEPT METHOD FOR A FILE
+	 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	 */
+	
+	/**
+	 * This method checks if the file browsed is a text file or not, and returns a message accordingly.
+	 * @param filename
+	 * @return true if the file extension is a text file, false otherwise
+	 */
+	private boolean accept(File filename) { //Helper Method to determine if a file is a textfile
+		if(filename.getName().endsWith(".txt")) { 
+			return true;
+		}
+		else {
+			Alert errorAlert = new Alert(AlertType.ERROR); //creates a displayable error allert window 
+			errorAlert.setHeaderText("Input not valid"); 
+			errorAlert.setContentText("Provide text file"); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
+			errorAlert.showAndWait();
+			return false;
+		}
+	}
+
+	/*
+	 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	 * BODY STRUCTURE OF GRAPHIC USER INTERFACE
+	 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	 */
 	
 	/**
 	 * Overridden start method that originally came from the Application class from Javafx. 
@@ -86,36 +116,30 @@ public class GUI extends Application {
 		Label el = new Label("");//Empty label
 
 		//object that will do the "adding" of buttons in the GUI
-		
+
 		final Pane rg = new VBox(12); //Base class that is used to have the children of inputValues public
 
 		// DropDown menu construction
 		dropDownMenu.getItems().addAll("Guitar", "Drum", "Bass");
 		dropDownMenu.setValue("Instrument of Choice");
 
-
-
-	      
-
-
 		//Text Customization
 		Font font = Font.font("Browsed", FontWeight.EXTRA_BOLD, 40); //Font for the buttons
 		Font font1 = Font.font("label font", FontWeight.NORMAL, 20); //Font for the plan texts
-		
+
 		ob2.setText("Convert"); //Convert button
-	    ob2.setFont(font);
-	    ob2.setStyle("-fx-text-fill: #0000ff"); //blue font
+		ob2.setFont(font);
+		ob2.setStyle("-fx-text-fill: #0000ff"); //blue font
 
 		ob.setFont(font);
 		obl.setFont(font1);
 		ol.setFont(font1);
-		
+
 		ob.setOnAction(new SingleFcButtonListener());
 
-		 ob.setOnAction( //Sets the value of the button on Action.
+		ob.setOnAction( //Sets the value of the button on Action.
 
 				new EventHandler<ActionEvent>() { //Interface for handling events
-
 
 					@Override
 					/**
@@ -123,25 +147,19 @@ public class GUI extends Application {
 					 * @param ActionEvent is the event associated when the browse button was clicked.
 					 */
 					public void handle(final ActionEvent e) {
-
 						File fi = fc.showOpenDialog(primaryStage); //Pops up an "Open File" file chooser dialog
 						if (fi != null && accept(fi) == true) {
-
 							openFile(fi); //opens the selected file 
-							
-							
-
 						}
-
-						
-
 					}
-
 				}); 
-
 		
-		
-		// Drag & Drop feature 
+		/*
+		 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		 * DRAG AND DROP FEATURE
+		 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		 */
+		 
 		Label label = new Label("Drag And Drop A File Here");
 		Label dropped = new Label("");
 
@@ -194,6 +212,12 @@ public class GUI extends Application {
 				}
 			});
 
+			/*
+			 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			 * DIMENSIONS OF BUTTONS?
+			 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+			 */
+			
 			StackPane root = new StackPane();
 			inputValues.add(dragTarget, 1, 6);
 			// For some reason it's not letting me drop anything stil....lol
@@ -239,16 +263,16 @@ public class GUI extends Application {
 	 */
 	private void openFile(File fi) {
 
-		
-    	try {
-            dt.open(fi); 
-        } catch (IOException ex) {
-            Logger.getLogger(GUI.class.getName())
-            .log(Level.SEVERE, null, ex);
-        } 
-		 
+
+		try {
+			dt.open(fi); 
+		} catch (IOException ex) {
+			Logger.getLogger(GUI.class.getName())
+			.log(Level.SEVERE, null, ex);
+		} 
+
 		ArrayList<Character> datain = new ArrayList<Character>();
-		
+
 		try (BufferedReader reader = new BufferedReader(new FileReader(fi))) { //Reads the file that was selected by the user
 
 			int i = 0;
@@ -265,41 +289,49 @@ public class GUI extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		if (dropDownMenu.getValue() == "Guitar") { //Calls methods that sends the input from the file to XML, the class that is called for methods depends on dropdownmenu input
 			Guitar.convert(datain);
 		}	else if (dropDownMenu.getValue() == "Drum") {
-			
+
 		}	else if (dropDownMenu.getValue() == "Bass") {
-			
+
 		}
 
 	}
+	
+	
+	/*
+	 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	 * IDK WHAT THIS DOES. WHOEVER KNOWS PLEASE FILL SOMETHING HERE.
+	 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	 */
+	
 	/**
 	 * Private helper class
 	 */
 	private class SingleFcButtonListener implements EventHandler<ActionEvent> {
 
-	    @Override
-	    public void handle(ActionEvent e) {
+		@Override
+		public void handle(ActionEvent e) {
 
-	        showSingleFileChooser();
-	    }
-	    
-	    private void showSingleFileChooser() {
+			showSingleFileChooser();
+		}
 
-	    	  try (BufferedReader reader = new BufferedReader(new FileReader(new File("file.txt")))) {
+		private void showSingleFileChooser() {
 
-	    	        String line;
-	    	        while ((line = reader.readLine()) != null)
-	    	            System.out.println(line);
+			try (BufferedReader reader = new BufferedReader(new FileReader(new File("file.txt")))) {
 
-	    	    } 
+				String line;
+				while ((line = reader.readLine()) != null)
+					System.out.println(line);
 
-	    		catch (IOException e) {
-	    	        e.printStackTrace();
-	    	    }
-	    	}
+			} 
+
+			catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
@@ -308,22 +340,7 @@ public class GUI extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-    private boolean accept(File filename) //Helper Method to determine if a file is a textfile
-    {
 
-        if(filename.getName().endsWith(".txt") ){ 
-            return true;
-        }
-        else{
-        	Alert errorAlert = new Alert(AlertType.ERROR); //creates a displayable error allert window 
-        	errorAlert.setHeaderText("Input not valid"); 
-        	errorAlert.setContentText("Provide text file"); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
-        	errorAlert.showAndWait();
-            return false;
-        }
-    }
-  
 }
 
 	
