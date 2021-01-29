@@ -1,16 +1,26 @@
 package TAB_TO_XML;
 
 import java.awt.Desktop;
+
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.stream.StreamResult;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -35,6 +45,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+
 /*
  * Javafx GUI class
  */
@@ -53,7 +64,8 @@ public class GUI extends Application {
 	final Label el = new Label();
 	final ComboBox dropDownMenu = new ComboBox();
 	final GridPane inputValues = new GridPane(); //The parent which concludes of children such as buttons and labels
-
+	Transformer th;
+	
 	/**
 	 * Overridden start method that originally came from the Application class from Javafx. 
 	 * This method constructs the body structure of the GUI.
@@ -116,7 +128,8 @@ public class GUI extends Application {
 						if (fi != null && accept(fi) == true) {
 
 							openFile(fi); //opens the selected file 
-							// helper method 
+							
+							
 
 						}
 
@@ -299,16 +312,18 @@ public class GUI extends Application {
     private boolean accept(File filename) //Helper Method to determine if a file is a textfile
     {
 
-        if(filename.getName().endsWith(".txt") ){
+        if(filename.getName().endsWith(".txt") ){ 
             return true;
         }
         else{
-        	Alert errorAlert = new Alert(AlertType.ERROR);
-        	errorAlert.setHeaderText("Input not valid");
-        	errorAlert.setContentText("Provide text file");
+        	Alert errorAlert = new Alert(AlertType.ERROR); //creates a displayable error allert window 
+        	errorAlert.setHeaderText("Input not valid"); 
+        	errorAlert.setContentText("Provide text file"); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
         	errorAlert.showAndWait();
             return false;
-        }}
-
-
+        }
+    }
+  
 }
+
+	
