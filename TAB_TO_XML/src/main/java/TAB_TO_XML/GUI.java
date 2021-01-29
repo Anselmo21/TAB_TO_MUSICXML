@@ -110,7 +110,7 @@ public class GUI extends Application {
 					public void handle(final ActionEvent e) {
 
 						File fi = fc.showOpenDialog(primaryStage); //Pops up an "Open File" file chooser dialog
-						if (fi != null) {
+						if (fi != null && accept(fi) == true) {
 
 							openFile(fi); //opens the selected file 
 
@@ -227,15 +227,14 @@ public class GUI extends Application {
 	 */
 	private void openFile(File fi) {
 
-		//This opens the file of your choice, but it's not necessary at the moment as it's only for testing whether this method works or not
-		/**
+		
     	try {
             dt.open(fi); 
         } catch (IOException ex) {
             Logger.getLogger(GUI.class.getName())
             .log(Level.SEVERE, null, ex);
         } 
-		 */ 
+		 
 		ArrayList<Character> datain = new ArrayList<Character>();
 		
 		try (BufferedReader reader = new BufferedReader(new FileReader(fi))) { //Reads the file that was selected by the user
@@ -297,5 +296,17 @@ public class GUI extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	
+    private boolean accept(File filename) //Helper Method to determine if a file is a textfile
+    {
+
+        if(filename.getName().endsWith(".txt")){
+            return true;
+        }
+        else{
+        System.out.println("Browsed dest file extension must be .txt");
+        return false;
+        }}
+
 
 }

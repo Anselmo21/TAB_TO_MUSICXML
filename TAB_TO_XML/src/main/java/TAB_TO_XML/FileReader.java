@@ -9,8 +9,7 @@ public class FileReader {
 	
 	public static void main(String[] args) throws FileNotFoundException { 
 		
-		InputStreamReader read = new InputStreamReader(System.in);
-		BufferedReader in = new BufferedReader(read);
+		
 		
 		File file = new File("/Users/rafae/OneDrive/Desktop/Capricho Arabe.txt");
 		Scanner scan = new Scanner(file);
