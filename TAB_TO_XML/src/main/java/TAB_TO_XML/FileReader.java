@@ -11,7 +11,7 @@ public class FileReader {
 		
 		
 		
-		File file = new File("/Users/rafae/OneDrive/Desktop/Capricho Arabe.txt");
+		File file = new File("../TAB_TO_XML/src/main/java/Capricho Arabe.txt");
 		Scanner scan = new Scanner(file);
 		
 		while (scan.hasNextLine()) {
