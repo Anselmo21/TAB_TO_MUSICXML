@@ -17,6 +17,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -50,6 +52,7 @@ public class GUI extends Application {
 	final Label obl = new Label();
 	final Label el = new Label();
 	final ComboBox dropDownMenu = new ComboBox();
+	final GridPane inputValues = new GridPane(); //The parent which concludes of children such as buttons and labels
 
 	/**
 	 * Overridden start method that originally came from the Application class from Javafx. 
@@ -71,7 +74,7 @@ public class GUI extends Application {
 		Label el = new Label("");//Empty label
 
 		//object that will do the "adding" of buttons in the GUI
-		final GridPane inputValues = new GridPane(); //The parent which concludes of children such as buttons and labels
+		
 		final Pane rg = new VBox(12); //Base class that is used to have the children of inputValues public
 
 		// DropDown menu construction
@@ -113,15 +116,11 @@ public class GUI extends Application {
 						if (fi != null && accept(fi) == true) {
 
 							openFile(fi); //opens the selected file 
+							// helper method 
 
 						}
 
-						else { // display error message if file doesn't exist
-
-							final Label notification = new Label();
-							notification.setText("You have not selected a textFile");
-
-						}
+						
 
 					}
 
@@ -300,12 +299,15 @@ public class GUI extends Application {
     private boolean accept(File filename) //Helper Method to determine if a file is a textfile
     {
 
-        if(filename.getName().endsWith(".txt")){
+        if(filename.getName().endsWith(".txt") ){
             return true;
         }
         else{
-        System.out.println("Browsed dest file extension must be .txt");
-        return false;
+        	Alert errorAlert = new Alert(AlertType.ERROR);
+        	errorAlert.setHeaderText("Input not valid");
+        	errorAlert.setContentText("Provide text file");
+        	errorAlert.showAndWait();
+            return false;
         }}
 
 
