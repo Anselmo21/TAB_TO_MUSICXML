@@ -12,6 +12,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
+<<<<<<< HEAD
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
+=======
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFx"/>
+>>>>>>> branch 'master' of https://github.com/RafaelDolores/EECS2311_GROUP5_TAB_TO_MUSICXML
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
