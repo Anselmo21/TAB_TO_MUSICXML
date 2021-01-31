@@ -52,7 +52,7 @@ import javafx.stage.Stage;
 
 public class GUI extends Application {
 
-	public static final String xmlFilePath = "C:\\Users\\xmlfile.xml";
+	public static final String xmlFilePath = "C:\\Users\\xmlfile.musicxml";
 
 	private Desktop dt = Desktop.getDesktop(); //User Desktop 
 
@@ -263,13 +263,14 @@ public class GUI extends Application {
 	 */
 	private void openFile(File fi) {
 
-
+		/**
 		try {
 			dt.open(fi); 
 		} catch (IOException ex) {
 			Logger.getLogger(GUI.class.getName())
 			.log(Level.SEVERE, null, ex);
 		} 
+		*/
 
 		ArrayList<Character> datain = new ArrayList<Character>();
 
@@ -280,10 +281,9 @@ public class GUI extends Application {
 			while ((i = reader.read()) != -1) {
 				char ch = (char) i;
 				datain.add(ch);
-				/**
             	System.out.println(datain.get(j));
             	j++;
-				 */
+				 
 			}
 
 		} catch (IOException e) {
