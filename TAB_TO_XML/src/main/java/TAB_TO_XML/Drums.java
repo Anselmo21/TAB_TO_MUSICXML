@@ -30,6 +30,7 @@ public class Drums {
 			TransformerFactory trff= TransformerFactory.newInstance(); 
 			Transformer trf = trff.newTransformer(); 
 			DOMSource dom= new DOMSource(document);
+			StreamResult streamresult = new StreamResult(new File("../TAB_TO_XML/src/main/java/"));
 		}
 
 		catch (ParserConfigurationException p) {
