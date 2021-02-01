@@ -35,6 +35,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -113,6 +114,7 @@ public class GUI extends Application {
 		primaryStage.setTitle("TTT(TextToTablature)"); //Title
 
 		Button ob = new Button("Browse"); //Push button that is redirected to a file selecting page
+		TextArea browseTextBox = new TextArea();
 
 		FileChooser fc = new FileChooser(); //Opens browser to select the txt file
 		Label ol = new Label("TTT is a desktop application used for converting "
@@ -136,9 +138,14 @@ public class GUI extends Application {
 		ob2.setFont(font);
 		ob2.setStyle("-fx-text-fill: #0000ff"); //blue font
 
-		ob.setFont(font);
+		ob.setFont(font);		
 		obl.setFont(font1);
 		ol.setFont(font1);
+		
+		browseTextBox.setFont(font1);
+		browseTextBox.setPromptText("Browse File Path");
+		browseTextBox.setPrefSize(300, 50);
+		browseTextBox.setEditable(false);
 
 		ob.setOnAction(new SingleFcButtonListener());
 
@@ -154,6 +161,7 @@ public class GUI extends Application {
 					public void handle(final ActionEvent e) {
 						File fi = fc.showOpenDialog(primaryStage); //Pops up an "Open File" file chooser dialog
 						if (fi != null && accept(fi) == true) {
+							browseTextBox.setText(fi.getAbsolutePath());
 							convertToXML(fi);
 						}
 					}
@@ -233,7 +241,8 @@ public class GUI extends Application {
 			inputValues.add(dropDownMenu, 2, 5);  //adds the drop-down menu 
 			inputValues.add(ob2,2,2);
 			inputValues.add(ob, 1, 2);
-			inputValues.add(obl, 0, 2);
+			inputValues.add(browseTextBox, 0, 2);
+			//inputValues.add(obl, 0, 2);
 			inputValues.add(el, 0, 1);
 			inputValues.add(ol, 0, 0);
 			inputValues.setHgap(6); //The width of the horizontal gaps between columns.
