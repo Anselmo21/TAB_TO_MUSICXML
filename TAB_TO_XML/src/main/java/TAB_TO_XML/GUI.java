@@ -59,7 +59,7 @@ public class GUI extends Application {
 	public static final String xmlFilePath = "C:\\Users\\xmlfile.musicxml";
 
 	private Desktop dt = Desktop.getDesktop(); //User Desktop 
-
+	TextArea browseTextBox = new TextArea(); 
 	final Button ob = new Button(); //Clickable button for opening the tab to search for the file to open
 	final Button ob2 = new Button(); // Clickable button for converting
 	final FileChooser fc = new FileChooser(); //
@@ -112,14 +112,13 @@ public class GUI extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 
-		primaryStage.setTitle("TTT(TextToTablature)"); //Title
+		primaryStage.setTitle("MusicXML converter"); //Title
 
 		Button ob = new Button("Browse"); //Push button that is redirected to a file selecting page
-		TextArea browseTextBox = new TextArea();
+		
 
 		FileChooser fc = new FileChooser(); //Opens browser to select the txt file
-		Label ol = new Label("TTT is a desktop application used for converting "
-				+ "txt tablatures into formal tablatures."); //Description of the use of the desktop application
+		Label ol = new Label("~Welcome to the ultimate MusicXML converter~ \nSelect the file that you want to convert!"); //Description of the use of the desktop application
 		Label obl = new Label("Please select the tablature in txt format: "); //Indicator on what the button is for
 		Label el = new Label("");//Empty label
 
@@ -127,9 +126,7 @@ public class GUI extends Application {
 
 		final Pane rg = new VBox(12); //Base class that is used to have the children of inputValues public
 
-		// DropDown menu construction
-		dropDownMenu.getItems().addAll("Guitar", "Drum", "Bass");
-		dropDownMenu.setValue("Instrument of Choice");
+		
 
 		//Text Customization
 		Font font = Font.font("Browsed", FontWeight.EXTRA_BOLD, 40); //Font for the buttons
@@ -171,11 +168,20 @@ public class GUI extends Application {
 		//This doesn't really work. Still in progress
 		ob2.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent a) {
+				if (browseTextBox.getText().equals("")) { 
+					Alert noFile = new Alert(AlertType.ERROR);
+					noFile.setHeaderText("Conversion process cannot procede");
+					noFile.setContentText("Please provide an input...");
+					noFile.showAndWait();
+				}
+				else if (!browseTextBox.getText().equals("")) {
 				convertToXML(fi);
 				Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
 				errorAlert.setHeaderText("Your file selected is being to XML"); 
 				errorAlert.setContentText("The process might take a while..."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
 				errorAlert.showAndWait();
+		}
+				
 			}
 		});
 
@@ -228,7 +234,8 @@ public class GUI extends Application {
 						success = true;
 
 					}
-					openFile(db.getFiles().get(0));
+					
+					
 					/* let the source know whether the string was successfully 
 					 * transferred and used */
 					event.setDropCompleted(success);
@@ -250,7 +257,7 @@ public class GUI extends Application {
 
 			//Restricts the allowable columns and rows for the location of each text or button
 
-			inputValues.add(dropDownMenu, 2, 5);  //adds the drop-down menu 
+			 
 			inputValues.add(ob2,2,2);
 			inputValues.add(ob, 1, 2);
 			inputValues.add(browseTextBox, 0, 2);
