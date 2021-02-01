@@ -48,7 +48,7 @@ public class Drums {
 			ident.appendChild(enco);
 			
 			Element soft = document.createElement("software");
-			soft.appendChild(document.createTextNode("Finale v25 for Mac"));
+			soft.appendChild(document.createTextNode("Finale v25 for Windows"));
 			enco.appendChild(soft);
 			
 			Element encod = document.createElement("encoding-date");
@@ -279,7 +279,7 @@ public class Drums {
 			scorepa.setAttributeNode(scorepaatt);
 			
 			Element partn = document.createElement("part-name");
-			partn.appendChild(document.createTextNode("Guitar")); //Creates an text for the element
+			partn.appendChild(document.createTextNode("Drum")); //Creates an text for the element
 			scorepa.appendChild(partn);
 			
 			Attr pro = document.createAttribute("print-object");
@@ -287,7 +287,7 @@ public class Drums {
 			partn.setAttributeNode(pro);
 			
 			Element partab = document.createElement("part-abbreviation");
-			partab.appendChild(document.createTextNode("Gtr.")); //Creates an text for the element
+			partab.appendChild(document.createTextNode("Drum.")); //Creates an text for the element
 			scorepa.appendChild(partab);
 			
 			Attr pro1 = document.createAttribute("print-object");
@@ -302,11 +302,11 @@ public class Drums {
 			scoin.setAttributeNode(scoinid);
 			
 			Element instname = document.createElement("instrument-name");
-			instname.appendChild(document.createTextNode("Acoustic Guitar (steel)"));
+			instname.appendChild(document.createTextNode("Drum"));
 			scoin.appendChild(instname);
 			
 			Element instsound = document.createElement("instrument-sound");
-			instsound.appendChild(document.createTextNode("pluck.guitar"));
+			instsound.appendChild(document.createTextNode("Drum"));
 			scoin.appendChild(instsound);
 			
 			Element miinst = document.createElement("midi-instrument");
@@ -340,7 +340,7 @@ public class Drums {
 			scorepa1.setAttributeNode(scorepa1att);
 			
 			Element partn1 = document.createElement("part-name");
-			partn1.appendChild(document.createTextNode("Guitar [TAB]"));
+			partn1.appendChild(document.createTextNode("Drum [TAB]"));
 			scorepa1.appendChild(partn1);
 			
 			Attr partn1att = document.createAttribute("print-object");
