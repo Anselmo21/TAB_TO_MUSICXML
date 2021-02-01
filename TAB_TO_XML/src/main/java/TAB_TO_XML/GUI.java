@@ -403,9 +403,9 @@ public class GUI extends Application {
 
 	public void process(String s) throws SAXException {
 		// the passed string will undergo the following process
-		th.startElement(null, null, "option", null);  //first tag of each string 
+		th.startElement(null, null, "note", null);  //first tag of each string 
 		th.characters(s.toCharArray(), 0, s.length()); // takes the string->places them in character array->to create new string to be used 
-		th.endElement(null, null, "option"); //what each strings end tag is 
+		th.endElement(null, null, "note"); //what each strings end tag is 
 	}
 
 
