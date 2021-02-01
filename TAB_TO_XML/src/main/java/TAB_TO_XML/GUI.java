@@ -115,7 +115,7 @@ public class GUI extends Application {
 		primaryStage.setTitle("MusicXML converter"); //Title
 
 		Button ob = new Button("Browse"); //Push button that is redirected to a file selecting page
-		
+
 
 		FileChooser fc = new FileChooser(); //Opens browser to select the txt file
 		Label ol = new Label("~Welcome to the ultimate MusicXML converter~ \nSelect the file that you want to convert!"); //Description of the use of the desktop application
@@ -126,7 +126,7 @@ public class GUI extends Application {
 
 		final Pane rg = new VBox(12); //Base class that is used to have the children of inputValues public
 
-		
+
 
 		//Text Customization
 		Font font = Font.font("Browsed", FontWeight.EXTRA_BOLD, 40); //Font for the buttons
@@ -139,7 +139,7 @@ public class GUI extends Application {
 		ob.setFont(font);		
 		obl.setFont(font1);
 		ol.setFont(font1);
-		
+
 		browseTextBox.setFont(font1);
 		browseTextBox.setPromptText("Browse File Path");
 		browseTextBox.setPrefSize(300, 50);
@@ -164,7 +164,7 @@ public class GUI extends Application {
 						}
 					}
 				}); 
-		
+
 		//This doesn't really work. Still in progress
 		ob2.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent a) {
@@ -175,13 +175,13 @@ public class GUI extends Application {
 					noFile.showAndWait();
 				}
 				else if (browseTextBox.getText().equals("") == false) {
-				convertToXML(fi);
-				Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
-				errorAlert.setHeaderText("Your file selected is being to XML"); 
-				errorAlert.setContentText("The process might take a while..."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
-				errorAlert.showAndWait();
-		}
-				
+					convertToXML(fi);
+					Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
+					errorAlert.setHeaderText("Your file selected is being to XML"); 
+					errorAlert.setContentText("The process might take a while..."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
+					errorAlert.showAndWait();
+				}
+
 			}
 		});
 
@@ -234,8 +234,8 @@ public class GUI extends Application {
 						success = true;
 
 					}
-					
-					
+
+
 					/* let the source know whether the string was successfully 
 					 * transferred and used */
 					event.setDropCompleted(success);
@@ -257,7 +257,7 @@ public class GUI extends Application {
 
 			//Restricts the allowable columns and rows for the location of each text or button
 
-			 
+
 			inputValues.add(ob2,2,2);
 			inputValues.add(ob, 1, 2);
 			inputValues.add(browseTextBox, 0, 2);
