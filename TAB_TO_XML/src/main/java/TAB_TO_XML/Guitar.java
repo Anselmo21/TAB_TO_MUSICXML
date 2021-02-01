@@ -3,7 +3,6 @@ package TAB_TO_XML;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,7 +22,7 @@ public class Guitar {
 
 	public static void convert(ArrayList<Character> a) {
 		
-		//https://examples.javacodegeeks.com/core-java/xml/parsers/documentbuilderfactory/create-xml-file-in-java-using-dom-parser-example/
+		//
 		//This is an example code? That's there to create a xml file that looks like what's on the page above.
 		
 		try {
@@ -357,7 +356,7 @@ public class Guitar {
 		partab1att.setValue("no");
 		partab1.setAttributeNode(partab1att);
 		
-		//////////////////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		Element part2 = document.createElement("part");
 		scoreP.appendChild(part2);
@@ -377,6 +376,13 @@ public class Guitar {
 		measwidth.setValue("485");
 		meas.setAttributeNode(measwidth);
 		
+		Element print = document.createElement("print");
+		meas.appendChild(print);
+		
+		Element measnumb = document.createElement("measure-numbering");
+		measnumb.appendChild(document.createTextNode("none"));
+		print.appendChild(measnumb);
+		
 		Element attr = document.createElement("attributes");
 		meas.appendChild(attr);
 		
@@ -395,55 +401,224 @@ public class Guitar {
 		fifth.appendChild(document.createTextNode("0"));
 		key.appendChild(fifth);
 		
-		Element time = document.createElement("time");
-		attr.appendChild(time);
+		Element mode = document.createElement("mode");
+		mode.appendChild(document.createTextNode("major"));
+		key.appendChild(mode);
 		
-		Element beat = document.createElement("beats");
-		beat.appendChild(document.createTextNode("4"));
-		time.appendChild(beat);
+		Element clef = document.createElement("clef");
+		attr.appendChild(clef);
 		
-		Element beatt = document.createElement("beat-type");
-		beatt.appendChild(document.createTextNode("4"));
-		time.appendChild(beatt);
+		Element sign = document.createElement("sign");
+		sign.appendChild(document.createTextNode("TAB"));
+		clef.appendChild(sign);
 		
-		Element cle = document.createElement("clef");
-		attr.appendChild(cle);
+		Element line = document.createElement("line");
+		line.appendChild(document.createTextNode("5"));
+		clef.appendChild(line);
+	
+		Element stafdet = document.createElement("staff-details");
+		attr.appendChild(stafdet);
 		
-		Element sig = document.createElement("sign");
-		sig.appendChild(document.createTextNode("G"));
-		cle.appendChild(sig);
+		Element stafline = document.createElement("staff-lines");
+		stafline.appendChild(document.createTextNode("6"));
+		stafdet.appendChild(stafline);
 		
-		Element lin = document.createElement("line");
-		lin.appendChild(document.createTextNode("2"));
-		cle.appendChild(lin);
+		Element staftune = document.createElement("staff-tuning");
+		stafdet.appendChild(staftune);
 		
-		Element not = document.createElement("note");
-		meas.appendChild(not);
+		Attr staftuneatt = document.createAttribute("line");
+		staftuneatt.setValue("1");
+		staftune.setAttributeNode(staftuneatt);
 		
-		Element pit = document.createElement("pitch");
-		not.appendChild(pit);
+		Element tunestep = document.createElement("tuning-step");
+		tunestep.appendChild(document.createTextNode("E"));
+		staftune.appendChild(tunestep);
 		
-		Element ste = document.createElement("step");
-		ste.appendChild(document.createTextNode("C"));
-		pit.appendChild(ste);
+		Element tuneoct = document.createElement("tuning-octave");
+		tuneoct.appendChild(document.createTextNode("2"));
+		staftune.appendChild(tuneoct);
 		
-		Element oct = document.createElement("octave");
-		oct.appendChild(document.createTextNode("4"));
-		pit.appendChild(oct);
+		Element staftune1 = document.createElement("staff-tuning");
+		stafdet.appendChild(staftune1);
+		
+		Attr staftuneatt1 = document.createAttribute("line");
+		staftuneatt1.setValue("2");
+		staftune1.setAttributeNode(staftuneatt1);
+		
+		Element tunestep1 = document.createElement("tuning-step");
+		tunestep1.appendChild(document.createTextNode("A"));
+		staftune1.appendChild(tunestep1);
+		
+		Element tuneoct1 = document.createElement("tuning-octave");
+		tuneoct1.appendChild(document.createTextNode("2"));
+		staftune1.appendChild(tuneoct1);
+		
+		Element staftune2 = document.createElement("staff-tuning");
+		stafdet.appendChild(staftune2);
+		
+		Attr staftuneatt2 = document.createAttribute("line");
+		staftuneatt2.setValue("3");
+		staftune2.setAttributeNode(staftuneatt2);
+		
+		Element tunestep2 = document.createElement("tuning-step");
+		tunestep2.appendChild(document.createTextNode("D"));
+		staftune2.appendChild(tunestep2);
+		
+		Element tuneoct2 = document.createElement("tuning-octave");
+		tuneoct2.appendChild(document.createTextNode("3"));
+		staftune2.appendChild(tuneoct2);
+		
+		Element staftune3 = document.createElement("staff-tuning");
+		stafdet.appendChild(staftune3);
+		
+		Attr staftuneatt3 = document.createAttribute("line");
+		staftuneatt.setValue("4");
+		staftune.setAttributeNode(staftuneatt3);
+		
+		Element tunestep3 = document.createElement("tuning-step");
+		tunestep3.appendChild(document.createTextNode("G"));
+		staftune3.appendChild(tunestep3);
+		
+		Element tuneoct3 = document.createElement("tuning-octave");
+		tuneoct3.appendChild(document.createTextNode("3"));
+		staftune3.appendChild(tuneoct3);
+		
+		Element staftune4 = document.createElement("staff-tuning");
+		stafdet.appendChild(staftune4);
+		
+		Attr staftuneatt4 = document.createAttribute("line");
+		staftuneatt4.setValue("5");
+		staftune4.setAttributeNode(staftuneatt4);
+		
+		Element tunestep4 = document.createElement("tuning-step");
+		tunestep4.appendChild(document.createTextNode("B"));
+		staftune4.appendChild(tunestep4);
+		
+		Element tuneoct4 = document.createElement("tuning-octave");
+		tuneoct4.appendChild(document.createTextNode("3"));
+		staftune4.appendChild(tuneoct4);
+		
+		Element staftune5 = document.createElement("staff-tuning");
+		stafdet.appendChild(staftune5);
+		
+		Attr staftuneatt5 = document.createAttribute("line");
+		staftuneatt5.setValue("6");
+		staftune5.setAttributeNode(staftuneatt5);
+		
+		Element tunestep5 = document.createElement("tuning-step");
+		tunestep5.appendChild(document.createTextNode("E"));
+		staftune5.appendChild(tunestep5);
+		
+		Element tuneoct5 = document.createElement("tuning-octave");
+		tuneoct5.appendChild(document.createTextNode("4"));
+		staftune5.appendChild(tuneoct5);
+		
+		Element stafsize = document.createElement("staff-size");
+		stafsize.appendChild(document.createTextNode("167"));
+		stafdet.appendChild(stafsize);
+		
+		Element soundtemp = document.createElement("sound");
+		meas.appendChild(soundtemp);
+		
+		Attr tempo = document.createAttribute("tempo");
+		tempo.setValue("120");
+		soundtemp.setAttributeNode(tempo);
+		
+		Element notedef = document.createElement("note");
+		meas.appendChild(notedef);
+		
+		Attr defau = document.createAttribute("default-x");
+		tempo.setValue("82");
+		notedef.setAttributeNode(defau);
+		
+		Element pitch = document.createElement("pitch");
+		notedef.appendChild(pitch);
+		
+		Element step = document.createElement("step");
+		step.appendChild(document.createTextNode("C"));
+		pitch.appendChild(step);
+		
+		Element octa = document.createElement("octave");
+		octa.appendChild(document.createTextNode("4"));
+		pitch.appendChild(octa);
 		
 		Element dur = document.createElement("duration");
 		dur.appendChild(document.createTextNode("4"));
-		not.appendChild(dur);
+		notedef.appendChild(dur);
+		
+		Element voice = document.createElement("voice");
+		voice.appendChild(document.createTextNode("1"));
+		notedef.appendChild(voice);
 		
 		Element typ = document.createElement("type");
-		typ.appendChild(document.createTextNode("whole"));
-		not.appendChild(typ);
+		typ.appendChild(document.createTextNode("quarter"));
+		notedef.appendChild(typ);
 		
-
+		Element stem = document.createElement("stem");
+		stem.appendChild(document.createTextNode("none"));
+		notedef.appendChild(stem);
+		
+		Element notations = document.createElement("notations");
+		notedef.appendChild(notations);
+		
+		Element technical = document.createElement("technical");
+		notations.appendChild(technical);
+		
+		Element hammer = document.createElement("hammer-on");
+		hammer.appendChild(document.createTextNode("H"));
+		technical.appendChild(hammer);
+		
+		Attr number = document.createAttribute("number");
+		number.setValue("1");
+		hammer.setAttributeNode(number);
+		
+		Attr type = document.createAttribute("type");
+		type.setValue("start");
+		hammer.setAttributeNode(type);
+		
+		Element string = document.createElement("string");
+		string.appendChild(document.createTextNode("string"));
+		technical.appendChild(string);
+		
+		Element fret = document.createElement("fret");
+		fret.appendChild(document.createTextNode("fret"));
+		technical.appendChild(fret);
+		
+		Element slur = document.createElement("slur");
+		notations.appendChild(slur);
+		
+		Attr bezierx = document.createAttribute("bezier-x");
+		bezierx.setValue("18");
+		slur.setAttributeNode(bezierx);
+		
+		Attr beziery = document.createAttribute("bezier-y");
+		beziery.setValue("28");
+		slur.setAttributeNode(beziery);
+		
+		Attr defaultx = document.createAttribute("default-x");
+		defaultx.setValue("5");
+		slur.setAttributeNode(defaultx);
+		
+		Attr defaulty = document.createAttribute("default-y");
+		defaulty.setValue("-21");
+		slur.setAttributeNode(defaulty);
+		
+		Attr number1 = document.createAttribute("number");
+		number1.setValue("1");
+		slur.setAttributeNode(number1);
+		
+		Attr placement = document.createAttribute("placement");
+		placement.setValue("above");
+		slur.setAttributeNode(placement);
+		
+		Attr type1 = document.createAttribute("type");
+		type1.setValue("start");
+		slur.setAttributeNode(type1);
+		
 		TransformerFactory trff= TransformerFactory.newInstance(); //Used to create Transformer objects.
 		Transformer trf = trff.newTransformer(); //A class that can transform a source tree into a result tree.
 		DOMSource dom= new DOMSource(document); //Document Object Model (DOM) tree that acts as a holder for a transformation source tree.
-		StreamResult stm = new StreamResult(new File("C:\\Users\\xmlfile.xml")); //This creates a XML file that is being translated from the DOMSource
+		StreamResult stm = new StreamResult(new File(GUI.xmlFilePath)); //This creates a XML file that is being translated from the DOMSource
 	
 		trf.transform(dom, stm); //This translates your XML source to a result (in this case, everything under document to StreamResult)
 		trf.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "-//Recordare//DTD MusicXML 3.1 Partwise//EN");
