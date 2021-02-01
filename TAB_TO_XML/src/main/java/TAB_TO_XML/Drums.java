@@ -30,6 +30,41 @@ public class Drums {
 			DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
 			//root element (top parent)
 			Document document = documentBuilder.newDocument();
+			
+			Element scorePW = document.createElement("score-partwise");
+			Attr scorePW_att = document.createAttribute("version");
+			scorePW_att.setValue("3.1");
+			scorePW.setAttributeNode(scorePW_att);
+			document.appendChild(scorePW);
+			
+			Element partList = document.createElement("part-list");
+			scorePW.appendChild(partList);
+
+			Element scorePart = document.createElement("part-list");
+			Attr scorePart_att = document.createAttribute("id");
+			scorePart_att.setValue("P1");
+			scorePW.setAttributeNode(scorePart_att);
+			partList.appendChild(scorePart);
+			
+			Element partName = document.createElement("part-name");
+			partName.appendChild(document.createTextNode("Music"));
+			scorePart.appendChild(partName);
+			
+			Element part = document.createElement("part");
+			Attr part_att = document.createAttribute("id");
+			part_att.setValue("P1");
+			part.setAttributeNode(part_att);
+			scorePW.appendChild(part);
+			
+			Element measure = document.createElement("measure");
+			Attr measure_att = document.createAttribute("number");
+			measure_att.setValue("1");
+			measure.setAttributeNode(measure_att);
+			part.appendChild(measure);
+			
+			Element attributes = document.createElement("attributes");
+			measure.appendChild(attributes);
+
 
 			//Used to create Transformer objects.
 			TransformerFactory trff= TransformerFactory.newInstance();
