@@ -171,7 +171,7 @@ public class GUI extends Application {
 		//This doesn't really work. Still in progress
 		ob2.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent a) {
-				if (fi != null && accept(fi) == true) convertToXML(fi);
+				convertToXML(fi);
 			}
 		});
 
