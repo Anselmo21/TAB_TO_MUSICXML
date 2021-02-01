@@ -71,6 +71,7 @@ public class GUI extends Application {
 	BufferedReader input;
 	StreamResult output;
 	TransformerHandler th;
+	File fi;
 
 	/*
 	 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -159,13 +160,20 @@ public class GUI extends Application {
 					 * @param ActionEvent is the event associated when the browse button was clicked.
 					 */
 					public void handle(final ActionEvent e) {
-						File fi = fc.showOpenDialog(primaryStage); //Pops up an "Open File" file chooser dialog
+						fi = fc.showOpenDialog(primaryStage); //Pops up an "Open File" file chooser dialog
 						if (fi != null && accept(fi) == true) {
 							browseTextBox.setText(fi.getAbsolutePath());
-							convertToXML(fi);
+							//convertToXML(fi);
 						}
 					}
 				}); 
+		
+		//This doesn't really work. Still in progress
+		ob2.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent a) {
+				if (fi != null && accept(fi) == true) convertToXML(fi);
+			}
+		});
 
 		/*
 		 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
