@@ -376,7 +376,7 @@ public class GUI extends Application {
 	public void convertToXML(File fi) { //helper method to convert file to be used in gui method
 		try {
 			input = new BufferedReader(new FileReader(fi)); //reads the file..creates a buffering character-input stream that uses a default-sized input buffer.
-			output = new StreamResult("musicXML-convertedTab"); //will receive the "transformed" or converted file and will be stored in the user's pc
+			output = new StreamResult("musicXML-convertedTab.xml"); //will receive the "transformed" or converted file and will be stored in the user's pc
 			createXml(); //helper method see below!
 			String xmlLine;
 			while ((xmlLine = input.readLine()) != null) { //converts every content of the file into a string object
