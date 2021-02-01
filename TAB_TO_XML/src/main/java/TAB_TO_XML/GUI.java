@@ -174,7 +174,7 @@ public class GUI extends Application {
 					noFile.setContentText("Please provide an input...");
 					noFile.showAndWait();
 				}
-				else if (!browseTextBox.getText().equals("")) {
+				else if (browseTextBox.getText().equals("") == false) {
 				convertToXML(fi);
 				Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
 				errorAlert.setHeaderText("Your file selected is being to XML"); 
