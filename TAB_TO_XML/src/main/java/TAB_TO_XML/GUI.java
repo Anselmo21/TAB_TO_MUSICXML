@@ -172,6 +172,10 @@ public class GUI extends Application {
 		ob2.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent a) {
 				convertToXML(fi);
+				Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
+				errorAlert.setHeaderText("File Converted to XML"); 
+				errorAlert.setContentText("Please click OK"); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
+				errorAlert.showAndWait();
 			}
 		});
 
