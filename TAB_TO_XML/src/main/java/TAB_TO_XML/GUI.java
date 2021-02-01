@@ -67,16 +67,16 @@ public class GUI extends Application {
 	final Label el = new Label();
 	final ComboBox dropDownMenu = new ComboBox();
 	final GridPane inputValues = new GridPane(); //The parent which concludes of children such as buttons and labels
-	 BufferedReader input;
-	 StreamResult output;
-	 TransformerHandler th;
+	BufferedReader input;
+	StreamResult output;
+	TransformerHandler th;
 
 	/*
 	 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	 * ACCEPT METHOD FOR A FILE
 	 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	 */
-	
+
 	/**
 	 * This method checks if the file browsed is a text file or not, and returns a message accordingly.
 	 * @param filename
@@ -100,7 +100,7 @@ public class GUI extends Application {
 	 * BODY STRUCTURE OF GRAPHIC USER INTERFACE
 	 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	 */
-	
+
 	/**
 	 * Overridden start method that originally came from the Application class from Javafx. 
 	 * This method constructs the body structure of the GUI.
@@ -158,13 +158,13 @@ public class GUI extends Application {
 						}
 					}
 				}); 
-		
+
 		/*
 		 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		 * DRAG AND DROP FEATURE
 		 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		 */
-		 
+
 		Label label = new Label("Drag And Drop A File Here");
 		Label dropped = new Label("");
 
@@ -222,7 +222,7 @@ public class GUI extends Application {
 			 * DIMENSIONS OF BUTTONS?
 			 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 			 */
-			
+
 			StackPane root = new StackPane();
 			inputValues.add(dragTarget, 1, 6);
 			// For some reason it's not letting me drop anything stil....lol
@@ -275,7 +275,7 @@ public class GUI extends Application {
 			Logger.getLogger(GUI.class.getName())
 			.log(Level.SEVERE, null, ex);
 		} 
-		*/
+		 */
 
 		ArrayList<Character> datain = new ArrayList<Character>();
 
@@ -286,9 +286,9 @@ public class GUI extends Application {
 			while ((i = reader.read()) != -1) {
 				char ch = (char) i;
 				datain.add(ch);
-            	System.out.println(datain.get(j));
-            	j++;
-				 
+				System.out.println(datain.get(j));
+				j++;
+
 			}
 
 		} catch (IOException e) {
@@ -304,14 +304,14 @@ public class GUI extends Application {
 		}
 
 	}
-	
-	
+
+
 	/*
 	 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	 * IDK WHAT THIS DOES. WHOEVER KNOWS PLEASE FILL SOMETHING HERE.
 	 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	 */
-	
+
 	/**
 	 * Private helper class
 	 */
@@ -345,58 +345,57 @@ public class GUI extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	 public void convertToXML(File fi) { //helper method to convert file to be used in gui method
-	        try {
-	            input = new BufferedReader(new FileReader(fi)); //reads the file..creates a buffering character-input stream that uses a default-sized input buffer.
-	            output = new StreamResult("converted.xml"); //will receive the "transformed" or converted file and will be stored in the user's pc
-	            createXml(); //helper method see below!
-	            String xmlLine;
-	            while ((xmlLine = input.readLine()) != null) { //converts every content of the file into a string object
-	                process(xmlLine); //concatenate the lines with the XML elements "
-	            }
-	            input.close(); //closes the bufferedreader, this 
-	            endXml(); //helper method see below!
-	        } catch (Exception e) {
-	            e.printStackTrace(); //if any exception occurs, slap an error message
-	        }
-	    }
-	 	/**
-	 	 * This creates the XML environment 
-	 	 * @throws ParserConfigurationException if any error occurs during the parsing process
-	 	 * @throws TransformerConfigurationException if any error occurs during the "conversion process"
-	 	 * @throws SAXException if any error occurs during the parsing of the created XML document
-	 	 */
-	    public void createXml() throws ParserConfigurationException, TransformerConfigurationException, SAXException {
+	public void convertToXML(File fi) { //helper method to convert file to be used in gui method
+		try {
+			input = new BufferedReader(new FileReader(fi)); //reads the file..creates a buffering character-input stream that uses a default-sized input buffer.
+			output = new StreamResult("converted.xml"); //will receive the "transformed" or converted file and will be stored in the user's pc
+			createXml(); //helper method see below!
+			String xmlLine;
+			while ((xmlLine = input.readLine()) != null) { //converts every content of the file into a string object
+				process(xmlLine); //concatenate the lines with the XML elements "
+			}
+			input.close(); //closes the bufferedreader, this 
+			endXml(); //helper method see below!
+		} catch (Exception e) {
+			e.printStackTrace(); //if any exception occurs, slap an error message
+		}
+	}
+	/**
+	 * This creates the XML environment 
+	 * @throws ParserConfigurationException if any error occurs during the parsing process
+	 * @throws TransformerConfigurationException if any error occurs during the "conversion process"
+	 * @throws SAXException if any error occurs during the parsing of the created XML document
+	 */
+	public void createXml() throws ParserConfigurationException, TransformerConfigurationException, SAXException {
 
-	 
-	        SAXTransformerFactory tf = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
-	        th = tf.newTransformerHandler(); 
-	        // The two lines above creates an object that listens for any event that requires for a file to be transformed 
-	        // See the Java Api for more explanation
-	        
-	        // customization details
-	        Transformer serializer = th.getTransformer();
-	        serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-	        serializer.setOutputProperty(OutputKeys.INDENT, "yes");
 
-	        th.setResult(output); //where our result will be stored
-	        th.startDocument(); //the transformer handler will start creating the document
-	        th.startElement(null, null, "inserts", null); //the beginning tag of the doc
-	    }
+		SAXTransformerFactory tf = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
+		th = tf.newTransformerHandler(); 
+		// The two lines above creates an object that listens for any event that requires for a file to be transformed 
+		// See the Java Api for more explanation
 
-	    public void process(String s) throws SAXException {
-	    	// the passed string will undergo the following process
-	        th.startElement(null, null, "option", null);  //first tag of each string 
-	        th.characters(s.toCharArray(), 0, s.length()); // takes the string->places them in character array->to create new string to be used 
-	        th.endElement(null, null, "option"); //what each strings end tag is 
-	    }
-	    
-	    
-	    public void endXml() throws SAXException {
-	        th.endElement(null, null, "inserts"); // the last tag of every element 
-	        th.endDocument(); //ends the document duh
-	        
-	    }
+		// customization details
+		Transformer serializer = th.getTransformer();
+		serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+		serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+		th.setResult(output); //where our result will be stored
+		th.startDocument(); //the transformer handler will start creating the document
+		th.startElement(null, null, "inserts", null); //the beginning tag of the doc
+	}
+
+	public void process(String s) throws SAXException {
+		// the passed string will undergo the following process
+		th.startElement(null, null, "option", null);  //first tag of each string 
+		th.characters(s.toCharArray(), 0, s.length()); // takes the string->places them in character array->to create new string to be used 
+		th.endElement(null, null, "option"); //what each strings end tag is 
+	}
+
+
+	public void endXml() throws SAXException {
+		th.endElement(null, null, "inserts"); // the last tag of every element 
+		th.endDocument(); //ends the document duh
+
+	}
 }
 
-	
