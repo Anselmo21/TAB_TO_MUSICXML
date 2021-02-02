@@ -160,30 +160,26 @@ public class GUI extends Application {
 						fi = fc.showOpenDialog(primaryStage); //Pops up an "Open File" file chooser dialog
 						if (fi != null && accept(fi) == true) {
 							browseTextBox.setText(fi.getAbsolutePath());
-							//convertToXML(fi);
+							inputValues.add(ob2,2,2);
+							ob2.setOnAction(new EventHandler<ActionEvent>() {
+								public void handle(ActionEvent a) {
+								convertToXML(fi);
+								Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
+								errorAlert.setHeaderText("Your file selected is being to XML"); 
+								errorAlert.setContentText("The process might take a while..."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
+								errorAlert.showAndWait();
+								}
+							});
+						
 						}
 					}
 				}); 
 
-		//This doesn't really work. Still in progress
-		ob2.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent a) {
-				if (browseTextBox.getText().equals("")) { 
-					Alert noFile = new Alert(AlertType.ERROR);
-					noFile.setHeaderText("Conversion process cannot procede");
-					noFile.setContentText("Please provide an input...");
-					noFile.showAndWait();
-				}
-				else if (browseTextBox.getText().equals("") == false) {
-					convertToXML(fi);
-					Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
-					errorAlert.setHeaderText("Your file selected is being to XML"); 
-					errorAlert.setContentText("The process might take a while..."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
-					errorAlert.showAndWait();
-				}
-
-			}
-		});
+	
+		
+			
+				
+	
 
 		/*
 		 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -258,7 +254,7 @@ public class GUI extends Application {
 			//Restricts the allowable columns and rows for the location of each text or button
 
 
-			inputValues.add(ob2,2,2);
+			
 			inputValues.add(ob, 1, 2);
 			inputValues.add(browseTextBox, 0, 2);
 			//inputValues.add(obl, 0, 2);
