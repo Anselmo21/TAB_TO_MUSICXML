@@ -7,6 +7,9 @@ public class LabTask {
 		System.out.println("Hello");
 		//1234
 		//12354
+		//change
+		//change
+		//change
 	}
 
 }
