@@ -19,14 +19,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class Guitar {
+	
 
-	public static void convert(ArrayList<Character> a) {
+	public static void Convert(ArrayList<String> a) {
 		
 		//
 		//This is an example code? That's there to create a xml file that looks like what's on the page above.
 		
+		//From here down to a line of comment lines are the patterns used for the algorithm on automatic generation of required assets of xml file 
+		String titledelim = " by ";
+		String divisioncount = "-|-";
+		//
 		try {
-			
+		
 		DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
 		//This creates a Dom object trees that will store elements of an XML documents
 		DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
@@ -50,13 +55,13 @@ public class Guitar {
 		ident.appendChild(enco);
 		
 		Element soft = document.createElement("software");
-		soft.appendChild(document.createTextNode("Finale v25 for Mac"));
+		soft.appendChild(document.createTextNode("MuseScore 3.6.0"));
 		enco.appendChild(soft);
 		
 		Element encod = document.createElement("encoding-date");
 		LocalDateTime dano = LocalDateTime.now();
 		encod.appendChild(document.createTextNode(dano.toString()));
-		encod.appendChild(encod);
+		enco.appendChild(encod);
 		
 		Element defa = document.createElement("defaults");
 		scoreP.appendChild(defa);
@@ -131,6 +136,78 @@ public class Guitar {
 		Element stla = document.createElement("staff-layout");
 		stla.appendChild(document.createTextNode("67"));
 		defa.appendChild(stla);
+		
+		String[] titlesubtitle = a.get(0).split(titledelim);
+		
+		Element cred1 = document.createElement("credit");
+		scoreP.appendChild(cred1);
+		
+		Attr crepag1 = document.createAttribute("page");
+		crepag1.setValue("1");
+		cred1.setAttributeNode(crepag1);
+		
+		Element credtyp1 = document.createElement("credit-type");
+		credtyp1.appendChild(document.createTextNode("title"));
+		cred1.appendChild(credtyp1);
+		
+		Element creword1 = document.createElement("credit-words");
+		creword1.appendChild(document.createTextNode(titlesubtitle[0]));
+		cred1.appendChild(credtyp1);
+		
+		Attr defax1 = document.createAttribute("default-x");
+		defax1.setValue("595.4");
+		creword1.setAttributeNode(defax1);
+		
+		Attr defay1 = document.createAttribute("default-y");
+		defay1.setValue("1627.12");
+		creword1.setAttributeNode(defay1);
+		
+		Attr justi1 = document.createAttribute("justify");
+		justi1.setValue("center");
+		creword1.setAttributeNode(justi1);
+		
+		Attr valign1 = document.createAttribute("valign");
+		valign1.setValue("top");
+		creword1.setAttributeNode(valign1);
+		
+		Attr fonsiz1 = document.createAttribute("font-size");
+		fonsiz1.setValue("16");
+		creword1.setAttributeNode(fonsiz1);
+		
+		Element cred2 = document.createElement("credit");
+		scoreP.appendChild(cred2);
+		
+		Attr crepag2 = document.createAttribute("page");
+		crepag2.setValue("1");
+		cred2.setAttributeNode(crepag2);
+		
+		Element credtyp2 = document.createElement("credit-type");
+		credtyp2.appendChild(document.createTextNode("subtitle"));
+		cred2.appendChild(credtyp2);
+		
+		Element creword2 = document.createElement("credit-words");
+		creword2.appendChild(document.createTextNode(titlesubtitle[1]));
+		cred2.appendChild(credtyp2);
+		
+		Attr defax2 = document.createAttribute("default-x");
+		defax2.setValue("595.4");
+		creword2.setAttributeNode(defax2);
+		
+		Attr defay2 = document.createAttribute("default-y");
+		defay2.setValue("1586.46");
+		creword2.setAttributeNode(defay2);
+		
+		Attr justi2 = document.createAttribute("justify");
+		justi2.setValue("center");
+		creword2.setAttributeNode(justi2);
+		
+		Attr valign2 = document.createAttribute("valign");
+		valign2.setValue("top");
+		creword2.setAttributeNode(valign2);
+		
+		Attr fonsiz2 = document.createAttribute("font-size");
+		fonsiz2.setValue("12");
+		creword2.setAttributeNode(fonsiz2);
 		
 		Element appe = document.createElement("appearance");
 		scoreP.appendChild(appe);
@@ -356,8 +433,23 @@ public class Guitar {
 		partab1att.setValue("no");
 		partab1.setAttributeNode(partab1att);
 		
-		///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
+		Integer k = 1;
+		
+		for (int i = 0; i < a.size(); i++) {
+			if (a.get(i).contains("B|")) {
+				for (int j = 0; j < a.get(i).length(); j++) {
+					if (a.get(i).charAt(j) == '|') {
+						if (a.get(i).charAt(j-1) == '-') {
+							k++;
+						}
+					}
+				}
+				break;
+			}
+		}
+
 		Element part2 = document.createElement("part");
 		scoreP.appendChild(part2);
 		
@@ -386,8 +478,10 @@ public class Guitar {
 		Element attr = document.createElement("attributes");
 		meas.appendChild(attr);
 		
+		String cdiv = k.toString();
+		
 		Element divis = document.createElement("divisions");
-		divis.appendChild(document.createTextNode("2"));
+		divis.appendChild(document.createTextNode(cdiv));
 		attr.appendChild(divis);
 		
 		Element key = document.createElement("key");
@@ -521,15 +615,52 @@ public class Guitar {
 		meas.appendChild(soundtemp);
 		
 		Attr tempo = document.createAttribute("tempo");
-		tempo.setValue("120");
+		tempo.setValue("Andantino");
 		soundtemp.setAttributeNode(tempo);
-		
+
+		for (int i = 0; i < a.size(); i++) {	
+			
+			if (a.get(i).contains("E|") || a.get(i).contains("B|") || a.get(i).contains("G|") 
+					|| a.get(i).contains("A|") || a.get(i).contains("D|")) {
+				
+				Integer stringnum = 0;
+				
+				if (a.get(i).contains("E|")) {
+					if (a.get(i+5).contains("E|")) {
+						stringnum = 6;
+					}	else {
+						stringnum = 1;
+					}
+				}	else if (a.get(i).contains("B|")) {
+					stringnum = 5;
+				}	else if (a.get(i).contains("G|")) {
+					stringnum = 4;
+				}	else if (a.get(i).contains("A|")) {
+					stringnum = 3;
+				}	else if (a.get(i).contains("D|")) {
+					stringnum = 2;
+				}
+				
+				for (int j = 0; j < a.get(i).length(); j++) {
+						
+					if (Character.isDigit(a.get(i).charAt(j))) {
+						
 		Element notedef = document.createElement("note");
 		meas.appendChild(notedef);
 		
-		Attr defau = document.createAttribute("default-x");
-		tempo.setValue("82");
-		notedef.setAttributeNode(defau);
+		double xvalue =  j * 4.3;
+		String xvalues = Double.toString(xvalue);
+		
+		double yvalue = -75 + (75 - 15 * (stringnum - 1));
+		String yvalues = Double.toString(yvalue);
+		
+		Attr defaux = document.createAttribute("default-x");
+		tempo.setValue(xvalues);
+		notedef.setAttributeNode(defaux);
+		
+		Attr defauy = document.createAttribute("default-y");
+		tempo.setValue(yvalues);
+		notedef.setAttributeNode(defauy);
 		
 		Element pitch = document.createElement("pitch");
 		notedef.appendChild(pitch);
@@ -538,12 +669,29 @@ public class Guitar {
 		step.appendChild(document.createTextNode("C"));
 		pitch.appendChild(step);
 		
+		String oct = Character.toString(a.get(i).charAt(j));
+		
 		Element octa = document.createElement("octave");
-		octa.appendChild(document.createTextNode("4"));
+		octa.appendChild(document.createTextNode(oct));
 		pitch.appendChild(octa);
 		
+		int ik = 0;
+		int is = 0;
+		Integer dura = 1;
+
+		while (ik == 0) {
+			if (Character.isDigit(a.get(i).charAt(j+is))) {
+				ik = 1;
+			}	else {
+				dura++;
+			}
+			is++;
+		}
+		
+		String durat = Integer.toString(dura);
+		
 		Element dur = document.createElement("duration");
-		dur.appendChild(document.createTextNode("4"));
+		dur.appendChild(document.createTextNode(durat));
 		notedef.appendChild(dur);
 		
 		Element voice = document.createElement("voice");
@@ -563,27 +711,70 @@ public class Guitar {
 		
 		Element technical = document.createElement("technical");
 		notations.appendChild(technical);
+				
+		if (a.get(i).charAt(j+1) == 'h') {
+			Element hammer = document.createElement("hammer-on");
+			hammer.appendChild(document.createTextNode("H"));
+			technical.appendChild(hammer);
 		
-		Element hammer = document.createElement("hammer-on");
-		hammer.appendChild(document.createTextNode("H"));
-		technical.appendChild(hammer);
+			Attr number = document.createAttribute("number");
+			number.setValue("1");
+			hammer.setAttributeNode(number);
+			
+			Attr type = document.createAttribute("type");
+			type.setValue("start");
+			hammer.setAttributeNode(type);
+			
+		}	else if (a.get(i).charAt(j+1) == '/') {
+			Element slideup = document.createElement("slide up");
+			slideup.appendChild(document.createTextNode("/"));
+			technical.appendChild(slideup);
 		
-		Attr number = document.createAttribute("number");
-		number.setValue("1");
-		hammer.setAttributeNode(number);
+			Attr number = document.createAttribute("number");
+			number.setValue("1");
+			slideup.setAttributeNode(number);
+			
+			Attr type = document.createAttribute("type");
+			type.setValue("start");
+			slideup.setAttributeNode(type);
+			
+		}	else if (a.get(i).charAt(j+1) == 'p') {
+			Element pulloff = document.createElement("pull-off");
+			pulloff.appendChild(document.createTextNode("p"));
+			technical.appendChild(pulloff);
 		
-		Attr type = document.createAttribute("type");
-		type.setValue("start");
-		hammer.setAttributeNode(type);
+			Attr number = document.createAttribute("number");
+			number.setValue("1");
+			pulloff.setAttributeNode(number);
+			
+			Attr type = document.createAttribute("type");
+			type.setValue("start");
+			pulloff.setAttributeNode(type);
+			
+		}	else if (a.get(i).charAt(j-1) == '[') {
+			Element naturalharmonics = document.createElement("natural harmonics");
+			naturalharmonics.appendChild(document.createTextNode("[n]"));
+			technical.appendChild(naturalharmonics);
+		
+			Attr number = document.createAttribute("number");
+			number.setValue("1");
+			naturalharmonics.setAttributeNode(number);
+			
+			Attr type = document.createAttribute("type");
+			type.setValue("start");
+			naturalharmonics.setAttributeNode(type);
+			
+		}	
 		
 		Element string = document.createElement("string");
-		string.appendChild(document.createTextNode("string"));
+		string.appendChild(document.createTextNode(Integer.toString(stringnum)));
 		technical.appendChild(string);
 		
 		Element fret = document.createElement("fret");
-		fret.appendChild(document.createTextNode("fret"));
+		fret.appendChild(document.createTextNode(Character.toString(a.get(i).charAt(j))));
 		technical.appendChild(fret);
 		
+		/*
 		Element slur = document.createElement("slur");
 		notations.appendChild(slur);
 		
@@ -614,15 +805,22 @@ public class Guitar {
 		Attr type1 = document.createAttribute("type");
 		type1.setValue("start");
 		slur.setAttributeNode(type1);
+		*/
+					}
+					}
+			}
+		
+		}
 		
 		TransformerFactory trff= TransformerFactory.newInstance(); //Used to create Transformer objects.
 		Transformer trf = trff.newTransformer(); //A class that can transform a source tree into a result tree.
 		DOMSource dom= new DOMSource(document); //Document Object Model (DOM) tree that acts as a holder for a transformation source tree.
-		StreamResult stm = new StreamResult(new File(GUI.xmlFilePath)); //This creates a XML file that is being translated from the DOMSource
+		StreamResult stm = new StreamResult("C:/Users/Rober/git/EECS2311_GROUP5_TAB_TO_MUSICXML/TAB_TO_XML/src/main/java/Streamresult.xml"); //This creates a XML file that is being translated from the DOMSource
 	
-		trf.transform(dom, stm); //This translates your XML source to a result (in this case, everything under document to StreamResult)
 		trf.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "-//Recordare//DTD MusicXML 3.1 Partwise//EN");
 		trf.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "http://www.musicxml.org/dtds/partwise.dtd");
+		trf.transform(dom, stm); //This translates your XML source to a result (in this case, everything under document to StreamResult)
+		
 
 		}	catch (ParserConfigurationException p) {
 			p.printStackTrace();

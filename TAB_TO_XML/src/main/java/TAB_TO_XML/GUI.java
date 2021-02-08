@@ -164,6 +164,7 @@ public class GUI extends Application {
 							ob2.setOnAction(new EventHandler<ActionEvent>() { //if you feed a proper file..convert button will appear 
 								public void handle(ActionEvent a) {
 								convertToXML(fi);
+								openFile(fi);
 								Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
 								errorAlert.setHeaderText("The selected file is being converted to XML"); 
 								errorAlert.setContentText("The process might take a while..."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
@@ -301,18 +302,13 @@ public class GUI extends Application {
 		} 
 		 */
 
-		ArrayList<Character> datain = new ArrayList<Character>();
+		ArrayList<String> datain = new ArrayList<String>();
 
 		try (BufferedReader reader = new BufferedReader(new FileReader(fi))) { //Reads the file that was selected by the user
 
-			int i = 0;
-			int j = 0;
-			while ((i = reader.read()) != -1) {
-				char ch = (char) i;
-				datain.add(ch);
-				System.out.println(datain.get(j));
-				j++;
-
+			String line = reader.readLine();
+			while (line != null) {
+				datain.add(line);
 			}
 
 		} catch (IOException e) {
@@ -320,7 +316,7 @@ public class GUI extends Application {
 		}
 
 		if (dropDownMenu.getValue() == "Guitar") { //Calls methods that sends the input from the file to XML, the class that is called for methods depends on dropdownmenu input
-			Guitar.convert(datain);
+			Guitar.Convert(datain);
 		}	else if (dropDownMenu.getValue() == "Drum") {
 
 		}	else if (dropDownMenu.getValue() == "Bass") {
