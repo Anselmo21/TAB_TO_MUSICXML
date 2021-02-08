@@ -1,4 +1,4 @@
-package TAB_TO_XML;
+package Guitar;
 
 import java.io.File;
 import java.time.LocalDateTime;

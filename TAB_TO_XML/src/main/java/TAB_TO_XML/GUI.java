@@ -25,6 +25,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.xml.sax.SAXException;
 
+import Guitar.Guitar;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
