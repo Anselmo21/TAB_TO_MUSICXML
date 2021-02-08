@@ -163,7 +163,7 @@ public class GUI extends Application {
 							inputValues.add(ob2,2,2);
 							ob2.setOnAction(new EventHandler<ActionEvent>() { //if you feed a proper file..convert button will appear 
 								public void handle(ActionEvent a) {
-								openFile(fi);
+								convertToXML(fi);
 								Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
 								errorAlert.setHeaderText("The selected file is being converted to XML"); 
 								errorAlert.setContentText("The process might take a while..."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
