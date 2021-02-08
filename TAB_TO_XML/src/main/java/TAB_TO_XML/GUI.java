@@ -236,7 +236,9 @@ public class GUI extends Application {
 			String line = reader.readLine();
 			while (line != null) {
 				datain.add(line);
+				line = reader.readLine();
 			}
+			reader.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
