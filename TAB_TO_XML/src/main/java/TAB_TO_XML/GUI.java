@@ -239,7 +239,6 @@ public class GUI extends Application {
 				line = reader.readLine();
 			}
 			reader.close();
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -292,6 +291,7 @@ public class GUI extends Application {
 			input = new BufferedReader(new FileReader(fi)); //reads the file..creates a buffering character-input stream that uses a default-sized input buffer.
 			output = new StreamResult("musicXML-convertedTab.xml"); //will receive the "transformed" or converted file and will be stored in the user's pc
 			createXml(); //helper method see below!
+			openFile(fi);
 			String xmlLine;
 			while ((xmlLine = input.readLine()) != null) { //converts every content of the file into a string object
 				process(xmlLine); //concatenate the lines with the XML elements "

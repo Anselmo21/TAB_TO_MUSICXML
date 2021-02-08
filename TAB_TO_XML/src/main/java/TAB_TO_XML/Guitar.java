@@ -467,7 +467,7 @@ public class Guitar {
 		//loop used to count the divisions of the tablature
 		for (int i = 0; i < a.size(); i++) {
 			if (a.get(i).contains("B|")) {
-				for (int j = 0; j < a.get(i).length(); j++) {
+				for (int j = 0; j < a.get(i).length()-1; j++) {
 					if (a.get(i).charAt(j) == '|') {
 						if (a.get(i).charAt(j-1) == '-' && a.get(i).charAt(j+1) == '-') {
 							k++;
@@ -619,100 +619,101 @@ public class Guitar {
 		soundtemp.setAttributeNode(tempo);
 		
 		//Loops with nested loops that writes the pitches of the tablature automatically. (Likely causing the java.lang.Outofmemory error)
-		for (int i = 0; i < a.size(); i++) { //outer for loop with the limit upto the array size	
-			
-			if (a.get(i).contains("E|") || a.get(i).contains("B|") || a.get(i).contains("G|") 
-					|| a.get(i).contains("A|") || a.get(i).contains("D|")) {	//if statement with the condition set to only read variables within the lines
+				for (int i = 0; i < a.size(); i++) { //outer for loop with the limit upto the array size	
+					
+					if (a.get(i).contains("E|") || a.get(i).contains("B|") || a.get(i).contains("G|") 
+							|| a.get(i).contains("A|") || a.get(i).contains("D|")) {	//if statement with the condition set to only read variables within the lines
+						
+						Integer stringnum = 0;
+						//This if statement defines which string you press (goes from E:6, B:5, G:4, D:3, A:2, E:1)
+						if (a.get(i).contains("E|")) {
+							if (a.get(i+5).contains("E|")) {
+								stringnum = 6;
+							}	else {
+								stringnum = 1;
+							}
+						}	else if (a.get(i).contains("B|")) {
+							stringnum = 5;
+						}	else if (a.get(i).contains("G|")) {
+							stringnum = 4;
+						}	else if (a.get(i).contains("A|")) {
+							stringnum = 3;
+						}	else if (a.get(i).contains("D|")) {
+							stringnum = 2;
+						}
+						
+						for (int j = 0; j < a.get(i).length(); j++) { //This for statement is initiated once the if statement within the outer for loop is acknowledged
+								//It checks every character within a string that was passed by the outer loop to check for pitches to print
+							if (Character.isDigit(a.get(i).charAt(j))) { //If statement that initiates once it finds a pitch to print within a string
+				//Don't worry about codes from here down to another line of comments				
+				Element notedef = document.createElement("note");
+				meas.appendChild(notedef);
 				
-				Integer stringnum = 0;
-				//This if statement defines which string you press (goes from E:6, B:5, G:4, D:3, A:2, E:1)
-				if (a.get(i).contains("E|")) {
-					if (a.get(i+5).contains("E|")) {
-						stringnum = 6;
-					}	else {
-						stringnum = 1;
-					}
-				}	else if (a.get(i).contains("B|")) {
-					stringnum = 5;
-				}	else if (a.get(i).contains("G|")) {
-					stringnum = 4;
-				}	else if (a.get(i).contains("A|")) {
-					stringnum = 3;
-				}	else if (a.get(i).contains("D|")) {
-					stringnum = 2;
-				}
+				double xvalue =  j * 4.3;
+				String xvalues = Double.toString(xvalue);
 				
-				for (int j = 0; j < a.get(i).length(); j++) { //This for statement is initiated once the if statement within the outer for loop is acknowledged
-						//It checks every character within a string that was passed by the outer loop to check for pitches to print
-					if (Character.isDigit(a.get(i).charAt(j))) { //If statement that initiates once it finds a pitch to print within a string
-		//Don't worry about codes from here down to another line of comments				
-		Element notedef = document.createElement("note");
-		meas.appendChild(notedef);
-		
-		double xvalue =  j * 4.3;
-		String xvalues = Double.toString(xvalue);
-		
-		double yvalue = -75 + (75 - 15 * (stringnum - 1));
-		String yvalues = Double.toString(yvalue);
-		
-		Attr defaux = document.createAttribute("default-x");
-		tempo.setValue(xvalues);
-		notedef.setAttributeNode(defaux);
-		
-		Attr defauy = document.createAttribute("default-y");
-		tempo.setValue(yvalues);
-		notedef.setAttributeNode(defauy);
-		
-		Element pitch = document.createElement("pitch");
-		notedef.appendChild(pitch);
-		
-		Element step = document.createElement("step");
-		step.appendChild(document.createTextNode("C"));
-		pitch.appendChild(step);
-		
-		String oct = Character.toString(a.get(i).charAt(j));
-		
-		Element octa = document.createElement("octave");
-		octa.appendChild(document.createTextNode(oct));
-		pitch.appendChild(octa);
-		
-		int ik = 0;
-		int is = 0;
-		Integer dura = 1;
+				double yvalue = -75 + (75 - 15 * (stringnum - 1));
+				String yvalues = Double.toString(yvalue);
+				
+				Attr defaux = document.createAttribute("default-x");
+				tempo.setValue(xvalues);
+				notedef.setAttributeNode(defaux);
+				
+				Attr defauy = document.createAttribute("default-y");
+				tempo.setValue(yvalues);
+				notedef.setAttributeNode(defauy);
+				
+				Element pitch = document.createElement("pitch");
+				notedef.appendChild(pitch);
+				
+				Element step = document.createElement("step");
+				step.appendChild(document.createTextNode("C"));
+				pitch.appendChild(step);
+				
+				String oct = Character.toString(a.get(i).charAt(j));
+				
+				Element octa = document.createElement("octave");
+				octa.appendChild(document.createTextNode(oct));
+				pitch.appendChild(octa);
+				
+				int ik = 0;
+				int is = 0;
+				Integer dura = 1;
 
-		while (ik == 0) {
-			if (Character.isDigit(a.get(i).charAt(j+is))) {
-				ik = 1;
-			}	else {
-				dura++;
-			}
-			is++;
-		}
-		
-		String durat = Integer.toString(dura);
-		
-		Element dur = document.createElement("duration");
-		dur.appendChild(document.createTextNode(durat));
-		notedef.appendChild(dur);
-		
-		Element voice = document.createElement("voice");
-		voice.appendChild(document.createTextNode("1"));
-		notedef.appendChild(voice);
-		
-		Element typ = document.createElement("type");
-		typ.appendChild(document.createTextNode("quarter"));
-		notedef.appendChild(typ);
-		
-		Element stem = document.createElement("stem");
-		stem.appendChild(document.createTextNode("none"));
-		notedef.appendChild(stem);
-		
-		Element notations = document.createElement("notations");
-		notedef.appendChild(notations);
-		
-		Element technical = document.createElement("technical");
-		notations.appendChild(technical);
+				while (ik == 0) {
+					if (Character.isDigit(a.get(i).charAt(j+is))) {
+						ik = 1;
+					}	else {
+						dura++;
+					}
+					is++;
+				}
+			
+				String durat = Integer.toString(dura);
+				
+				Element dur = document.createElement("duration");
+				dur.appendChild(document.createTextNode(durat));
+				notedef.appendChild(dur);
+				
+				Element voice = document.createElement("voice");
+				voice.appendChild(document.createTextNode("1"));
+				notedef.appendChild(voice);
+				
+				Element typ = document.createElement("type");
+				typ.appendChild(document.createTextNode("quarter"));
+				notedef.appendChild(typ);
+				
+				Element stem = document.createElement("stem");
+				stem.appendChild(document.createTextNode("none"));
+				notedef.appendChild(stem);
+				
+				Element notations = document.createElement("notations");
+				notedef.appendChild(notations);
+				
+				Element technical = document.createElement("technical");
+				notations.appendChild(technical);
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+
 		if (a.get(i).charAt(j+1) == 'h') {
 			Element hammer = document.createElement("hammer-on");
 			hammer.appendChild(document.createTextNode("H"));
@@ -752,7 +753,7 @@ public class Guitar {
 			type.setValue("start");
 			pulloff.setAttributeNode(type);
 			
-		}	else if (a.get(i).charAt(j-1) == '[') {
+		}/*	else if (a.get(i).charAt(j-1) == '[') {
 			Element naturalharmonics = document.createElement("natural harmonics");
 			naturalharmonics.appendChild(document.createTextNode("[n]"));
 			technical.appendChild(naturalharmonics);
@@ -766,7 +767,7 @@ public class Guitar {
 			naturalharmonics.setAttributeNode(type);
 			
 		}	
-		
+		*/
 		Element string = document.createElement("string");
 		string.appendChild(document.createTextNode(Integer.toString(stringnum)));
 		technical.appendChild(string);
@@ -775,7 +776,6 @@ public class Guitar {
 		fret.appendChild(document.createTextNode(Character.toString(a.get(i).charAt(j))));
 		technical.appendChild(fret);
 		
-		/*
 		Element slur = document.createElement("slur");
 		notations.appendChild(slur);
 		
@@ -806,13 +806,13 @@ public class Guitar {
 		Attr type1 = document.createAttribute("type");
 		type1.setValue("start");
 		slur.setAttributeNode(type1);
-		*/
+		
 					}
 					}
 			}
 		
 		}
-		
+
 		TransformerFactory trff= TransformerFactory.newInstance(); //Used to create Transformer objects.
 		Transformer trf = trff.newTransformer(); //A class that can transform a source tree into a result tree.
 		DOMSource dom= new DOMSource(document); //Document Object Model (DOM) tree that acts as a holder for a transformation source tree.
