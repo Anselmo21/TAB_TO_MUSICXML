@@ -11,7 +11,7 @@
       <AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@Intro.css">
          <children>
             <TextArea layoutX="25.0" layoutY="75.0" prefHeight="342.0" prefWidth="367.0" />
-            <Button layoutX="705.0" layoutY="529.0" mnemonicParsing="false" text="Convert" />
+            <Button fx:id="convert" layoutX="705.0" layoutY="529.0" mnemonicParsing="false" onAction="#handleButtonConvert" text="Convert" />
             <Label layoutX="10.0" layoutY="32.0" prefHeight="40.0" prefWidth="398.0" text="Add a block of tablature here, or browse using the button below" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="Bookman Old Style Bold" size="12.0" />
