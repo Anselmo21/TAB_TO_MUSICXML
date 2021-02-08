@@ -23,15 +23,15 @@ public class Guitar {
 
 	public static void Convert(ArrayList<String> a) {
 		
-		//
-		//This is an example code? That's there to create a xml file that looks like what's on the page above.
+
 		
 		//From here down to a line of comment lines are the patterns used for the algorithm on automatic generation of required assets of xml file 
+		//It's useful to make a reference to this on the formatting
 		String titledelim = " by ";
 		String divisioncount = "-|-";
 		//
 		try {
-		
+		//Codes below here down to line of // are fixed variables
 		DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
 		//This creates a Dom object trees that will store elements of an XML documents
 		DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
@@ -432,23 +432,6 @@ public class Guitar {
 		Attr partab1att = document.createAttribute("print-object");
 		partab1att.setValue("no");
 		partab1.setAttributeNode(partab1att);
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		Integer k = 1;
-		
-		for (int i = 0; i < a.size(); i++) {
-			if (a.get(i).contains("B|")) {
-				for (int j = 0; j < a.get(i).length(); j++) {
-					if (a.get(i).charAt(j) == '|') {
-						if (a.get(i).charAt(j-1) == '-') {
-							k++;
-						}
-					}
-				}
-				break;
-			}
-		}
 
 		Element part2 = document.createElement("part");
 		scoreP.appendChild(part2);
@@ -477,6 +460,23 @@ public class Guitar {
 		
 		Element attr = document.createElement("attributes");
 		meas.appendChild(attr);
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		Integer k = 1;
+		//loop used to count the divisions of the tablature
+		for (int i = 0; i < a.size(); i++) {
+			if (a.get(i).contains("B|")) {
+				for (int j = 0; j < a.get(i).length(); j++) {
+					if (a.get(i).charAt(j) == '|') {
+						if (a.get(i).charAt(j-1) == '-' && a.get(i).charAt(j+1) == '-') {
+							k++;
+						}
+					}
+				}
+				break;
+			}
+		}
 		
 		String cdiv = k.toString();
 		
@@ -617,14 +617,15 @@ public class Guitar {
 		Attr tempo = document.createAttribute("tempo");
 		tempo.setValue("Andantino");
 		soundtemp.setAttributeNode(tempo);
-
-		for (int i = 0; i < a.size(); i++) {	
+		
+		//Loops with nested loops that writes the pitches of the tablature automatically. (Likely causing the java.lang.Outofmemory error)
+		for (int i = 0; i < a.size(); i++) { //outer for loop with the limit upto the array size	
 			
 			if (a.get(i).contains("E|") || a.get(i).contains("B|") || a.get(i).contains("G|") 
-					|| a.get(i).contains("A|") || a.get(i).contains("D|")) {
+					|| a.get(i).contains("A|") || a.get(i).contains("D|")) {	//if statement with the condition set to only read variables within the lines
 				
 				Integer stringnum = 0;
-				
+				//This if statement defines which string you press (goes from E:6, B:5, G:4, D:3, A:2, E:1)
 				if (a.get(i).contains("E|")) {
 					if (a.get(i+5).contains("E|")) {
 						stringnum = 6;
@@ -641,10 +642,10 @@ public class Guitar {
 					stringnum = 2;
 				}
 				
-				for (int j = 0; j < a.get(i).length(); j++) {
-						
-					if (Character.isDigit(a.get(i).charAt(j))) {
-						
+				for (int j = 0; j < a.get(i).length(); j++) { //This for statement is initiated once the if statement within the outer for loop is acknowledged
+						//It checks every character within a string that was passed by the outer loop to check for pitches to print
+					if (Character.isDigit(a.get(i).charAt(j))) { //If statement that initiates once it finds a pitch to print within a string
+		//Don't worry about codes from here down to another line of comments				
 		Element notedef = document.createElement("note");
 		meas.appendChild(notedef);
 		
@@ -711,7 +712,7 @@ public class Guitar {
 		
 		Element technical = document.createElement("technical");
 		notations.appendChild(technical);
-				
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
 		if (a.get(i).charAt(j+1) == 'h') {
 			Element hammer = document.createElement("hammer-on");
 			hammer.appendChild(document.createTextNode("H"));
