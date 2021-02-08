@@ -163,7 +163,6 @@ public class GUI extends Application {
 							inputValues.add(ob2,2,2);
 							ob2.setOnAction(new EventHandler<ActionEvent>() { //if you feed a proper file..convert button will appear 
 								public void handle(ActionEvent a) {
-								convertToXML(fi);
 								openFile(fi);
 								Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
 								errorAlert.setHeaderText("The selected file is being converted to XML"); 
@@ -314,14 +313,7 @@ public class GUI extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		if (dropDownMenu.getValue() == "Guitar") { //Calls methods that sends the input from the file to XML, the class that is called for methods depends on dropdownmenu input
-			Guitar.Convert(datain);
-		}	else if (dropDownMenu.getValue() == "Drum") {
-
-		}	else if (dropDownMenu.getValue() == "Bass") {
-
-		}
+		Guitar.Convert(datain);
 
 	}
 
