@@ -816,7 +816,7 @@ public class Guitar {
 		TransformerFactory trff= TransformerFactory.newInstance(); //Used to create Transformer objects.
 		Transformer trf = trff.newTransformer(); //A class that can transform a source tree into a result tree.
 		DOMSource dom= new DOMSource(document); //Document Object Model (DOM) tree that acts as a holder for a transformation source tree.
-		StreamResult stm = new StreamResult("Streamresult.xml"); //This creates a XML file that is being translated from the DOMSource
+		StreamResult stm = new StreamResult("./Streamresult.xml"); //This creates a XML file that is being translated from the DOMSource
 	
 		trf.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, "-//Recordare//DTD MusicXML 3.1 Partwise//EN");
 		trf.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "http://www.musicxml.org/dtds/partwise.dtd");
