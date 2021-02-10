@@ -340,5 +340,13 @@ public class GUI extends Application {
 		th.endDocument(); //ends the document duh
 
 	}
+	
+	public static boolean doesFileExist(String filePathString) { 
+        File f = new File(filePathString);
+        if(f.exists() && !f.isDirectory()) { 
+            return true;
+        }
+        return false;
+    }
 }
 
