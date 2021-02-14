@@ -20,7 +20,7 @@ import org.w3c.dom.Element;
 
 public class Guitar {
 
-	public static void Convert(ArrayList<String> a) {
+	public static void Convert(ArrayList<String> fileContent) {
 
 		// From here down to a line of comment lines are the patterns used for the
 		// algorithm on automatic generation of required assets of xml file
@@ -138,7 +138,7 @@ public class Guitar {
 			stla.appendChild(document.createTextNode("67"));
 			defa.appendChild(stla);
 
-			String[] titlesubtitle = a.get(0).split(titledelim);
+			String[] titlesubtitle = fileContent.get(0).split(titledelim);
 
 			Element cred1 = document.createElement("credit");
 			scoreP.appendChild(cred1);
@@ -467,11 +467,11 @@ public class Guitar {
 
 			Integer k = 1;
 			// loop used to count the divisions of the tablature
-			for (int i = 0; i < a.size(); i++) {
-				if (a.get(i).contains("B|")) {
-					for (int j = 0; j < a.get(i).length() - 1; j++) {
-						if (a.get(i).charAt(j) == '|') {
-							if (a.get(i).charAt(j - 1) == '-' && a.get(i).charAt(j + 1) == '-') {
+			for (int i = 0; i < fileContent.size(); i++) {
+				if (fileContent.get(i).contains("B|")) {
+					for (int j = 0; j < fileContent.get(i).length() - 1; j++) {
+						if (fileContent.get(i).charAt(j) == '|') {
+							if (fileContent.get(i).charAt(j - 1) == '-' && fileContent.get(i).charAt(j + 1) == '-') {
 								k++;
 							}
 						}
@@ -622,38 +622,38 @@ public class Guitar {
 
 			// Loops with nested loops that writes the pitches of the tablature
 			// automatically. (Likely causing the java.lang.Outofmemory error)
-			for (int i = 0; i < a.size(); i++) { // outer for loop with the limit upto the array size
+			for (int i = 0; i < fileContent.size(); i++) { // outer for loop with the limit upto the array size
 
-				if (a.get(i).contains("E|") || a.get(i).contains("B|") || a.get(i).contains("G|")
-						|| a.get(i).contains("A|") || a.get(i).contains("D|")) { // if statement with the condition set
+				if (fileContent.get(i).contains("E|") || fileContent.get(i).contains("B|") || fileContent.get(i).contains("G|")
+						|| fileContent.get(i).contains("A|") || fileContent.get(i).contains("D|")) { // if statement with the condition set
 																					// to only read variables within the
 																					// lines
 
 					Integer stringnum = 0;
 					// This if statement defines which string you press (goes from E:6, B:5, G:4,
 					// D:3, A:2, E:1)
-					if (a.get(i).contains("E|")) {
-						if (a.get(i + 5).contains("E|")) {
+					if (fileContent.get(i).contains("E|")) {
+						if (fileContent.get(i + 5).contains("E|")) {
 							stringnum = 6;
 						} else {
 							stringnum = 1;
 						}
-					} else if (a.get(i).contains("B|")) {
+					} else if (fileContent.get(i).contains("B|")) {
 						stringnum = 5;
-					} else if (a.get(i).contains("G|")) {
+					} else if (fileContent.get(i).contains("G|")) {
 						stringnum = 4;
-					} else if (a.get(i).contains("A|")) {
+					} else if (fileContent.get(i).contains("A|")) {
 						stringnum = 3;
-					} else if (a.get(i).contains("D|")) {
+					} else if (fileContent.get(i).contains("D|")) {
 						stringnum = 2;
 					}
 
-					for (int j = 0; j < a.get(i).length(); j++) { // This for statement is initiated once the if
+					for (int j = 0; j < fileContent.get(i).length(); j++) { // This for statement is initiated once the if
 																	// statement within the outer for loop is
 																	// acknowledged
 						// It checks every character within a string that was passed by the outer loop
 						// to check for pitches to print
-						if (Character.isDigit(a.get(i).charAt(j))) { // If statement that initiates once it finds a
+						if (Character.isDigit(fileContent.get(i).charAt(j))) { // If statement that initiates once it finds a
 																		// pitch to print within a string
 							// Don't worry about codes from here down to another line of comments
 							Element notedef = document.createElement("note");
@@ -680,7 +680,7 @@ public class Guitar {
 							step.appendChild(document.createTextNode("C"));
 							pitch.appendChild(step);
 
-							String oct = Character.toString(a.get(i).charAt(j));
+							String oct = Character.toString(fileContent.get(i).charAt(j));
 
 							Element octa = document.createElement("octave");
 							octa.appendChild(document.createTextNode(oct));
@@ -691,7 +691,7 @@ public class Guitar {
 							Integer dura = 1;
 
 							while (ik == 0) {
-								if (Character.isDigit(a.get(i).charAt(j + is))) {
+								if (Character.isDigit(fileContent.get(i).charAt(j + is))) {
 									ik = 1;
 								} else {
 									dura++;
@@ -724,7 +724,7 @@ public class Guitar {
 							notations.appendChild(technical);
 							/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-							if (a.get(i).charAt(j + 1) == 'h') {
+							if (fileContent.get(i).charAt(j + 1) == 'h') {
 								Element hammer = document.createElement("hammer-on");
 								hammer.appendChild(document.createTextNode("H"));
 								technical.appendChild(hammer);
@@ -737,7 +737,7 @@ public class Guitar {
 								type.setValue("start");
 								hammer.setAttributeNode(type);
 
-							} else if (a.get(i).charAt(j + 1) == '/') {
+							} else if (fileContent.get(i).charAt(j + 1) == '/') {
 								Element slideup = document.createElement("slide up");
 								slideup.appendChild(document.createTextNode("/"));
 								technical.appendChild(slideup);
@@ -750,7 +750,7 @@ public class Guitar {
 								type.setValue("start");
 								slideup.setAttributeNode(type);
 
-							} else if (a.get(i).charAt(j + 1) == 'p') {
+							} else if (fileContent.get(i).charAt(j + 1) == 'p') {
 								Element pulloff = document.createElement("pull-off");
 								pulloff.appendChild(document.createTextNode("p"));
 								technical.appendChild(pulloff);
@@ -782,7 +782,7 @@ public class Guitar {
 							technical.appendChild(string);
 
 							Element fret = document.createElement("fret");
-							fret.appendChild(document.createTextNode(Character.toString(a.get(i).charAt(j))));
+							fret.appendChild(document.createTextNode(Character.toString(fileContent.get(i).charAt(j))));
 							technical.appendChild(fret);
 
 							Element slur = document.createElement("slur");
