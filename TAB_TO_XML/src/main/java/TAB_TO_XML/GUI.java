@@ -25,6 +25,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.xml.sax.SAXException;
 
+import Guitar.Guitar;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -163,7 +164,7 @@ public class GUI extends Application {
 							inputValues.add(ob2,2,2);
 							ob2.setOnAction(new EventHandler<ActionEvent>() { //if you feed a proper file..convert button will appear 
 								public void handle(ActionEvent a) {
-								openFile(fi);
+								convertToXML(fi);
 								Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
 								errorAlert.setHeaderText("The selected file is being converted to XML"); 
 								errorAlert.setContentText("The process might take a while..."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
@@ -175,86 +176,13 @@ public class GUI extends Application {
 					}
 				}); 
 
-	
-		
-			
-				
-	
-
-		/*
-		 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		 * DRAG AND DROP FEATURE
-		 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		 */
-
-		Label label = new Label("Drag And Drop A File Here");
-		Label dropped = new Label("");
 
 		try {
-			VBox dragTarget = new VBox();
-
-			//Extensions that are valid to be dragged and dropped
-			List<String> validExtensions = Arrays.asList("txt", "log");
-
-			dragTarget.getChildren().addAll(label,dropped);
-			dragTarget.setOnDragOver(new EventHandler<DragEvent>() {
-
-				@Override
-				public void handle(DragEvent event) {
-					if (event.getGestureSource() != dragTarget
-							&& event.getDragboard().hasFiles()) { 
-
-						//All files must have the accepted extension
-						if (!validExtensions.containsAll(event.getDragboard().getFiles().stream().map(file -> getExtension(file.getName())).collect(Collectors.toList()))) {
-							event.consume();
-							return;
-						}
-
-						/* allow for both copying and moving, whatever user chooses */
-						event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-					}
-					event.consume(); // you don't want the event to be dispatched to any further event listeners.
-					//events are dispatched in last in, first out fashion
-				}
-			});
-
-			dragTarget.setOnDragDropped(new EventHandler<DragEvent>() {
-
-				@Override
-				public void handle(DragEvent event) {
-					Dragboard db = event.getDragboard(); //assign event's dragboard to a variable for ease 
-					boolean success = false;
-					if (event.getGestureSource() != dragTarget && db.hasFiles()) {
-						dropped.setText(db.getFiles().toString()); //The text to display in the label. 
-						event.getDragboard().getFiles().forEach(file -> System.out.println(file.getAbsolutePath()));
-						success = true;
-
-					}
-
-
-					/* let the source know whether the string was successfully 
-					 * transferred and used */
-					event.setDropCompleted(success);
-
-					event.consume(); 
-				}
-			});
-
-			/*
-			 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-			 * DIMENSIONS OF BUTTONS?
-			 * %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-			 */
-
-			StackPane root = new StackPane();
-			inputValues.add(dragTarget, 1, 6);
 			// For some reason it's not letting me drop anything stil....lol
 
 
 			//Restricts the allowable columns and rows for the location of each text or button
 
-
-			
 			inputValues.add(ob, 1, 2);
 			inputValues.add(browseTextBox, 0, 2);
 			//inputValues.add(obl, 0, 2);
@@ -270,6 +198,7 @@ public class GUI extends Application {
 			Scene Scene1 = new Scene(rg); 
 			primaryStage.setScene(Scene1); 
 			primaryStage.show(); //make the primary page visible to the user
+		
 		}
 
 		catch (Exception e) {
@@ -308,8 +237,9 @@ public class GUI extends Application {
 			String line = reader.readLine();
 			while (line != null) {
 				datain.add(line);
+				line = reader.readLine();
 			}
-
+			reader.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -362,6 +292,7 @@ public class GUI extends Application {
 			input = new BufferedReader(new FileReader(fi)); //reads the file..creates a buffering character-input stream that uses a default-sized input buffer.
 			output = new StreamResult("musicXML-convertedTab.xml"); //will receive the "transformed" or converted file and will be stored in the user's pc
 			createXml(); //helper method see below!
+			openFile(fi);
 			String xmlLine;
 			while ((xmlLine = input.readLine()) != null) { //converts every content of the file into a string object
 				process(xmlLine); //concatenate the lines with the XML elements "
@@ -409,5 +340,13 @@ public class GUI extends Application {
 		th.endDocument(); //ends the document duh
 
 	}
+	
+	public static boolean doesFileExist(String filePathString) { 
+        File f = new File(filePathString);
+        if(f.exists() && !f.isDirectory()) { 
+            return true;
+        }
+        return false;
+    }
 }
 

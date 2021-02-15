@@ -1,4 +1,4 @@
-package TAB_TO_XML;
+package Drums;
 
 import java.util.ArrayList;
 import java.io.*;
@@ -363,7 +363,7 @@ public class Drums {
 			//Document Object Model (DOM) tree that acts as a holder for a transformation source tree.
 			DOMSource dom= new DOMSource(document);    
 			//This creates a XML file that is being translated from the DOMSource
-			StreamResult streamresult = new StreamResult(new File("../TAB_TO_XML/src/main/java/"));    
+			StreamResult streamresult = new StreamResult(new File("../TAB_TO_XML/src/main/java/Drum_Tab.musicxml"));    
 			
 			//This translates your XML source to a result (in this case, everything under document to StreamResult)
 			trf.transform(dom, streamresult);   
