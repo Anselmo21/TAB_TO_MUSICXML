@@ -25,6 +25,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.xml.sax.SAXException;
 
+import Guitar.Guitar;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -84,7 +85,7 @@ public class GUI extends Application {
 	 * @param filename
 	 * @return true if the file extension is a text file, false otherwise
 	 */
-	private boolean accept(File filename) { //Helper Method to determine if a file is a textfile
+	public static boolean accept(File filename) { //Helper Method to determine if a file is a textfile
 		if(filename.getName().endsWith(".txt")) { 
 			return true;
 		}
@@ -206,7 +207,7 @@ public class GUI extends Application {
 	}
 
 	//Getter method to get the extension of the file.
-	private String getExtension (String fileName) {
+	public static String getExtension (String fileName) {
 		String extension = "";
 		int i = fileName.lastIndexOf('.');
 		if (i > 0 && i < fileName.length() - 1) //if the name is not empty
@@ -339,5 +340,13 @@ public class GUI extends Application {
 		th.endDocument(); //ends the document duh
 
 	}
+	
+	public static boolean doesFileExist(String filePathString) { 
+        File f = new File(filePathString);
+        if(f.exists() && !f.isDirectory()) { 
+            return true;
+        }
+        return false;
+    }
 }
 
