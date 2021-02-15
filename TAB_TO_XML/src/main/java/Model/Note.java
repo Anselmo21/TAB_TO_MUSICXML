@@ -36,6 +36,8 @@ public class Note {
 	public void setNotations(Notations notations) {
 		this.notations = notations;
 	}
+	
+	public Note() {}
 	public Note(Pitch pitch, String duration, String voice, String type, Notations notations) {
 		super();
 		this.pitch = pitch;

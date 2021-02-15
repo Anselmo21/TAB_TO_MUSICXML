@@ -8,6 +8,7 @@ public class Time {
 	@JacksonXmlProperty(localName = "beat-type")
 	String beatType;
 
+	public Time() {}
 	public Time(String beats, String beatType) {
 		super();
 		this.beats = beats;

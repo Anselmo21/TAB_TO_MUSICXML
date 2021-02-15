@@ -15,6 +15,8 @@ public class Pitch {
 	public void setOctave(String octave) {
 		this.octave = octave;
 	}
+	
+	public Pitch() {}
 	public Pitch(String step, String octave) {
 		super();
 		this.step = step;

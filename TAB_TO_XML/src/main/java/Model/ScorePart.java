@@ -9,6 +9,7 @@ public class ScorePart {
 	@JacksonXmlProperty(localName = "part-name")
 	String partName;
 
+	public ScorePart() {}
 	public ScorePart(String id, String partName) {
 		super();
 		this.id = id;

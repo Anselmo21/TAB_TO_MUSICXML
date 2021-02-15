@@ -25,6 +25,7 @@ public class StaffDetails {
 		this.staffTunings = staffTunings;
 	}
 
+	public StaffDetails() {}
 	public StaffDetails(String staffLines, StaffTuning[] staffTunings) {
 		super();
 		this.staffLines = staffLines;

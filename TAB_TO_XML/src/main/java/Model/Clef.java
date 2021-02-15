@@ -3,6 +3,8 @@ package Model;
 public class Clef {
 	String sign;
 	String line;
+	
+	public Clef() {}
 	public Clef(String sign, String line) {
 		super();
 		this.sign = sign;

@@ -3,6 +3,7 @@ package Model;
 public class Notations {
 	Technical technical;
 
+	public Notations() {}
 	public Notations(Technical technical) {
 		super();
 		this.technical = technical;

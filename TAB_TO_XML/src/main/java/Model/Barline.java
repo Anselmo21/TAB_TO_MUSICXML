@@ -10,6 +10,7 @@ public class Barline {
 	@JacksonXmlProperty(localName = "bar-style")
 	String barStyle;
 	
+	public Barline() {}
 	public Barline(String location, String barStyle) {
 		super();
 		this.location = location;
