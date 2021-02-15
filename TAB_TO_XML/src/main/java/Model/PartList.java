@@ -14,6 +14,11 @@ public class PartList {
 	public void setScoreParts(ScorePart[] scoreParts) {
 		this.scoreParts = scoreParts;
 	}
-	
+
+	public PartList() {}
+	public PartList(ScorePart[] scoreParts) {
+		super();
+		this.scoreParts = scoreParts;
+	}
 	
 }
