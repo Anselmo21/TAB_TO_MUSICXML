@@ -98,6 +98,10 @@ public class Controller {
 			}
 			input.close();
 			endXML();
+			Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
+			errorAlert.setHeaderText("The selected file is being converted to XML"); 
+			errorAlert.setContentText("Please Wait.."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
+			errorAlert.showAndWait();
 		}
 		catch (Exception e) {
 			Alert errorAlert = new Alert(AlertType.ERROR); 
