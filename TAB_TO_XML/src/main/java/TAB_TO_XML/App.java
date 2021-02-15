@@ -92,7 +92,7 @@ public class App {
 			scorePartwise.setParts(parts);
 			
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			mapper.writeValue(new File("C:\\\\Users\\\\shawn\\\\Desktop\\\\partsOut.xml"), scorePartwise);
+			mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
 			
 		}
 		catch(Exception e) {
