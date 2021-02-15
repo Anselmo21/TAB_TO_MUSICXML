@@ -8,17 +8,18 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.Controller">
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@Intro.css">
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="850.0" stylesheets="@Intro.css">
          <children>
-            <TextArea layoutX="25.0" layoutY="75.0" prefHeight="342.0" prefWidth="367.0" />
-            <Button fx:id="convert" layoutX="705.0" layoutY="529.0" mnemonicParsing="false" onAction="#handleButtonConvert" text="Convert" />
-            <Label layoutX="10.0" layoutY="32.0" prefHeight="40.0" prefWidth="398.0" text="Add a block of tablature here, or browse using the button below" textFill="WHITE" wrapText="true">
+            <TextArea fx:id="textbox" editable="false" layoutX="25.0" layoutY="75.0" prefHeight="342.0" prefWidth="708.0" promptText="This Text Area is only for viewing. To change something on the file, please click on the open file button and make your changes. Don't forget to save your changes later!" />
+            <Button fx:id="convert" layoutX="653.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleButtonConvert" text="Convert File" />
+            <Label layoutX="227.0" layoutY="35.0" prefHeight="40.0" prefWidth="304.0" text="Browse using the button below" textFill="WHITE" wrapText="true">
                <font>
-                  <Font name="Bookman Old Style Bold" size="12.0" />
+                  <Font name="Bookman Old Style Bold" size="18.0" />
                </font>
             </Label>
-          <Button fx:id="browse" layoutX="25.0" layoutY="500.0" mnemonicParsing="false" onAction="#handleButtonBrowse" text="Browse" />
-            <Label fx:id="path" layoutX="113.0" layoutY="457.0" prefHeight="111.0" prefWidth="335.0" textFill="WHITE" wrapText="true" />
+          <Button fx:id="browse" layoutX="25.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleButtonBrowse" text="Browse File" />
+            <Label fx:id="path" layoutX="154.0" layoutY="434.0" prefHeight="111.0" prefWidth="335.0" textFill="WHITE" wrapText="true" />
+            <Button fx:id="openFile" layoutX="25.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleButtonOpenFile" text="Open File" />
          </children>
       </AnchorPane>
    </children>
