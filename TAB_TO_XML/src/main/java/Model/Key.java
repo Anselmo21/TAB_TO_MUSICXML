@@ -1,0 +1,18 @@
+package Model;
+
+public class Key {
+	String fifths;
+
+	public Key(String fifths) {
+		super();
+		this.fifths = fifths;
+	}
+
+	public String getFifths() {
+		return fifths;
+	}
+
+	public void setFifths(String fifths) {
+		this.fifths = fifths;
+	}
+}
