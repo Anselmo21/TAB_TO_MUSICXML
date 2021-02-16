@@ -3,7 +3,7 @@ package Model;
 public class Technical {
 	String string;
 	String fret;
-	
+
 	public Technical() {}
 	public Technical(String string, String fret) {
 		super();

@@ -2,14 +2,14 @@ package Model;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class Measure {
-	
+
 	@JacksonXmlProperty(isAttribute=true)
 	int number;
-	
+
 	Note[] note;
 	Attributes attributes;
 	Barline barline;
-	
+
 	public Measure() {}
 	public Measure(int number, Note[] note, Attributes attributes, Barline barline) {
 		super();

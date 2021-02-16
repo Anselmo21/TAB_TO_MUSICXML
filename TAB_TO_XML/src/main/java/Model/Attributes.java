@@ -3,18 +3,18 @@ package Model;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class Attributes {
-	
-	int divisions;
-	
+
+	public int divisions;
+
 	Key key;
 	Time time;
 	Clef clef;
-	
+
 	@JacksonXmlProperty(localName = "staff-details")
 	StaffDetails staffDetails;
-	
+
 	public int getDivisions() {
-		return divisions;
+		return 0;
 	}
 
 	public void setDivisions(int divisions) {

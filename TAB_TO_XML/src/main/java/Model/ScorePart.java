@@ -5,7 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class ScorePart {
 	@JacksonXmlProperty(isAttribute=true)
 	String id;
-	
+
 	@JacksonXmlProperty(localName = "part-name")
 	String partName;
 

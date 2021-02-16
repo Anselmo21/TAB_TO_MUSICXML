@@ -4,7 +4,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class Time {
 	String beats;
-	
+
 	@JacksonXmlProperty(localName = "beat-type")
 	String beatType;
 
