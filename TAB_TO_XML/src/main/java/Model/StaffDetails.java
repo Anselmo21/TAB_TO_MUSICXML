@@ -5,7 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class StaffDetails {
 	@JacksonXmlProperty(localName = "staff-lines")
 	String staffLines;
-	
+
 	@JacksonXmlProperty(localName = "staff-tuning")
 	StaffTuning[] staffTunings;
 

@@ -20,33 +20,41 @@ public class Parser {
 		int count = 1;
 		for (int i = 0; i < parse.get(findLongerList(parse)).length(); i++) {
 			if (i == 0) {
-			for (int j = findLongerList(parse); j < parse.size(); j++) {
-				if (parse.get(j).charAt(i) != '-' && parse.get(j).charAt(i) != '|') {
-					break;
-				}	else if (parse.get(j).charAt(i) == '|') {
-				}	else {
-					if (j == parse.size() - 1) {
-						count++;
+				for (int j = findLongerList(parse); j < parse.size(); j++) {
+					if (parse.get(j).charAt(i) != '-' && parse.get(j).charAt(i) != '|') {
+						break;
+					}	
+					else if (parse.get(j).charAt(i) == '|') {
+					}	
+					else {
+						if (j == parse.size() - 1) {
+							count++;
+						}
 					}
 				}
-			}
-			}	else {
+			}	
+			else {
 				for (int j = 0; j < parse.size(); j++) {
 					if (j < findLongerList(parse)) {
 						int k = i - 1;
 						if (parse.get(j).charAt(k) != '-' && parse.get(j).charAt(k) != '|') {
 							break;
-						}	else if (parse.get(j).charAt(k) == '|') {
-						}	else {
+						}	
+						else if (parse.get(j).charAt(k) == '|') {
+						}	
+						else {
 							if (j == parse.size() - 1) {
 								count++;
 							}
 						}
-					}	else {
+					}	
+					else {
 						if (parse.get(j).charAt(i) != '-' && parse.get(j).charAt(i) != '|') {
 							break;
-						}	else if (parse.get(j).charAt(i) == '|') {
-						}	else {
+						}	
+						else if (parse.get(j).charAt(i) == '|') {
+						}	
+						else {
 							if (j == parse.size() - 1) {
 								count++;
 							}
@@ -62,29 +70,37 @@ public class Parser {
 
 		for (int i = 0; i < parse.get(findLongerList(parse)).length(); i++) {
 			if (i == 0) {
-			for (int j = findLongerList(parse); j < parse.size(); j++) {
-				if (parse.get(j).charAt(i) != '-' && parse.get(j).charAt(i) != '|') {
-					break;
-				}	else if (parse.get(j).charAt(i) == '|') {
-				}	else {
-					parse.set(i, parse.get(i).substring(i+1));
+				for (int j = findLongerList(parse); j < parse.size(); j++) {
+					if (parse.get(j).charAt(i) != '-' && parse.get(j).charAt(i) != '|') {
+						break;
+					}	
+					else if (parse.get(j).charAt(i) == '|') {
+					}	
+					else {
+						parse.set(i, parse.get(i).substring(i+1));
+					}
 				}
-			}
-			}	else {
+			}	
+			else {
 				for (int j = 0; j < parse.size(); j++) {
 					if (j < findLongerList(parse)) {
 						int k = i - 1;
 						if (parse.get(j).charAt(k) != '-' && parse.get(j).charAt(k) != '|') {
 							break;
-						}	else if (parse.get(j).charAt(k) == '|') {
-						}	else {
+						}	
+						else if (parse.get(j).charAt(k) == '|') {
+						}	
+						else {
 							parse.set(k, parse.get(k).substring(k+1));
 						}
-					}	else {
+					}	
+					else {
 						if (parse.get(j).charAt(i) != '-' && parse.get(j).charAt(i) != '|') {
 							break;
-						}	else if (parse.get(j).charAt(i) == '|') {
-						}	else {
+						}	
+						else if (parse.get(j).charAt(i) == '|') {
+						}	
+						else {
 							parse.set(i, parse.get(i).substring(i+1));
 						}
 					}
@@ -97,15 +113,16 @@ public class Parser {
 	public static int divisionCount(ArrayList<String> parse) {
 		int k = 0;
 		// loop used to count the divisions of the tablature
-				for (int j = 0; j < findLongerList(parse); j++) {
-					if (parse.get(0).charAt(j) == '|') {
-						if (parse.get(0).charAt(j - 1) == '-' && parse.get(0).charAt(j + 1) == '-') {
-							break;
-						}
-					}	else { 
-						k++;
-					}
+		for (int j = 0; j < findLongerList(parse); j++) {
+			if (parse.get(0).charAt(j) == '|') {
+				if (parse.get(0).charAt(j - 1) == '-' && parse.get(0).charAt(j + 1) == '-') {
+					break;
 				}
+			}	
+			else { 
+				k++;
+			}
+		}
 		k = k - 2;
 		k = k / 4;
 		return k;
@@ -119,17 +136,22 @@ public class Parser {
 	public static String stepCount(ArrayList<String> parse) {
 		String step = "";
 		if (findLongerList(parse) == 0) {
-			
-		}	else if (findLongerList(parse) == 1) {
-			
-		}	else if (findLongerList(parse) == 2) {
-			
-		}	else if (findLongerList(parse) == 3) {
-			
-		}	else if (findLongerList(parse) == 4) {
-			
-		}	else  {
-			
+
+		}	
+		else if (findLongerList(parse) == 1) {
+
+		}	
+		else if (findLongerList(parse) == 2) {
+
+		}	
+		else if (findLongerList(parse) == 3) {
+
+		}	
+		else if (findLongerList(parse) == 4) {
+
+		}	
+		else  {
+
 		}
 		return step;
 	}

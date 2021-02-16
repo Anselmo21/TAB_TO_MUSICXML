@@ -4,17 +4,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class StaffTuning {
-	
+
 	@JacksonXmlProperty(isAttribute=true)
 	int line;
-	
+
 	@JacksonXmlProperty(localName = "tuning-step")
 	@JsonProperty("tuning-step")
 	String tuningStep;
-	
+
 	@JacksonXmlProperty(localName = "tuning-octave")
 	String tuningOctave;
-	
+
 	public int getLine() {
 		return line;
 	}
@@ -22,11 +22,11 @@ public class StaffTuning {
 	public void setLine(int line) {
 		this.line = line;
 	}
-	
+
 	public String getTuningStep() {
 		return tuningStep;
 	}
-	
+
 	public void setTuningStep(String tuningStep) {
 		this.tuningStep = tuningStep;
 	}

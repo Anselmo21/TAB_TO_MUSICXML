@@ -3,16 +3,16 @@ package Model;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class Attributes {
-	
+
 	int divisions;
-	
+
 	Key key;
 	Time time;
 	Clef clef;
-	
+
 	@JacksonXmlProperty(localName = "staff-details")
 	StaffDetails staffDetails;
-	
+
 	public int getDivisions() {
 		return divisions;
 	}

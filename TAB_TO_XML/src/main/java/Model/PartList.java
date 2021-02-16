@@ -3,7 +3,7 @@ package Model;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class PartList {
-	
+
 	@JacksonXmlProperty(localName = "score-part")
 	ScorePart[] scoreParts;
 
@@ -20,5 +20,5 @@ public class PartList {
 		super();
 		this.scoreParts = scoreParts;
 	}
-	
+
 }

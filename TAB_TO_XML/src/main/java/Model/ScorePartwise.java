@@ -6,15 +6,15 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 @JacksonXmlRootElement(localName="score-partwise")
 public class ScorePartwise {
-	
+
 	@JacksonXmlProperty(isAttribute = true)
 	String version;
-	
+
 	@JacksonXmlProperty(localName = "part-list")
 	PartList partList;
-	
+
 	@JacksonXmlProperty(localName = "part")
-    @JacksonXmlElementWrapper(useWrapping = false)
+	@JacksonXmlElementWrapper(useWrapping = false)
 	Part[] parts;
 	public String getVersion() {
 		return version;
