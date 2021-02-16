@@ -35,7 +35,43 @@ public class Parser {
 		}
 	 
 	 /**
+		 * Store 6 lines of string (line of notes) from the very first line of notes from the root.
+		 * @param root is the array list of strings that contains the strings from the file.
+		 * @return array parse which stores the very first line of notes that is within the root.
+		 */
+	 public static ArrayList<String> extractStrings(ArrayList<String> root) {
+		 ArrayList<String> parse = new ArrayList<String>();
+		 for (int i = 0; i < root.size(); i++) {
+			 if (root.get(i).contains("E|")) {
+				 for (int j = i; j < i+6; j++) {
+					 parse.add(root.get(j));
+				 }
+				 break;
+			 }
+		 }
+		 return parse;
+	 }
+	 
+	 /**
+		 * Remove 6 lines of string (a line of notes) from the root array list.
+		 * @param root is the array list of strings that contains the strings from the file.
+		 * @return root array after removing the very first line of notes that is within the root.
+		 */
+	 public static ArrayList<String> reduceRoot(ArrayList<String> root) {
+		 for (int i = 0; i < root.size(); i++) {
+			 if (root.get(i).contains("E|")) {
+				 for (int j = i; j < i+6; j++) {
+					 root.remove(j);
+				 }
+				 break;
+			 }
+		 }
+		 return root;
+	 }
+	 
+	 /**
 		 * Find the longest string that's closest to the top
+		 * The returned string is reduced by 1 and must be added by 1 for printing purposes.
 		 * @param parse is the array list of strings that contains a whole line of notes
 		 * @return an integer representing the position of string where the very next note is
 		 */
