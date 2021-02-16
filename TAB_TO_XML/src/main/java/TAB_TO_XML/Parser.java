@@ -33,7 +33,12 @@ public class Parser {
 			}
 			return content; 
 		}
-	//Helper method to find the next string to check
+	 
+	 /**
+		 * Find the longest string that's closest to the top
+		 * @param parse is the array list of strings that contains a whole line of notes
+		 * @return an integer representing the position of string where the very next note is
+		 */
 	private static int findLongerList(ArrayList<String> parse) {
 		int count = 0;
 		int position = 0;
@@ -45,17 +50,20 @@ public class Parser {
 		}
 		return position;
 	}
-	//Counts duration of the note. Uses array that stored a whole line of tab (6 strings)
+	
+	/**
+	 * Counts duration of a note.
+	 * @param parse is the array list of strings that contains a whole line of notes
+	 * @return an integer representing the duration of the note.
+	 */
 	public static int durationCount(ArrayList<String> parse) {
 		int count = 1;
 		for (int i = 0; i < parse.get(findLongerList(parse)).length(); i++) {
 			if (i == 0) {
 				for (int j = findLongerList(parse); j < parse.size(); j++) {
-					if (parse.get(j).charAt(i) != '-' && parse.get(j).charAt(i) != '|') {
+					if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i+1) == '|') {
 						break;
-					}	
-					else if (parse.get(j).charAt(i) == '|') {
-					}	
+					}
 					else {
 						if (j == parse.size() - 1) {
 							count++;
@@ -67,10 +75,11 @@ public class Parser {
 				for (int j = 0; j < parse.size(); j++) {
 					if (j < findLongerList(parse)) {
 						int k = i - 1;
-						if (parse.get(j).charAt(k) != '-' && parse.get(j).charAt(k) != '|') {
+						if (parse.get(j).charAt(k) == '-' && parse.get(j).charAt(k+1) == '|') {
 							break;
 						}	
-						else if (parse.get(j).charAt(k) == '|') {
+						else if (Character.isDigit(parse.get(j).charAt(k))) {
+							break;
 						}	
 						else {
 							if (j == parse.size() - 1) {
@@ -79,10 +88,11 @@ public class Parser {
 						}
 					}	
 					else {
-						if (parse.get(j).charAt(i) != '-' && parse.get(j).charAt(i) != '|') {
+						if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i+1) == '|') {
 							break;
 						}	
-						else if (parse.get(j).charAt(i) == '|') {
+						else if (Character.isDigit(parse.get(j).charAt(i))) {
+							break;
 						}	
 						else {
 							if (j == parse.size() - 1) {
@@ -95,16 +105,22 @@ public class Parser {
 		}
 		return count;
 	}
-	//Helper method on reducing the strings in the array correctly
+
+	/**
+	 * Helper method on reducing the strings in the array correctly every time you print out a note
+	 * @param parse is the array list of strings that contains a whole line of notes
+	 * @return an Array list parse that's been reduced
+	 */
 	public static ArrayList<String> listReduction(ArrayList<String> parse) {
 
 		for (int i = 0; i < parse.get(findLongerList(parse)).length(); i++) {
 			if (i == 0) {
 				for (int j = findLongerList(parse); j < parse.size(); j++) {
-					if (parse.get(j).charAt(i) != '-' && parse.get(j).charAt(i) != '|') {
+					if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i+1) == '|') {
 						break;
 					}	
-					else if (parse.get(j).charAt(i) == '|') {
+					else if (Character.isDigit(parse.get(j).charAt(i))) {
+						break;
 					}	
 					else {
 						parse.set(i, parse.get(i).substring(i+1));
@@ -115,20 +131,20 @@ public class Parser {
 				for (int j = 0; j < parse.size(); j++) {
 					if (j < findLongerList(parse)) {
 						int k = i - 1;
-						if (parse.get(j).charAt(k) != '-' && parse.get(j).charAt(k) != '|') {
+						if (parse.get(j).charAt(k) == '-' && parse.get(j).charAt(k+1) == '|') {
 							break;
 						}	
-						else if (parse.get(j).charAt(k) == '|') {
+						else if (Character.isDigit(parse.get(j).charAt(k))) {
 						}	
 						else {
 							parse.set(k, parse.get(k).substring(k+1));
 						}
 					}	
 					else {
-						if (parse.get(j).charAt(i) != '-' && parse.get(j).charAt(i) != '|') {
+						if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i) == '|') {
 							break;
 						}	
-						else if (parse.get(j).charAt(i) == '|') {
+						else if (Character.isDigit(parse.get(j).charAt(i))) {
 						}	
 						else {
 							parse.set(i, parse.get(i).substring(i+1));
@@ -139,7 +155,12 @@ public class Parser {
 		}
 		return parse;
 	}
-	//Counts the division of the whole tablature
+
+	/**
+	 * Counts the division of the whole tablature
+	 * @param parse is the array list of strings that contains a whole line of notes
+	 * @return an integer that represents the division of the whole tablature.
+	 */
 	public static int divisionCount(ArrayList<String> parse) {
 		int k = 0;
 		// loop used to count the divisions of the tablature
@@ -157,7 +178,12 @@ public class Parser {
 		k = k / 4;
 		return k;
 	}
-	//Counts the fret
+
+	/**
+	 * Counts the fret of the note.
+	 * @param parse is the array list of strings that contains a whole line of notes
+	 * @return an integer that represents the fret of the note.
+	 */
 	public static int fretCount(ArrayList<String> parse) {
 		int fret = parse.get(findLongerList(parse)).charAt(0);
 		return fret;
