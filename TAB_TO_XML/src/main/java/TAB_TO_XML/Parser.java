@@ -93,5 +93,44 @@ public class Parser {
 		}
 		return parse;
 	}
-
+	//Counts the division of the whole tablature
+	public static int divisionCount(ArrayList<String> parse) {
+		int k = 0;
+		// loop used to count the divisions of the tablature
+				for (int j = 0; j < findLongerList(parse); j++) {
+					if (parse.get(0).charAt(j) == '|') {
+						if (parse.get(0).charAt(j - 1) == '-' && parse.get(0).charAt(j + 1) == '-') {
+							break;
+						}
+					}	else { 
+						k++;
+					}
+				}
+		k = k - 2;
+		k = k / 4;
+		return k;
+	}
+	//Counts the fret
+	public static int fretCount(ArrayList<String> parse) {
+		int fret = parse.get(findLongerList(parse)).charAt(0);
+		return fret;
+	}
+	//Counts the step of the note
+	public static String stepCount(ArrayList<String> parse) {
+		String step = "";
+		if (findLongerList(parse) == 0) {
+			
+		}	else if (findLongerList(parse) == 1) {
+			
+		}	else if (findLongerList(parse) == 2) {
+			
+		}	else if (findLongerList(parse) == 3) {
+			
+		}	else if (findLongerList(parse) == 4) {
+			
+		}	else  {
+			
+		}
+		return step;
+	}
 }
