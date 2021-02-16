@@ -1,6 +1,7 @@
 package TAB_TO_XML;
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -81,7 +82,7 @@ public class App {
 			attributes.setKey(key);
 			
 			StaffDetails staffDetails = new StaffDetails();
-			staffDetails.setStaffLines("");
+			staffDetails.setStaffLines("6");
 			staffDetails.setStaffTunings(null);
 			attributes.setStaffDetails(staffDetails);
 			
