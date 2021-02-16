@@ -9,8 +9,8 @@ public class Part {
 	String id;
 
 	@JacksonXmlProperty(localName = "measure")
-	@JacksonXmlElementWrapper(useWrapping = false)
-	Measure[] measures;
+    @JacksonXmlElementWrapper(useWrapping = false)
+	public Measure[] measures;
 	public String getId() {
 		return id;
 	}
