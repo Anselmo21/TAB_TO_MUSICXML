@@ -1,8 +1,38 @@
 package TAB_TO_XML;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Parser {
+		 
+	/**
+	 * Read the text tablature line by line 
+	 * @param path is the file's path that we want to read
+	 * @return an ArrayList filled with contents of the ArrayList
+	 * <p> each line is an element in our array list 
+	 */
+	 public static ArrayList<String> readLineByLine(String path)  {
+			ArrayList<String> content = new ArrayList<String>();
+			Scanner scan = null;
+			try {
+			 scan = new Scanner(new File(path));
+			
+			while (scan.hasNextLine()) { 
+				
+				content.add(scan.nextLine());
+				
+			}
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		} finally { 
+			scan.close(); 
+			}
+			return content; 
+		}
 	//Helper method to find the next string to check
 	private static int findLongerList(ArrayList<String> parse) {
 		int count = 0;
@@ -155,4 +185,5 @@ public class Parser {
 		}
 		return step;
 	}
+	
 }
