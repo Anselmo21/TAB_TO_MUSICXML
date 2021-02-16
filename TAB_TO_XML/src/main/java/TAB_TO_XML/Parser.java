@@ -113,13 +113,10 @@ public class Parser {
 	 */
 	public static ArrayList<String> listReduction(ArrayList<String> parse) {
 
-		for (int i = 0; i < parse.get(findLongerList(parse)).length(); i++) {
+		for (int i = 0; i < parse.get(findLongerList(parse)).length()-1; i++) {
 			if (i == 0) {
 				for (int j = findLongerList(parse); j < parse.size(); j++) {
-					if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i+1) == '|') {
-						break;
-					}	
-					else if (Character.isDigit(parse.get(j).charAt(i))) {
+					if (Character.isDigit(parse.get(j).charAt(i))) {
 						break;
 					}	
 					else {
@@ -131,20 +128,16 @@ public class Parser {
 				for (int j = 0; j < parse.size(); j++) {
 					if (j < findLongerList(parse)) {
 						int k = i - 1;
-						if (parse.get(j).charAt(k) == '-' && parse.get(j).charAt(k+1) == '|') {
+						if (Character.isDigit(parse.get(j).charAt(k))) {
 							break;
-						}	
-						else if (Character.isDigit(parse.get(j).charAt(k))) {
 						}	
 						else {
 							parse.set(k, parse.get(k).substring(k+1));
 						}
 					}	
 					else {
-						if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i) == '|') {
+						if (Character.isDigit(parse.get(j).charAt(i))) {
 							break;
-						}	
-						else if (Character.isDigit(parse.get(j).charAt(i))) {
 						}	
 						else {
 							parse.set(i, parse.get(i).substring(i+1));
