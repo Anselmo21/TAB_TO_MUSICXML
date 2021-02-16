@@ -40,12 +40,12 @@ public class Parser {
 		 * @return an integer representing the position of string where the very next note is
 		 */
 	private static int findLongerList(ArrayList<String> parse) {
-		int count = 0;
+		int count = parse.get(0).length();
 		int position = 0;
 		for (int i = 0; i < parse.size(); i++) {
 			if (count < parse.get(i).length()) {
-				count = parse.get(i).length();
 				position = i;
+				break;
 			}
 		}
 		return position;
