@@ -44,8 +44,8 @@ public class Parser {
 		int position = 0;
 		for (int i = 0; i < parse.size(); i++) {
 			if (count < parse.get(i).length()) {
-				count = parse.get(i).length();
 				position = i;
+				break;
 			}
 		}
 		return position;
