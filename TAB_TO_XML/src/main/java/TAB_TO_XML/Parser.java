@@ -217,28 +217,29 @@ public class Parser {
 		int fret = parse.get(findLongerList(parse)).charAt(0);
 		return fret;
 	}
-	//Counts the step of the note
-	public static String stepCount(ArrayList<String> parse) {
-		String step = "";
-		if (findLongerList(parse) == 0) {
-
-		}	
-		else if (findLongerList(parse) == 1) {
-
-		}	
-		else if (findLongerList(parse) == 2) {
-
-		}	
-		else if (findLongerList(parse) == 3) {
-
-		}	
-		else if (findLongerList(parse) == 4) {
-
-		}	
-		else  {
-
-		}
-		return step;
+	
+	
+	/**
+	 * Method used to get the step count.
+	 * @param parse is the array list of strings that contains a whole line of notes
+	 * @return an String that represents the fret of the note.
+	 */
+	
+public static String StepCount(ArrayList<String> parse) {
+		
+		String [] [] fretboard = new String[] [] {
+	          { "E", "F", "F#", "G", "G#", "A", "A#", "B", "C","C#","D","D#","E" },
+	          { "B", "C", "C#", "D", "D#", "E", "F", "F#", "G","G#","A","A#","B" },
+	          { "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#","E","F","F#","G"},
+	          { "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#","B","C","C#","D" },
+	          { "A", "A#", "B", "C", "C#", "D", "D#", "E", "F","F#","G","G#","A" },
+	          { "E", "F", "F#", "G", "G#", "A", "A#", "B", "C","C#","D","D#","E" }
+	        };
+	        String stepC = "";
+	        
+			stepC=(fretboard[findLongerList(parse)][fretCount(parse)]);
+				
+			return stepC;
 	}
 	
 }
