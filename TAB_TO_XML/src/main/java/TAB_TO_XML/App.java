@@ -2,8 +2,11 @@ package TAB_TO_XML;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +16,30 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import Model.*;
 
 public class App {
+	
+    public static ArrayList<String> readLineByLine(String path)  {
+		ArrayList<String> content = new ArrayList<String>();
+		Scanner scan = null;
+		try {
+		 scan = new Scanner(new File(path));
+		
+		while (scan.hasNextLine()) { 
+			
+			content.add(scan.nextLine());
+			
+		}
+		
+	} catch (Exception e) {
+		
+		e.printStackTrace();
+		
+	} finally { 
+		scan.close(); 
+		}
+		return content; 
+	}
+	
+	
 	public static void main(String[] args) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
@@ -24,6 +51,7 @@ public class App {
 //				System.out.println("name is: " + p.getId());
 //			}
 			
+			// Will stay the same until line 77
 			ScorePartwise scorePartwise = new ScorePartwise();
 			scorePartwise.setVersion("3.1");
 			PartList partList = new PartList();
@@ -99,4 +127,7 @@ public class App {
 			e.printStackTrace();
 		}
 	}
-}
+	
+	
+	}
+

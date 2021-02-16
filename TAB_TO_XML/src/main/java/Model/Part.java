@@ -10,7 +10,7 @@ public class Part {
 	
 	@JacksonXmlProperty(localName = "measure")
     @JacksonXmlElementWrapper(useWrapping = false)
-	Measure[] measures;
+	public Measure[] measures;
 	public String getId() {
 		return id;
 	}

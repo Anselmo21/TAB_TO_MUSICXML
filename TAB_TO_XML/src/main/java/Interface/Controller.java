@@ -1,6 +1,7 @@
 package Interface;
 
 import java.awt.Desktop;
+
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -43,7 +44,8 @@ public class Controller {
 
 	@FXML
 	TextArea textbox;
-
+	
+	//textbox + Browse Button 
 	@FXML
 	public void handleButtonBrowse(ActionEvent event) {
 		fc = new FileChooser();
@@ -64,7 +66,8 @@ public class Controller {
 			}
 		}
 	}
-
+	
+	//OpenFile
 	@FXML
 	public void handleButtonOpenFile(ActionEvent event) {
 		fc = new FileChooser();
@@ -84,7 +87,7 @@ public class Controller {
 	}
 
 
-
+	//Convert Button
 	@FXML
 	public void handleButtonConvert(ActionEvent event) {
 		try {
@@ -110,7 +113,10 @@ public class Controller {
 			errorAlert.showAndWait();
 		}
 	}
-
+	
+	/*
+	 * Helper methods
+	 */
 	public void createXML() throws ParserConfigurationException, TransformerConfigurationException, SAXException {
 		SAXTransformerFactory tf = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
 		th = tf.newTransformerHandler(); 
