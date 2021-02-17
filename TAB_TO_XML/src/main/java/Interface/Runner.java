@@ -15,7 +15,7 @@ public class Runner extends Application {
 		primaryStage.setTitle("Allegro Tab Converter");
 		Scene scene = new Scene(root, 800, 600);
 		scene.getStylesheets().add("Interface/Intro.css");
-		Image logo = new Image("/Interface/Logo.jpg");
+		Image logo = new Image("/Interface/music-background.jpg");
 		primaryStage.getIcons().add(logo);
 		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
