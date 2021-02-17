@@ -97,26 +97,39 @@ public class App {
 			barline.setLocation("right");
 			measures[0].setBarline(barline);
 			
-			Note[] note = new Note[1];
-			note[0] = new Note();
-			note[0].setDuration("1");
+			ArrayList<String> storeFile = new ArrayList<>();
+			storeFile = Parser.readLineByLine("C:\\Users\\Rober\\git\\EECS2311_GROUP5_TAB_TO_MUSICXML\\TAB_TO_XML\\example");
+			for (int i = 0; i < storeFile.size(); i++) {
+				ArrayList<String> printArr = new ArrayList<>();
+				printArr = Parser.extractStrings(storeFile);
+				storeFile = Parser.reduceRoot(storeFile);
+				printArr = Parser.listReduction(printArr);
+				while (printArr.get(i).length() > 2) {
+						Note[] note = new Note[1];
+						note[0] = new Note();
+						note[0].setDuration(Parser.durationCount(printArr));
 			
-			Notations notations = new Notations();
-			Technical technical = new Technical();
-			technical.setFret("0");
-			technical.setString("6");
-			notations.setTechnical(technical);
-			note[0].setNotations(notations);
+						Notations notations = new Notations();
+						Technical technical = new Technical();
+						technical.setFret(Parser.fretCount(printArr));
+						Integer string = Parser.findLongerList(printArr)+1;
+						technical.setString(string.toString());
+						notations.setTechnical(technical);
+						note[0].setNotations(notations);
 			
-			Pitch pitch = new Pitch();
-			pitch.setStep("E");
-			pitch.setOctave("2");
-			note[0].setPitch(pitch);
+						Pitch pitch = new Pitch();
+						pitch.setStep(Parser.StepCount(printArr));
+						pitch.setOctave(Parser.octaveCount(printArr));
+						note[0].setPitch(pitch);
 			
-			note[0].setType("eighth");
-			note[0].setVoice("1");
-			measures[0].setNote(note);
-			parts[0].setMeasures(measures);
+						note[0].setType(Parser.StepCount(printArr));
+						note[0].setVoice("1");
+						measures[0].setNote(note);
+						parts[0].setMeasures(measures);
+						printArr = Parser.listReduction(printArr);
+				}
+			
+			}
 			
 			scorePartwise.setParts(parts);
 			

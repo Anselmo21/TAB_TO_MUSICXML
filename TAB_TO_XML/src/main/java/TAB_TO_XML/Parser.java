@@ -92,8 +92,8 @@ public class Parser {
 	 * @param parse is the array list of strings that contains a whole line of notes
 	 * @return an integer representing the duration of the note.
 	 */
-	public static int durationCount(ArrayList<String> parse) {
-		int count = 1;
+	public static String durationCount(ArrayList<String> parse) {
+		Integer count = 1;
 		outerloop:
 		for (int i = 0; i < parse.get(findLongerList(parse)).length(); i++) {
 			if (i == 0) {
@@ -140,7 +140,7 @@ public class Parser {
 				}
 			}
 		}
-		return count;
+		return count.toString();
 	}
 
 	/**
@@ -213,8 +213,9 @@ public class Parser {
 	 * @param parse is the array list of strings that contains a whole line of notes
 	 * @return an integer that represents the fret of the note.
 	 */
-	public static int fretCount(ArrayList<String> parse) {
-		int fret = Character.getNumericValue(parse.get(findLongerList(parse)).charAt(1));
+	public static String fretCount(ArrayList<String> parse) {
+		Integer a = Character.getNumericValue(parse.get(findLongerList(parse)).charAt(1));
+		String fret = a.toString();
 		return fret;
 	}
 	
@@ -237,7 +238,7 @@ public class Parser {
 	        };
 	        String stepC = "";
 	        
-			stepC=(fretboard[findLongerList(parse)][fretCount(parse)]);
+			stepC=(fretboard[findLongerList(parse)][Character.getNumericValue(fretCount(parse).charAt(0))]);
 				
 			return stepC;
 	}
@@ -250,22 +251,22 @@ public class Parser {
 	public static String typeDeclare(ArrayList<String> parse) {
 		String type = "";
 		String [] types = new String[] { "eighth", "", "quarter", "", "half", "", "quarter and half", "", "whole" };
-		type = (types[durationCount(parse)]);
+		type = (types[Character.getNumericValue(durationCount(parse).charAt(0))]);
 		return type;
 	}
 	
-	public static int octaveCount(ArrayList<String> parse) {
-		int octave = 0;
-		int [] [] fretboard = new int[] [] {
-	          { 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5 },
-	          { 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 },
-	          { 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4},
-	          { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4 },
-	          { 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 },
-	          { 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3 }
+	public static String octaveCount(ArrayList<String> parse) {
+		String octave;
+		String [] [] fretboard = new String[] [] {
+	          { "4", "4", "4", "4", "4", "4", "4", "4", "5", "5", "5", "5", "5" },
+	          { "3", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4" },
+	          { "3", "3", "3", "3", "3", "4", "4", "4", "4", "4", "4", "4", "4" },
+	          { "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "4", "4", "4" },
+	          { "2", "2", "2", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3" },
+	          { "2", "2", "2", "2", "2", "2", "2", "2", "3", "3", "3", "3", "3" }
 	        };
 	        
-	        octave=(fretboard[findLongerList(parse)][fretCount(parse)]);
+	        octave=(fretboard[findLongerList(parse)][Character.getNumericValue(fretCount(parse).charAt(0))]);
 	        
 	        return octave;
 	}

@@ -44,8 +44,8 @@ class ParserTester {
 		ArrayList<String> testArr = new ArrayList<>();
 		testArr = Parser.extractStrings(storeFile);
 		testArr = Parser.listReduction(testArr);
-		int a = Parser.durationCount(testArr);
-		assertEquals(2, a);
+		String a = Parser.durationCount(testArr);
+		assertEquals("2", a);
 	}
 	
 	@Test
@@ -66,8 +66,8 @@ class ParserTester {
 		testArr = Parser.extractStrings(storeFile);
 		testArr = Parser.listReduction(testArr);
 		testArr = Parser.listReduction(testArr);
-		int a = Parser.fretCount(testArr);
-		assertEquals(2, a);
+		String a = Parser.fretCount(testArr);
+		assertEquals("2", a);
 	}
 	
 	@Test
