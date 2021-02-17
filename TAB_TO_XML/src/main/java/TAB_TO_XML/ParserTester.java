@@ -18,6 +18,14 @@ class ParserTester {
 	}
 	
 	@Test
+	void reduceRootTest() {
+		ArrayList<String> storeFile = new ArrayList<>();
+		storeFile = Parser.readLineByLine("C:\\Users\\Rober\\git\\EECS2311_GROUP5_TAB_TO_MUSICXML\\TAB_TO_XML\\example");
+		storeFile = Parser.reduceRoot(storeFile);
+		assertEquals(0, storeFile.size());
+	}
+	
+	@Test
 	void listReductionTest() {
 		ArrayList<String> storeFile = new ArrayList<>();
 		storeFile = Parser.readLineByLine("C:\\Users\\Rober\\git\\EECS2311_GROUP5_TAB_TO_MUSICXML\\TAB_TO_XML\\example");

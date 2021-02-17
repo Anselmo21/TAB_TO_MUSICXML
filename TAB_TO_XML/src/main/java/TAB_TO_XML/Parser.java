@@ -61,7 +61,7 @@ public class Parser {
 		 for (int i = 0; i < root.size(); i++) {
 			 if (root.get(i).contains("|-")) {
 				 for (int j = i; j < i+6; j++) {
-					 root.remove(j);
+					 root.remove(i);
 				 }
 				 break;
 			 }

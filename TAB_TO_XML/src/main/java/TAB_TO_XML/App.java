@@ -18,28 +18,6 @@ import Model.*;
 
 public class App {
 	
-    public static ArrayList<String> readLineByLine(String path)  {
-		ArrayList<String> content = new ArrayList<String>();
-		Scanner scan = null;
-		try {
-		 scan = new Scanner(new File(path));
-		
-		while (scan.hasNextLine()) { 
-			
-			content.add(scan.nextLine());
-			
-		}
-		
-	} catch (Exception e) {
-		
-		e.printStackTrace();
-		
-	} finally { 
-		scan.close(); 
-		}
-		return content; 
-	}
-	
 	
 	public static void main(String[] args) {
 		try {
