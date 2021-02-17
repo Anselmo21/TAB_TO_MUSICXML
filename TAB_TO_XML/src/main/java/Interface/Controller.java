@@ -25,6 +25,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import TAB_TO_XML.App;
+import TAB_TO_XML.Parser;
 
 public class Controller {
 
@@ -44,7 +46,7 @@ public class Controller {
 
 	@FXML
 	TextArea textbox;
-	
+
 	//textbox + Browse Button 
 	@FXML
 	public void handleButtonBrowse(ActionEvent event) {
@@ -66,7 +68,7 @@ public class Controller {
 			}
 		}
 	}
-	
+
 	//OpenFile
 	@FXML
 	public void handleButtonOpenFile(ActionEvent event) {
@@ -93,14 +95,11 @@ public class Controller {
 		try {
 			input = new BufferedReader(new FileReader(tablature));
 			output = new StreamResult("tablature_converted.musicxml");
-			createXML();
-			String xmlLine;
-			while ((xmlLine = input.readLine()) != null) {
-				process(xmlLine);
-
-			}
-			input.close();
-			endXML();
+			//createXML();
+			String xmlLine = tablature.getAbsolutePath();
+			Parser.readLineByLine(xmlLine);
+			Parser.setPath(xmlLine);
+			App.main(null);
 			Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
 			errorAlert.setHeaderText("The selected file is being converted to XML"); 
 			errorAlert.setContentText("Please Wait.."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
@@ -113,7 +112,7 @@ public class Controller {
 			errorAlert.showAndWait();
 		}
 	}
-	
+
 	/*
 	 * Helper methods
 	 */
@@ -140,5 +139,16 @@ public class Controller {
 		th.endElement(null, null, "inserts"); 
 		th.endDocument(); 
 	}
+
+	public String getPath(String path) {
+		return tablature.getAbsolutePath();
+	}
+
+	//while ((xmlLine = input.readLine()) != null) {
+	//process(xmlLine);
+
+	//}
+	//input.close();
+	//endXML();
 
 }

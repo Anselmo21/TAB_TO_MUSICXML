@@ -3,8 +3,19 @@ package TAB_TO_XML;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Interface.Controller;
 
 public class Parser {
+	
+	private static String pathName;
+	
+	public static void setPath(String path) {
+		pathName = path; 
+	}
+	
+	public static String getPath() {
+		return pathName;
+	}
 		 
 	/**
 	 * Read the text tablature line by line 

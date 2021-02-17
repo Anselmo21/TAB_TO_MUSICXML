@@ -76,7 +76,7 @@ public class App {
 			measures[0].setBarline(barline);
 			
 			ArrayList<String> storeFile = new ArrayList<>();
-			storeFile = Parser.readLineByLine("C:\\Users\\Rober\\git\\EECS2311_GROUP5_TAB_TO_MUSICXML\\TAB_TO_XML\\example");
+			storeFile = Parser.readLineByLine(Parser.getPath());
 			for (int i = 0; i < storeFile.size(); i++) {
 				ArrayList<String> printArr = new ArrayList<>();
 				printArr = Parser.extractStrings(storeFile);
