@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Runner extends Application {
@@ -14,6 +15,8 @@ public class Runner extends Application {
 		primaryStage.setTitle("Allegro Tab Converter");
 		Scene scene = new Scene(root, 800, 600);
 		scene.getStylesheets().add("Interface/Intro.css");
+		Image logo = new Image("/Interface/Logo.jpg");
+		primaryStage.getIcons().add(logo);
 		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.show();
