@@ -74,6 +74,7 @@ class ParserTester {
 		testArr = Parser.extractStrings(storeFile);
 		testArr = Parser.listReduction(testArr);
 		testArr = Parser.listReduction(testArr);
+		testArr = Parser.listReduction(testArr);
 		String a = Parser.fretCount(testArr);
 		assertEquals("2", a);
 	}
@@ -86,7 +87,7 @@ class ParserTester {
 		testArr = Parser.extractStrings(storeFile);
 		testArr = Parser.listReduction(testArr);
 		String a = Parser.StepCount(testArr);
-		assertEquals("E", a);
+		assertEquals("B", a);
 	}
 }
 //
