@@ -190,7 +190,7 @@ public class Parser {
 			}
 		return parse;
 	}
-
+	///May require fix again
 	/**
 	 * Counts the division of the whole tablature
 	 * @param parse is the array list of strings that contains a whole line of notes
