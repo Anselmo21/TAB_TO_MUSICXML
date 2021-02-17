@@ -42,7 +42,7 @@ public class Parser {
 	 public static ArrayList<String> extractStrings(ArrayList<String> root) {
 		 ArrayList<String> parse = new ArrayList<String>();
 		 for (int i = 0; i < root.size(); i++) {
-			 if (root.get(i).contains("E|")) {
+			 if (root.get(i).contains("|-")) {
 				 for (int j = i; j < i+6; j++) {
 					 parse.add(root.get(j));
 				 }
@@ -59,7 +59,7 @@ public class Parser {
 		 */
 	 public static ArrayList<String> reduceRoot(ArrayList<String> root) {
 		 for (int i = 0; i < root.size(); i++) {
-			 if (root.get(i).contains("E|")) {
+			 if (root.get(i).contains("|-")) {
 				 for (int j = i; j < i+6; j++) {
 					 root.remove(j);
 				 }
@@ -94,11 +94,12 @@ public class Parser {
 	 */
 	public static int durationCount(ArrayList<String> parse) {
 		int count = 1;
+		outerloop:
 		for (int i = 0; i < parse.get(findLongerList(parse)).length(); i++) {
 			if (i == 0) {
 				for (int j = findLongerList(parse); j < parse.size(); j++) {
 					if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i+1) == '|') {
-						break;
+						break outerloop;
 					}
 					else {
 						if (j == parse.size() - 1) {
@@ -112,10 +113,10 @@ public class Parser {
 					if (j < findLongerList(parse)) {
 						int k = i - 1;
 						if (parse.get(j).charAt(k) == '-' && parse.get(j).charAt(k+1) == '|') {
-							break;
+							break outerloop;
 						}	
 						else if (Character.isDigit(parse.get(j).charAt(k))) {
-							break;
+							break outerloop;
 						}	
 						else {
 							if (j == parse.size() - 1) {
@@ -125,10 +126,10 @@ public class Parser {
 					}	
 					else {
 						if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i+1) == '|') {
-							break;
+							break outerloop;
 						}	
 						else if (Character.isDigit(parse.get(j).charAt(i))) {
-							break;
+							break outerloop;
 						}	
 						else {
 							if (j == parse.size() - 1) {
@@ -148,12 +149,12 @@ public class Parser {
 	 * @return an Array list parse that's been reduced
 	 */
 	public static ArrayList<String> listReduction(ArrayList<String> parse) {
-
+		outerloop:
 		for (int i = 0; i < parse.get(findLongerList(parse)).length()-1; i++) {
 			if (i == 0) {
 				for (int j = findLongerList(parse); j < parse.size(); j++) {
 					if (Character.isDigit(parse.get(j).charAt(i))) {
-						break;
+						break outerloop;
 					}	
 					else {
 						parse.set(i, parse.get(i).substring(i+1));
@@ -165,7 +166,7 @@ public class Parser {
 					if (j < findLongerList(parse)) {
 						int k = i - 1;
 						if (Character.isDigit(parse.get(j).charAt(k))) {
-							break;
+							break outerloop;
 						}	
 						else {
 							parse.set(k, parse.get(k).substring(k+1));
@@ -173,7 +174,7 @@ public class Parser {
 					}	
 					else {
 						if (Character.isDigit(parse.get(j).charAt(i))) {
-							break;
+							break outerloop;
 						}	
 						else {
 							parse.set(i, parse.get(i).substring(i+1));
