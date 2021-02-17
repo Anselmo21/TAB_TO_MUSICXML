@@ -104,7 +104,7 @@ public class Parser {
 	 * @return an integer representing the duration of the note.
 	 */
 	public static String durationCount(ArrayList<String> parse) {
-		Integer count = 1;
+		Integer count = 0;
 		outerloop:
 		for (int i = 0; i < parse.get(findLongerList(parse)).length(); i++) {
 			if (i == 0) {
@@ -163,37 +163,31 @@ public class Parser {
 		outerloop:
 		for (int i = 0; i < parse.get(findLongerList(parse)).length()-1; i++) {
 			if (i == 0) {
-				for (int j = findLongerList(parse); j < parse.size(); j++) {
-					if (Character.isDigit(parse.get(j).charAt(i))) {
+				int a = findLongerList(parse);
+				if (Character.isDigit(parse.get(a).charAt(0))) {
+					parse.set(a, parse.get(a).substring(1));
+					a = a + 1;
+				}
+				for (int j = a; j < parse.size(); j++) {
+					if (Character.isDigit(parse.get(j).charAt(0))) {
 						break outerloop;
-					}	
+					}
 					else {
-						parse.set(j, parse.get(j).substring(i+1));
+						parse.set(j, parse.get(j).substring(1));
 					}
 				}
 			}	
 			else {
 				for (int j = 0; j < parse.size(); j++) {
-					if (j < findLongerList(parse)) {
-						int k = i - 1;
-						if (Character.isDigit(parse.get(j).charAt(k))) {
+						if (Character.isDigit(parse.get(j).charAt(0))) {
 							break outerloop;
-						}	
-						else {
-							parse.set(j, parse.get(j).substring(k+1));
 						}
-					}	
-					else {
-						if (Character.isDigit(parse.get(j).charAt(i))) {
-							break outerloop;
-						}	
 						else {
-							parse.set(j, parse.get(j).substring(i+1));
+							parse.set(j, parse.get(j).substring(1));
 						}
 					}
 				}
 			}
-		}
 		return parse;
 	}
 
@@ -225,7 +219,7 @@ public class Parser {
 	 * @return an integer that represents the fret of the note.
 	 */
 	public static String fretCount(ArrayList<String> parse) {
-		Integer a = Character.getNumericValue(parse.get(findLongerList(parse)).charAt(1));
+		Integer a = Character.getNumericValue(parse.get(findLongerList(parse)).charAt(0));
 		String fret = a.toString();
 		return fret;
 	}
