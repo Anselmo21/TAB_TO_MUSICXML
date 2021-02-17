@@ -157,7 +157,7 @@ public class Parser {
 						break outerloop;
 					}	
 					else {
-						parse.set(i, parse.get(i).substring(i+1));
+						parse.set(j, parse.get(j).substring(i+1));
 					}
 				}
 			}	
@@ -169,7 +169,7 @@ public class Parser {
 							break outerloop;
 						}	
 						else {
-							parse.set(k, parse.get(k).substring(k+1));
+							parse.set(j, parse.get(j).substring(k+1));
 						}
 					}	
 					else {
@@ -177,7 +177,7 @@ public class Parser {
 							break outerloop;
 						}	
 						else {
-							parse.set(i, parse.get(i).substring(i+1));
+							parse.set(j, parse.get(j).substring(i+1));
 						}
 					}
 				}
@@ -194,17 +194,16 @@ public class Parser {
 	public static int divisionCount(ArrayList<String> parse) {
 		int k = 0;
 		// loop used to count the divisions of the tablature
-		for (int j = 0; j < findLongerList(parse); j++) {
-			if (parse.get(0).charAt(j) == '|') {
-				if (parse.get(0).charAt(j - 1) == '-' && parse.get(0).charAt(j + 1) == '-') {
+		for (int i = 1; i < parse.get(findLongerList(parse)).length(); i++) {
+			if (parse.get(0).charAt(i) == '|') {
+				if (parse.get(0).charAt(i - 1) == '-' && parse.get(0).charAt(i + 1) == '-') {
 					break;
 				}
 			}	
-			else { 
+			else {
 				k++;
 			}
 		}
-		k = k - 2;
 		k = k / 4;
 		return k;
 	}
@@ -215,7 +214,7 @@ public class Parser {
 	 * @return an integer that represents the fret of the note.
 	 */
 	public static int fretCount(ArrayList<String> parse) {
-		int fret = parse.get(findLongerList(parse)).charAt(0);
+		int fret = Character.getNumericValue(parse.get(findLongerList(parse)).charAt(1));
 		return fret;
 	}
 	
@@ -253,6 +252,22 @@ public class Parser {
 		String [] types = new String[] { "eighth", "", "quarter", "", "half", "", "quarter and half", "", "whole" };
 		type = (types[durationCount(parse)]);
 		return type;
+	}
+	
+	public static int octaveCount(ArrayList<String> parse) {
+		int octave = 0;
+		int [] [] fretboard = new int[] [] {
+	          { 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5 },
+	          { 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 },
+	          { 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4},
+	          { 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4 },
+	          { 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3 },
+	          { 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3 }
+	        };
+	        
+	        octave=(fretboard[findLongerList(parse)][fretCount(parse)]);
+	        
+	        return octave;
 	}
 	
 }
