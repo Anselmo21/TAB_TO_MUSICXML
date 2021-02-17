@@ -75,7 +75,7 @@ public class Parser {
 		 * @param parse is the array list of strings that contains a whole line of notes
 		 * @return an integer representing the position of string where the very next note is
 		 */
-	private static int findLongerList(ArrayList<String> parse) {
+	public static int findLongerList(ArrayList<String> parse) {
 		int count = parse.get(0).length();
 		int position = 0;
 		for (int i = 0; i < parse.size(); i++) {
