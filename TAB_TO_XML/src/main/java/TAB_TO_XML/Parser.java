@@ -225,7 +225,7 @@ public class Parser {
 	 * @return an String that represents the fret of the note.
 	 */
 	
-public static String StepCount(ArrayList<String> parse) {
+	public static String StepCount(ArrayList<String> parse) {
 		
 		String [] [] fretboard = new String[] [] {
 	          { "E", "F", "F#", "G", "G#", "A", "A#", "B", "C","C#","D","D#","E" },
@@ -240,6 +240,18 @@ public static String StepCount(ArrayList<String> parse) {
 			stepC=(fretboard[findLongerList(parse)][fretCount(parse)]);
 				
 			return stepC;
+	}
+	
+	/**
+	 * Method used to get the type
+	 * @param parse is the array list of strings that contains a whole line of notes
+	 * @return an String that represents the type of the note.
+	 */
+	public static String typeDeclare(ArrayList<String> parse) {
+		String type = "";
+		String [] types = new String[] { "eighth", "", "quarter", "", "half", "", "quarter and half", "", "whole" };
+		type = (types[durationCount(parse)]);
+		return type;
 	}
 	
 }
