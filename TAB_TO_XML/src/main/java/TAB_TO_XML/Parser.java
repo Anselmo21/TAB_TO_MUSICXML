@@ -284,7 +284,7 @@ public class Parser {
 	 */
 	public static String typeDeclare(ArrayList<String> parse) {
 		String type = "";
-		String[] types = new String[] { "eighth", "", "quarter", "", "half", "", "quarter and half", "", "whole" };
+		String[] types = new String[] { "", "eighth", "quarter", "quarter and eighth", "half", "", "quarter and half", "", "whole" };
 		type = (types[Character.getNumericValue(durationCount(parse).charAt(0))]);
 		return type;
 	}
