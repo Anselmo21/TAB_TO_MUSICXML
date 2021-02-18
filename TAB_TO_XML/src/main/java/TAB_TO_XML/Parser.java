@@ -120,6 +120,7 @@ public class Parser {
 				if (i == 0) {
 					for (int j = findLongerList(parse); j < parse.size(); j++) {
 						if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i+1) == '|') {
+							count++;
 							break outerloop;
 						}
 						else {
@@ -134,6 +135,7 @@ public class Parser {
 						if (j < findLongerList(parse)) {
 							int k = i - 1;
 							if (parse.get(j).charAt(k) == '-' && parse.get(j).charAt(k+1) == '|') {
+								count++;
 								break outerloop;
 							}	
 							else if (Character.isDigit(parse.get(j).charAt(k))) {
@@ -147,6 +149,7 @@ public class Parser {
 						}	
 						else {
 							if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i+1) == '|') {
+								count++;
 								break outerloop;
 							}	
 							else if (Character.isDigit(parse.get(j).charAt(i))) {
@@ -161,6 +164,10 @@ public class Parser {
 					}
 				}
 			}
+		count = count / 2;
+		if (count > 8) {
+			count = 8;
+		}
 		return count.toString();
 	}
 
@@ -219,15 +226,10 @@ public class Parser {
 		// loop used to count the divisions of the tablature
 		for (int i = 1; i < parse.get(findLongerList(parse)).length(); i++) {
 			if (parse.get(0).charAt(i) == '|') {
-				if (parse.get(0).charAt(i - 1) == '-' && parse.get(0).charAt(i + 1) == '-') {
-					break;
+					k++;
 				}
-			}	
-			else {
-				k++;
-			}
 		}
-		k = k / 4;
+		k = k - 2;
 		return k;
 	}
 
