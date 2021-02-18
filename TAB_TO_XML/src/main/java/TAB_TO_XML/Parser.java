@@ -34,11 +34,11 @@ public class Parser {
 	 * 
 	 * @param path is the file's path that we want to read
 	 * @return an ArrayList filled with contents of the ArrayList
-	 *         <p>
-	 *         each line is an element in our array list
+	 * <p>
+	 * each line is an element in our array list
 	 */
 	public static ArrayList<String> readLineByLine(String path) {
-		ArrayList<String> content = new ArrayList<String>();
+		ArrayList<String> content = new ArrayList<String>(); 
 		Scanner scan = null;
 		try {
 			scan = new Scanner(new File(path));
@@ -69,11 +69,11 @@ public class Parser {
 	 *         the root.
 	 */
 	public static ArrayList<String> extractStrings(ArrayList<String> root) {
-		ArrayList<String> parse = new ArrayList<String>();
-		for (int i = 0; i < root.size(); i++) {
-			if (root.get(i).contains("|-")) {
-				for (int j = i; j < i + 6; j++) {
-					parse.add(root.get(j));
+		ArrayList<String> parse = new ArrayList<String>(); 
+		for (int i = 0; i < root.size(); i++) { //iterate through the passed arraylist from start to finish 
+			if (root.get(i).contains("|-")) { //if an element of root array at index i contains the character "|-"
+				for (int j = i; j < i + 6; j++) { //iterate from j = i to 6 indices after, one at a time
+					parse.add(root.get(j)); //add each of the characters within the range of iteration
 				}
 				break;
 			}
@@ -110,12 +110,12 @@ public class Parser {
 	 *         note is
 	 */
 	public static int findLongerList(ArrayList<String> parse) {
-		int count = parse.get(0).length();
+		int count = parse.get(0).length(); // count is the number of characters in the first string element of the array 
 		int position = 0;
 		for (int i = 0; i < parse.size(); i++) {
-			if (count < parse.get(i).length()) {
-				position = i;
-				break;
+			if (count < parse.get(i).length()) { //if the first element of array has less characters than the next element in parse 
+				position = i; //let the position be the index of that next element
+				break; // stop looping 
 			}
 		}
 		return position;
