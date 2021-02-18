@@ -165,39 +165,47 @@ public class Parser {
 
 	/**
 	 * Helper method on reducing the strings in the array correctly every time you print out a note
-	 * @param parse is the array list of strings that contains a whole line of notes
+	 * @param newParse is the array list of strings that contains a whole line of notes
 	 * @return an Array list parse that's been reduced
 	 */
 	public static ArrayList<String> listReduction(ArrayList<String> parse) {
+		
+		ArrayList<String> newParse = new ArrayList<>();
+		
+		// deep copy
+		for(String s : parse) {
+		    newParse.add(s);
+		}
+		
 		outerloop:
-			for (int i = 0; i < parse.get(findLongerList(parse)).length()-1; i++) {
+			for (int i = 0; i < newParse.get(findLongerList(newParse)).length()-1; i++) {
 				if (i == 0) {
-					int a = findLongerList(parse);
-					if (Character.isDigit(parse.get(a).charAt(0))) {
-						parse.set(a, parse.get(a).substring(1));
+					int a = findLongerList(newParse);
+					if (Character.isDigit(newParse.get(a).charAt(0))) {
+						newParse.set(a, newParse.get(a).substring(1));
 						a = a + 1;
 					}
-					for (int j = a; j < parse.size(); j++) {
-						if (Character.isDigit(parse.get(j).charAt(0))) {
+					for (int j = a; j < newParse.size(); j++) {
+						if (Character.isDigit(newParse.get(j).charAt(0))) {
 							break outerloop;
 						}
 						else {
-							parse.set(j, parse.get(j).substring(1));
+							newParse.set(j, newParse.get(j).substring(1));
 						}
 					}
 				}	
 				else {
-					for (int j = 0; j < parse.size(); j++) {
-						if (Character.isDigit(parse.get(j).charAt(0))) {
+					for (int j = 0; j < newParse.size(); j++) {
+						if (Character.isDigit(newParse.get(j).charAt(0))) {
 							break outerloop;
 						}
 						else {
-							parse.set(j, parse.get(j).substring(1));
+							newParse.set(j, newParse.get(j).substring(1));
 						}
 					}
 				}
 			}
-	return parse;
+	return newParse;
 	}
 	///May require fix again
 	/**
@@ -228,10 +236,10 @@ public class Parser {
 	 * @return an integer that represents the fret of the note.
 	 */
 	public static String fretCount(ArrayList<String> parse) {
-		System.out.println(findLongerList(parse));
+		//System.out.println(findLongerList(parse));
 		Integer a = Character.getNumericValue(parse.get(findLongerList(parse)).charAt(0));
 		String fret = a.toString();
-		System.out.println(fret);
+		//System.out.println(fret);
 		return fret;
 	}
 
@@ -242,7 +250,7 @@ public class Parser {
 	 * @return an String that represents the fret of the note.
 	 */
 
-	public static String StepCount(ArrayList<String> parse) {
+	public static String stepCount(ArrayList<String> parse) {
 
 		String [] [] fretboard = new String[] [] {
 			{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C","C#","D","D#","E" },
