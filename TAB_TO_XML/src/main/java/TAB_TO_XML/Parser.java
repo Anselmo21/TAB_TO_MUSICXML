@@ -22,6 +22,7 @@ public class Parser {
 	 * Getter method for path name.
 	 * @return
 	 */
+	
 	public static String getPath() {
 		return pathName;
 	}
@@ -251,6 +252,10 @@ public class Parser {
 			{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C","C#","D","D#","E" }
 		};
 		String stepC = "";
+		
+		//System.out.println(findLongerList(parse) + "x");
+		System.out.println(fretCount(parse));
+		//System.out.println(fretCount(parse).charAt(2) + "y");
 
 		stepC=(fretboard[findLongerList(parse)][Character.getNumericValue(fretCount(parse).charAt(0))]);
 
