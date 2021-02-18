@@ -55,6 +55,7 @@ public class Controller {
 	
 	@FXML
 	public void handleButtonBrowse(ActionEvent event) {
+		textbox.clear();
 		fc = new FileChooser();
 		fc.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 		tablature = fc.showOpenDialog(null);
@@ -82,7 +83,6 @@ public class Controller {
 	
 	@FXML
 	public void handleButtonOpenFile(ActionEvent event) {
-		textbox.clear();
 		fc = new FileChooser();
 		Scanner sc = null;
 		try {
