@@ -53,5 +53,5 @@ NOTE: If you get the warning “Error: JavaFX runtime components are missing”,
 12.	The last step is to click on “run configuration” from the run drop down list.
 13.	You will then see “Arguments” and after clicking this “VM Arguments” at the bottom.
 14.	 In that field type in the path to the javafx folder.
-15.	As an example --module-path"C:\Users\moham\Downloads\javafx-sdk-15.0.1\lib" --add-modules javafx.controls,javafx.fxml.
+15.	As an example --module-path "C:\Users\moham\Downloads\javafx-sdk-15.0.1\lib" --add-modules javafx.controls,javafx.fxml.
 16.	Click apply. Now the problem should be solved.
