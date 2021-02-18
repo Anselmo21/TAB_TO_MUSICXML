@@ -229,8 +229,10 @@ public class Parser {
 	 * @return an integer that represents the fret of the note.
 	 */
 	public static String fretCount(ArrayList<String> parse) {
+		System.out.println(findLongerList(parse));
 		Integer a = Character.getNumericValue(parse.get(findLongerList(parse)).charAt(0));
 		String fret = a.toString();
+		System.out.println(fret);
 		return fret;
 	}
 
@@ -258,7 +260,6 @@ public class Parser {
 		//System.out.println(fretCount(parse).charAt(2) + "y");
 
 		stepC=(fretboard[findLongerList(parse)][Character.getNumericValue(fretCount(parse).charAt(0))]);
-
 		return stepC;
 	}
 

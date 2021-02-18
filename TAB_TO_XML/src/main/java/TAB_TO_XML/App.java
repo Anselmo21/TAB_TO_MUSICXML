@@ -17,8 +17,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import Model.*;
 
 public class App {
-	
-	
+
 	public static void main(String[] args) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
@@ -29,7 +28,7 @@ public class App {
 //			for (Part p : parts) {
 //				System.out.println("name is: " + p.getId());
 //			}
-			
+
 			// Will stay the same until line 77
 			ScorePartwise scorePartwise = new ScorePartwise();
 			scorePartwise.setVersion("3.1");
@@ -40,86 +39,92 @@ public class App {
 			scoreParts[0].setPartName("Classical Guitar");
 			partList.setScoreParts(scoreParts);
 			scorePartwise.setPartList(partList);
-			
+
 			Part[] parts = new Part[1];
 			parts[0] = new Part();
 			parts[0].setId("P1");
 			Measure[] measures = new Measure[1];
 			measures[0] = new Measure();
 			measures[0].setNumber(1);
-			
+
 			Attributes attributes = new Attributes();
 			Clef clef = new Clef();
 			clef.setSign("TAB");
 			clef.setLine("5");
 			attributes.setClef(clef);
 			attributes.setDivisions(2);
-			
+
 			Key key = new Key();
 			key.setFifths("0");
 			attributes.setKey(key);
-			
+
 			StaffDetails staffDetails = new StaffDetails();
 			staffDetails.setStaffLines("6");
 			staffDetails.setStaffTunings(null);
 			attributes.setStaffDetails(staffDetails);
-			
+
 			Time time = new Time();
 			time.setBeats("4");
 			time.setBeatType("4");
 			attributes.setTime(time);
-			
+
 			measures[0].setAttributes(attributes);
 			Barline barline = new Barline();
 			barline.setBarStyle("light-heavy");
 			barline.setLocation("right");
 			measures[0].setBarline(barline);
-			
+
 			ArrayList<String> storeFile = new ArrayList<>();
-			storeFile = Parser.readLineByLine(Parser.getPath());
+			storeFile = Parser
+					.readLineByLine("C:\\Users\\Rober\\git\\EECS2311_GROUP5_TAB_TO_MUSICXML\\TAB_TO_XML\\example");
 			for (int i = 0; i < storeFile.size(); i++) {
 				ArrayList<String> printArr = new ArrayList<>();
 				printArr = Parser.extractStrings(storeFile);
 				storeFile = Parser.reduceRoot(storeFile);
 				printArr = Parser.listReduction(printArr);
-				while (printArr.get(i).length() > 2) {
-						Note[] note = new Note[1];
-						note[0] = new Note();
-						note[0].setDuration(Parser.durationCount(printArr));
-			
-						Notations notations = new Notations();
-						Technical technical = new Technical();
-						technical.setFret(Parser.fretCount(printArr));
-						Integer string = Parser.findLongerList(printArr)+1;
-						technical.setString(string.toString());
-						notations.setTechnical(technical);
-						note[0].setNotations(notations);
-			
-						Pitch pitch = new Pitch();
-						pitch.setStep(Parser.StepCount(printArr));
-						pitch.setOctave(Parser.octaveCount(printArr));
-						note[0].setPitch(pitch);
-			
-						note[0].setType(Parser.StepCount(printArr));
-						note[0].setVoice("1");
-						measures[0].setNote(note);
-						parts[0].setMeasures(measures);
-						printArr = Parser.listReduction(printArr);
+				ArrayList<String> countArrn = new ArrayList<>();
+				countArrn = printArr;
+				int a = 0;
+				while (countArrn.get(0).length() > 2) {
+					countArrn = Parser.listReduction(countArrn);
+					a++;
 				}
-			
+				for (int j = 0; j < a - 1; j++) {
+					Note[] note = new Note[1]; //Number of notes within the measure
+					note[0] = new Note();
+					note[0].setDuration(Parser.durationCount(printArr));
+
+					Notations notations = new Notations();
+					Technical technical = new Technical();
+					technical.setFret(Parser.fretCount(printArr));
+					System.out.println(Parser.fretCount(printArr));
+					Integer string = 6 - Parser.findLongerList(printArr);
+					technical.setString(string.toString());
+					notations.setTechnical(technical);
+					note[0].setNotations(notations);
+
+					Pitch pitch = new Pitch();
+					pitch.setStep(Parser.StepCount(printArr));
+					pitch.setOctave(Parser.octaveCount(printArr));
+					note[0].setPitch(pitch);
+
+					note[0].setType(Parser.typeDeclare(printArr));
+					note[0].setVoice("1");
+					measures[0].setNote(note);
+					parts[0].setMeasures(measures);
+					printArr = Parser.listReduction(printArr);
+				}
+
 			}
-			
+
 			scorePartwise.setParts(parts);
-			
+
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
 			mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
-			
-		}
-		catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	}
 
+}
