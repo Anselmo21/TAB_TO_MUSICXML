@@ -115,7 +115,7 @@ public class Parser {
 		for (int i = 0; i < parse.size(); i++) {
 			if (count < parse.get(i).length()) { //if the first element of array has less characters than the next element in parse 
 				position = i; //let the position be the index of that next element
-				break; // stop looping 
+				break; // stop looping.
 			}
 		}
 		return position;
