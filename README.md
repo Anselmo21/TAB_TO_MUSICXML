@@ -39,7 +39,7 @@ The ATC project will function on your system using eclipse. To ensure that the p
  ![image](https://user-images.githubusercontent.com/48979024/108305236-8d43a680-7177-11eb-828c-591d351e2a92.png)
  
 NOTE: If you get the warning “Error: JavaFX runtime components are missing”, then you must import Javafx separately. Follow these steps to resolve this problem.
-1.	Download Javafx and extract it in a location.
+1.	Download Javafx from https://gluonhq.com/products/javafx/ or any other website you prefer, and extract it in a location.
 2.	In Eclipse go to Window, preferences, Java, Build path, User Library.
 3.	Click New and then enter “javafx”.
 4.	Now click on it and then click on add external JARS.
