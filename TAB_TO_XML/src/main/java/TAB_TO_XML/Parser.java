@@ -298,5 +298,17 @@ public class Parser {
 
 		return octave;
 	}
+	
+	public static int countNote(ArrayList<String> parse) {
+		int numNotes = 0;
+		for (int i = 0; i < parse.size(); i++) {
+			for (int j = 0; j < parse.get(0).length(); j++) {
+				if (Character.isDigit(parse.get(i).charAt(j))) {
+					numNotes++;
+				}
+			}
+		}
+		return numNotes;
+	}
 
 }

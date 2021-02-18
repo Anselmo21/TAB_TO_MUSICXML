@@ -86,20 +86,13 @@ public class App {
 			printArr = Parser.extractStrings(storeFile);
 			storeFile = Parser.reduceRoot(storeFile);
 			printArr = Parser.listReduction(printArr);
-
-			// a copy of printArr
-			ArrayList<String> countArrn = new ArrayList<>();
-			countArrn = Parser.listReduction(printArr);
 			
-			// gets the number of notes, sets it to 'a'
-			int a = 0;
-			while (countArrn.get(0).length() > 2) {
-				countArrn = Parser.listReduction(countArrn);
-				a++;
-			}
+			// gets the number of notes, sets it to 'numNotes'
+			int numNotes = Parser.countNote(printArr);
 			
-			Note[] note = new Note[a]; //Number of notes within the measure, BUT currently all notes within set of 6...
-			for (int j = 0; j < a; j++) {
+			System.out.println("a: " + numNotes);
+			Note[] note = new Note[numNotes]; //Number of notes within the measure, BUT currently all notes within set of 6...
+			for (int j = 0; j < numNotes; j++) {
 				note[j] = new Note();
 				note[j].setDuration(Parser.durationCount(printArr)); // TODO: this is wrong
 				// TO DO: check over this method
@@ -122,7 +115,7 @@ public class App {
 				notations.setTechnical(technical);
 				note[j].setNotations(notations);
 				
-				//printArr = Parser.listReduction(printArr);
+				printArr = Parser.listReduction(printArr);
 			}
 			
 			// TO FIX: right now we only support 1 measure and 1 part
