@@ -90,7 +90,6 @@ public class App {
 			// gets the number of notes, sets it to 'numNotes'
 			int numNotes = Parser.countNote(printArr);
 			
-			System.out.println("a: " + numNotes);
 			Note[] note = new Note[numNotes]; //Number of notes within the measure, BUT currently all notes within set of 6...
 			for (int j = 0; j < numNotes; j++) {
 				note[j] = new Note();
@@ -109,7 +108,6 @@ public class App {
 				Notations notations = new Notations();
 				Technical technical = new Technical();
 				technical.setFret(Parser.fretCount(printArr));
-				System.out.println(Parser.fretCount(printArr));
 				Integer stringNumber = 6 - Parser.findLongerList(printArr);
 				technical.setString(stringNumber.toString());
 				notations.setTechnical(technical);
