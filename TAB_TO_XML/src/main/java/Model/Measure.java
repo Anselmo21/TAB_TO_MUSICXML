@@ -1,5 +1,4 @@
 package Model;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class Measure {
@@ -7,7 +6,6 @@ public class Measure {
 	@JacksonXmlProperty(isAttribute=true)
 	int number;
 
-    @JacksonXmlElementWrapper(useWrapping = false)
 	Note[] note;
 	Attributes attributes;
 	Barline barline;

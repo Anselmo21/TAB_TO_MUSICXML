@@ -76,59 +76,47 @@ public class App {
 
 			ArrayList<String> storeFile = new ArrayList<>();
 			storeFile = Parser
-					.readLineByLine("./example");
-			
-			
-			// gets the first set of 6 strings, reduces tab until hits note within a column
-			// the column with a note is kept and onwards
-			// after the set of 6 strings is set, remove that set from the root
-			ArrayList<String> printArr = new ArrayList<>();
-			printArr = Parser.extractStrings(storeFile);
-			storeFile = Parser.reduceRoot(storeFile);
-			printArr = Parser.listReduction(printArr);
+					.readLineByLine("C:\\Users\\Rober\\git\\EECS2311_GROUP5_TAB_TO_MUSICXML\\TAB_TO_XML\\example");
+			for (int i = 0; i < storeFile.size(); i++) {
+				ArrayList<String> printArr = new ArrayList<>();
+				printArr = Parser.extractStrings(storeFile);
+				storeFile = Parser.reduceRoot(storeFile);
+				printArr = Parser.listReduction(printArr);
+				ArrayList<String> countArrn = new ArrayList<>();
+				countArrn = printArr;
+				int a = 0;
+				while (countArrn.get(0).length() > 2) {
+					countArrn = Parser.listReduction(countArrn);
+					a++;
+				}
+				for (int j = 0; j < a - 1; j++) {
+					Note[] note = new Note[1]; //Number of notes within the measure
+					note[0] = new Note();
+					note[0].setDuration(Parser.durationCount(printArr));
 
-			// a copy of printArr
-			ArrayList<String> countArrn = new ArrayList<>();
-			countArrn = Parser.listReduction(printArr);
-			
-			// gets the number of notes, sets it to 'a'
-			int a = 0;
-			while (countArrn.get(0).length() > 2) {
-				countArrn = Parser.listReduction(countArrn);
-				a++;
+					Notations notations = new Notations();
+					Technical technical = new Technical();
+					technical.setFret(Parser.fretCount(printArr));
+					System.out.println(Parser.fretCount(printArr));
+					Integer string = 6 - Parser.findLongerList(printArr);
+					technical.setString(string.toString());
+					notations.setTechnical(technical);
+					note[0].setNotations(notations);
+
+					Pitch pitch = new Pitch();
+					pitch.setStep(Parser.StepCount(printArr));
+					pitch.setOctave(Parser.octaveCount(printArr));
+					note[0].setPitch(pitch);
+
+					note[0].setType(Parser.typeDeclare(printArr));
+					note[0].setVoice("1");
+					measures[0].setNote(note);
+					parts[0].setMeasures(measures);
+					printArr = Parser.listReduction(printArr);
+				}
+
 			}
-			
-			Note[] note = new Note[a]; //Number of notes within the measure, BUT currently all notes within set of 6...
-			for (int j = 0; j < a; j++) {
-				note[j] = new Note();
-				note[j].setDuration(Parser.durationCount(printArr)); // TODO: this is wrong
-				// TO DO: check over this method
-				note[j].setType(Parser.typeDeclare(printArr));
-				note[j].setVoice("1");
-				
-				// set pitch
-				Pitch pitch = new Pitch();
-				pitch.setStep(Parser.stepCount(printArr));
-				pitch.setOctave(Parser.octaveCount(printArr));
-				note[j].setPitch(pitch);
-				
-				// set notations, technical is a sub-element of notations
-				Notations notations = new Notations();
-				Technical technical = new Technical();
-				technical.setFret(Parser.fretCount(printArr));
-				System.out.println(Parser.fretCount(printArr));
-				Integer stringNumber = 6 - Parser.findLongerList(printArr);
-				technical.setString(stringNumber.toString());
-				notations.setTechnical(technical);
-				note[j].setNotations(notations);
-				
-				//printArr = Parser.listReduction(printArr);
-			}
-			
-			// TO FIX: right now we only support 1 measure and 1 part
-			measures[0].setNote(note);
-			parts[0].setMeasures(measures);
-			
+
 			scorePartwise.setParts(parts);
 
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
