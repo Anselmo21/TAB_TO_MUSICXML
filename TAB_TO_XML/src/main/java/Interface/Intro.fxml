@@ -20,6 +20,7 @@
           <Button fx:id="browse" layoutX="25.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleButtonBrowse" text="Browse File" />
             <Label fx:id="path" layoutX="154.0" layoutY="434.0" prefHeight="111.0" prefWidth="335.0" textFill="WHITE" wrapText="true" />
             <Button fx:id="openFile" layoutX="25.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleButtonOpenFile" text="Open File" />
+            <Button fx:id="clearText" layoutX="653.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleClearTextButton" text="Clear Text" />
          </children>
       </AnchorPane>
    </children>

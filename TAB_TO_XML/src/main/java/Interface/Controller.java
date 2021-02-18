@@ -39,7 +39,7 @@ public class Controller {
 	FileChooser fc;
 
 	@FXML
-	Button browse, convert, convertText, openFile;
+	Button browse, convert, convertText, openFile, clearText;
 
 	@FXML
 	Label path;
@@ -82,6 +82,7 @@ public class Controller {
 	
 	@FXML
 	public void handleButtonOpenFile(ActionEvent event) {
+		textbox.clear();
 		fc = new FileChooser();
 		Scanner sc = null;
 		try {
@@ -118,15 +119,22 @@ public class Controller {
 			errorAlert.setHeaderText("The selected file is being converted to XML"); 
 			errorAlert.setContentText("Please Wait.."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
 			errorAlert.showAndWait();
+			textbox.clear();
 		}
 		catch (Exception e) {
 			Alert errorAlert = new Alert(AlertType.ERROR); 
 			errorAlert.setHeaderText("Input not valid!"); 
 			errorAlert.setContentText("Provide text file."); 
 			errorAlert.showAndWait();
+			textbox.clear();
 		}
 	}
 
+	@FXML
+	public void handleClearTextButton(ActionEvent event) {
+		textbox.clear();
+	}
+	
 	/*
 	 * Helper methods
 	 */
