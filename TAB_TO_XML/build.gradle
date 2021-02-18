@@ -9,12 +9,15 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'application'
+  	id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -27,5 +30,29 @@ dependencies {
     implementation 'com.google.guava:guava:28.0-jre'
 
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0', 'junit:junit:4.12'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    
 }
+
+test {
+	useJUnitPlatform()
+	testLogging {
+		events 'passed', 'skipped','failed'
+	}
+}
+
+run {	
+	if (javafx.platform.classifier == 'win') {
+		systemProperty "java.library.path", "C:\tmp"
+	}
+}
+
+javafx {
+	modules = [ 'javafx.controls', 'javafx.fxml' ]
+    version = "15.0.1"
+    configuration = 'compileOnly'
+}
+
+mainClassName = 'Interface.Runner'

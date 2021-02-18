@@ -1,6 +1,7 @@
 package Interface;
 
 import java.awt.Desktop;
+
 import java.io.*;
 import java.net.URL;
 import java.util.*;
@@ -24,6 +25,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import TAB_TO_XML.App;
+import TAB_TO_XML.Parser;
 
 public class Controller {
 
@@ -36,7 +39,7 @@ public class Controller {
 	FileChooser fc;
 
 	@FXML
-	Button browse, convert, convertText, openFile;
+	Button browse, convert, convertText, openFile, clearText;
 
 	@FXML
 	Label path;
@@ -44,8 +47,15 @@ public class Controller {
 	@FXML
 	TextArea textbox;
 
+	/**
+	 * This method enables browsing through the file explorer for .txt files. After browsing, it shows the text on the file in a 
+	 * text area. 
+	 * @param event
+	 */
+	
 	@FXML
 	public void handleButtonBrowse(ActionEvent event) {
+		textbox.clear();
 		fc = new FileChooser();
 		fc.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 		tablature = fc.showOpenDialog(null);
@@ -64,7 +74,13 @@ public class Controller {
 			}
 		}
 	}
+	
 
+	/**
+	 * This method handles the Open File Button. It allows you to open the file and edit it. The edits are reflected in the file.
+	 * @param event
+	 */
+	
 	@FXML
 	public void handleButtonOpenFile(ActionEvent event) {
 		fc = new FileChooser();
@@ -82,35 +98,46 @@ public class Controller {
 			errorAlert.showAndWait();
 		}
 	}
+	
 
 
-
+	/**
+	 * This method handles the convert button in the Graphic User Interface. It shows an alert once the file is converted.
+	 * @param event
+	 */
+	
 	@FXML
 	public void handleButtonConvert(ActionEvent event) {
 		try {
 			input = new BufferedReader(new FileReader(tablature));
 			output = new StreamResult("tablature_converted.musicxml");
-			createXML();
-			String xmlLine;
-			while ((xmlLine = input.readLine()) != null) {
-				process(xmlLine);
-
-			}
-			input.close();
-			endXML();
+			//createXML();
+			String storePath = tablature.getAbsolutePath();
+			Parser.setPath(storePath);
+			App.main(null);
 			Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
 			errorAlert.setHeaderText("The selected file is being converted to XML"); 
 			errorAlert.setContentText("Please Wait.."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
 			errorAlert.showAndWait();
+			textbox.clear();
 		}
 		catch (Exception e) {
 			Alert errorAlert = new Alert(AlertType.ERROR); 
 			errorAlert.setHeaderText("Input not valid!"); 
 			errorAlert.setContentText("Provide text file."); 
 			errorAlert.showAndWait();
+			textbox.clear();
 		}
 	}
 
+	@FXML
+	public void handleClearTextButton(ActionEvent event) {
+		textbox.clear();
+	}
+	
+	/*
+	 * Helper methods
+	 */
 	public void createXML() throws ParserConfigurationException, TransformerConfigurationException, SAXException {
 		SAXTransformerFactory tf = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
 		th = tf.newTransformerHandler(); 
@@ -134,5 +161,16 @@ public class Controller {
 		th.endElement(null, null, "inserts"); 
 		th.endDocument(); 
 	}
+
+	public String getPath(String path) {
+		return tablature.getAbsolutePath();
+	}
+
+	//while ((xmlLine = input.readLine()) != null) {
+	//process(xmlLine);
+
+	//}
+	//input.close();
+	//endXML();
 
 }
