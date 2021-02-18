@@ -28,7 +28,35 @@ public class Parser {
 	public static String getPath() {
 		return pathName;
 	}
-
+	
+	/**
+	 * This method will figure out which instrument the tab is meant to be 
+	 * played for.
+	 *  
+	 *  <p> In this method, we assume that a guitar has 6 lines of strings and 
+	 *  a bass has four lines of string <p/>.
+	 *  
+	 * @param content is what the tab contains but stored in an array list
+	 * @return the name of the instrument as a string
+	 */
+	public static String identifyInstrument(ArrayList<String> content) { 
+		
+		for (int i = 0; i < content.size(); i++) { 
+			if (content.get(i).contains("x") || content.get(i).contains("o")) {
+				return "Drums";
+			}
+		
+		}
+		if (content.size() == 4) {
+			
+			return "Bass";
+			
+		}
+		
+		return "Guitar";
+		
+	}
+	
 	/**
 	 * Read the text tablature line by line
 	 * 
