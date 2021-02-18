@@ -108,7 +108,7 @@ public class App {
 				Notations notations = new Notations();
 				Technical technical = new Technical();
 				technical.setFret(Parser.fretCount(printArr));
-				Integer stringNumber = 6 - Parser.findLongerList(printArr);
+				Integer stringNumber = 11 - Parser.findLongerList(printArr)   ;
 				technical.setString(stringNumber.toString());
 				notations.setTechnical(technical);
 				note[j].setNotations(notations);

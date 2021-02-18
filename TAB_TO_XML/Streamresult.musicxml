@@ -18,7 +18,7 @@
         <type>eighth</type>
         <notations>
           <technical>
-            <string>1</string>
+            <string>6</string>
             <fret>0</fret>
           </technical>
         </notations>
@@ -33,7 +33,7 @@
         <type>eighth</type>
         <notations>
           <technical>
-            <string>2</string>
+            <string>7</string>
             <fret>2</fret>
           </technical>
         </notations>
@@ -48,7 +48,7 @@
         <type>eighth</type>
         <notations>
           <technical>
-            <string>3</string>
+            <string>8</string>
             <fret>2</fret>
           </technical>
         </notations>
@@ -63,7 +63,7 @@
         <type>eighth</type>
         <notations>
           <technical>
-            <string>4</string>
+            <string>9</string>
             <fret>1</fret>
           </technical>
         </notations>
@@ -78,7 +78,7 @@
         <type>eighth</type>
         <notations>
           <technical>
-            <string>5</string>
+            <string>10</string>
             <fret>0</fret>
           </technical>
         </notations>
@@ -93,7 +93,7 @@
         <type>eighth</type>
         <notations>
           <technical>
-            <string>6</string>
+            <string>11</string>
             <fret>0</fret>
           </technical>
         </notations>
@@ -108,7 +108,7 @@
         <type>eighth</type>
         <notations>
           <technical>
-            <string>5</string>
+            <string>10</string>
             <fret>0</fret>
           </technical>
         </notations>
@@ -123,7 +123,7 @@
         <type>eighth</type>
         <notations>
           <technical>
-            <string>4</string>
+            <string>9</string>
             <fret>1</fret>
           </technical>
         </notations>
@@ -138,7 +138,7 @@
         <type>whole</type>
         <notations>
           <technical>
-            <string>6</string>
+            <string>11</string>
             <fret>0</fret>
           </technical>
         </notations>
@@ -153,7 +153,7 @@
         <type>whole</type>
         <notations>
           <technical>
-            <string>5</string>
+            <string>10</string>
             <fret>0</fret>
           </technical>
         </notations>
@@ -168,7 +168,7 @@
         <type>whole</type>
         <notations>
           <technical>
-            <string>4</string>
+            <string>9</string>
             <fret>1</fret>
           </technical>
         </notations>
@@ -183,7 +183,7 @@
         <type>whole</type>
         <notations>
           <technical>
-            <string>3</string>
+            <string>8</string>
             <fret>2</fret>
           </technical>
         </notations>
@@ -198,7 +198,7 @@
         <type>whole</type>
         <notations>
           <technical>
-            <string>2</string>
+            <string>7</string>
             <fret>2</fret>
           </technical>
         </notations>
@@ -213,7 +213,7 @@
         <type>whole</type>
         <notations>
           <technical>
-            <string>1</string>
+            <string>6</string>
             <fret>0</fret>
           </technical>
         </notations>
