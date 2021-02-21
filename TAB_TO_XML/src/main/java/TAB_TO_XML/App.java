@@ -76,7 +76,7 @@ public class App {
 
 			ArrayList<String> storeFile = new ArrayList<>();
 			storeFile = Parser
-					.readLineByLine("./example");
+					.readLineByLine(Parser.getPath());
 			
 			
 			// gets the first set of 6 strings, reduces tab until hits note within a column
