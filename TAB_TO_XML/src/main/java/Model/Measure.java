@@ -7,9 +7,10 @@ public class Measure {
 	@JacksonXmlProperty(isAttribute=true)
 	int number;
 
+	Attributes attributes;
+	
     @JacksonXmlElementWrapper(useWrapping = false)
 	Note[] note;
-	Attributes attributes;
 	Barline barline;
 
 	public Measure() {}
