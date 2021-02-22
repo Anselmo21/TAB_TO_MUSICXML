@@ -4,7 +4,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class Attributes {
 
-	public int divisions;
+	int divisions;
 
 	Key key;
 	Time time;
@@ -14,7 +14,7 @@ public class Attributes {
 	StaffDetails staffDetails;
 
 	public int getDivisions() {
-		return 0;
+		return divisions;
 	}
 
 	public void setDivisions(int divisions) {
