@@ -63,6 +63,8 @@ public class Controller {
 		if (tablature != null) {
 			path.setText(tablature.getAbsolutePath());
 			Scanner sc = null;
+			convert.setVisible(true);
+			openFile.setVisible(true);
 			try {
 				sc = new Scanner(tablature);
 				while (sc.hasNextLine()) {
