@@ -1,5 +1,3 @@
-package TAB_TO_XML;
-
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.*;
 import org.junit.jupiter.api.Test;
@@ -86,16 +84,8 @@ class ParserTester {
 		ArrayList<String> testArr = new ArrayList<>();
 		testArr = Parser.extractStrings(storeFile);
 		testArr = Parser.listReduction(testArr);
-		String a = Parser.StepCount(testArr);
+		String a = Parser.stepCount(testArr);
 		assertEquals("B", a);
 	}
 }
-//
-//storeFile.add("|-----------0-----|-0---------------|");
-//storeFile.add("|---------0---0---|-0---------------|");
-//storeFile.add("|-------1-------1-|-1---------------|");
-//storeFile.add("|-----2-----------|-2---------------|");
-//storeFile.add("|---2-------------|-2---------------|");
-//storeFile.add("|-0---------------|-0---------------|");
-//int n = p.divisionCount(storeFile);
-//System.out.println(n);
+

@@ -28,7 +28,7 @@ public class Parser {
 	public static String getPath() {
 		return pathName;
 	}
-	
+
 	/**
 	 * This method will figure out which instrument the tab is meant to be 
 	 * played for.
@@ -40,23 +40,22 @@ public class Parser {
 	 * @return the name of the instrument as a string
 	 */
 	public static String identifyInstrument(ArrayList<String> content) { 
-		
+
 		for (int i = 0; i < content.size(); i++) { 
 			if (content.get(i).contains("x") || content.get(i).contains("o")) {
 				return "Drums";
 			}
-		
 		}
 		if (content.size() == 4) {
-			
+
 			return "Bass";
-			
+
 		}
-		
+
 		return "Guitar";
-		
+
 	}
-	
+
 	/**
 	 * Read the text tablature line by line
 	 * 
@@ -163,33 +162,40 @@ public class Parser {
 					if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i + 1) == '|') {
 						count++;
 						break outerloop;
-					} else {
+					} 
+					else {
 						if (j == parse.size() - 1) {
 							count++;
 						}
 					}
 				}
-			} else {
+			} 
+			else {
 				for (int j = 0; j < parse.size(); j++) {
 					if (j < findLongerList(parse)) {
 						int k = i - 1;
 						if (parse.get(j).charAt(k) == '-' && parse.get(j).charAt(k + 1) == '|') {
 							count++;
 							break outerloop;
-						} else if (Character.isDigit(parse.get(j).charAt(k))) {
+						} 
+						else if (Character.isDigit(parse.get(j).charAt(k))) {
 							break outerloop;
-						} else {
+						} 
+						else {
 							if (j == parse.size() - 1) {
 								count++;
 							}
 						}
-					} else {
+					} 
+					else {
 						if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i + 1) == '|') {
 							count++;
 							break outerloop;
-						} else if (Character.isDigit(parse.get(j).charAt(i))) {
+						} 
+						else if (Character.isDigit(parse.get(j).charAt(i))) {
 							break outerloop;
-						} else {
+						} 
+						else {
 							if (j == parse.size() - 1) {
 								count++;
 							}
@@ -292,16 +298,16 @@ public class Parser {
 	public static String stepCount(ArrayList<String> parse) {
 
 		String[][] fretboard = new String[][] {
-				{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" },
-				{ "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" },
-				{ "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G" },
-				{ "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D" },
-				{ "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A" },
-				{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" } };
-		String stepC = "";
+			{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" },
+			{ "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" },
+			{ "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G" },
+			{ "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D" },
+			{ "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A" },
+			{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" } };
+			String stepC = "";
 
-		stepC = (fretboard[findLongerList(parse)][Character.getNumericValue(fretCount(parse).charAt(0))]);
-		return stepC;
+			stepC = (fretboard[findLongerList(parse)][Character.getNumericValue(fretCount(parse).charAt(0))]);
+			return stepC;
 	}
 
 	/**
@@ -320,15 +326,15 @@ public class Parser {
 	public static String octaveCount(ArrayList<String> parse) {
 		String octave;
 		String[][] fretboard = new String[][] { { "4", "4", "4", "4", "4", "4", "4", "4", "5", "5", "5", "5", "5" },
-				{ "3", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4" },
-				{ "3", "3", "3", "3", "3", "4", "4", "4", "4", "4", "4", "4", "4" },
-				{ "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "4", "4", "4" },
-				{ "2", "2", "2", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3" },
-				{ "2", "2", "2", "2", "2", "2", "2", "2", "3", "3", "3", "3", "3" } };
+			{ "3", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4" },
+			{ "3", "3", "3", "3", "3", "4", "4", "4", "4", "4", "4", "4", "4" },
+			{ "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "4", "4", "4" },
+			{ "2", "2", "2", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3" },
+			{ "2", "2", "2", "2", "2", "2", "2", "2", "3", "3", "3", "3", "3" } };
 
-		octave = (fretboard[findLongerList(parse)][Character.getNumericValue(fretCount(parse).charAt(0))]);
+			octave = (fretboard[findLongerList(parse)][Character.getNumericValue(fretCount(parse).charAt(0))]);
 
-		return octave;
+			return octave;
 	}
 
 	public static int countNote(ArrayList<String> parse) {
