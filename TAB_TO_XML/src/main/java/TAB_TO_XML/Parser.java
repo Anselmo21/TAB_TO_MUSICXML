@@ -69,18 +69,14 @@ public class Parser {
 		Scanner scan = null;
 		try {
 			scan = new Scanner(new File(path));
-
 			while (scan.hasNextLine()) {
-
 				content.add(scan.nextLine());
-
 			}
-
-		} catch (Exception e) {
-
+		} 
+		catch (Exception e) {
 			e.printStackTrace();
-
-		} finally {
+		} 
+		finally {
 			scan.close();
 		}
 		return content;

@@ -14,7 +14,7 @@
                <font>
                   <Font name="Consolas Bold" size="14.0" />
                </font></TextArea>
-            <Button fx:id="convert" layoutX="788.0" layoutY="624.0" mnemonicParsing="false" onAction="#handleButtonConvert" text="Convert Text" />
+            <Button fx:id="convertFile" layoutX="788.0" layoutY="624.0" mnemonicParsing="false" onAction="#handleButtonConvertFile" text="Convert Text" />
             <Label layoutX="252.0" layoutY="22.0" prefHeight="40.0" prefWidth="304.0" text="Browse using the button below" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="Bookman Old Style Bold" size="18.0" />
@@ -22,7 +22,6 @@
             </Label>
           <Button fx:id="browse" layoutX="21.0" layoutY="96.0" mnemonicParsing="false" onAction="#handleButtonBrowse" text="Browse File" />
             <Label fx:id="path" layoutX="153.0" layoutY="78.0" prefHeight="102.0" prefWidth="409.0" textFill="WHITE" wrapText="true" />
-            <Button fx:id="openFile" layoutX="788.0" layoutY="96.0" mnemonicParsing="false" onAction="#handleButtonOpenFile" text="Convert File" visible="false" />
             <Label layoutX="231.0" layoutY="194.0" prefHeight="40.0" prefWidth="346.0" text="Or write your tab below on the box" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="Bookman Old Style Bold" size="18.0" />

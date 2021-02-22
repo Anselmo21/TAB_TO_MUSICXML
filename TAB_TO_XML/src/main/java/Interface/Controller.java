@@ -39,7 +39,7 @@ public class Controller {
 	FileChooser fc;
 
 	@FXML
-	Button browse, convertText, convertFile;
+	Button browse, convert;
 
 	@FXML
 	Label path;
@@ -63,8 +63,7 @@ public class Controller {
 		if (tablature != null) {
 			path.setText(tablature.getAbsolutePath());
 			Scanner sc = null;
-			//convert.setVisible(true);
-			convertFile.setVisible(true);
+			convert.setVisible(true);
 			try {
 				sc = new Scanner(tablature);
 				while (sc.hasNextLine()) {
