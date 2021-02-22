@@ -60,7 +60,40 @@ public class App {
 
 			StaffDetails staffDetails = new StaffDetails();
 			staffDetails.setStaffLines("6");
-			staffDetails.setStaffTunings(null);
+			
+			// staff tunings
+			StaffTuning[] staffTunings = new StaffTuning[6];
+			staffTunings[0] = new StaffTuning();
+			staffTunings[0].setLine(1);
+			staffTunings[0].setTuningStep("E");
+			staffTunings[0].setTuningOctave("2");
+			
+			staffTunings[1] = new StaffTuning();
+			staffTunings[1].setLine(2);
+			staffTunings[1].setTuningStep("A");
+			staffTunings[1].setTuningOctave("2");
+			
+			staffTunings[2] = new StaffTuning();
+			staffTunings[2].setLine(3);
+			staffTunings[2].setTuningStep("D");
+			staffTunings[2].setTuningOctave("3");
+			
+			staffTunings[3] = new StaffTuning();
+			staffTunings[3].setLine(4);
+			staffTunings[3].setTuningStep("G");
+			staffTunings[3].setTuningOctave("3");
+			
+			staffTunings[4] = new StaffTuning();
+			staffTunings[4].setLine(5);
+			staffTunings[4].setTuningStep("B");
+			staffTunings[4].setTuningOctave("3");
+			
+			staffTunings[5] = new StaffTuning();
+			staffTunings[5].setLine(6);
+			staffTunings[5].setTuningStep("E");
+			staffTunings[5].setTuningOctave("4");
+			
+			staffDetails.setStaffTunings(staffTunings);
 			attributes.setStaffDetails(staffDetails);
 
 			Time time = new Time();
