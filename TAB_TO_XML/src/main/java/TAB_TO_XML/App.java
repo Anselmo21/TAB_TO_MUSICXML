@@ -118,7 +118,6 @@ public class App {
 			ArrayList<String> printArr = new ArrayList<>();
 			printArr = Parser.extractStrings(storeFile);
 			storeFile = Parser.reduceRoot(storeFile);
-			printArr = Parser.listReduction(printArr);
 			
 			for (int j = 0; j < printArr.get(0).length(); j++) {
 				System.out.println("///////////////////");
@@ -136,27 +135,26 @@ public class App {
 			Note[] note = new Note[numNotes]; //Number of notes within the measure, BUT currently all notes within set of 6...
 			for (int j = 0; j < numNotes; j++) {
 				note[j] = new Note();
-				note[j].setDuration(Parser.durationCount(printArr)); // TODO: this is wrong
+				note[j].setDuration(Parser.durationCount(printArr, j)); // TODO: this is wrong
 				// TO DO: check over this method
-				note[j].setType(Parser.typeDeclare(printArr));
+				note[j].setType(Parser.typeDeclare(printArr, j));
 				note[j].setVoice("1");
 				
 				// set pitch
 				Pitch pitch = new Pitch();
-				pitch.setStep(Parser.stepCount(printArr));
-				pitch.setOctave(Parser.octaveCount(printArr));
+				pitch.setStep(Parser.stepCount(printArr, j));
+				pitch.setOctave(Parser.octaveCount(printArr, j));
 				note[j].setPitch(pitch);
 				
 				// set notations, technical is a sub-element of notations
 				Notations notations = new Notations();
 				Technical technical = new Technical();
-				technical.setFret(Parser.fretCount(printArr));
-				Integer stringNumber = 6 - Parser.findLongerList(printArr);
+				technical.setFret(Character.toString(Parser.findfret(printArr, j)));
+				Integer stringNumber = Parser.findnoteyposition(printArr, numNotes) + 1;
 				technical.setString(stringNumber.toString());
 				notations.setTechnical(technical);
 				note[j].setNotations(notations);
-				
-				printArr = Parser.listReduction(printArr);
+
 			}
 			
 			// TO FIX: right now we only support 1 measure and 1 part

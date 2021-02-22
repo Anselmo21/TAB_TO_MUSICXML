@@ -129,132 +129,100 @@ public class Parser {
 	}
 
 	/**
-	 * Find the longest string that's closest to the top The returned string is
-	 * reduced by 1 and must be added by 1 for printing purposes.
+	 * Find the x coordinate of the next note to print
 	 * 
-	 * @param parse is the array list of strings that contains a whole line of notes
-	 * @return an integer representing the position of string where the very next
+	 * @param parse is the array list of strings that contains a whole line of notes, notenum is the number of the next note to print.
+	 * @return an integer representing the x position of string where the very next
 	 *         note is
 	 */
-	public static int findLongerList(ArrayList<String> parse) {
-		int count = parse.get(0).length();
+	public static int findnotexposition(ArrayList<String> newParse, int notenum) {
 		int position = 0;
-		for (int i = 0; i < parse.size(); i++) {
-			if (count < parse.get(i).length()) {
-				position = i;
-				break;
-			}
-		}
+		outerloop: 
+			for (int i = 0; i < newParse.get(0).length() - 1; i++) {
+				int a = 0;
+				for (int j = 0; j < newParse.size(); j++) {
+					if (Character.isDigit(newParse.get(j).charAt(i))) {
+						if (a == j) {
+							position = i;
+							break outerloop;
+						}	else {
+							a++;
+						}
+					} 
+				}
+				} 
 		return position;
 	}
-
+	
+	/**
+	 * Find the y coordinate of the next note to print
+	 * 
+	 * @param parse is the array list of strings that contains a whole line of notes, notenum is the number of the next note to print.
+	 * @return an integer representing the y position of string where the very next
+	 *         note is
+	 */
+	public static int findnoteyposition(ArrayList<String> newParse, int notenum) {
+		int position = 0;
+		outerloop: 
+			for (int i = 0; i < newParse.get(0).length() - 1; i++) {
+				int a = 0;
+				for (int j = 0; j < newParse.size(); j++) {
+					if (Character.isDigit(newParse.get(j).charAt(i))) {
+						if (a == j) {
+							position = j;
+							break outerloop;
+						}	else {
+							a++;
+						}
+					} 
+				}
+				} 
+		return position;
+	}
+	
 	/**
 	 * Counts duration of a note.
 	 * 
 	 * @param parse is the array list of strings that contains a whole line of notes
 	 * @return an integer representing the duration of the note.
 	 */
-	public static String durationCount(ArrayList<String> parse) {
-		Integer count = 0;
-		outerloop: for (int i = 0; i < parse.get(findLongerList(parse)).length(); i++) {
-			if (i == 0) {
-				for (int j = findLongerList(parse); j < parse.size(); j++) {
-					if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i + 1) == '|') {
-						count++;
+	
+	public static String durationCount(ArrayList<String> parse, int notenum) {
+		Integer count = 1;
+		
+		outerloop: 
+		for (int i = findnotexposition(parse, notenum) + 1; i < parse.get(0).length(); i++) {
+				for (int j = 0; j < parse.size(); j++) {
+					if (parse.get(j).charAt(i+1) == '-' && parse.get(j).charAt(i + 2) == '|') {
 						break outerloop;
-					} 
+					} else if (Character.isDigit(parse.get(j).charAt(i))) {
+						break outerloop;
+					}
 					else {
 						if (j == parse.size() - 1) {
 							count++;
 						}
 					}
 				}
-			} 
-			else {
-				for (int j = 0; j < parse.size(); j++) {
-					if (j < findLongerList(parse)) {
-						int k = i - 1;
-						if (parse.get(j).charAt(k) == '-' && parse.get(j).charAt(k + 1) == '|') {
-							count++;
-							break outerloop;
-						} 
-						else if (Character.isDigit(parse.get(j).charAt(k))) {
-							break outerloop;
-						} 
-						else {
-							if (j == parse.size() - 1) {
-								count++;
-							}
-						}
-					} 
-					else {
-						if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i + 1) == '|') {
-							count++;
-							break outerloop;
-						} 
-						else if (Character.isDigit(parse.get(j).charAt(i))) {
-							break outerloop;
-						} 
-						else {
-							if (j == parse.size() - 1) {
-								count++;
-							}
-						}
-					}
-				}
 			}
-		}
 		count = count / 2;
 		if (count > 8) {
 			count = 8;
 		}
 		return count.toString();
 	}
-
+	
 	/**
-	 * Helper method on reducing the strings in the array correctly every time you
-	 * print out a note
+	 * returns the fret of the note.
 	 * 
-	 * @param newParse is the array list of strings that contains a whole line of
-	 *                 notes
-	 * @return an Array list parse that's been reduced
+	 * @param parse is the array list of strings that contains a whole line of notes
+	 * @return an integer that represents the fret of the note.
 	 */
-	public static ArrayList<String> listReduction(ArrayList<String> parse) {
-
-		ArrayList<String> newParse = new ArrayList<>();
-
-		// deep copy
-		for (String s : parse) {
-			newParse.add(s);
-		}
-
-		outerloop: for (int i = 0; i < newParse.get(findLongerList(newParse)).length() - 1; i++) {
-			if (i == 0) {
-				int a = findLongerList(newParse);
-				if (Character.isDigit(newParse.get(a).charAt(0))) {
-					newParse.set(a, newParse.get(a).substring(1));
-					a = a + 1;
-				}
-				for (int j = a; j < newParse.size(); j++) {
-					if (Character.isDigit(newParse.get(j).charAt(0))) {
-						break outerloop;
-					} else {
-						newParse.set(j, newParse.get(j).substring(1));
-					}
-				}
-			} else {
-				for (int j = 0; j < newParse.size(); j++) {
-					if (Character.isDigit(newParse.get(j).charAt(0))) {
-						break outerloop;
-					} else {
-						newParse.set(j, newParse.get(j).substring(1));
-					}
-				}
-			}
-		}
-		return newParse;
+	public static Character findfret(ArrayList<String> parse, int notenum) {
+		Character note = parse.get(findnoteyposition(parse, notenum)).charAt(findnotexposition(parse, notenum));
+		return note;
 	}
-
+	
 	/// May require fix again
 	/**
 	 * Counts the division of the whole tablature
@@ -265,7 +233,7 @@ public class Parser {
 	public static int divisionCount(ArrayList<String> parse) {
 		int k = 0;
 		// loop used to count the divisions of the tablature
-		for (int i = 1; i < parse.get(findLongerList(parse)).length(); i++) {
+		for (int i = 1; i < parse.get(0).length(); i++) {
 			if (parse.get(0).charAt(i) == '|') {
 				k++;
 			}
@@ -275,27 +243,13 @@ public class Parser {
 	}
 
 	/**
-	 * Counts the fret of the note.
-	 * 
-	 * @param parse is the array list of strings that contains a whole line of notes
-	 * @return an integer that represents the fret of the note.
-	 */
-	public static String fretCount(ArrayList<String> parse) {
-		// System.out.println(findLongerList(parse));
-		Integer a = Character.getNumericValue(parse.get(findLongerList(parse)).charAt(0));
-		String fret = a.toString();
-		// System.out.println(fret);
-		return fret;
-	}
-
-	/**
 	 * Method used to get the step count.
 	 * 
 	 * @param parse is the array list of strings that contains a whole line of notes
 	 * @return an String that represents the fret of the note.
 	 */
 
-	public static String stepCount(ArrayList<String> parse) {
+	public static String stepCount(ArrayList<String> parse, int notenum) {
 
 		String[][] fretboard = new String[][] {
 			{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" },
@@ -306,7 +260,7 @@ public class Parser {
 			{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" } };
 			String stepC = "";
 
-			stepC = (fretboard[findLongerList(parse)][Character.getNumericValue(fretCount(parse).charAt(0))]);
+			stepC = (fretboard[findnoteyposition(parse, notenum)][findfret(parse, notenum)]);
 			return stepC;
 	}
 
@@ -316,14 +270,14 @@ public class Parser {
 	 * @param parse is the array list of strings that contains a whole line of notes
 	 * @return an String that represents the type of the note.
 	 */
-	public static String typeDeclare(ArrayList<String> parse) {
+	public static String typeDeclare(ArrayList<String> parse, int notenum) {
 		String type = "";
 		String[] types = new String[] { "", "eighth", "quarter", "quarter and eighth", "half", "", "quarter and half", "", "whole" };
-		type = (types[Character.getNumericValue(durationCount(parse).charAt(0))]);
+		type = (types[Character.getNumericValue(durationCount(parse, notenum).charAt(0))]);
 		return type;
 	}
 
-	public static String octaveCount(ArrayList<String> parse) {
+	public static String octaveCount(ArrayList<String> parse, int notenum) {
 		String octave;
 		String[][] fretboard = new String[][] { { "4", "4", "4", "4", "4", "4", "4", "4", "5", "5", "5", "5", "5" },
 			{ "3", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4" },
@@ -332,7 +286,7 @@ public class Parser {
 			{ "2", "2", "2", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3" },
 			{ "2", "2", "2", "2", "2", "2", "2", "2", "3", "3", "3", "3", "3" } };
 
-			octave = (fretboard[findLongerList(parse)][Character.getNumericValue(fretCount(parse).charAt(0))]);
+			octave = (fretboard[findnoteyposition(parse, notenum)][findfret(parse, notenum)]);
 
 			return octave;
 	}
