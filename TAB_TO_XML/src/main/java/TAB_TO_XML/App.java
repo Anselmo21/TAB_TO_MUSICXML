@@ -43,6 +43,7 @@ public class App {
 			Part[] parts = new Part[1];
 			parts[0] = new Part();
 			parts[0].setId("P1");
+						
 			Measure[] measures = new Measure[1];
 			measures[0] = new Measure();
 			measures[0].setNumber(1);
@@ -108,8 +109,7 @@ public class App {
 			measures[0].setBarline(barline);
 
 			ArrayList<String> storeFile = new ArrayList<>();
-			storeFile = Parser
-					.readLineByLine(Parser.getPath());
+			storeFile = Parser.readLineByLine(Parser.getPath());
 			
 			
 			// gets the first set of 6 strings, reduces tab until hits note within a column
@@ -120,8 +120,18 @@ public class App {
 			storeFile = Parser.reduceRoot(storeFile);
 			printArr = Parser.listReduction(printArr);
 			
+			for (int j = 0; j < printArr.get(0).length(); j++) {
+				System.out.println("///////////////////");
+				for (int i = 0; i < printArr.size(); i++) {
+					System.out.println(printArr.get(i).charAt(j));
+				}
+			}
+			
 			// gets the number of notes, sets it to 'numNotes'
 			int numNotes = Parser.countNote(printArr);
+			//int numMeasures = Parser.countMeasures(printArr);
+			//System.out.println(numMeasures);
+			
 			
 			Note[] note = new Note[numNotes]; //Number of notes within the measure, BUT currently all notes within set of 6...
 			for (int j = 0; j < numNotes; j++) {
