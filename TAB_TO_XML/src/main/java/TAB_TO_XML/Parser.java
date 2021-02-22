@@ -260,7 +260,7 @@ public class Parser {
 			{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" } };
 			String stepC = "";
 
-			stepC = (fretboard[findnoteyposition(parse, notenum)][findfret(parse, notenum)]);
+			stepC = (fretboard[findnoteyposition(parse, notenum)][Character.getNumericValue(findfret(parse, notenum))]);
 			return stepC;
 	}
 
@@ -286,7 +286,7 @@ public class Parser {
 			{ "2", "2", "2", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3" },
 			{ "2", "2", "2", "2", "2", "2", "2", "2", "3", "3", "3", "3", "3" } };
 
-			octave = (fretboard[findnoteyposition(parse, notenum)][findfret(parse, notenum)]);
+			octave = (fretboard[findnoteyposition(parse, notenum)][Character.getNumericValue(findfret(parse, notenum))]);
 
 			return octave;
 	}
