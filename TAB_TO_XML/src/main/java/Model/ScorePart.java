@@ -9,8 +9,8 @@ public class ScorePart {
 	@JacksonXmlProperty(localName = "part-name")
 	String partName; 
 	
-	@JacksonXmlProperty(localName = "score-instrument")
-	ScoreInstrument[] instruments; //Only for the drums!
+	//@JacksonXmlProperty(localName = "score-instrument")
+	//ScoreInstrument[] instruments; //Only for the drums!
 	//Don't include in guitar implementation
 
 	public ScorePart() {}
@@ -27,7 +27,7 @@ public class ScorePart {
 
 		this.id = id; 
 		this.partName = partName; 
-		this.instruments = instruments;
+		//this.instruments = instruments;
 		
 		
 	}

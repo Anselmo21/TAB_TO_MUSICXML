@@ -1,12 +1,15 @@
 package Model;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class StaffDetails {
 	@JacksonXmlProperty(localName = "staff-lines")
 	String staffLines;
 
 	@JacksonXmlProperty(localName = "staff-tuning")
+	@JacksonXmlElementWrapper(useWrapping = false)
 	StaffTuning[] staffTunings;
 
 	public String getStaffLines() {
