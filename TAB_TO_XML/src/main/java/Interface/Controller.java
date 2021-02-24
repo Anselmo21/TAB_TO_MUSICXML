@@ -39,7 +39,7 @@ public class Controller {
 	FileChooser fc;
 
 	@FXML
-	Button browse, convert;
+	Button browse, convert, save;
 
 	@FXML
 	Label path;
@@ -78,41 +78,12 @@ public class Controller {
 
 
 	/**
-	 * This method handles the Open File Button. It allows you to open the file and edit it. The edits are reflected in the file.
-	 * @param event
-	 */
-
-	@FXML
-	public void handleButtonConvertFile(ActionEvent event) {
-		try {
-			input = new BufferedReader(new FileReader(tablature));
-			output = new StreamResult("tablature_converted.musicxml");
-			String storePath = tablature.getAbsolutePath();
-			Parser.setPath(storePath);
-			App.main(null);
-			Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
-			errorAlert.setHeaderText("The selected file is being converted to XML"); 
-			errorAlert.setContentText("Please Wait.."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
-			errorAlert.showAndWait();
-			textbox.clear();
-		}
-		catch (Exception e) {
-			Alert errorAlert = new Alert(AlertType.ERROR); 
-			errorAlert.setHeaderText("Input not valid!"); 
-			errorAlert.setContentText("Provide text file."); 
-			errorAlert.showAndWait();
-		}
-	}
-
-
-
-	/**
 	 * This method handles the convert button in the Graphic User Interface. It shows an alert once the file is converted.
 	 * @param event
 	 */
 
 	@FXML
-	public void handleButtonConvertText(ActionEvent event) {
+	public void handleButtonConvert(ActionEvent event) {
 		try {
 			input = new BufferedReader(new FileReader(tablature));
 			output = new StreamResult("tablature_converted.musicxml");
@@ -133,6 +104,11 @@ public class Controller {
 			errorAlert.showAndWait();
 			textbox.clear();
 		}
+	}
+	
+	@FXML
+	public void handleButtonSave(ActionEvent event) {
+		
 	}
 
 
