@@ -52,7 +52,7 @@ run {
 javafx {
 	modules = [ 'javafx.controls', 'javafx.fxml' ]
     version = "15.0.1"
-    configuration = 'compileOnly'
+    //configuration = 'compileOnly'
 }
 
 mainClassName = 'Interface.Runner'
