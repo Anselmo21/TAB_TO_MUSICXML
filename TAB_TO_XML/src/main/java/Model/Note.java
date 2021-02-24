@@ -1,5 +1,5 @@
 package Model;
-
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class Note {
 	Pitch pitch;
 	String duration;
@@ -8,28 +8,30 @@ public class Note {
 	Notations notations;
 	
 	//Drum fields only
-	Beam value; 
-	String notehead;
-	Unpitched unpitched_value;
+	//Beam value; 
+	//String notehead;
+	//Unpitched unpitched_value;
 	//Missing instrument ID...no clue how to do that and what that means for the note
 	
-	public String getNoteHead() { 
+   
+    
+//	public String getNoteHead() { 
+	//	return null;
+		//return this.notehead;
 		
-		return this.notehead;
-		
-	}
+	//}
 	
-	public void setNoteHead(String note) { 
+	//public void setNoteHead(String note) { 
 		
-		this.notehead = note;
+		//this.notehead = note;
 		
-	}
+	//}
 	
-	public String getBeamValue() { 
+	//public String getBeamValue() { 
 		
-		return null;
+		//return null;
 		
-	}
+	//}
 	
 	public Pitch getPitch() {
 		return pitch;
