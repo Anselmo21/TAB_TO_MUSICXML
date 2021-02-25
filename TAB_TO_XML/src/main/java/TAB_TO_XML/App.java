@@ -144,7 +144,7 @@ public class App {
 			//System.out.println(numMeasures);
 			
 			ArrayList<Note> note = new ArrayList<Note>(); //Number of notes within the measure, BUT currently all notes within set of 6...
-			for (int j = 0; j < note.size(); j++) {
+			for (int j = 0; j < numNotes; j++) {
 				note.add(new Note());
 				note.get(j).setDuration(Parser.durationCount(printArr)); // TODO: this is wrong
 				// TO DO: check over this method
