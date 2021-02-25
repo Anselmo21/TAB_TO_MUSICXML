@@ -325,7 +325,8 @@ public class Parser {
 
 	public static String octaveCount(ArrayList<String> parse) {
 		String octave;
-		String[][] fretboard = new String[][] { { "4", "4", "4", "4", "4", "4", "4", "4", "5", "5", "5", "5", "5" },
+		String[][] fretboard = new String[][] { 
+			{ "4", "4", "4", "4", "4", "4", "4", "4", "5", "5", "5", "5", "5" },
 			{ "3", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4" },
 			{ "3", "3", "3", "3", "3", "4", "4", "4", "4", "4", "4", "4", "4" },
 			{ "3", "3", "3", "3", "3", "3", "3", "3", "3", "3", "4", "4", "4" },
@@ -336,6 +337,57 @@ public class Parser {
 
 			return octave;
 	}
+	
+	// inputing strings of lines.
+	public static ArrayList<ArrayList<String>> method1(ArrayList<String> inputFile){	
+		
+		
+		ArrayList<ArrayList<String>> Collections = new ArrayList<ArrayList<String>>();
+		
+		ArrayList<String> content = new ArrayList<String>();
+		ArrayList<String> eachCollection = new ArrayList<String>();
+		
+		for (int i = 0; i < content.size(); i++) {
+			eachCollection.add(content.get(i));
+			
+			// checks to see if reached six lines
+			
+			if((i+1)%6==0) {							
+				Collections.add(eachCollection);
+				eachCollection = new ArrayList<String>();	
+			}
+			
+		}
+		
+		// returns 2d arrays of the input lines 
+		return Collections;
+	}
+	
+	
+	// input of six lines
+	public static ArrayList<ArrayList<String>> method2(ArrayList<String> input){ 
+		
+		ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
+		ArrayList<String> eachSection = new ArrayList<String>();
+		
+		// assumes that all the measures have 17 dashes/notes excluding the vertical lines
+		for (int i = 0; i < (input.get(0).length()-1)/18; i++) {	
+			for (int j = 0; j < 6; j++) {
+				eachSection.add(input.get(j).substring(1+18*i, 18*(i+1)));
+			}
+			sections.add(eachSection);
+			eachSection = new ArrayList<String>();
+		}
+		
+		// returns  2d array of substrings of the measure excluding the vertical lines	
+		return sections;
+											
+	}
+	
+	
+	
+	
+	
 
 	public static int countNote(ArrayList<String> parse) {
 		int numNotes = 0;
