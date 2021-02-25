@@ -154,56 +154,22 @@ public class Parser {
 	 * @param parse is the array list of strings that contains a whole line of notes
 	 * @return an integer representing the duration of the note.
 	 */
-	public static String durationCount(ArrayList<String> parse) {
-		Integer count = 0;
-		outerloop: for (int i = 0; i < parse.get(findLongerList(parse)).length(); i++) {
-			if (i == 0) {
-				for (int j = findLongerList(parse); j < parse.size(); j++) {
-					if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i + 1) == '|') {
-						count++;
+	public static String durationCount(ArrayList<String> parse, int row, int column) {
+		Integer count = 1;
+		
+		outerloop: 
+		for (int i = row + 1; i < parse.get(0).length(); i++) {
+				for (int j = 0; j < parse.size(); j++) {
+					if (Character.isDigit(parse.get(j).charAt(i))) {
 						break outerloop;
-					} 
+					}
 					else {
 						if (j == parse.size() - 1) {
 							count++;
 						}
 					}
 				}
-			} 
-			else {
-				for (int j = 0; j < parse.size(); j++) {
-					if (j < findLongerList(parse)) {
-						int k = i - 1;
-						if (parse.get(j).charAt(k) == '-' && parse.get(j).charAt(k + 1) == '|') {
-							count++;
-							break outerloop;
-						} 
-						else if (Character.isDigit(parse.get(j).charAt(k))) {
-							break outerloop;
-						} 
-						else {
-							if (j == parse.size() - 1) {
-								count++;
-							}
-						}
-					} 
-					else {
-						if (parse.get(j).charAt(i) == '-' && parse.get(j).charAt(i + 1) == '|') {
-							count++;
-							break outerloop;
-						} 
-						else if (Character.isDigit(parse.get(j).charAt(i))) {
-							break outerloop;
-						} 
-						else {
-							if (j == parse.size() - 1) {
-								count++;
-							}
-						}
-					}
-				}
 			}
-		}
 		count = count / 2;
 		if (count > 8) {
 			count = 8;
