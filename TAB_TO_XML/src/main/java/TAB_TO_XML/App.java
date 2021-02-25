@@ -151,6 +151,7 @@ public class App {
 				note.get(j).setType(Parser.typeDeclare(printArr));
 				note.get(j).setVoice("1");
 				
+				
 				// set pitch
 				Pitch pitch = new Pitch();
 				pitch.setStep(Parser.stepCount(printArr));
@@ -181,6 +182,7 @@ public class App {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 }
