@@ -127,6 +127,58 @@ public class Parser {
 		}
 		return root;
 	}
+	
+	/**
+	 * Find the x coordinate of the next note to print
+	 * 
+	 * @param parse is the array list of strings that contains a whole line of notes, notenum is the number of the next note to print.
+	 * @return an integer representing the x position of string where the very next
+	 *         note is
+	 */
+	public static int findnotexposition(ArrayList<String> newParse, int notenum) {
+		int position = 0;
+		int a = 0;
+		outerloop: 
+			for (int i = 0; i < newParse.get(0).length() - 1; i++) {
+				for (int j = 0; j < newParse.size(); j++) {
+					if (Character.isDigit(newParse.get(j).charAt(i))) {
+						if (a == notenum) {
+							position = i;
+							break outerloop;
+						}	else {
+							a++;
+						}
+					} 
+				}
+				} 
+		return position;
+	}
+	
+	/**
+	 * Find the y coordinate of the next note to print
+	 * 
+	 * @param parse is the array list of strings that contains a whole line of notes, notenum is the number of the next note to print.
+	 * @return an integer representing the y position of string where the very next
+	 *         note is
+	 */
+	public static int findnoteyposition(ArrayList<String> newParse, int notenum) {
+		int position = 0;
+		int a = 0;
+		outerloop: 
+			for (int i = 0; i < newParse.get(0).length() - 1; i++) {
+				for (int j = 0; j < newParse.size(); j++) {
+					if (Character.isDigit(newParse.get(j).charAt(i))) {
+						if (a == notenum) {
+							position = j;
+							break outerloop;
+						}	else {
+							a++;
+						}
+					} 
+				}
+				} 
+		return position;
+	}
 
 	/**
 	 * Find the longest string that's closest to the top The returned string is
