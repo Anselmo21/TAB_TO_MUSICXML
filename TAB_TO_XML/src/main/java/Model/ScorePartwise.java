@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
@@ -18,7 +20,7 @@ public class ScorePartwise {
 	@JacksonXmlProperty(localName = "part")
 
     @JacksonXmlElementWrapper(useWrapping = false)
-	public Part[] parts;
+	public ArrayList<Part> parts;
 	public String getVersion() {
 		return version;
 	}
@@ -31,10 +33,10 @@ public class ScorePartwise {
 	public void setPartList(PartList partList) {
 		this.partList = partList;
 	}
-	public Part[] getParts() {
+	public ArrayList<Part> getParts() {
 		return parts;
 	}
-	public void setParts(Part[] parts) {
+	public void setParts(ArrayList<Part> parts) {
 		this.parts = parts;
 	}
 }

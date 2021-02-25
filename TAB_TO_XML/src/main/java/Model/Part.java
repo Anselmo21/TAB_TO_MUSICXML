@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
@@ -10,22 +12,22 @@ public class Part {
 
 	@JacksonXmlProperty(localName = "measure")
     @JacksonXmlElementWrapper(useWrapping = false)
-	public Measure[] measures;
+	public ArrayList<Measure> measures;
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Measure[] getMeasures() {
+	public ArrayList<Measure> getMeasures() {
 		return measures;
 	}
-	public void setMeasures(Measure[] measures) {
+	public void setMeasures(ArrayList<Measure> measures) {
 		this.measures = measures;
 	}
 
 	public Part() {}
-	public Part(String id, Measure[] measures) {
+	public Part(String id, ArrayList<Measure> measures) {
 		super();
 		this.id = id;
 		this.measures = measures;
