@@ -193,9 +193,7 @@ public class Parser {
 		outerloop: 
 		for (int i = findnotexposition(parse, notenum) + 1; i < parse.get(0).length(); i++) {
 				for (int j = 0; j < parse.size(); j++) {
-					if (parse.get(j).charAt(i+1) == '-' && parse.get(j).charAt(i + 2) == '|') {
-						break outerloop;
-					} else if (Character.isDigit(parse.get(j).charAt(i))) {
+					if (Character.isDigit(parse.get(j).charAt(i))) {
 						break outerloop;
 					}
 					else {

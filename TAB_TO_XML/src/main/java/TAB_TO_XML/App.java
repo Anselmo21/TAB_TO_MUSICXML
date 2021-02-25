@@ -118,14 +118,14 @@ public class App {
 			ArrayList<String> printArr = new ArrayList<>();
 			printArr = Parser.extractStrings(storeFile);
 			storeFile = Parser.reduceRoot(storeFile);
-			
+			/*
 			for (int j = 0; j < printArr.get(0).length(); j++) {
 				System.out.println("///////////////////");
 				for (int i = 0; i < printArr.size(); i++) {
 					System.out.println(printArr.get(i).charAt(j));
 				}
 			}
-			
+			*/
 			// gets the number of notes, sets it to 'numNotes'
 			int numNotes = Parser.countNote(printArr);
 			//int numMeasures = Parser.countMeasures(printArr);
@@ -150,7 +150,7 @@ public class App {
 				Notations notations = new Notations();
 				Technical technical = new Technical();
 				technical.setFret(Character.toString(Parser.findfret(printArr, j)));
-				Integer stringNumber = Parser.findnoteyposition(printArr, numNotes) + 1;
+				Integer stringNumber = Parser.findnoteyposition(printArr, j) + 1;
 				technical.setString(stringNumber.toString());
 				notations.setTechnical(technical);
 				note[j].setNotations(notations);
