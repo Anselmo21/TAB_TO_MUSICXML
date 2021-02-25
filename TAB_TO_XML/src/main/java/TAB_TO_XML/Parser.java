@@ -295,7 +295,7 @@ public class Parser {
 	 * @return an String that represents the fret of the note.
 	 */
 
-	public static String stepCount(ArrayList<String> parse) {
+	public static String stepCount(int row, int column) {
 
 		String[][] fretboard = new String[][] {
 			{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" },
@@ -304,10 +304,8 @@ public class Parser {
 			{ "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D" },
 			{ "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A" },
 			{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" } };
-			String stepC = "";
-
-			stepC = (fretboard[findLongerList(parse)][Character.getNumericValue(fretCount(parse).charAt(0))]);
-			return stepC;
+			
+			return fretboard[row][column];
 	}
 
 	/**
@@ -316,15 +314,12 @@ public class Parser {
 	 * @param parse is the array list of strings that contains a whole line of notes
 	 * @return an String that represents the type of the note.
 	 */
-	public static String typeDeclare(ArrayList<String> parse) {
-		String type = "";
+	public static String typeDeclare(int duration) {
 		String[] types = new String[] { "", "eighth", "quarter", "quarter and eighth", "half", "", "quarter and half", "", "whole" };
-		type = (types[Character.getNumericValue(durationCount(parse).charAt(0))]);
-		return type;
+		return types[duration];
 	}
 
-	public static String octaveCount(ArrayList<String> parse) {
-		String octave;
+	public static String octaveCount(int row, int column) {
 		String[][] fretboard = new String[][] { 
 			{ "4", "4", "4", "4", "4", "4", "4", "4", "5", "5", "5", "5", "5" },
 			{ "3", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4", "4" },
@@ -333,9 +328,7 @@ public class Parser {
 			{ "2", "2", "2", "3", "3", "3", "3", "3", "3", "3", "3", "3", "3" },
 			{ "2", "2", "2", "2", "2", "2", "2", "2", "3", "3", "3", "3", "3" } };
 
-			octave = (fretboard[findLongerList(parse)][Character.getNumericValue(fretCount(parse).charAt(0))]);
-
-			return octave;
+			return fretboard[row][column];
 	}
 	
 	// inputing strings of lines.
