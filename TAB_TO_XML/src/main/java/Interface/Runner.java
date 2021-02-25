@@ -1,35 +1,3 @@
-<<<<<<< HEAD
-package Interface;
-
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
-
-public class Runner extends Application {
-
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Interface/Intro.fxml"));
-        primaryStage.setTitle("Allegro Tab Converter");
-        Scene scene = new Scene(root, 800, 600);
-        scene.getStylesheets().add(getClass().getClassLoader().getResource("Interface/Intro.css").toExternalForm());
-        Image logo = new Image("/Interface/music-background.jpg");
-        primaryStage.getIcons().add(logo);
-        primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-}
-=======
 package Interface;
 
 import javafx.application.Application;
@@ -60,4 +28,4 @@ public class Runner extends Application {
 		launch(args);
 	}
 }
->>>>>>> branch 'develop' of https://github.com/RafaelDolores/EECS2311_GROUP5_TAB_TO_MUSICXML
+
