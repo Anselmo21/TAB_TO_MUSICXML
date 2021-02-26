@@ -92,7 +92,7 @@ public class Parser {
 	 * @param parse is the array list of strings that contains a whole line of notes
 	 * @return an integer representing the duration of the note.
 	 */
-	public static Integer durationCount(ArrayList<String> parse, int row, int column) {
+	public static Integer durationCount(ArrayList<String> parse, int row) {
 		Integer count = 1;
 		
 		outerloop: 
