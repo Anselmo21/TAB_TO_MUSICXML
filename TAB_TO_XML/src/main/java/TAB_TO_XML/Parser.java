@@ -128,7 +128,7 @@ public class Parser {
 		for (int i = 1; i < parse.get(0).length()-1; i++) {
 				k++;
 			}
-		k = k / 8;
+		k = k / 4;
 		return k;
 	}
 
