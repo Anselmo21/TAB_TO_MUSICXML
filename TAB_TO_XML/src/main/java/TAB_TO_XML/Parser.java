@@ -365,7 +365,6 @@ public class Parser {
 				i = i + 5;
 			}
 			
-			// checks to see if reached six lines
 			
 		}
 		
