@@ -108,7 +108,7 @@ public class Parser {
 					}
 				}
 			}
-		count = count / 2;
+		count = count / divisionCount(parse);
 		if (count > 8) {
 			count = 8;
 		}
