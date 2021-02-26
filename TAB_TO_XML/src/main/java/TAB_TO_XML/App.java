@@ -18,6 +18,8 @@ import Model.*;
 
 public class App {
 
+	static String getConversion;
+	
 	public static void main(String[] args) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
@@ -191,7 +193,8 @@ public class App {
 			scorePartwise.setParts(parts);
 
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
+			//mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
+			getConversion = mapper.writeValueAsString(scorePartwise);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -199,6 +202,10 @@ public class App {
 		
 		
 		
+	}
+	
+	public static String getConversion() {
+		return getConversion;
 	}
 	
 	private static Measure parseMeasure(ArrayList<String> meas, int measureNumber) {
