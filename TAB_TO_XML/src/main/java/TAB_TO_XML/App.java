@@ -118,59 +118,74 @@ public class App {
 			barline.setLocation("right");
 			measures.get(0).setBarline(barline);
 			
-
+			// read input file, store in array list
 			ArrayList<String> storeFile = new ArrayList<>();
 			storeFile = Parser.readLineByLine(Parser.getPath());
 			
 			
-			// gets the first set of 6 strings, reduces tab until hits note within a column
-			// the column with a note is kept and onwards
-			// after the set of 6 strings is set, remove that set from the root
-			ArrayList<String> printArr = new ArrayList<>();
-			printArr = Parser.extractStrings(storeFile);
-			storeFile = Parser.reduceRoot(storeFile);
-			printArr = Parser.listReduction(printArr);
+			// get a set of collections
+			ArrayList<ArrayList<String>> collections = new ArrayList<>();
+			collections = Parser.method1(storeFile);
 			
-			for (int j = 0; j < printArr.get(0).length(); j++) {
-				System.out.println("///////////////////");
-				for (int i = 0; i < printArr.size(); i++) {
-					System.out.println(printArr.get(i).charAt(j));
+			
+			int measureCount = 0;
+			System.out.println(collections.size());
+			// iter through each collection
+			for (int i = 0; i < collections.size(); i++) {
+				System.out.println("/////////////////////////");
+				ArrayList<ArrayList<String>> measuresOfCollection = Parser.method2(collections.get(i));
+				
+				// iter through each measure set
+				for(int j = 0; j < measuresOfCollection.size(); j++) {
+					System.out.println(measuresOfCollection.get(j).toString());
+					measureCount++;
+					Measure newMeasure = parseMeasure(measuresOfCollection.get(j), measureCount);
+					
 				}
 			}
 			
-			// gets the number of notes, sets it to 'numNotes'
-			int numNotes = Parser.countNote(printArr);
-			//int numMeasures = Parser.countMeasures(printArr);
-			//System.out.println(numMeasures);
 			
-			ArrayList<Note> note = new ArrayList<Note>(); //Number of notes within the measure, BUT currently all notes within set of 6...
-			for (int j = 0; j < note.size(); j++) {
-				note.add(new Note());
-				note.get(j).setDuration(Parser.durationCount(printArr)); // TODO: this is wrong
-				// TO DO: check over this method
-				note.get(j).setType(Parser.typeDeclare(printArr));
-				note.get(j).setVoice("1");
-				
-				// set pitch
-				Pitch pitch = new Pitch();
-				pitch.setStep(Parser.stepCount(printArr));
-				pitch.setOctave(Parser.octaveCount(printArr));
-				note.get(j).setPitch(pitch);
-				
-				// set notations, technical is a sub-element of notations
-				Notations notations = new Notations();
-				Technical technical = new Technical();
-				technical.setFret(Parser.fretCount(printArr));
-				Integer stringNumber = 6 - Parser.findLongerList(printArr);
-				technical.setString(stringNumber.toString());
-				notations.setTechnical(technical);
-				note.get(j).setNotations(notations);
-				
-				printArr = Parser.listReduction(printArr);
-			}
-			
-			// TO FIX: right now we only support 1 measure and 1 part
-			measures.get(0).setNote(note);
+//			for (int j = 0; j < collections.get(0).length(); j++) {
+//				System.out.println("///////////////////");
+//				for (int i = 0; i < collections.size(); i++) {
+//					System.out.println(collections.get(i).charAt(j));
+//				}
+//			}
+//			
+//			// gets the number of notes, sets it to 'numNotes'
+//			int numNotes = Parser.countNote(collections);
+//			//int numMeasures = Parser.countMeasures(printArr);
+//			//System.out.println(numMeasures);
+//			
+//			ArrayList<Note> note = new ArrayList<Note>(); //Number of notes within the measure, BUT currently all notes within set of 6...
+//			for (int j = 0; j < numNotes; j++) {
+//				note.add(new Note());
+//				note.get(j).setDuration(Parser.durationCount(collections)); // TODO: this is wrong
+//				// TO DO: check over this method
+//				note.get(j).setType(Parser.typeDeclare(collections));
+//				note.get(j).setVoice("1");
+//				
+//				
+//				// set pitch
+//				Pitch pitch = new Pitch();
+//				pitch.setStep(Parser.stepCount(collections));
+//				pitch.setOctave(Parser.octaveCount(collections));
+//				note.get(j).setPitch(pitch);
+//				
+//				// set notations, technical is a sub-element of notations
+//				Notations notations = new Notations();
+//				Technical technical = new Technical();
+//				technical.setFret(Parser.fretCount(collections));
+//				Integer stringNumber = 6 - Parser.findLongerList(collections);
+//				technical.setString(stringNumber.toString());
+//				notations.setTechnical(technical);
+//				note.get(j).setNotations(notations);
+//				
+//				collections = Parser.listReduction(collections);
+//			}
+//			
+//			// TO FIX: right now we only support 1 measure and 1 part
+//			measures.get(0).setNote(note);
 			parts.get(0).setMeasures(measures);
 			
 			scorePartwise.setParts(parts);
@@ -181,6 +196,31 @@ public class App {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		
+	}
+	
+	private static Measure parseMeasure(ArrayList<String> meas, int measureNumber) {
+		
+		Measure newMeasure = new Measure();
+		newMeasure.setAttributes(null);
+		newMeasure.setBarline(null);
+		newMeasure.setNumber(measureNumber);
+		
+		ArrayList<Note> note = new ArrayList<Note>();
+		
+		// iter through each measure
+		for (int y = 0; y < meas.get(0).length(); y++) {
+			System.out.println("/////////////////////////");
+			for (int x = 0; x < meas.size(); x++) {
+				System.out.println(meas.get(x).charAt(y));
+			}
+		}
+		
+		newMeasure.setNote(null);
+
+		return newMeasure;
 	}
 
 }
