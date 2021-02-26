@@ -49,12 +49,6 @@ public class App {
 						
 			ArrayList<Measure> measures = new ArrayList<Measure>(); 
 			
-			
-//			Barline barline = new Barline();
-//			barline.setBarStyle("light-heavy");
-//			barline.setLocation("right");
-//			measures.get(0).setBarline(barline);
-			
 			// read input file, store in array list
 			ArrayList<String> storeFile = new ArrayList<>();
 			storeFile = Parser.readLineByLine(Parser.getPath());
@@ -77,6 +71,12 @@ public class App {
 					measures.add(newMeasure);
 				}
 			}
+			
+			// set last measure to have barline values
+			Barline barline = new Barline();
+			barline.setBarStyle("light-heavy");
+			barline.setLocation("right");
+			measures.get(measures.size()-1).setBarline(barline);
 
 			parts.get(0).setMeasures(measures);
 			
