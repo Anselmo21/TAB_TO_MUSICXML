@@ -53,7 +53,7 @@ public class App {
 //			Barline barline = new Barline();
 //			barline.setBarStyle("light-heavy");
 //			barline.setLocation("right");
-//			measures.get(0).setBarline(barline);
+//			measure.setBarline(barline);
 			
 			// read input file, store in array list
 			ArrayList<String> storeFile = new ArrayList<>();
