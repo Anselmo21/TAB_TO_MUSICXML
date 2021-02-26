@@ -355,11 +355,14 @@ public class Parser {
 		
 		ArrayList<ArrayList<String>> Collections = new ArrayList<ArrayList<String>>();
 		
-		ArrayList<String> content = new ArrayList<String>();
 		ArrayList<String> eachCollection = new ArrayList<String>();
 		
-		for (int i = 0; i < content.size(); i++) {
-			eachCollection.add(content.get(i));
+		for (int i = 0; i < inputFile.size(); i++) {
+			if (inputFile.get(i).contains("|-")) {
+				for (int j = 0; j < 6; j++) {
+					eachCollection.add(inputFile.get(i+j));
+				}
+			}
 			
 			// checks to see if reached six lines
 			
