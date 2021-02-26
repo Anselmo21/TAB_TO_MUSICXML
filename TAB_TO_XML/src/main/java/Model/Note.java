@@ -7,13 +7,14 @@ public class Note {
 	String type;
 	Notations notations;
 	
+
 	//Drum fields only
 	//Beam value; 
 	//String notehead;
 	//Unpitched unpitched_value;
 	//Missing instrument ID...no clue how to do that and what that means for the note
 	
-   
+  
     
 //	public String getNoteHead() { 
 	//	return null;

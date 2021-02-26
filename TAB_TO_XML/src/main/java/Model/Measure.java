@@ -2,6 +2,9 @@ package Model;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Measure {
 
 	@JacksonXmlProperty(isAttribute=true)
@@ -10,11 +13,11 @@ public class Measure {
 	Attributes attributes;
 	
     @JacksonXmlElementWrapper(useWrapping = false)
-	Note[] note;
+	ArrayList<Note> note;
 	Barline barline;
 
 	public Measure() {}
-	public Measure(int number, Note[] note, Attributes attributes, Barline barline) {
+	public Measure(int number, ArrayList<Note> note, Attributes attributes, Barline barline) {
 		super();
 		this.number = number;
 		this.note = note;
@@ -27,10 +30,10 @@ public class Measure {
 	public void setNumber(int number) {
 		this.number = number;
 	}
-	public Note[] getNote() {
+	public ArrayList<Note> getNote() {
 		return note;
 	}
-	public void setNote(Note[] note) {
+	public void setNote(ArrayList<Note> note) {
 		this.note = note;
 	}
 	public Attributes getAttributes() {
