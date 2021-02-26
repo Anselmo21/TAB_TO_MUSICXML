@@ -123,13 +123,7 @@ public class Parser {
 	 * @return an integer that represents the division of the whole tablature.
 	 */
 	public static int divisionCount(ArrayList<String> parse) {
-		int k = 0;
-		// loop used to count the divisions of the tablature
-		for (int i = 1; i < parse.get(0).length()-1; i++) {
-				k++;
-			}
-		k = k / 4;
-		return k;
+		return (parse.get(0).length()-1) / 8;
 	}
 
 
