@@ -358,7 +358,7 @@ public class Parser {
 		for (int i = 0; i < inputFile.size(); i++) {
 			if (inputFile.get(i).contains("|-")) {
 				for (int j = 0; j < 6; j++) {
-					eachCollection.add(inputFile.get(i));
+					eachCollection.add(inputFile.get(i+j));
 
 				}
 				Collections.add(eachCollection);
