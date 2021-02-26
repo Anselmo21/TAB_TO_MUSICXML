@@ -18,6 +18,8 @@ import Model.*;
 
 public class App {
 
+	static String conversion;
+	
 	public static void main(String[] args) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
@@ -51,7 +53,7 @@ public class App {
 			
 			// read input file, store in array list
 			ArrayList<String> storeFile = new ArrayList<>();
-			storeFile = Parser.readLineByLine(Parser.getPath());
+			storeFile = Parser.readText(Parser.getText());
 			
 			
 			// get a set of collections
@@ -83,7 +85,8 @@ public class App {
 			scorePartwise.setParts(parts);
 
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
+			//mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
+			conversion = mapper.writeValueAsString(scorePartwise);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,6 +94,10 @@ public class App {
 		
 		
 		
+	}
+	
+	public static String getConversion() {
+		return conversion;
 	}
 	
 	private static Measure parseMeasure(ArrayList<String> meas, int measureNumber) {

@@ -8,7 +8,18 @@ import Interface.Controller;
 public class Parser {
 
 	private static String pathName;
+	private static String text;
 
+
+	
+	
+	public static void setText(String textBox) {
+		text = textBox;
+	}
+	
+	public static String getText() {
+		return text;
+	}
 
 	/**
 	 * This method will figure out which instrument the tab is meant to be 
@@ -36,6 +47,23 @@ public class Parser {
 		return "Guitar";
 
 	}
+	
+	public static ArrayList<String> readText(String text) {
+		ArrayList<String> textList = new ArrayList<>();
+		Scanner in = null;
+		try {
+			in = new Scanner(text);
+			while (in.hasNextLine())
+				textList.add(in.nextLine());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			in.close();
+		}
+		return textList;
+	}
 
 	/**
 	 * Read the text tablature line by line
@@ -45,27 +73,6 @@ public class Parser {
 	 *         <p>
 	 *         each line is an element in our array list
 	 */
-	public static ArrayList<String> readLineByLine(String path) {
-		ArrayList<String> content = new ArrayList<String>();
-		Scanner scan = null;
-		try {
-			scan = new Scanner(new File(path));
-
-			while (scan.hasNextLine()) {
-
-				content.add(scan.nextLine());
-
-			}
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-
-		} finally {
-			scan.close();
-		}
-		return content;
-	}
 
 	/**
 	 * Counts duration of a note.
