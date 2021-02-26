@@ -9,25 +9,6 @@ public class Parser {
 
 	private static String pathName;
 
-	/**
-	 * Setter method for path name
-	 * 
-	 * @param path
-	 */
-
-	public static void setPath(String path) {
-		pathName = path;
-	}
-
-	/**
-	 * Getter method for path name.
-	 * 
-	 * @return
-	 */
-
-	public static String getPath() {
-		return pathName;
-	}
 
 	/**
 	 * This method will figure out which instrument the tab is meant to be 
