@@ -10,25 +10,7 @@ public class Parser {
 	private static String pathName;
 	private static String text;
 
-	/**
-	 * Setter method for path name
-	 * 
-	 * @param path
-	 */
-
-	public static void setPath(String path) {
-		pathName = path;
-	}
-
-	/**
-	 * Getter method for path name.
-	 * 
-	 * @return
-	 */
-
-	public static String getPath() {
-		return pathName;
-	}
+	
 	
 	public static void setText(String textBox) {
 		text = textBox;
@@ -90,23 +72,6 @@ public class Parser {
 	 *         <p>
 	 *         each line is an element in our array list
 	 */
-	public static ArrayList<String> readLineByLine(String path) {
-		ArrayList<String> content = new ArrayList<String>();
-		Scanner scan = null;
-		try {
-			scan = new Scanner(new File(path));
-			while (scan.hasNextLine()) {
-				content.add(scan.nextLine());
-			}
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
-		} 
-		finally {
-			scan.close();
-		}
-		return content;
-	}
 
 	/**
 	 * Counts duration of a note.

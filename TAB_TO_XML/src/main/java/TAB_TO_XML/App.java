@@ -59,10 +59,7 @@ public class App {
 			
 			// read input file, store in array list
 			ArrayList<String> storeFile = new ArrayList<>();
-			if (Parser.getPath() != null)
-				storeFile = Parser.readLineByLine(Parser.getPath());
-			else
-				storeFile = Parser.readText(Parser.getText());
+			storeFile = Parser.readText(Parser.getText());
 			
 			
 			// get a set of collections
@@ -88,7 +85,7 @@ public class App {
 			scorePartwise.setParts(parts);
 
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
+			//mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
 			conversion = mapper.writeValueAsString(scorePartwise);
 
 		} catch (Exception e) {

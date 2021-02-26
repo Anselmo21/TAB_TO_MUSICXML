@@ -22,6 +22,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -38,6 +39,9 @@ public class Controller {
 	BufferedReader input;
 	StreamResult output;
 	FileChooser fc, saveFile;
+	
+	@FXML
+	AnchorPane anchorpane;
 
 	@FXML
 	Button browse, convert, save;
@@ -47,12 +51,13 @@ public class Controller {
 
 	@FXML
 	TextArea view, write;
+	
 	/**
 	 * This method enables browsing through the file explorer for .txt files. After browsing, it shows the text on the file in a 
 	 * text area. 
 	 * @param event
 	 */
-
+	
 	@FXML
 	public void handleButtonBrowse(ActionEvent event) {
 		write.clear();
@@ -86,23 +91,12 @@ public class Controller {
 	public void handleButtonConvert(ActionEvent event) {
 		view.clear();
 		try {
-			if (tablature != null) {
-				//			input = new BufferedReader(new FileReader(tablature));
-				//			output = new StreamResult("tablature_converted.musicxml");
-				String storePath = tablature.getAbsolutePath();
-				Parser.setPath(storePath);
-				App.main(null);
-				String getConversion = App.getConversion();
-				view.appendText(getConversion);
-			}
-			else {
 				String storeText = write.getText();
 				Parser.setText(storeText);
 				App.main(null);
 				String getConversion = App.getConversion();
 				view.appendText(getConversion);
-				save.setVisible(true);
-			}
+				save.setDisable(false);
 		}
 		catch (Exception e) {
 			Alert errorAlert = new Alert(AlertType.ERROR); 
@@ -142,23 +136,4 @@ public class Controller {
 		}
 
 	}
-
-
-	public String getPath(String path) {
-		return tablature.getAbsolutePath();
-	}
-
 }
-
-/*Convert file
- * 	fc = new FileChooser();
-		try {
-			if (tablature != null) screen.open(tablature);
-		}
-		catch(Exception e) {
-			Alert errorAlert = new Alert(AlertType.ERROR); 
-			errorAlert.setHeaderText("File Not Found!"); 
-			errorAlert.setContentText("Please browse a file in order to open it!"); 
-			errorAlert.showAndWait();
-		}
- */
