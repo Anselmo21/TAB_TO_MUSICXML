@@ -105,7 +105,7 @@ public class App {
 			clef.setSign("TAB");
 			clef.setLine("5");
 			attributes.setClef(clef);
-			attributes.setDivisions(2);
+			attributes.setDivisions(Parser.divisionCount(meas));
 
 			Key key = new Key();
 			key.setFifths("0");
@@ -177,7 +177,16 @@ public class App {
 				char character = meas.get(x).charAt(y);
 				
 				if (Character.isDigit(character)) {
-					note.add(new Note());
+					
+					// if the note is length 2, it contains a sharp
+					if (Parser.stepCount(x, Character.getNumericValue(character)).length() == 2) {
+						//note.get(note.size()-1)
+						note.add(new ChordNote());
+					}
+					else {
+						note.add(new Note());
+					}
+					
 					Integer duration = Parser.durationCount(meas, x, y);
 					note.get(note.size()-1).setDuration(duration.toString());
 					
