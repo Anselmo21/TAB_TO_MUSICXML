@@ -14,7 +14,7 @@
                <font>
                   <Font name="Consolas Bold" size="14.0" />
                </font></TextArea>
-            <Button fx:id="convert" layoutX="653.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleButtonConvert" text="Convert File" visible="false" />
+            <Button fx:id="convert" layoutX="653.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleButtonConvert" text="Convert File" />
             <Label layoutX="227.0" layoutY="35.0" prefHeight="40.0" prefWidth="304.0" text="Browse using the button below" textFill="WHITE" wrapText="true">
                <font>
                   <Font name="Bookman Old Style Bold" size="18.0" />
@@ -22,7 +22,7 @@
             </Label>
           <Button fx:id="browse" layoutX="25.0" layoutY="464.0" mnemonicParsing="false" onAction="#handleButtonBrowse" text="Browse File" />
             <Label fx:id="path" layoutX="154.0" layoutY="434.0" prefHeight="111.0" prefWidth="335.0" textFill="WHITE" wrapText="true" />
-            <Button fx:id="openFile" layoutX="25.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleButtonOpenFile" text="Open File" visible="false" />
+            <Button layoutX="661.0" layoutY="545.0" mnemonicParsing="false" text="Save File" />
          </children>
       </AnchorPane>
    </children>
