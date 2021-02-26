@@ -8,6 +8,7 @@ import Interface.Controller;
 public class Parser {
 
 	private static String pathName;
+	private static String text;
 
 	/**
 	 * Setter method for path name
@@ -27,6 +28,14 @@ public class Parser {
 
 	public static String getPath() {
 		return pathName;
+	}
+	
+	public static void setText(String textBox) {
+		text = textBox;
+	}
+	
+	public static String getText() {
+		return text;
 	}
 
 	/**
@@ -54,6 +63,23 @@ public class Parser {
 
 		return "Guitar";
 
+	}
+	
+	public static ArrayList<String> readText(String text) {
+		ArrayList<String> textList = new ArrayList<>();
+		Scanner in = null;
+		try {
+			in = new Scanner(text);
+			while (in.hasNextLine())
+				textList.add(in.nextLine());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			in.close();
+		}
+		return textList;
 	}
 
 	/**

@@ -18,7 +18,7 @@ import Model.*;
 
 public class App {
 
-	static String getConversion;
+	static String conversion;
 	
 	public static void main(String[] args) {
 		try {
@@ -59,7 +59,10 @@ public class App {
 			
 			// read input file, store in array list
 			ArrayList<String> storeFile = new ArrayList<>();
-			storeFile = Parser.readLineByLine(Parser.getPath());
+			if (Parser.getPath() != null)
+				storeFile = Parser.readLineByLine(Parser.getPath());
+			else
+				storeFile = Parser.readText(Parser.getText());
 			
 			
 			// get a set of collections
@@ -86,6 +89,7 @@ public class App {
 
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
 			mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
+			conversion = mapper.writeValueAsString(scorePartwise);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -93,6 +97,10 @@ public class App {
 		
 		
 		
+	}
+	
+	public static String getConversion() {
+		return conversion;
 	}
 	
 	private static Measure parseMeasure(ArrayList<String> meas, int measureNumber) {
@@ -163,28 +171,12 @@ public class App {
 			time.setBeatType("4");
 			attributes.setTime(time);
 
-
 			newMeasure.setAttributes(attributes);
 		}
 		else {
 			newMeasure.setAttributes(null);
 		}
 		
-<<<<<<< HEAD
-		
-		
-	}
-	
-	public static String getConversion() {
-		return getConversion;
-	}
-	
-	private static Measure parseMeasure(ArrayList<String> meas, int measureNumber) {
-		
-		Measure newMeasure = new Measure();
-		newMeasure.setAttributes(null);
-=======
->>>>>>> refs/heads/develop
 		newMeasure.setBarline(null);
 
 		

@@ -37,7 +37,7 @@ public class Controller {
 	File xmlFile;
 	BufferedReader input;
 	StreamResult output;
-	FileChooser fc;
+	FileChooser fc, saveFile;
 
 	@FXML
 	Button browse, convert, save;
@@ -55,7 +55,7 @@ public class Controller {
 
 	@FXML
 	public void handleButtonBrowse(ActionEvent event) {
-		//write.clear();
+		write.clear();
 		fc = new FileChooser();
 		fc.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 		tablature = fc.showOpenDialog(null);
@@ -63,7 +63,7 @@ public class Controller {
 		if (tablature != null) {
 			path.setText(tablature.getAbsolutePath());
 			Scanner sc = null;
-			convert.setVisible(true);
+			save.setVisible(true);
 			try {
 				sc = new Scanner(tablature);
 				while (sc.hasNextLine()) {
@@ -84,6 +84,7 @@ public class Controller {
 
 	@FXML
 	public void handleButtonConvert(ActionEvent event) {
+		view.clear();
 		try {
 			if (tablature != null) {
 				//			input = new BufferedReader(new FileReader(tablature));
@@ -93,13 +94,14 @@ public class Controller {
 				App.main(null);
 				String getConversion = App.getConversion();
 				view.appendText(getConversion);
-				Alert convertAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
-				convertAlert.setHeaderText("The selected file is being converted to XML"); 
-				convertAlert.setContentText("Please Wait.."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
-				convertAlert.showAndWait();
 			}
 			else {
-				
+				String storeText = write.getText();
+				Parser.setText(storeText);
+				App.main(null);
+				String getConversion = App.getConversion();
+				view.appendText(getConversion);
+				save.setVisible(true);
 			}
 		}
 		catch (Exception e) {
@@ -116,16 +118,14 @@ public class Controller {
 	 */
 	@FXML
 	public void handleButtonSave(ActionEvent event) {
-		FileChooser downloadDestination = new FileChooser();
-		FileChooser.ExtensionFilter extension = new FileChooser.ExtensionFilter("musicXML files (*.musicxml)", "*.musicxml");
-		downloadDestination.getExtensionFilters().add(extension);
-		xmlFile = downloadDestination.showSaveDialog(window);
+		saveFile = new FileChooser();
+		FileChooser.ExtensionFilter extension = new FileChooser.ExtensionFilter("musicXML files", "*.musicxml");
+		saveFile.getExtensionFilters().add(new ExtensionFilter("musicXML files", "*.musicxml"));
+		xmlFile = saveFile.showSaveDialog(null);
+		PrintWriter write = null;
 		try {
-			while (xmlFile != null) {
-				FileWriter write = new FileWriter(xmlFile);
-				write.write(view.getText());
-				write.close();
-			}
+			write = new PrintWriter(xmlFile.getAbsolutePath());
+			write.println(view.getText());
 			Alert saveAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
 			saveAlert.setHeaderText("The converted file has been saved to " + xmlFile.getAbsolutePath()); 
 			saveAlert.setContentText("Thank you for using Allegro Tab Converter!"); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
@@ -136,6 +136,9 @@ public class Controller {
 			errorAlert.setHeaderText("File cannot be saved!"); 
 			errorAlert.setContentText("Please convert a file in order to save it!"); 
 			errorAlert.showAndWait();
+		}
+		finally {
+			write.close();
 		}
 
 	}
