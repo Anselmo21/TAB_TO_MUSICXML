@@ -395,11 +395,6 @@ public class Parser {
 											
 	}
 	
-	
-	
-	
-	
-
 	public static int countNote(ArrayList<String> parse) {
 		int numNotes = 0;
 		for (int i = 0; i < parse.size(); i++) {
@@ -411,5 +406,19 @@ public class Parser {
 		}
 		return numNotes;
 	}
-
+	public String parseAlter(String note) { 
+		
+		for (int i = 0; i < note.length(); i++) { 
+			if (note.charAt(i) == '#') { 
+				return "1";
+			}
+		
+		}
+		return "0";
+	}
+	public static boolean isChord(ArrayList<String> line, char note) { 
+		return false;
+		
+	}
+	public static String[] parseChord() {return null;}
 }
