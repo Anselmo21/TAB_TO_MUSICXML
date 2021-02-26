@@ -359,9 +359,10 @@ public class Parser {
 			if (inputFile.get(i).contains("|-")) {
 				for (int j = 0; j < 6; j++) {
 					eachCollection.add(inputFile.get(i));
-					Collections.add(eachCollection);
-					eachCollection = new ArrayList<String>();	
+
 				}
+				Collections.add(eachCollection);
+				eachCollection = new ArrayList<String>();
 				i = i + 5;
 			}
 			
