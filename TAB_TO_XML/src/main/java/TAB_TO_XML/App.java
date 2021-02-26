@@ -174,14 +174,13 @@ public class App {
 		
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
+			Boolean hasPrevColNote = false;
 			for (int x = 0; x < meas.size(); x++) {
 				char character = meas.get(x).charAt(y);
-				
+
 				if (Character.isDigit(character)) {
-					
-					// if the note is length 2, it contains a sharp
-					if (Parser.stepCount(x, Character.getNumericValue(character)).length() == 2) {
-						//note.get(note.size()-1)
+					// if has previous note in column
+					if (hasPrevColNote) {
 						note.add(new ChordNote());
 					}
 					else {
@@ -195,11 +194,21 @@ public class App {
 					note.get(note.size()-1).setVoice("1");
 					
 					
-					// set pitch
-					Pitch pitch = new Pitch();
-					pitch.setStep(Parser.stepCount(x, Character.getNumericValue(character)));
-					pitch.setOctave(Parser.octaveCount(x, Character.getNumericValue(character)));
-					note.get(note.size()-1).setPitch(pitch);
+					// if the note is length 2, it contains a sharp
+					if (Parser.stepCount(x, Character.getNumericValue(character)).length() == 2) {
+						AlteredPitch pitch = new AlteredPitch();
+						pitch.setAlter("1");
+						pitch.setStep(Parser.stepCount(x, Character.getNumericValue(character)).substring(0, 1));
+						pitch.setOctave(Parser.octaveCount(x, Character.getNumericValue(character)));
+						note.get(note.size()-1).setPitch(pitch);
+					}
+					else {
+						Pitch pitch = new Pitch();
+						pitch.setStep(Parser.stepCount(x, Character.getNumericValue(character)));
+						pitch.setOctave(Parser.octaveCount(x, Character.getNumericValue(character)));
+						note.get(note.size()-1).setPitch(pitch);
+					}
+					
 					
 					// set notations, technical is a sub-element of notations
 					Notations notations = new Notations();
@@ -209,6 +218,9 @@ public class App {
 					technical.setString(stringNumber.toString());
 					notations.setTechnical(technical);
 					note.get(note.size()-1).setNotations(notations);
+					
+					// set has note in the column to true
+					hasPrevColNote = true;
 				}
 			}
 		}
