@@ -283,12 +283,10 @@ public class Parser {
 	public static int divisionCount(ArrayList<String> parse) {
 		int k = 0;
 		// loop used to count the divisions of the tablature
-		for (int i = 1; i < parse.get(findLongerList(parse)).length(); i++) {
-			if (parse.get(0).charAt(i) == '|') {
+		for (int i = 1; i < parse.get(0).length()-1; i++) {
 				k++;
 			}
-		}
-		k = k - 2;
+		k = k / 8;
 		return k;
 	}
 
@@ -360,16 +358,14 @@ public class Parser {
 		for (int i = 0; i < inputFile.size(); i++) {
 			if (inputFile.get(i).contains("|-")) {
 				for (int j = 0; j < 6; j++) {
-					eachCollection.add(inputFile.get(i+j));
+					eachCollection.add(inputFile.get(i));
+					Collections.add(eachCollection);
+					eachCollection = new ArrayList<String>();	
 				}
+				i = i + 5;
 			}
 			
 			// checks to see if reached six lines
-			
-			if((i+1)%6==0) {							
-				Collections.add(eachCollection);
-				eachCollection = new ArrayList<String>();	
-			}
 			
 		}
 		
