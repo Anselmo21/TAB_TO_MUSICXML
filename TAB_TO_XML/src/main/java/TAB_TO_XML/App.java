@@ -50,16 +50,65 @@ public class App {
 			parts.add(part);
 						
 			ArrayList<Measure> measures = new ArrayList<Measure>(); 
-			Measure measure = new Measure();
-			measure.setNumber(1);
-			measures.add(measure);
 			
+			
+//			Barline barline = new Barline();
+//			barline.setBarStyle("light-heavy");
+//			barline.setLocation("right");
+//			measure.setBarline(barline);
+			
+			// read input file, store in array list
+			ArrayList<String> storeFile = new ArrayList<>();
+			storeFile = Parser.readLineByLine(Parser.getPath());
+			
+			
+			// get a set of collections
+			ArrayList<ArrayList<String>> collections = new ArrayList<>();
+			collections = Parser.method1(storeFile);
+			
+			
+			int measureCount = 0;
+			// iter through each collection
+			for (int i = 0; i < collections.size(); i++) {
+				ArrayList<ArrayList<String>> measuresOfCollection = Parser.method2(collections.get(i));
+				
+				// iter through each measure set
+				for(int j = 0; j < measuresOfCollection.size(); j++) {
+					measureCount++;
+					Measure newMeasure = parseMeasure(measuresOfCollection.get(j), measureCount);
+					measures.add(newMeasure);
+				}
+			}
+
+			parts.get(0).setMeasures(measures);
+			
+			scorePartwise.setParts(parts);
+
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
+	private static Measure parseMeasure(ArrayList<String> meas, int measureNumber) {
+		
+		Measure newMeasure = new Measure();
+		newMeasure.setNumber(measureNumber);
+		int division = Parser.divisionCount(meas);
+		// if first measure, set the attributes
+		if (measureNumber == 1) {
 			Attributes attributes = new Attributes();
 			Clef clef = new Clef();
 			clef.setSign("TAB");
 			clef.setLine("5");
 			attributes.setClef(clef);
-			attributes.setDivisions(2);
+
+			attributes.setDivisions(division);
 
 			Key key = new Key();
 			key.setFifths("0");
@@ -114,92 +163,14 @@ public class App {
 			time.setBeatType("4");
 			attributes.setTime(time);
 
-			measures.get(0).setAttributes(attributes);
-			Barline barline = new Barline();
-			barline.setBarStyle("light-heavy");
-			barline.setLocation("right");
-			measures.get(0).setBarline(barline);
-			
-			// read input file, store in array list
-			ArrayList<String> storeFile = new ArrayList<>();
-			storeFile = Parser.readLineByLine(Parser.getPath());
-			
-			
-			// get a set of collections
-			ArrayList<ArrayList<String>> collections = new ArrayList<>();
-			collections = Parser.method1(storeFile);
-			
-			
-			int measureCount = 0;
-			System.out.println(collections.size());
-			// iter through each collection
-			for (int i = 0; i < collections.size(); i++) {
-				System.out.println("/////////////////////////");
-				ArrayList<ArrayList<String>> measuresOfCollection = Parser.method2(collections.get(i));
-				
-				// iter through each measure set
-				for(int j = 0; j < measuresOfCollection.size(); j++) {
-					System.out.println(measuresOfCollection.get(j).toString());
-					measureCount++;
-					Measure newMeasure = parseMeasure(measuresOfCollection.get(j), measureCount);
-					
-				}
-			}
-			
-			
-//			for (int j = 0; j < collections.get(0).length(); j++) {
-//				System.out.println("///////////////////");
-//				for (int i = 0; i < collections.size(); i++) {
-//					System.out.println(collections.get(i).charAt(j));
-//				}
-//			}
-//			
-//			// gets the number of notes, sets it to 'numNotes'
-//			int numNotes = Parser.countNote(collections);
-//			//int numMeasures = Parser.countMeasures(printArr);
-//			//System.out.println(numMeasures);
-//			
-//			ArrayList<Note> note = new ArrayList<Note>(); //Number of notes within the measure, BUT currently all notes within set of 6...
-//			for (int j = 0; j < numNotes; j++) {
-//				note.add(new Note());
-//				note.get(j).setDuration(Parser.durationCount(collections)); // TODO: this is wrong
-//				// TO DO: check over this method
-//				note.get(j).setType(Parser.typeDeclare(collections));
-//				note.get(j).setVoice("1");
-//				
-//				
-//				// set pitch
-//				Pitch pitch = new Pitch();
-//				pitch.setStep(Parser.stepCount(collections));
-//				pitch.setOctave(Parser.octaveCount(collections));
-//				note.get(j).setPitch(pitch);
-//				
-//				// set notations, technical is a sub-element of notations
-//				Notations notations = new Notations();
-//				Technical technical = new Technical();
-//				technical.setFret(Parser.fretCount(collections));
-//				Integer stringNumber = 6 - Parser.findLongerList(collections);
-//				technical.setString(stringNumber.toString());
-//				notations.setTechnical(technical);
-//				note.get(j).setNotations(notations);
-//				
-//				collections = Parser.listReduction(collections);
-//			}
-//			
-//			// TO FIX: right now we only support 1 measure and 1 part
-//			measures.get(0).setNote(note);
-			parts.get(0).setMeasures(measures);
-			
-			scorePartwise.setParts(parts);
 
-			mapper.enable(SerializationFeature.INDENT_OUTPUT);
-			//mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
-			getConversion = mapper.writeValueAsString(scorePartwise);
-
-		} catch (Exception e) {
-			e.printStackTrace();
+			newMeasure.setAttributes(attributes);
+		}
+		else {
+			newMeasure.setAttributes(null);
 		}
 		
+<<<<<<< HEAD
 		
 		
 	}
@@ -212,20 +183,55 @@ public class App {
 		
 		Measure newMeasure = new Measure();
 		newMeasure.setAttributes(null);
+=======
+>>>>>>> refs/heads/develop
 		newMeasure.setBarline(null);
-		newMeasure.setNumber(measureNumber);
+
 		
 		ArrayList<Note> note = new ArrayList<Note>();
 		
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
-			System.out.println("/////////////////////////");
 			for (int x = 0; x < meas.size(); x++) {
-				System.out.println(meas.get(x).charAt(y));
+				char character = meas.get(x).charAt(y);
+				
+				if (Character.isDigit(character)) {
+					
+					// if the note is length 2, it contains a sharp
+					if (Parser.stepCount(x, Character.getNumericValue(character)).length() == 2) {
+						//note.get(note.size()-1)
+						note.add(new ChordNote());
+					}
+					else {
+						note.add(new Note());
+					}
+					
+					Integer duration = Parser.durationCount(meas, y, division);
+					note.get(note.size()-1).setDuration(duration.toString());
+					
+					note.get(note.size()-1).setType(Parser.typeDeclare(duration));
+					note.get(note.size()-1).setVoice("1");
+					
+					
+					// set pitch
+					Pitch pitch = new Pitch();
+					pitch.setStep(Parser.stepCount(x, Character.getNumericValue(character)));
+					pitch.setOctave(Parser.octaveCount(x, Character.getNumericValue(character)));
+					note.get(note.size()-1).setPitch(pitch);
+					
+					// set notations, technical is a sub-element of notations
+					Notations notations = new Notations();
+					Technical technical = new Technical();
+					technical.setFret("" + character);
+					Integer stringNumber = (x + 1);
+					technical.setString(stringNumber.toString());
+					notations.setTechnical(technical);
+					note.get(note.size()-1).setNotations(notations);
+				}
 			}
 		}
 		
-		newMeasure.setNote(null);
+		newMeasure.setNote(note);
 
 		return newMeasure;
 	}
