@@ -13,7 +13,7 @@ public class Runner extends Application {
 	public void start(Stage primaryStage) throws Exception{
 		Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Interface/Intro.fxml"));
 		primaryStage.setTitle("Allegro Tab Converter");
-		Scene scene = new Scene(root, 950, 700);
+		Scene scene = new Scene(root, 935, 700);
 		scene.getStylesheets().add(getClass().getClassLoader().getResource("Interface/Intro.css").toExternalForm());
 		Image logo = new Image("/Interface/music-background.jpg");
 		primaryStage.getIcons().add(logo);
