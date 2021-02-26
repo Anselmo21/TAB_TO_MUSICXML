@@ -178,7 +178,7 @@ public class App {
 				
 				if (Character.isDigit(character)) {
 					note.add(new Note());
-					Integer duration = Parser.durationCount(meas, x, division);
+					Integer duration = Parser.durationCount(meas, y, division);
 					note.get(note.size()-1).setDuration(duration.toString());
 					
 					note.get(note.size()-1).setType(Parser.typeDeclare(duration));
