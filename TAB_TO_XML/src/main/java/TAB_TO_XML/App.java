@@ -97,7 +97,7 @@ public class App {
 		
 		Measure newMeasure = new Measure();
 		newMeasure.setNumber(measureNumber);
-		
+		int division = Parser.divisionCount(meas);
 		// if first measure, set the attributes
 		if (measureNumber == 1) {
 			Attributes attributes = new Attributes();
@@ -105,7 +105,7 @@ public class App {
 			clef.setSign("TAB");
 			clef.setLine("5");
 			attributes.setClef(clef);
-			attributes.setDivisions(2);
+			attributes.setDivisions(division);
 
 			Key key = new Key();
 			key.setFifths("0");
@@ -178,7 +178,7 @@ public class App {
 				
 				if (Character.isDigit(character)) {
 					note.add(new Note());
-					Integer duration = Parser.durationCount(meas, x);
+					Integer duration = Parser.durationCount(meas, x, division);
 					note.get(note.size()-1).setDuration(duration.toString());
 					
 					note.get(note.size()-1).setType(Parser.typeDeclare(duration));
