@@ -224,7 +224,7 @@ public class App {
 					Notations notations = new Notations();
 					Technical technical = new Technical();
 					technical.setFret("" + character);
-					Integer stringNumber = (6 - x);
+					Integer stringNumber = (x + 1);
 					technical.setString(stringNumber.toString());
 					notations.setTechnical(technical);
 					note.get(note.size()-1).setNotations(notations);
