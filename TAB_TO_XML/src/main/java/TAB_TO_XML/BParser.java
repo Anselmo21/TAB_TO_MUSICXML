@@ -132,9 +132,9 @@ import Interface.Controller;
 			ArrayList<String> eachSection = new ArrayList<String>();
 			
 			// assumes that all the measures have 17 dashes/notes excluding the vertical lines
-			for (int i = 0; i < (input.get(0).length()-1)/18; i++) {	
+			for (int i = 0; i < (input.get(0).length()-1)/21; i++) {	
 				for (int j = 0; j < 4; j++) {
-					eachSection.add(input.get(j).substring(1+18*i, 18*(i+1)));
+					eachSection.add(input.get(j).substring(1+21*i, 21*(i+1)));
 				}
 				sections.add(eachSection);
 				eachSection = new ArrayList<String>();
