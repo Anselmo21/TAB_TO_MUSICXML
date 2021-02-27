@@ -87,6 +87,9 @@ public class App {
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
 			//mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
 			conversion = mapper.writeValueAsString(scorePartwise);
+			
+			// add header
+			conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n" + conversion;
 
 		} catch (Exception e) {
 			e.printStackTrace();
