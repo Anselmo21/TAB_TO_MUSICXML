@@ -22,31 +22,36 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Window;
 import TAB_TO_XML.App;
 import TAB_TO_XML.Parser;
 
 public class Controller {
 
 	Desktop screen = Desktop.getDesktop();
+	Window window;
 	File tablature;
-	String getText;
-	TransformerHandler th;
+	File xmlFile;
 	BufferedReader input;
 	StreamResult output;
-	FileChooser fc;
+	FileChooser fc, saveFile;
+	
+	@FXML
+	AnchorPane anchorpane;
 
 	@FXML
-	Button browse, convert, convertText, openFile, clearText;
+	Button browse, convert, save;
 
 	@FXML
 	Label path;
 
 	@FXML
-	TextArea textbox;
-
+	TextArea view, write;
+	
 	/**
 	 * This method enables browsing through the file explorer for .txt files. After browsing, it shows the text on the file in a 
 	 * text area. 
@@ -55,7 +60,7 @@ public class Controller {
 	
 	@FXML
 	public void handleButtonBrowse(ActionEvent event) {
-		textbox.clear();
+		write.clear();
 		fc = new FileChooser();
 		fc.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 		tablature = fc.showOpenDialog(null);
@@ -63,12 +68,11 @@ public class Controller {
 		if (tablature != null) {
 			path.setText(tablature.getAbsolutePath());
 			Scanner sc = null;
-			convert.setVisible(true);
-			openFile.setVisible(true);
+			save.setVisible(true);
 			try {
 				sc = new Scanner(tablature);
 				while (sc.hasNextLine()) {
-					textbox.appendText(sc.nextLine() + "\n"); // else read the next token
+					write.appendText(sc.nextLine() + "\n"); // else read the next token
 				}
 			} 
 			catch (Exception e) {
@@ -76,103 +80,60 @@ public class Controller {
 			}
 		}
 	}
-	
-
-	/**
-	 * This method handles the Open File Button. It allows you to open the file and edit it. The edits are reflected in the file.
-	 * @param event
-	 */
-	
-	@FXML
-	public void handleButtonOpenFile(ActionEvent event) {
-		fc = new FileChooser();
-		Scanner sc = null;
-		try {
-			if (tablature != null) screen.open(tablature);
-			sc = new Scanner(tablature);
-			while (sc.hasNextLine()) 
-				textbox.appendText(sc.nextLine() + "\n"); // else read the next token
-		}
-		catch(Exception e) {
-			Alert errorAlert = new Alert(AlertType.ERROR); 
-			errorAlert.setHeaderText("File Not Found!"); 
-			errorAlert.setContentText("Please browse a file in order to open it!"); 
-			errorAlert.showAndWait();
-		}
-	}
-	
 
 
 	/**
 	 * This method handles the convert button in the Graphic User Interface. It shows an alert once the file is converted.
 	 * @param event
 	 */
-	
+
 	@FXML
 	public void handleButtonConvert(ActionEvent event) {
+		view.clear();
 		try {
-			input = new BufferedReader(new FileReader(tablature));
-			output = new StreamResult("tablature_converted.musicxml");
-			//createXML();
-			String storePath = tablature.getAbsolutePath();
-			Parser.setPath(storePath);
-			App.main(null);
-			Alert errorAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
-			errorAlert.setHeaderText("The selected file is being converted to XML"); 
-			errorAlert.setContentText("Please Wait.."); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
-			errorAlert.showAndWait();
-			textbox.clear();
+				String storeText = write.getText();
+				Parser.setText(storeText);
+				App.main(null);
+				String getConversion = App.getConversion();
+				view.appendText(getConversion);
+				save.setDisable(false);
 		}
 		catch (Exception e) {
 			Alert errorAlert = new Alert(AlertType.ERROR); 
 			errorAlert.setHeaderText("Input not valid!"); 
 			errorAlert.setContentText("Provide text file."); 
 			errorAlert.showAndWait();
-			textbox.clear();
 		}
 	}
 
-	@FXML
-	public void handleClearTextButton(ActionEvent event) {
-		textbox.clear();
-	}
-	
-	/*
-	 * Helper methods
+	/**
+	 * This is the method that controls the save button in the User Interface.
+	 * @param event
 	 */
-	public void createXML() throws ParserConfigurationException, TransformerConfigurationException, SAXException {
-		SAXTransformerFactory tf = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
-		th = tf.newTransformerHandler(); 
+	@FXML
+	public void handleButtonSave(ActionEvent event) {
+		saveFile = new FileChooser();
+		FileChooser.ExtensionFilter extension = new FileChooser.ExtensionFilter("musicXML files", "*.musicxml");
+		saveFile.getExtensionFilters().add(new ExtensionFilter("musicXML files", "*.musicxml"));
+		xmlFile = saveFile.showSaveDialog(null);
+		PrintWriter write = null;
+		try {
+			write = new PrintWriter(xmlFile.getAbsolutePath());
+			write.println(view.getText());
+			Alert saveAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
+			saveAlert.setHeaderText("The converted file has been saved to " + xmlFile.getAbsolutePath()); 
+			saveAlert.setContentText("Thank you for using Allegro Tab Converter!"); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
+			saveAlert.showAndWait();
+		}
+		catch(Exception e) {
+			Alert errorAlert = new Alert(AlertType.ERROR); 
+			errorAlert.setHeaderText("File cannot be saved!"); 
+			errorAlert.setContentText("Please convert a file in order to save it!"); 
+			errorAlert.showAndWait();
+		}
+		finally {
+			write.close();
+		}
 
-		Transformer serializer = th.getTransformer();
-		serializer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-		serializer.setOutputProperty(OutputKeys.INDENT, "yes");
-
-		th.setResult(output); 
-		th.startDocument();
-		th.startElement(null, null, "inserts", null); 
 	}
-
-	public void process(String s) throws SAXException {
-		th.startElement(null, null, "note", null);  
-		th.characters(s.toCharArray(), 0, s.length()); 
-		th.endElement(null, null, "note"); 
-	}
-
-	public void endXML() throws SAXException {
-		th.endElement(null, null, "inserts"); 
-		th.endDocument(); 
-	}
-
-	public String getPath(String path) {
-		return tablature.getAbsolutePath();
-	}
-
-	//while ((xmlLine = input.readLine()) != null) {
-	//process(xmlLine);
-
-	//}
-	//input.close();
-	//endXML();
-
 }

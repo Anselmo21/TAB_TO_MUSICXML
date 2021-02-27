@@ -2,6 +2,9 @@ package Model;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class StaffDetails {
@@ -10,7 +13,7 @@ public class StaffDetails {
 
 	@JacksonXmlProperty(localName = "staff-tuning")
 	@JacksonXmlElementWrapper(useWrapping = false)
-	StaffTuning[] staffTunings;
+	ArrayList<StaffTuning> staffTunings;
 
 	public String getStaffLines() {
 		return staffLines;
@@ -20,16 +23,16 @@ public class StaffDetails {
 		this.staffLines = staffLines;
 	}
 
-	public StaffTuning[] getStaffTunings() {
+	public ArrayList<StaffTuning> getStaffTunings() {
 		return staffTunings;
 	}
 
-	public void setStaffTunings(StaffTuning[] staffTunings) {
+	public void setStaffTunings(ArrayList<StaffTuning> staffTunings) {
 		this.staffTunings = staffTunings;
 	}
 
 	public StaffDetails() {}
-	public StaffDetails(String staffLines, StaffTuning[] staffTunings) {
+	public StaffDetails(String staffLines, ArrayList<StaffTuning> staffTunings) {
 		super();
 		this.staffLines = staffLines;
 		this.staffTunings = staffTunings;

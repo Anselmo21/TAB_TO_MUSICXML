@@ -1,14 +1,12 @@
-package Model;
+package DrumModel;
 
 import java.util.ArrayList;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class PartList {
 
 	@JacksonXmlProperty(localName = "score-part")
-    @JacksonXmlElementWrapper(useWrapping = false)
 	ArrayList<ScorePart> scoreParts;
 
 	public ArrayList<ScorePart> getScoreParts() {
@@ -24,5 +22,4 @@ public class PartList {
 		super();
 		this.scoreParts = scoreParts;
 	}
-
 }

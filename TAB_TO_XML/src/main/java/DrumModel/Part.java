@@ -1,9 +1,11 @@
-package Model;
+package DrumModel;
 
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+
+
 
 public class Part {
 
