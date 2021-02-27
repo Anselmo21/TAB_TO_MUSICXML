@@ -1,7 +1,9 @@
 package Model;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+@JsonPropertyOrder({"step", "octave", "alter"})
 public class AlteredPitch extends Pitch {
 	
 	@JacksonXmlProperty(localName = "alter")
