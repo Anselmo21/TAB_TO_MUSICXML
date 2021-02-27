@@ -82,7 +82,6 @@ public class Note {
 	public Note() {}
 	public Note(Unpitched pitch, String duration, String voice, String stem, String notehead) {
 		
-		
 		super();
 		this.unpitch = pitch;
 		this.duration = duration;
