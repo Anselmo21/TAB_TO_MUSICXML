@@ -6,15 +6,15 @@ import Model.Pitch;
 public class Note {
 	Unpitched unpitch;
 	String duration; 
-	//instrument id
+	Instrument instrument;
 	String voice; 
 	String type; 
 	String stem;
 	String notehead;
-	//beam number
+	Beam beam; 
 	
 	public void setUnpitch(Unpitched pitch) { 
-		unpitch = unpitch;
+		unpitch = pitch;
 		
 	}
 	
@@ -79,10 +79,32 @@ public class Note {
 		
 	}
 	
+	public void setInstrument() { 
+		this.instrument = null;
+		
+	}
+	public Instrument getInstrument() { 
+		
+		return instrument; 
+		
+	}
+	
+	public void setBeam(Beam beam) { 
+		this.beam = beam;
+		
+	}
+	
+	public Beam getBeam() { 
+		
+		return beam;
+	}
+	
 	public Note() {}
-	public Note(Unpitched pitch, String duration, String voice, String stem, String notehead) {
+	public Note(Unpitched pitch, String duration, String voice, String stem, String notehead, Instrument instrument, Beam beam) {
 		
 		super();
+		this.beam = beam;
+		this.instrument = instrument;
 		this.unpitch = pitch;
 		this.duration = duration;
 		this.voice = voice;
