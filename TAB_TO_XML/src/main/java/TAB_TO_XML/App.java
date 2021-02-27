@@ -185,7 +185,7 @@ public class App {
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
 			Boolean hasPrevColNote = false;
-			for (int x = 0; x < meas.size(); x++) {
+			for (int x = meas.size(); x >= 0; x++) {
 				char character = meas.get(x).charAt(y);
 
 				if (Character.isDigit(character)) {
