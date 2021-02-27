@@ -1,14 +1,11 @@
-package Model;
-import com.fasterxml.jackson.annotation.JsonInclude;
+package DrumModel;
+
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Measure {
-
 	@JacksonXmlProperty(isAttribute=true)
 	int number;
 

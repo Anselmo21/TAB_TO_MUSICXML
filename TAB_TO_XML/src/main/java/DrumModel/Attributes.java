@@ -1,9 +1,13 @@
-package Model;
+package DrumModel;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-public class Attributes {
+import Model.Clef;
+import Model.Key;
+import Model.StaffDetails;
+import Model.Time;
 
+public class Attributes {
 	int divisions;
 
 	Key key;

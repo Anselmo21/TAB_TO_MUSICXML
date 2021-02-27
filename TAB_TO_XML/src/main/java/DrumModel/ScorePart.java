@@ -1,6 +1,7 @@
-package Model;
+package DrumModel;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import java.util.ArrayList;
 
 public class ScorePart {
 	@JacksonXmlProperty(isAttribute=true)
@@ -9,25 +10,36 @@ public class ScorePart {
 	@JacksonXmlProperty(localName = "part-name")
 	String partName; 
 	
-	//@JacksonXmlProperty(localName = "score-instrument")
-	//ScoreInstrument[] instruments; //Only for the drums!
-	//Don't include in guitar implementation
+	//brand new attribute not seen in guitar!
+	@JacksonXmlProperty(localName = "score-instrument")
+	ArrayList<ScoreInstrument> instruments; 
+	
 
 	public ScorePart() {}
 	
+	public void setScoreInstrument(ArrayList<ScoreInstrument> instrument) { 
+		
+		this.instruments = instruments;
+		
+	}
+	
+	public ArrayList<ScoreInstrument> getScoreInstrument() { 
+		
+		return this.instruments;
+	}
 	/**
 	 * <p> This a constructor specifically for drums </p>
 	 * @param id
 	 * @param partName
 	 * @param instruments
 	 */
-	public ScorePart(String id, String partName, ScoreInstrument[] instruments) { 
+	public ScorePart(String id, String partName, ArrayList<ScoreInstrument> instruments) { 
 		
 		super(); 
 
 		this.id = id; 
 		this.partName = partName; 
-		//this.instruments = instruments;
+		this.instruments = instruments;
 		
 		
 	}
@@ -53,3 +65,4 @@ public class ScorePart {
 		this.partName = partName;
 	}
 }
+

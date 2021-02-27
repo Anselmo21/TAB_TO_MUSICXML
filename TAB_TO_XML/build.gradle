@@ -10,7 +10,7 @@ plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
     id 'application'
-  	id 'org.openjfx.javafxplugin' version '0.0.9'
+      id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
 repositories {
@@ -24,35 +24,35 @@ dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api 'org.apache.commons:commons-math3:3.6.1'
 
-	compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.9.2'
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.9.2'
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:28.0-jre'
 
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.13'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0', 'junit:junit:4.12'
+    //testImplementation 'junit:junit:4.13'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     
 }
 
 test {
-	useJUnitPlatform()
-	testLogging {
-		events 'passed', 'skipped','failed'
-	}
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped','failed'
+    }
 }
 
-run {	
-	if (javafx.platform.classifier == 'win') {
-		systemProperty "java.library.path", "C:\tmp"
-	}
+run {    
+    if (javafx.platform.classifier == 'win') {
+        systemProperty "java.library.path", "C:\tmp"
+    }
 }
 
 javafx {
-	modules = [ 'javafx.controls', 'javafx.fxml' ]
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
     version = "15.0.1"
-    configuration = 'compileOnly'
+    //configuration = 'compileOnly'
 }
 
 mainClassName = 'Interface.Runner'
