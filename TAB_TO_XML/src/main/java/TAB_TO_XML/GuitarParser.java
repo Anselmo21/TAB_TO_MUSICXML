@@ -38,7 +38,7 @@ public class GuitarParser {
 				return "Drums";
 			}
 		}
-		if (content.size() == 4) {
+		if (helpMe(content) == 4) {
 
 			return "Bass";
 
@@ -46,6 +46,17 @@ public class GuitarParser {
 
 		return "Guitar";
 
+	}
+	
+	public static int helpMe(ArrayList<String> content) {
+		ArrayList<ArrayList<String>> getInstrument = new ArrayList<>();
+		ArrayList<String> storeInstrument = new ArrayList<>();
+		for (int i = 0; i < content.size(); i++) {
+			if (content.get(i) != "") storeInstrument.add(content.get(i));
+			else break;
+		}
+		getInstrument.add(storeInstrument);
+		return getInstrument.get(0).size();
 	}
 	
 	public static ArrayList<String> readText(String text) {

@@ -19,7 +19,6 @@ public class Runner extends Application {
 		primaryStage.getIcons().add(logo);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-
 	}
 
 	public static void main(String[] args) {

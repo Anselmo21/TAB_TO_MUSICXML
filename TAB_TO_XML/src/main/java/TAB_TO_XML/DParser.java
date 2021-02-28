@@ -88,11 +88,17 @@ public class DParser {
 	 */
 	public static String beamState(ArrayList<String> parse, int row, int column) {
 		String state = null;
+		if (column > 0 && column < parse.get(0).length() - 1) {
 		if (Character.isDigit(parse.get(column+1).charAt(row)) && Character.isDigit(parse.get(column-1).charAt(row))) {
 			state = "continue";
 		} else if (Character.isDigit(parse.get(column+1).charAt(row)) && Character.isDigit(parse.get(column-1).charAt(row)) == false) {
 			state = "begin";
 		} else if (Character.isDigit(parse.get(column+1).charAt(row)) == false && Character.isDigit(parse.get(column-1).charAt(row))) {
+			state = "end";
+		}
+		}	else if (column == 0) {
+			state = "begin";
+		}	else if (column == parse.get(0).length() - 1) {
 			state = "end";
 		}
 		return state;
