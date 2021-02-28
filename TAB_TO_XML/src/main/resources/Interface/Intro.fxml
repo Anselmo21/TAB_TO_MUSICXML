@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.Controller">
@@ -59,21 +60,15 @@
                </padding>
             </GridPane>
             <Button fx:id="save" disable="true" layoutX="844.0" layoutY="628.0" mnemonicParsing="false" onAction="#handleButtonSave" text="Save File" AnchorPane.bottomAnchor="50.399999999999956" AnchorPane.rightAnchor="37.0" />
-            <GridPane alignment="CENTER" layoutX="291.0" layoutY="23.0" AnchorPane.leftAnchor="291.0" AnchorPane.rightAnchor="305.0" AnchorPane.topAnchor="23.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-               </rowConstraints>
+            <TilePane alignment="CENTER" layoutX="291.0" layoutY="25.0" AnchorPane.leftAnchor="291.0" AnchorPane.rightAnchor="305.0" AnchorPane.topAnchor="25.0">
                <children>
-                  <Label prefHeight="40.0" prefWidth="414.0" text="Browse using the button below" textFill="WHITE" wrapText="true">
+                  <Label prefHeight="40.0" prefWidth="304.0" text="Browse using the button below" textFill="WHITE" wrapText="true">
                      <font>
                         <Font name="Bookman Old Style Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
-            </GridPane>
+            </TilePane>
             <ChoiceBox fx:id="instrumentBox" layoutX="25.0" layoutY="663.0" prefHeight="22.0" prefWidth="100.0" visible="false" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.leftAnchor="25.0" />
             <GridPane layoutX="25.0" layoutY="599.0" AnchorPane.bottomAnchor="66.6" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="731.8">
                <columnConstraints>
