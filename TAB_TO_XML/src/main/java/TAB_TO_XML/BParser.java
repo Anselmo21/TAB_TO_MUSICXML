@@ -99,17 +99,17 @@ import Interface.Controller;
 			ArrayList<String> eachCollection = new ArrayList<String>();
 			
 			for (int i = 0; i < inputFile.size(); i++) {
-				if (inputFile.get(i).contains("|-")) {
+				if (inputFile.get(i).contains("|")) {
 					for (int j = 0; j < 4; j++) {
 						eachCollection.add(inputFile.get(i+j));
 					}
 					eachCollection.add(" ");
 					Collections.add(eachCollection);
 					eachCollection = new ArrayList<String>();
-					i = i + 3;
+					i = i + 4;
 				}
 				
-				
+					
 			}
 			
 			// returns 2d arrays of the input lines 

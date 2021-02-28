@@ -122,19 +122,16 @@ public class DParser {
 		ArrayList<String> eachCollection = new ArrayList<String>();
 		
 		for (int i = 0; i < inputFile.size(); i++) {
-			if (inputFile.get(i).contains("|-")) {
-				int j = 0;
-				while (inputFile.get(i+j).contains("|-")) {
+			if (inputFile.get(i).contains("|")) {
+				for (int j = 0; j < 6; j++) {
 					eachCollection.add(inputFile.get(i+j));
-					j++;
 				}
 				eachCollection.add(" ");
 				Collections.add(eachCollection);
 				eachCollection = new ArrayList<String>();
-				i = i + j;
+				i = i + 6;
 			}
 		}
-		
 		// returns 2d arrays of the input lines 
 		return Collections;
 	}
