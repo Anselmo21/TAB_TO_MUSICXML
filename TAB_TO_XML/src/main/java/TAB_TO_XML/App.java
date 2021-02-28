@@ -21,6 +21,18 @@ public class App {
 	static String conversion;
 	
 	public static void main(String[] args) {
+		conversion = guitarApp();
+			
+		// add header
+		conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n" + conversion;
+		
+	}
+	
+	public static String getConversion() {
+		return conversion;
+	}
+	
+	private static String guitarApp() {
 		try {
 			ObjectMapper mapper = new XmlMapper();
 //			InputStream inputStream = new FileInputStream("C:\\Users\\shawn\\Desktop\\parts1.xml");
@@ -31,7 +43,6 @@ public class App {
 //				System.out.println("name is: " + p.getId());
 //			}
 
-			// Will stay the same until line 77
 			ScorePartwise scorePartwise = new ScorePartwise();
 			scorePartwise.setVersion("3.1");
 			PartList partList = new PartList();
@@ -69,7 +80,7 @@ public class App {
 				// iter through each measure set
 				for(int j = 0; j < measuresOfCollection.size(); j++) {
 					measureCount++;
-					Measure newMeasure = parseMeasure(measuresOfCollection.get(j), measureCount);
+					Measure newMeasure = parseGuitarMeasure(measuresOfCollection.get(j), measureCount);
 					measures.add(newMeasure);
 				}
 			}
@@ -86,24 +97,16 @@ public class App {
 
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
 			//mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
-			conversion = mapper.writeValueAsString(scorePartwise);
-			
-			// add header
-			conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n" + conversion;
+			return mapper.writeValueAsString(scorePartwise);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		
-		
+		return null;
 	}
 	
-	public static String getConversion() {
-		return conversion;
-	}
-	
-	private static Measure parseMeasure(ArrayList<String> meas, int measureNumber) {
+	private static Measure parseGuitarMeasure(ArrayList<String> meas, int measureNumber) {
 		
 		Measure newMeasure = new Measure();
 		newMeasure.setNumber(measureNumber);
