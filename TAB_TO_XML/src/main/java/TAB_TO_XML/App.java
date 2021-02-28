@@ -37,6 +37,149 @@ public class App {
 		return conversion;
 	}
 
+	private static String drumApp() {
+		try {
+			ObjectMapper mapper = new XmlMapper();
+
+			DrumModel.ScorePartwise scorePartwise = new DrumModel.ScorePartwise();
+			scorePartwise.setVersion("3.1");
+			DrumModel.PartList partList = new DrumModel.PartList();
+			ArrayList<DrumModel.ScorePart> scoreParts = new ArrayList<DrumModel.ScorePart>();
+			DrumModel.ScorePart scorepart = new DrumModel.ScorePart();
+			scorepart.setId("P1");
+			scorepart.setPartName("Drumset");
+			scoreParts.add(scorepart);
+
+			partList.setScoreParts(scoreParts);
+			scorePartwise.setPartList(partList);
+
+			ArrayList<DrumModel.Part> parts = new ArrayList<DrumModel.Part>();
+			DrumModel.Part part = new DrumModel.Part();
+			part.setId("P1");
+			parts.add(part);
+
+			ArrayList<DrumModel.Measure> measures = new ArrayList<DrumModel.Measure>();
+
+			// read input file, store in array list
+			ArrayList<String> storeFile = new ArrayList<>();
+			storeFile = GuitarParser.readText(GuitarParser.getText()); // TODO: change location of the used methods here
+
+			// get a set of collections
+			ArrayList<ArrayList<String>> collections = new ArrayList<>();
+			collections = BParser.method1(storeFile);
+
+			int measureCount = 0;
+			// iter through each collection
+			for (int i = 0; i < collections.size(); i++) {
+				ArrayList<ArrayList<String>> measuresOfCollection = BParser.method2(collections.get(i));
+
+				// iter through each measure set
+				for (int j = 0; j < measuresOfCollection.size(); j++) {
+					measureCount++;
+					DrumModel.Measure newMeasure = parseDrumMeasure(measuresOfCollection.get(j), measureCount);
+					measures.add(newMeasure);
+				}
+			}
+
+			// set last measure to have barline values
+			DrumModel.Barline barline = new DrumModel.Barline();
+			barline.setBarStyle("light-heavy");
+			barline.setLocation("right");
+			measures.get(measures.size() - 1).setBarline(barline);
+
+			parts.get(0).setMeasures(measures);
+
+			scorePartwise.setParts(parts);
+
+			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+			// mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
+			return mapper.writeValueAsString(scorePartwise);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	private static DrumModel.Measure parseDrumMeasure(ArrayList<String> meas, int measureNumber) {
+
+		DrumModel.Measure newMeasure = new DrumModel.Measure();
+		newMeasure.setNumber(measureNumber);
+		int division = GuitarParser.divisionCount(meas);
+		// if first measure, set the attributes
+		if (measureNumber == 1) {
+			DrumModel.Attributes attributes = new DrumModel.Attributes();
+			DrumModel.Clef clef = new DrumModel.Clef();
+			clef.setSign("percussion");
+			clef.setLine("2");
+			attributes.setClef(clef);
+
+			attributes.setDivisions(division);
+
+			DrumModel.Key key = new DrumModel.Key();
+			key.setFifths("0");
+			attributes.setKey(key);
+
+			DrumModel.Time time = new DrumModel.Time();
+			time.setBeats("4");
+			time.setBeatType("4");
+			attributes.setTime(time);
+
+			newMeasure.setAttributes(attributes);
+		} else {
+			newMeasure.setAttributes(null);
+		}
+
+		newMeasure.setBarline(null);
+
+		ArrayList<DrumModel.Note> note = new ArrayList<DrumModel.Note>();
+
+		// iter through each measure
+		for (int y = 0; y < meas.get(0).length(); y++) {
+			Boolean hasPrevColNote = false;
+			for (int x = meas.size() - 1; x >= 0; x--) {
+				char character = meas.get(x).charAt(y);
+
+				if (Character.isDigit(character)) {
+					// if has previous note in column
+					if (hasPrevColNote) {
+						note.add(new DrumModel.ChordNote());
+					} else {
+						note.add(new DrumModel.Note());
+					}
+
+					Integer duration = DParser.durationCount(meas, y);
+					note.get(note.size() - 1).setDuration(duration.toString());
+
+					note.get(note.size() - 1).setType(DParser.typeDeclare(duration));
+					note.get(note.size() - 1).setVoice("1");
+
+					// if the note is length 2, it contains a sharp
+					if (GuitarParser.stepCount(x, Character.getNumericValue(character)).length() == 2) {
+						DrumModel.AlteredPitch pitch = new DrumModel.AlteredPitch();
+						pitch.setAlter("1");
+						pitch.setStep(GuitarParser.stepCount(x, Character.getNumericValue(character)).substring(0, 1));
+						pitch.setOctave(GuitarParser.octaveCount(x, Character.getNumericValue(character)));
+						note.get(note.size() - 1).setPitch(pitch);
+					} else {
+						BassModel.Pitch pitch = new BassModel.Pitch();
+						pitch.setStep(GuitarParser.stepCount(x, Character.getNumericValue(character)));
+						pitch.setOctave(GuitarParser.octaveCount(x, Character.getNumericValue(character)));
+						note.get(note.size() - 1).setPitch(pitch);
+					}
+
+					// set has note in the column to true
+					hasPrevColNote = true;
+				}
+			}
+		}
+
+		newMeasure.setNote(note);
+
+		return newMeasure;
+	}
+
 	private static String bassApp() {
 		try {
 			ObjectMapper mapper = new XmlMapper();
@@ -101,7 +244,7 @@ public class App {
 
 		return null;
 	}
-
+	
 	private static BassModel.Measure parseBassMeasure(ArrayList<String> meas, int measureNumber) {
 
 		BassModel.Measure newMeasure = new BassModel.Measure();
