@@ -148,9 +148,9 @@ public class DParser {
 			ArrayList<String> eachSection = new ArrayList<String>();
 			
 			// assumes that all the measures have 16 dashes/notes excluding the vertical lines
-			for (int i = 0; i < (input.get(0).length()-1)/17; i++) {	
+			for (int i = 0; i < (input.get(0).length()-3)/17; i++) {	
 				for (int j = 0; j < 6; j++) {
-					eachSection.add(input.get(j).substring(1+17*i, 17*(i+1)));
+					eachSection.add(input.get(j).substring(3+17*i, 17*(i+1)+2));
 				}
 				sections.add(eachSection);
 				eachSection = new ArrayList<String>();
