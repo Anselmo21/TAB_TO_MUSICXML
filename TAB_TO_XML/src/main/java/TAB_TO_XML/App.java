@@ -28,17 +28,17 @@ public class App {
 			case "Guitar":
 				conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 						+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
-						+ guitarTabToXML();
+						+ guitarTabToXML(getFileList());
 				break;
 			case "Bass":
 				conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 						+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
-						+ bassTabToXML();
+						+ bassTabToXML(getFileList());
 				break;
 			case "Drums":
 				conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 						+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
-						+ drumTabToXML();
+						+ drumTabToXML(getFileList());
 				break;
 			default:
 				break;
@@ -60,13 +60,13 @@ public class App {
 		return conversion;
 	}
 
-	private static String bassTabToXML() {
+	private static String bassTabToXML(ArrayList<String> tabAsList) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
 
 			// get a set of collections
 			ArrayList<ArrayList<String>> collections = new ArrayList<>();
-			collections = BParser.method1(getFileList());
+			collections = BParser.method1(tabAsList);
 			
 			BassModel.ScorePartwise scorePartwise = new BassModel.ScorePartwise();
 			scorePartwise.setVersion("3.1");
@@ -242,7 +242,7 @@ public class App {
 		return newMeasure;
 	}
 
-	private static String guitarTabToXML() {
+	private static String guitarTabToXML(ArrayList<String> tabAsList) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
 //			InputStream inputStream = new FileInputStream("C:\\Users\\shawn\\Desktop\\parts1.xml");
@@ -255,7 +255,7 @@ public class App {
 			
 			// get a set of collections
 			ArrayList<ArrayList<String>> collections = new ArrayList<>();
-			collections = GuitarParser.method1(getFileList());
+			collections = GuitarParser.method1(tabAsList);
 
 			guitarModel.ScorePartwise scorePartwise = new guitarModel.ScorePartwise();
 			scorePartwise.setVersion("3.1");
@@ -441,13 +441,13 @@ public class App {
 		return newMeasure;
 	}
 	
-	private static String drumTabToXML() {
+	private static String drumTabToXML(ArrayList<String> tabAsList) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
 
 			// get a set of collections
 			ArrayList<ArrayList<String>> collections = new ArrayList<>();
-			collections = DParser.method1(getFileList());
+			collections = DParser.method1(tabAsList);
 			
 			DrumModel.ScorePartwise scorePartwise = new DrumModel.ScorePartwise();
 			scorePartwise.setVersion("3.1");
@@ -538,10 +538,10 @@ public class App {
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
 			Boolean hasPrevColNote = false;
-			for (int x = meas.size() - 1; x >= 0; x--) {
+			for (int x = meas.size() - 2; x >= 0; x--) {
 				char character = meas.get(x).charAt(y);
 
-				if (Character.isDigit(character)) {
+				if (character == 'x' || character == 'o') {
 					// if has previous note in column
 					if (hasPrevColNote) {
 						note.add(new DrumModel.Note());
@@ -553,26 +553,44 @@ public class App {
 					note.get(note.size() - 1).setDuration(duration.toString());
 
 					note.get(note.size() - 1).setType(DParser.typeDeclare(duration));
+					
+					Instrument instrument = new Instrument();
+					instrument.setID(DParser.identifyID(x));
+					note.get(note.size() - 1).setInstrument(instrument);
+					
 					note.get(note.size() - 1).setVoice("1");
-
-					// if the note is length 2, it contains a sharp
-//					if (GuitarParser.stepCount(x, Character.getNumericValue(character)).length() == 2) {
-//						DrumModel.AlteredPitch pitch = new DrumModel.AlteredPitch();
-//						pitch.setAlter("1");
-//						pitch.setStep(DParser.stepCount(x, Character.getNumericValue(character)).substring(0, 1));
-//						pitch.setOctave(DParser.octaveCount(x, Character.getNumericValue(character)));
-//						note.get(note.size() - 1).setPitch(pitch);
-//					} else {
-//						DrumModel.Pitch pitch = new DrumModel.Pitch();
-//						pitch.setStep(DParser.stepCount(x, Character.getNumericValue(character)));
-//						pitch.setOctave(DParser.octaveCount(x, Character.getNumericValue(character)));
-//						note.get(note.size() - 1).setPitch(pitch);
-//					}
+					note.get(note.size() - 1).setStem("up");
+					note.get(note.size() - 1).setNoteHead(null);
+					
+					Beam beam = new Beam();
+					
+					if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
+						
+					}
+					else {
+						
+					}
+					beam.setNumber(null);
+					beam.setValue(DParser.beamState(meas, x, y));
+					note.get(note.size() - 1).setBeam(null);
+					
+					Unpitched unpitched = new Unpitched();
+					unpitched.setDisplayOctave(DParser.octaveCount(x));
+					unpitched.setDisplayStep(DParser.stepCount(x));
+					note.get(note.size() - 1).setUnpitch(unpitched);
 
 					// set has note in the column to true
 					hasPrevColNote = true;
 				}
 			}
+		}
+		
+		// backup here
+		
+		for (int y = 0; y < meas.get(0).length(); y++) {
+			char character = meas.get(meas.size() - 1).charAt(y);
+			
+			
 		}
 
 		newMeasure.setNote(note);
