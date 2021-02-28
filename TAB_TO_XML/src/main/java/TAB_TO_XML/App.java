@@ -28,17 +28,17 @@ public class App {
 			case "Guitar":
 				conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 						+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
-						+ guitarApp();
+						+ guitarTabToXML();
 				break;
 			case "Bass":
 				conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 						+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
-						+ bassApp();
+						+ bassTabToXML();
 				break;
 			case "Drums":
 				conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 						+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
-						+ drumApp();
+						+ drumTabToXML();
 				break;
 			default:
 				break;
@@ -60,7 +60,7 @@ public class App {
 		return conversion;
 	}
 
-	private static String bassApp() {
+	private static String bassTabToXML() {
 		try {
 			ObjectMapper mapper = new XmlMapper();
 
@@ -252,7 +252,7 @@ public class App {
 		return newMeasure;
 	}
 
-	private static String guitarApp() {
+	private static String guitarTabToXML() {
 		try {
 			ObjectMapper mapper = new XmlMapper();
 //			InputStream inputStream = new FileInputStream("C:\\Users\\shawn\\Desktop\\parts1.xml");
@@ -451,7 +451,7 @@ public class App {
 		return newMeasure;
 	}
 	
-	private static String drumApp() {
+	private static String drumTabToXML() {
 		try {
 			ObjectMapper mapper = new XmlMapper();
 
