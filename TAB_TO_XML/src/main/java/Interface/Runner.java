@@ -18,7 +18,6 @@ public class Runner extends Application {
 		Image logo = new Image("/Interface/music-background.jpg");
 		primaryStage.getIcons().add(logo);
 		primaryStage.setScene(scene);
-		primaryStage.setResizable(false);
 		primaryStage.show();
 
 	}

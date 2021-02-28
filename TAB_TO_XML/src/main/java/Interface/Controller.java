@@ -3,54 +3,49 @@ package Interface;
 import java.awt.Desktop;
 
 import java.io.*;
-import java.net.URL;
 import java.util.*;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.sax.SAXTransformerFactory;
-import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 
-import org.xml.sax.SAXException;
-
+import BassModel.Parser;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Window;
 import TAB_TO_XML.App;
 import TAB_TO_XML.GuitarParser;
 
 public class Controller {
 
+	ObservableList<String> instrumentsList = FXCollections.observableArrayList("None", "Guitar", "Drums", "Bass");
+	
 	Desktop screen = Desktop.getDesktop();
-	Window window;
 	File tablature;
 	File xmlFile;
 	BufferedReader input;
 	StreamResult output;
 	FileChooser fc, saveFile;
-	
-	@FXML
-	AnchorPane anchorpane;
 
 	@FXML
 	Button browse, convert, save;
 
 	@FXML
-	Label path;
+	Label path, getInstrument;
 
 	@FXML
 	TextArea view, write;
+	
+	@SuppressWarnings("rawtypes")
+	@FXML
+	ChoiceBox instrumentBox;
 	
 	/**
 	 * This method enables browsing through the file explorer for .txt files. After browsing, it shows the text on the file in a 
@@ -92,6 +87,10 @@ public class Controller {
 		view.clear();
 		try {
 				String storeText = write.getText();
+				String instrument = GuitarParser.identifyInstrument(GuitarParser.readText(storeText));
+				if (instrument.equals("Guitar")) getInstrument.setText("Instrument: Guitar");
+				else if (instrument.equals("Drums")) getInstrument.setText("Instrument: Drums");
+				else getInstrument.setText("Instrument: Bass");
 				GuitarParser.setText(storeText);
 				App.main(null);
 				String getConversion = App.getConversion();
@@ -134,6 +133,19 @@ public class Controller {
 		finally {
 			write.close();
 		}
-
+	}
+	
+	//To be implemented
+	@SuppressWarnings("unchecked")
+	@FXML
+	public void initialize() {
+		instrumentBox.setItems(instrumentsList);
+		instrumentBox.setValue("None");
+		String storeText = write.getText();
+		ArrayList<String> instrumentIdentify = GuitarParser.readText(storeText); 
+		String instrument = GuitarParser.identifyInstrument(instrumentIdentify);
+		if (instrument.equals("Guitar")) instrumentBox.setValue("Guitar");
+		else if (instrument.equals("Drums")) instrumentBox.setValue("Drums");
+		else instrumentBox.setValue("Bass");
 	}
 }
