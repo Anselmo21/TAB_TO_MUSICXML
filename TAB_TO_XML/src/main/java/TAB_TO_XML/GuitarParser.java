@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import Interface.Controller;
 
-public class Parser {
+public class GuitarParser {
 
 	private static String pathName;
 	private static String text;

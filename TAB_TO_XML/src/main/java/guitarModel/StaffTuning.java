@@ -1,4 +1,4 @@
-package Model;
+package guitarModel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

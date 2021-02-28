@@ -1,4 +1,4 @@
-package Model;
+package guitarModel;
 
 public class Technical {
 	String string;

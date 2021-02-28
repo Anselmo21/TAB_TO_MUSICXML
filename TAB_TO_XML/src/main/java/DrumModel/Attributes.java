@@ -2,10 +2,10 @@ package DrumModel;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-import Model.Clef;
-import Model.Key;
-import Model.StaffDetails;
-import Model.Time;
+import guitarModel.Clef;
+import guitarModel.Key;
+import guitarModel.StaffDetails;
+import guitarModel.Time;
 
 public class Attributes {
 	int divisions;

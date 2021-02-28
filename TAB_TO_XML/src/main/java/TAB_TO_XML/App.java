@@ -14,7 +14,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-import Model.*;
+import BassModel.*;
+import DrumModel.*;
+import guitarModel.*;
 
 public class App {
 
@@ -22,6 +24,7 @@ public class App {
 	
 	public static void main(String[] args) {
 		conversion = guitarApp();
+		//conversion = bassApp();
 			
 		// add header
 		conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" + "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n" + conversion;
@@ -31,6 +34,80 @@ public class App {
 	public static String getConversion() {
 		return conversion;
 	}
+	
+//	private static String bassApp() {
+//		try {
+//			ObjectMapper mapper = new XmlMapper();
+////			InputStream inputStream = new FileInputStream("C:\\Users\\shawn\\Desktop\\parts1.xml");
+////			TypeReference<List<Part>> typeReference = new TypeReference<List<Part>>() {};
+////			List<Part> parts = mapper.readValue(inputStream, typeReference);
+////			
+////			for (Part p : parts) {
+////				System.out.println("name is: " + p.getId());
+////			}
+//
+//			ScorePartwise scorePartwise = new ScorePartwise();
+//			scorePartwise.setVersion("3.1");
+//			PartList partList = new PartList();
+//			ArrayList<ScorePart> scoreParts = new ArrayList<ScorePart>();
+//			ScorePart scorepart = new ScorePart();
+//			scorepart.setId("P1");
+//			scorepart.setPartName("Classical Guitar");
+//			scoreParts.add(scorepart);
+//			
+//			partList.setScoreParts(scoreParts);
+//			scorePartwise.setPartList(partList);
+//
+//			ArrayList<Part> parts = new ArrayList<Part>();
+//			Part part = new Part();
+//			part.setId("P1");
+//			parts.add(part);
+//						
+//			ArrayList<Measure> measures = new ArrayList<Measure>(); 
+//			
+//			// read input file, store in array list
+//			ArrayList<String> storeFile = new ArrayList<>();
+//			storeFile = Parser.readText(Parser.getText());
+//			
+//			
+//			// get a set of collections
+//			ArrayList<ArrayList<String>> collections = new ArrayList<>();
+//			collections = Parser.method1(storeFile);
+//			
+//			
+//			int measureCount = 0;
+//			// iter through each collection
+//			for (int i = 0; i < collections.size(); i++) {
+//				ArrayList<ArrayList<String>> measuresOfCollection = Parser.method2(collections.get(i));
+//				
+//				// iter through each measure set
+//				for(int j = 0; j < measuresOfCollection.size(); j++) {
+//					measureCount++;
+//					Measure newMeasure = parseGuitarMeasure(measuresOfCollection.get(j), measureCount);
+//					measures.add(newMeasure);
+//				}
+//			}
+//			
+//			// set last measure to have barline values
+//			Barline barline = new Barline();
+//			barline.setBarStyle("light-heavy");
+//			barline.setLocation("right");
+//			measures.get(measures.size()-1).setBarline(barline);
+//
+//			parts.get(0).setMeasures(measures);
+//			
+//			scorePartwise.setParts(parts);
+//
+//			mapper.enable(SerializationFeature.INDENT_OUTPUT);
+//			//mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
+//			return mapper.writeValueAsString(scorePartwise);
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return null;
+//	}
 	
 	private static String guitarApp() {
 		try {
@@ -43,11 +120,11 @@ public class App {
 //				System.out.println("name is: " + p.getId());
 //			}
 
-			ScorePartwise scorePartwise = new ScorePartwise();
+			guitarModel.ScorePartwise scorePartwise = new guitarModel.ScorePartwise();
 			scorePartwise.setVersion("3.1");
-			PartList partList = new PartList();
-			ArrayList<ScorePart> scoreParts = new ArrayList<ScorePart>();
-			ScorePart scorepart = new ScorePart();
+			guitarModel.PartList partList = new guitarModel.PartList();
+			ArrayList<guitarModel.ScorePart> scoreParts = new ArrayList<guitarModel.ScorePart>();
+			guitarModel.ScorePart scorepart = new guitarModel.ScorePart();
 			scorepart.setId("P1");
 			scorepart.setPartName("Classical Guitar");
 			scoreParts.add(scorepart);
@@ -55,38 +132,38 @@ public class App {
 			partList.setScoreParts(scoreParts);
 			scorePartwise.setPartList(partList);
 
-			ArrayList<Part> parts = new ArrayList<Part>();
-			Part part = new Part();
+			ArrayList<guitarModel.Part> parts = new ArrayList<guitarModel.Part>();
+			guitarModel.Part part = new guitarModel.Part();
 			part.setId("P1");
 			parts.add(part);
 						
-			ArrayList<Measure> measures = new ArrayList<Measure>(); 
+			ArrayList<guitarModel.Measure> measures = new ArrayList<guitarModel.Measure>(); 
 			
 			// read input file, store in array list
 			ArrayList<String> storeFile = new ArrayList<>();
-			storeFile = Parser.readText(Parser.getText());
+			storeFile = GuitarParser.readText(GuitarParser.getText());
 			
 			
 			// get a set of collections
 			ArrayList<ArrayList<String>> collections = new ArrayList<>();
-			collections = Parser.method1(storeFile);
+			collections = GuitarParser.method1(storeFile);
 			
 			
 			int measureCount = 0;
 			// iter through each collection
 			for (int i = 0; i < collections.size(); i++) {
-				ArrayList<ArrayList<String>> measuresOfCollection = Parser.method2(collections.get(i));
+				ArrayList<ArrayList<String>> measuresOfCollection = GuitarParser.method2(collections.get(i));
 				
 				// iter through each measure set
 				for(int j = 0; j < measuresOfCollection.size(); j++) {
 					measureCount++;
-					Measure newMeasure = parseGuitarMeasure(measuresOfCollection.get(j), measureCount);
+					guitarModel.Measure newMeasure = parseGuitarMeasure(measuresOfCollection.get(j), measureCount);
 					measures.add(newMeasure);
 				}
 			}
 			
 			// set last measure to have barline values
-			Barline barline = new Barline();
+			guitarModel.Barline barline = new guitarModel.Barline();
 			barline.setBarStyle("light-heavy");
 			barline.setLocation("right");
 			measures.get(measures.size()-1).setBarline(barline);
@@ -106,61 +183,61 @@ public class App {
 		return null;
 	}
 	
-	private static Measure parseGuitarMeasure(ArrayList<String> meas, int measureNumber) {
+	private static guitarModel.Measure parseGuitarMeasure(ArrayList<String> meas, int measureNumber) {
 		
-		Measure newMeasure = new Measure();
+		guitarModel.Measure newMeasure = new guitarModel.Measure();
 		newMeasure.setNumber(measureNumber);
-		int division = Parser.divisionCount(meas);
+		int division = GuitarParser.divisionCount(meas);
 		// if first measure, set the attributes
 		if (measureNumber == 1) {
-			Attributes attributes = new Attributes();
-			Clef clef = new Clef();
+			guitarModel.Attributes attributes = new guitarModel.Attributes();
+			guitarModel.Clef clef = new guitarModel.Clef();
 			clef.setSign("TAB");
 			clef.setLine("5");
 			attributes.setClef(clef);
 
 			attributes.setDivisions(division);
 
-			Key key = new Key();
+			guitarModel.Key key = new guitarModel.Key();
 			key.setFifths("0");
 			attributes.setKey(key);
 
-			StaffDetails staffDetails = new StaffDetails();
+			guitarModel.StaffDetails staffDetails = new guitarModel.StaffDetails();
 			staffDetails.setStaffLines("6");
 			
 			// staff tunings
-			ArrayList<StaffTuning> staffTunings = new ArrayList<StaffTuning>();
-			StaffTuning staffTuning0 = new StaffTuning();
+			ArrayList<guitarModel.StaffTuning> staffTunings = new ArrayList<guitarModel.StaffTuning>();
+			guitarModel.StaffTuning staffTuning0 = new guitarModel.StaffTuning();
 			staffTuning0.setLine(1);
 			staffTuning0.setTuningStep("E");
 			staffTuning0.setTuningOctave("2");
 			staffTunings.add(staffTuning0);
 			
-			StaffTuning staffTuning1 = new StaffTuning(); 
+			guitarModel.StaffTuning staffTuning1 = new guitarModel.StaffTuning(); 
 			staffTuning1.setLine(2);
 			staffTuning1.setTuningStep("A");
 			staffTuning1.setTuningOctave("2");
 			staffTunings.add(staffTuning1);
 			
-			StaffTuning staffTuning2 = new StaffTuning();
+			guitarModel.StaffTuning staffTuning2 = new guitarModel.StaffTuning();
 			staffTuning2.setLine(3);
 			staffTuning2.setTuningStep("D");
 			staffTuning2.setTuningOctave("3");
 			staffTunings.add(staffTuning2);
 			
-			StaffTuning staffTuning3 = new StaffTuning();
+			guitarModel.StaffTuning staffTuning3 = new guitarModel.StaffTuning();
 			staffTuning3.setLine(4);
 			staffTuning3.setTuningStep("G");
 			staffTuning3.setTuningOctave("3");
 			staffTunings.add(staffTuning3);
 			
-			StaffTuning staffTuning4 = new StaffTuning();
+			guitarModel.StaffTuning staffTuning4 = new guitarModel.StaffTuning();
 			staffTuning4.setLine(5);
 			staffTuning4.setTuningStep("B");
 			staffTuning4.setTuningOctave("3");
 			staffTunings.add(staffTuning4);
 			
-			StaffTuning staffTuning5 = new StaffTuning();
+			guitarModel.StaffTuning staffTuning5 = new guitarModel.StaffTuning();
 			staffTuning5.setLine(6);
 			staffTuning5.setTuningStep("E");
 			staffTuning5.setTuningOctave("4");
@@ -169,7 +246,7 @@ public class App {
 			staffDetails.setStaffTunings(staffTunings);
 			attributes.setStaffDetails(staffDetails);
 
-			Time time = new Time();
+			guitarModel.Time time = new guitarModel.Time();
 			time.setBeats("4");
 			time.setBeatType("4");
 			attributes.setTime(time);
@@ -183,7 +260,7 @@ public class App {
 		newMeasure.setBarline(null);
 
 		
-		ArrayList<Note> note = new ArrayList<Note>();
+		ArrayList<guitarModel.Note> note = new ArrayList<guitarModel.Note>();
 		
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
@@ -194,38 +271,38 @@ public class App {
 				if (Character.isDigit(character)) {
 					// if has previous note in column
 					if (hasPrevColNote) {
-						note.add(new ChordNote());
+						note.add(new guitarModel.ChordNote());
 					}
 					else {
-						note.add(new Note());
+						note.add(new guitarModel.Note());
 					}
 					
-					Integer duration = Parser.durationCount(meas, y, division);
+					Integer duration = GuitarParser.durationCount(meas, y, division);
 					note.get(note.size()-1).setDuration(duration.toString());
 					
-					note.get(note.size()-1).setType(Parser.typeDeclare(duration));
+					note.get(note.size()-1).setType(GuitarParser.typeDeclare(duration));
 					note.get(note.size()-1).setVoice("1");
 					
 					
 					// if the note is length 2, it contains a sharp
-					if (Parser.stepCount(x, Character.getNumericValue(character)).length() == 2) {
-						AlteredPitch pitch = new AlteredPitch();
+					if (GuitarParser.stepCount(x, Character.getNumericValue(character)).length() == 2) {
+						guitarModel.AlteredPitch pitch = new guitarModel.AlteredPitch();
 						pitch.setAlter("1");
-						pitch.setStep(Parser.stepCount(x, Character.getNumericValue(character)).substring(0, 1));
-						pitch.setOctave(Parser.octaveCount(x, Character.getNumericValue(character)));
+						pitch.setStep(GuitarParser.stepCount(x, Character.getNumericValue(character)).substring(0, 1));
+						pitch.setOctave(GuitarParser.octaveCount(x, Character.getNumericValue(character)));
 						note.get(note.size()-1).setPitch(pitch);
 					}
 					else {
-						Pitch pitch = new Pitch();
-						pitch.setStep(Parser.stepCount(x, Character.getNumericValue(character)));
-						pitch.setOctave(Parser.octaveCount(x, Character.getNumericValue(character)));
+						guitarModel.Pitch pitch = new guitarModel.Pitch();
+						pitch.setStep(GuitarParser.stepCount(x, Character.getNumericValue(character)));
+						pitch.setOctave(GuitarParser.octaveCount(x, Character.getNumericValue(character)));
 						note.get(note.size()-1).setPitch(pitch);
 					}
 					
 					
 					// set notations, technical is a sub-element of notations
-					Notations notations = new Notations();
-					Technical technical = new Technical();
+					guitarModel.Notations notations = new guitarModel.Notations();
+					guitarModel.Technical technical = new guitarModel.Technical();
 					technical.setFret("" + character);
 					Integer stringNumber = (x + 1);
 					technical.setString(stringNumber.toString());

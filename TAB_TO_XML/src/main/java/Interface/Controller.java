@@ -28,7 +28,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Window;
 import TAB_TO_XML.App;
-import TAB_TO_XML.Parser;
+import TAB_TO_XML.GuitarParser;
 
 public class Controller {
 
@@ -92,7 +92,7 @@ public class Controller {
 		view.clear();
 		try {
 				String storeText = write.getText();
-				Parser.setText(storeText);
+				GuitarParser.setText(storeText);
 				App.main(null);
 				String getConversion = App.getConversion();
 				view.appendText(getConversion);

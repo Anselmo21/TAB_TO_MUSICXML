@@ -1,4 +1,4 @@
-package Model;
+package guitarModel;
 
 import java.util.ArrayList;
 
