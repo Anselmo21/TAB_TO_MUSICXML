@@ -131,7 +131,7 @@ public class App {
 			BassModel.Attributes attributes = new BassModel.Attributes();
 			BassModel.Clef clef = new BassModel.Clef();
 			clef.setSign("TAB");
-			clef.setLine("5");
+			clef.setLine("2");
 			attributes.setClef(clef);
 
 			attributes.setDivisions(division);
@@ -141,45 +141,35 @@ public class App {
 			attributes.setKey(key);
 
 			BassModel.StaffDetails staffDetails = new BassModel.StaffDetails();
-			staffDetails.setStaffLines("6");
+			staffDetails.setStaffLines("4");
 
 			// staff tunings
 			ArrayList<BassModel.StaffTuning> staffTunings = new ArrayList<BassModel.StaffTuning>();
 			BassModel.StaffTuning staffTuning0 = new BassModel.StaffTuning();
 			staffTuning0.setLine(1);
-			staffTuning0.setTuningStep("E");
+			staffTuning0.setTuningStep("G");
 			staffTuning0.setTuningOctave("2");
 			staffTunings.add(staffTuning0);
 
 			BassModel.StaffTuning staffTuning1 = new BassModel.StaffTuning();
 			staffTuning1.setLine(2);
-			staffTuning1.setTuningStep("A");
+			staffTuning1.setTuningStep("D");
 			staffTuning1.setTuningOctave("2");
 			staffTunings.add(staffTuning1);
 
 			BassModel.StaffTuning staffTuning2 = new BassModel.StaffTuning();
 			staffTuning2.setLine(3);
-			staffTuning2.setTuningStep("D");
+			staffTuning2.setTuningStep("A");
 			staffTuning2.setTuningOctave("3");
 			staffTunings.add(staffTuning2);
 
 			BassModel.StaffTuning staffTuning3 = new BassModel.StaffTuning();
 			staffTuning3.setLine(4);
-			staffTuning3.setTuningStep("G");
+			staffTuning3.setTuningStep("E");
 			staffTuning3.setTuningOctave("3");
 			staffTunings.add(staffTuning3);
 
-			BassModel.StaffTuning staffTuning4 = new BassModel.StaffTuning();
-			staffTuning4.setLine(5);
-			staffTuning4.setTuningStep("B");
-			staffTuning4.setTuningOctave("3");
-			staffTunings.add(staffTuning4);
-
-			BassModel.StaffTuning staffTuning5 = new BassModel.StaffTuning();
-			staffTuning5.setLine(6);
-			staffTuning5.setTuningStep("E");
-			staffTuning5.setTuningOctave("4");
-			staffTunings.add(staffTuning5);
+		
 
 			staffDetails.setStaffTunings(staffTunings);
 			attributes.setStaffDetails(staffDetails);
