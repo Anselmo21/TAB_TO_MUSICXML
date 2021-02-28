@@ -70,7 +70,17 @@
                </children>
             </TilePane>
             <ChoiceBox fx:id="instrumentBox" layoutX="25.0" layoutY="663.0" prefHeight="22.0" prefWidth="100.0" visible="false" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.leftAnchor="25.0" />
-            <Label fx:id="getInstrument" layoutX="25.0" layoutY="599.0" prefHeight="34.0" prefWidth="143.0" textFill="WHITE" />
+            <GridPane layoutX="25.0" layoutY="599.0" AnchorPane.bottomAnchor="66.6" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="731.8">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="getInstrument" prefHeight="34.0" prefWidth="143.0" textFill="WHITE" />
+               </children>
+            </GridPane>
          </children>
       </AnchorPane>
    </children>
