@@ -485,9 +485,9 @@ public class App {
 
 				// iter through each measure set
 				for (int j = 0; j < measuresOfCollection.size(); j++) {
-//					measureCount++;
-//					DrumModel.Measure newMeasure = parseDrumMeasure(measuresOfCollection.get(j), measureCount);
-//					measures.add(newMeasure);
+					measureCount++;
+					DrumModel.Measure newMeasure = parseDrumMeasure(measuresOfCollection.get(j), measureCount);
+					measures.add(newMeasure);
 				}
 			}
 
@@ -512,82 +512,82 @@ public class App {
 		return null;
 	}
 
-//	private static DrumModel.Measure parseDrumMeasure(ArrayList<String> meas, int measureNumber) {
-//
-//		DrumModel.Measure newMeasure = new DrumModel.Measure();
-//		newMeasure.setNumber(measureNumber);
-//		int division = GuitarParser.divisionCount(meas);
-//		// if first measure, set the attributes
-//		if (measureNumber == 1) {
-//			DrumModel.Attributes attributes = new DrumModel.Attributes();
-//			DrumModel.Clef clef = new DrumModel.Clef();
-//			clef.setSign("percussion");
-//			clef.setLine("2");
-//			attributes.setClef(clef);
-//
-//			attributes.setDivisions(division);
-//
-//			DrumModel.Key key = new DrumModel.Key();
-//			key.setFifths("0");
-//			attributes.setKey(key);
-//
-//			DrumModel.Time time = new DrumModel.Time();
-//			time.setBeats("4");
-//			time.setBeatType("4");
-//			attributes.setTime(time);
-//
-//			newMeasure.setAttributes(attributes);
-//		} else {
-//			newMeasure.setAttributes(null);
-//		}
-//
-//		newMeasure.setBarline(null);
-//
-//		ArrayList<DrumModel.Note> note = new ArrayList<DrumModel.Note>();
-//
-//		// iter through each measure
-//		for (int y = 0; y < meas.get(0).length(); y++) {
-//			Boolean hasPrevColNote = false;
-//			for (int x = meas.size() - 1; x >= 0; x--) {
-//				char character = meas.get(x).charAt(y);
-//
-//				if (Character.isDigit(character)) {
-//					// if has previous note in column
-//					if (hasPrevColNote) {
-//						note.add(new DrumModel.ChordNote());
-//					} else {
-//						note.add(new DrumModel.Note());
-//					}
-//
-//					Integer duration = DParser.durationCount(meas, y);
-//					note.get(note.size() - 1).setDuration(duration.toString());
-//
-//					note.get(note.size() - 1).setType(DParser.typeDeclare(duration));
-//					note.get(note.size() - 1).setVoice("1");
-//
-//					// if the note is length 2, it contains a sharp
+	private static DrumModel.Measure parseDrumMeasure(ArrayList<String> meas, int measureNumber) {
+
+		DrumModel.Measure newMeasure = new DrumModel.Measure();
+		newMeasure.setNumber(measureNumber);
+		int division = DParser.divisionCount(meas);
+		// if first measure, set the attributes
+		if (measureNumber == 1) {
+			DrumModel.Attributes attributes = new DrumModel.Attributes();
+			DrumModel.Clef clef = new DrumModel.Clef();
+			clef.setSign("percussion");
+			clef.setLine("2");
+			attributes.setClef(clef);
+
+			attributes.setDivisions(division);
+
+			DrumModel.Key key = new DrumModel.Key();
+			key.setFifths("0");
+			attributes.setKey(key);
+
+			DrumModel.Time time = new DrumModel.Time();
+			time.setBeats("4");
+			time.setBeatType("4");
+			attributes.setTime(time);
+
+			newMeasure.setAttributes(attributes);
+		} else {
+			newMeasure.setAttributes(null);
+		}
+
+		newMeasure.setBarline(null);
+
+		ArrayList<DrumModel.Note> note = new ArrayList<DrumModel.Note>();
+
+		// iter through each measure
+		for (int y = 0; y < meas.get(0).length(); y++) {
+			Boolean hasPrevColNote = false;
+			for (int x = meas.size() - 1; x >= 0; x--) {
+				char character = meas.get(x).charAt(y);
+
+				if (Character.isDigit(character)) {
+					// if has previous note in column
+					if (hasPrevColNote) {
+						note.add(new DrumModel.Note());
+					} else {
+						note.add(new DrumModel.Note());
+					}
+
+					Integer duration = DParser.durationCount(meas, y);
+					note.get(note.size() - 1).setDuration(duration.toString());
+
+					note.get(note.size() - 1).setType(DParser.typeDeclare(duration));
+					note.get(note.size() - 1).setVoice("1");
+
+					// if the note is length 2, it contains a sharp
 //					if (GuitarParser.stepCount(x, Character.getNumericValue(character)).length() == 2) {
 //						DrumModel.AlteredPitch pitch = new DrumModel.AlteredPitch();
 //						pitch.setAlter("1");
-//						pitch.setStep(GuitarParser.stepCount(x, Character.getNumericValue(character)).substring(0, 1));
-//						pitch.setOctave(GuitarParser.octaveCount(x, Character.getNumericValue(character)));
+//						pitch.setStep(DParser.stepCount(x, Character.getNumericValue(character)).substring(0, 1));
+//						pitch.setOctave(DParser.octaveCount(x, Character.getNumericValue(character)));
 //						note.get(note.size() - 1).setPitch(pitch);
 //					} else {
-//						BassModel.Pitch pitch = new BassModel.Pitch();
-//						pitch.setStep(GuitarParser.stepCount(x, Character.getNumericValue(character)));
-//						pitch.setOctave(GuitarParser.octaveCount(x, Character.getNumericValue(character)));
+//						DrumModel.Pitch pitch = new DrumModel.Pitch();
+//						pitch.setStep(DParser.stepCount(x, Character.getNumericValue(character)));
+//						pitch.setOctave(DParser.octaveCount(x, Character.getNumericValue(character)));
 //						note.get(note.size() - 1).setPitch(pitch);
 //					}
-//
-//					// set has note in the column to true
-//					hasPrevColNote = true;
-//				}
-//			}
-//		}
-//
-//		newMeasure.setNote(note);
-//
-//		return newMeasure;
-//	}
+
+					// set has note in the column to true
+					hasPrevColNote = true;
+				}
+			}
+		}
+
+		newMeasure.setNote(note);
+
+		return newMeasure;
+	}
 
 }
