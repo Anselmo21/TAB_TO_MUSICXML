@@ -10,15 +10,49 @@ import Interface.Controller;
 	public class BParser {
 
 			
-		/**
-		 * Read the text tablature line by line
-		 * 
-		 * @param path is the file's path that we want to read
-		 * @return an ArrayList filled with contents of the ArrayList
-		 *         <p>
-		 *         each line is an element in our array list
-		 */
+		
 
+		/**
+		 * 
+		 * @param line is an arraylist containing measure line by line
+		 * @param note a string of which note we are referring about 
+		 * @return the ID of the instrument being played
+		 */
+		public static String whichID(ArrayList<String> line, String note) { 
+			if (line.get(0).contains(note)) { 
+				
+				return "PI-150";
+				
+			}
+			
+			else if (line.get(1).contains(note)) {
+				return "PI-143";
+				
+			}
+			
+			else if (line.get(2).contains(note)) { 
+				return "PI-139";
+				
+			}
+			
+			else if (line.get(3).contains(note)) { 
+				
+				return "PI-148";
+				
+			}
+			
+			else if (line.get(4).contains(note)) { 
+				
+				return "PI-146";
+				
+			}
+			
+			return "PI-136";
+			
+		
+			
+			
+		}
 		/**
 		 * Counts duration of a note.
 		 * 
