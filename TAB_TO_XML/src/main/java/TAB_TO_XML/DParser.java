@@ -140,24 +140,26 @@ public class DParser {
 	}
 	
 	
+	
 	// input of six lines
-	public static ArrayList<ArrayList<String>> method2(ArrayList<String> input){ 
-		
-		ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
-		ArrayList<String> eachSection = new ArrayList<String>();
-		
-		// assumes that all the measures have 17 dashes/notes excluding the vertical lines
-		for (int i = 0; i < (input.get(0).length()-1)/18; i++) {	
-			for (int j = 0; j < 6; j++) {
-				eachSection.add(input.get(j).substring(1+18*i, 18*(i+1)));
+		public static ArrayList<ArrayList<String>> method2(ArrayList<String> input){ 
+			
+			ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
+			ArrayList<String> eachSection = new ArrayList<String>();
+			
+			// assumes that all the measures have 16 dashes/notes excluding the vertical lines
+			for (int i = 0; i < (input.get(0).length()-1)/18; i++) {	
+				for (int j = 0; j < 6; j++) {
+					eachSection.add(input.get(j).substring(1+17*i, 17*(i+1)));
+				}
+				sections.add(eachSection);
+				eachSection = new ArrayList<String>();
 			}
-			sections.add(eachSection);
-			eachSection = new ArrayList<String>();
+			
+			// returns  2d array of substrings of the measure excluding the vertical lines	
+			return sections;
 		}
-		
-		// returns  2d array of substrings of the measure excluding the vertical lines	
-		return sections;
-	}
+	
 	
 	
 	public static boolean isChord(ArrayList<String> line, char note) { 
