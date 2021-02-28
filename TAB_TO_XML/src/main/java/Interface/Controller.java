@@ -20,7 +20,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import TAB_TO_XML.App;
-import TAB_TO_XML.GuitarParser;
 
 public class Controller {
 
@@ -68,7 +67,7 @@ public class Controller {
 				while (sc.hasNextLine()) {
 					write.appendText(sc.nextLine() + "\n"); // else read the next token
 				}				
-				String instrument = GuitarParser.identifyInstrument(GuitarParser.readText(write.getText()));
+				String instrument = App.identifyInstrument(App.getFileList(write.getText()));
 				if (instrument.equals("Guitar")) getInstrument.setText("Instrument: Guitar");
 				else if (instrument.equals("Drums")) getInstrument.setText("Instrument: Drums");
 				else getInstrument.setText("Instrument: Bass");
@@ -91,11 +90,11 @@ public class Controller {
 		try {
 			if (write.getText() != "") {
 				String storeText = write.getText();
-				String instrument = GuitarParser.identifyInstrument(GuitarParser.readText(storeText));
+				String instrument = App.identifyInstrument(App.getFileList(storeText));
 				if (instrument.equals("Guitar")) getInstrument.setText("Instrument: Guitar");
 				else if (instrument.equals("Drums")) getInstrument.setText("Instrument: Drums");
 				else getInstrument.setText("Instrument: Bass");
-				GuitarParser.setText(storeText);
+				App.setTab(storeText);
 				App.main(null);
 				String getConversion = App.getConversion();
 				view.appendText(getConversion);
@@ -151,8 +150,8 @@ public class Controller {
 		instrumentBox.setItems(instrumentsList);
 		instrumentBox.setValue("None");
 		String storeText = write.getText();
-		ArrayList<String> instrumentIdentify = GuitarParser.readText(storeText); 
-		String instrument = GuitarParser.identifyInstrument(instrumentIdentify);
+		ArrayList<String> instrumentIdentify = App.getFileList(storeText); 
+		String instrument = App.identifyInstrument(instrumentIdentify);
 		if (instrument.equals("Guitar")) instrumentBox.setValue("Guitar");
 		else if (instrument.equals("Drums")) instrumentBox.setValue("Drums");
 		else instrumentBox.setValue("Bass");

@@ -21,6 +21,17 @@ import guitarModel.*;
 public class App {
 
 	static String conversion;
+	
+	private static String tab;
+	
+	
+	public static void setTab(String textBox) {
+		tab = textBox;
+	}
+	
+	public static String getTab() {
+		return tab;
+	}
 
 	public static void main(String[] args) {
 		
@@ -28,17 +39,17 @@ public class App {
 			case "Guitar":
 				conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 						+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
-						+ guitarTabToXML(getFileList());
+						+ guitarTabToXML(getFileList(tab));
 				break;
 			case "Bass":
 				conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 						+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
-						+ bassTabToXML(getFileList());
+						+ bassTabToXML(getFileList(tab));
 				break;
 			case "Drums":
 				conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 						+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
-						+ drumTabToXML(getFileList());
+						+ drumTabToXML(getFileList(tab));
 				break;
 			default:
 				break;
@@ -46,14 +57,29 @@ public class App {
 			
 	}
 	
-	public static ArrayList<String> getFileList() {
+	public static ArrayList<String> getFileList(String text) {
 		// read input file, store in array list
-		return GuitarParser.readText(GuitarParser.getText()); // TODO: change location of the used methods here
+		//return GuitarParser.readText(GuitarParser.getText()); // TODO: change location of the used methods here
+		
+		ArrayList<String> textList = new ArrayList<>();
+		Scanner in = null;
+		try {
+			in = new Scanner(text);
+			while (in.hasNextLine())
+				textList.add(in.nextLine());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			in.close();
+		}
+		return textList;
 	}
 	
 	public static String getInstrument() {
 		
-		return GuitarParser.identifyInstrument(getFileList());
+		return identifyInstrument(getFileList(tab));
 	}
 
 	public static String getConversion() {
@@ -596,6 +622,44 @@ public class App {
 		newMeasure.setNote(note);
 
 		return newMeasure;
+	}
+	
+	/**
+	 * This method will figure out which instrument the tab is meant to be 
+	 * played for.
+	 *  
+	 *  <p> In this method, we assume that a guitar has 6 lines of strings and 
+	 *  a bass has four lines of string <p/>.
+	 *  
+	 * @param content is what the tab contains but stored in an array list
+	 * @return the name of the instrument as a string
+	 */
+	public static String identifyInstrument(ArrayList<String> content) { 
+
+		for (int i = 0; i < content.size(); i++) { 
+			if (content.get(i).contains("x") || content.get(i).contains("o")) {
+				return "Drums";
+			}
+		}
+		if (helpMe(content) == 4) {
+
+			return "Bass";
+
+		}
+
+		return "Guitar";
+
+	}
+	
+	public static int helpMe(ArrayList<String> content) {
+		ArrayList<ArrayList<String>> getInstrument = new ArrayList<>();
+		ArrayList<String> storeInstrument = new ArrayList<>();
+		for (int i = 0; i < content.size(); i++) {
+			if (content.get(i) != "") storeInstrument.add(content.get(i));
+			else break;
+		}
+		getInstrument.add(storeInstrument);
+		return getInstrument.get(0).size();
 	}
 
 }
