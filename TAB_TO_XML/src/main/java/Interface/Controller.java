@@ -7,7 +7,6 @@ import java.util.*;
 
 import javax.xml.transform.stream.StreamResult;
 
-import BassModel.Parser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,7 +25,7 @@ import TAB_TO_XML.GuitarParser;
 public class Controller {
 
 	ObservableList<String> instrumentsList = FXCollections.observableArrayList("None", "Guitar", "Drums", "Bass");
-	
+
 	Desktop screen = Desktop.getDesktop();
 	File tablature;
 	File xmlFile;
@@ -42,17 +41,17 @@ public class Controller {
 
 	@FXML
 	TextArea view, write;
-	
+
 	@SuppressWarnings("rawtypes")
 	@FXML
 	ChoiceBox instrumentBox;
-	
+
 	/**
 	 * This method enables browsing through the file explorer for .txt files. After browsing, it shows the text on the file in a 
 	 * text area. 
 	 * @param event
 	 */
-	
+
 	@FXML
 	public void handleButtonBrowse(ActionEvent event) {
 		write.clear();
@@ -68,7 +67,11 @@ public class Controller {
 				sc = new Scanner(tablature);
 				while (sc.hasNextLine()) {
 					write.appendText(sc.nextLine() + "\n"); // else read the next token
-				}
+				}				
+				String instrument = GuitarParser.identifyInstrument(GuitarParser.readText(write.getText()));
+				if (instrument.equals("Guitar")) getInstrument.setText("Instrument: Guitar");
+				else if (instrument.equals("Drums")) getInstrument.setText("Instrument: Drums");
+				else getInstrument.setText("Instrument: Bass");
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
@@ -86,6 +89,7 @@ public class Controller {
 	public void handleButtonConvert(ActionEvent event) {
 		view.clear();
 		try {
+			if (write.getText() != "") {
 				String storeText = write.getText();
 				String instrument = GuitarParser.identifyInstrument(GuitarParser.readText(storeText));
 				if (instrument.equals("Guitar")) getInstrument.setText("Instrument: Guitar");
@@ -96,12 +100,16 @@ public class Controller {
 				String getConversion = App.getConversion();
 				view.appendText(getConversion);
 				save.setDisable(false);
+			}
+			else {
+				Alert errorAlert = new Alert(AlertType.ERROR); 
+				errorAlert.setHeaderText("Input not valid!"); 
+				errorAlert.setContentText("Provide text file."); 
+				errorAlert.showAndWait();
+			}
 		}
 		catch (Exception e) {
-			Alert errorAlert = new Alert(AlertType.ERROR); 
-			errorAlert.setHeaderText("Input not valid!"); 
-			errorAlert.setContentText("Provide text file."); 
-			errorAlert.showAndWait();
+			e.printStackTrace();
 		}
 	}
 
@@ -112,29 +120,30 @@ public class Controller {
 	@FXML
 	public void handleButtonSave(ActionEvent event) {
 		saveFile = new FileChooser();
-		FileChooser.ExtensionFilter extension = new FileChooser.ExtensionFilter("musicXML files", "*.musicxml");
 		saveFile.getExtensionFilters().add(new ExtensionFilter("musicXML files", "*.musicxml"));
 		xmlFile = saveFile.showSaveDialog(null);
 		PrintWriter write = null;
 		try {
-			write = new PrintWriter(xmlFile.getAbsolutePath());
-			write.println(view.getText());
-			Alert saveAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window 
-			saveAlert.setHeaderText("The converted file has been saved to " + xmlFile.getAbsolutePath()); 
-			saveAlert.setContentText("Thank you for using Allegro Tab Converter!"); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
-			saveAlert.showAndWait();
+			if (xmlFile.getAbsolutePath() != null) {
+				write = new PrintWriter(xmlFile.getAbsolutePath());
+				write.println(view.getText());
+				Alert saveAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window
+				saveAlert.setHeaderText("The converted file has been saved to " + xmlFile.getAbsolutePath()); 
+				saveAlert.setContentText("Thank you for using Allegro Tab Converter!"); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
+				saveAlert.showAndWait();
+				write.close();
+			}
+			else {
+				Alert errorAlert = new Alert(AlertType.ERROR); 
+				errorAlert.setHeaderText("File cannot be saved!"); 
+				errorAlert.setContentText("Please convert a file in order to save it!"); 
+				errorAlert.showAndWait();
+			}
 		}
 		catch(Exception e) {
-			Alert errorAlert = new Alert(AlertType.ERROR); 
-			errorAlert.setHeaderText("File cannot be saved!"); 
-			errorAlert.setContentText("Please convert a file in order to save it!"); 
-			errorAlert.showAndWait();
-		}
-		finally {
-			write.close();
 		}
 	}
-	
+
 	//To be implemented
 	@SuppressWarnings("unchecked")
 	@FXML
