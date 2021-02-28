@@ -42,7 +42,7 @@ public class DParser {
 	 * @return an integer that represents the division of the whole tablature.
 	 */
 	public static int divisionCount(ArrayList<String> parse) {
-		return (parse.get(0).length()-1) / 4;
+		return (parse.get(0).length()) / 4;
 	}
 
 	/**
