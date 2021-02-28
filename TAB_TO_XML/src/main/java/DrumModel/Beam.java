@@ -1,20 +1,32 @@
 package DrumModel;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 public class Beam {
 	
 	@JacksonXmlProperty(isAttribute=true)
-	String id;
+	String number;
 	
-	public void setID(String id) { 
+	@JacksonXmlText
+	String value;
+	
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public void setNumber(String number) { 
 		
-		this.id = id; 
+		this.number = number; 
 		
 	}
 	
 	public String getID() { 
 		
-		return id;
+		return number;
 	}
 }
