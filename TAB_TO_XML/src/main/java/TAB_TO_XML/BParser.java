@@ -10,49 +10,8 @@ import Interface.Controller;
 	public class BParser {
 
 			
-		
-
-		/**
-		 * 
-		 * @param line is an arraylist containing measure line by line
-		 * @param note a string of which note we are referring about 
-		 * @return the ID of the instrument being played
-		 */
-		public static String whichID(ArrayList<String> line, String note) { 
-			if (line.get(0).contains(note)) { 
-				
-				return "PI-150";
-				
-			}
 			
-			else if (line.get(1).contains(note)) {
-				return "PI-143";
-				
-			}
-			
-			else if (line.get(2).contains(note)) { 
-				return "PI-139";
-				
-			}
-			
-			else if (line.get(3).contains(note)) { 
-				
-				return "PI-148";
-				
-			}
-			
-			else if (line.get(4).contains(note)) { 
-				
-				return "PI-146";
-				
-			}
-			
-			return "PI-136";
-			
-		
-			
-			
-		}
+	
 		/**
 		 * Counts duration of a note.
 		 * 
