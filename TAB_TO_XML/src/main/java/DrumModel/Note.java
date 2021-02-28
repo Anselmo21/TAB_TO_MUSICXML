@@ -1,7 +1,5 @@
 package DrumModel;
 
-import guitarModel.Notations;
-import guitarModel.Pitch;
 
 public class Note {
 	Unpitched unpitch;
