@@ -158,6 +158,9 @@ public class DParser {
 			
 			// returns  2d array of substrings of the measure excluding the vertical lines	
 			return sections;
+			
+			//dummy line
+			
 		}
 	
 	
