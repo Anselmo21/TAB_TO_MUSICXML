@@ -77,8 +77,8 @@ public class Note {
 		
 	}
 	
-	public void setInstrument() { 
-		this.instrument = null;
+	public void setInstrument(Instrument instrument) { 
+		this.instrument = instrument;
 		
 	}
 	public Instrument getInstrument() { 
@@ -98,7 +98,7 @@ public class Note {
 	}
 	
 	public Note() {}
-	public Note(Unpitched pitch, String duration, String voice, String stem, String notehead, Instrument instrument, Beam beam) {
+	public Note(Unpitched pitch, String duration, String voice, String stem, String type, String notehead, Instrument instrument, Beam beam) {
 		
 		super();
 		this.beam = beam;
