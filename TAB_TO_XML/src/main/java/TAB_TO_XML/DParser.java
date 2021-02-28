@@ -80,6 +80,39 @@ public class DParser {
 		}
 	}
 	
+	/**
+	 * Method used to get the state of the beam
+	 * 
+	 * @param parse is the array list of strings that contains a whole line of notes
+	 * @return an String that returns either begin, continue and end.
+	 */
+	public static String beamState(ArrayList<String> parse, int row, int column) {
+		String state = null;
+		if (Character.isDigit(parse.get(column+1).charAt(row)) && Character.isDigit(parse.get(column-1).charAt(row))) {
+			state = "continue";
+		} else if (Character.isDigit(parse.get(column+1).charAt(row)) && Character.isDigit(parse.get(column-1).charAt(row)) == false) {
+			state = "begin";
+		} else if (Character.isDigit(parse.get(column+1).charAt(row)) == false && Character.isDigit(parse.get(column-1).charAt(row))) {
+			state = "end";
+		}
+		return state;
+	}
+	
+	/**
+	 * Method used to get the state of the beam
+	 * 
+	 * @param parse is the array list of strings that contains a whole line of notes
+	 * @return an String that returns either begin, continue and end.
+	 */
+	public static int beamNumber(String type) {
+		int beamnum = 0;
+		if (type == "eighth") {
+			beamnum = 1;
+		} else if (type == "16th") {
+			beamnum = 2;
+		} 
+		return beamnum;
+	}
 	// inputing strings of lines.
 	public static ArrayList<ArrayList<String>> method1(ArrayList<String> inputFile){	
 		
