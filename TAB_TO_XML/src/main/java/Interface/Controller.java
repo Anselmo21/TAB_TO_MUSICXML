@@ -68,6 +68,14 @@ public class Controller {
 					write.appendText(sc.nextLine() + "\n"); // else read the next token
 				}				
 				String instrument = App.identifyInstrument(App.getFileList(write.getText()));
+				if (!instrument.equals("Guitar") && !instrument.equals("Drums") && !instrument.equals("Bass")) {
+					Alert errorAlert = new Alert(AlertType.ERROR); 
+					errorAlert.setHeaderText("Input not valid!"); 
+					errorAlert.setContentText("Please provide a valid tablature!"); 
+					errorAlert.showAndWait();
+					errorAlert.close();
+					return;
+				}
 				if (instrument.equals("Guitar")) getInstrument.setText("Instrument: Guitar");
 				else if (instrument.equals("Drums")) getInstrument.setText("Instrument: Drums");
 				else if (instrument.equals("Bass")) getInstrument.setText("Instrument: Bass");
@@ -92,6 +100,14 @@ public class Controller {
 			if (write.getText() != "") {
 				String storeText = write.getText();
 				String instrument = App.identifyInstrument(App.getFileList(storeText));
+				if (!instrument.equals("Guitar") && !instrument.equals("Drums") && !instrument.equals("Bass")) {
+					Alert errorAlert = new Alert(AlertType.ERROR); 
+					errorAlert.setHeaderText("Input not valid!"); 
+					errorAlert.setContentText("Please provide a valid tablature!"); 
+					errorAlert.showAndWait();
+					errorAlert.close();
+					return;
+				}
 				if (instrument.equals("Guitar")) getInstrument.setText("Instrument: Guitar");
 				else if (instrument.equals("Drums")) getInstrument.setText("Instrument: Drums");
 				else if (instrument.equals("Bass")) getInstrument.setText("Instrument: Bass");
@@ -156,17 +172,7 @@ public class Controller {
 		String instrument = App.identifyInstrument(instrumentIdentify);
 		if (instrument.equals("Guitar")) instrumentBox.setValue("Guitar");
 		else if (instrument.equals("Drums")) instrumentBox.setValue("Drums");
-		else instrumentBox.setValue("Bass");
+		else if (instrument.equals("Bass")) instrumentBox.setValue("Bass");
+		else instrumentBox.setValue("None");
 	}
 }
-
-
-
-//	if (!instrument.equals("Guitar") && !instrument.equals("Drums") && !instrument.equals("Bass")) {
-//		Alert errorAlert = new Alert(AlertType.ERROR); 
-//		errorAlert.setHeaderText("Input not valid!"); 
-//		errorAlert.setContentText("Please provide a valid tablature!"); 
-//		errorAlert.showAndWait();
-//		errorAlert.close();
-//		return;
-//	}
