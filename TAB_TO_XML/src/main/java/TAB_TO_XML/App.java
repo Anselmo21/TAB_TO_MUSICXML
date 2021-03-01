@@ -86,7 +86,7 @@ public class App {
 		return conversion;
 	}
 
-	private static String bassTabToXML(ArrayList<String> tabAsList) {
+	public static String bassTabToXML(ArrayList<String> tabAsList) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
 
@@ -268,7 +268,7 @@ public class App {
 		return newMeasure;
 	}
 
-	private static String guitarTabToXML(ArrayList<String> tabAsList) {
+	public static String guitarTabToXML(ArrayList<String> tabAsList) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
 //			InputStream inputStream = new FileInputStream("C:\\Users\\shawn\\Desktop\\parts1.xml");
@@ -467,7 +467,7 @@ public class App {
 		return newMeasure;
 	}
 	
-	private static String drumTabToXML(ArrayList<String> tabAsList) {
+	public static String drumTabToXML(ArrayList<String> tabAsList) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
 
