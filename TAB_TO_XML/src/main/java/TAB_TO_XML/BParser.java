@@ -36,6 +36,8 @@ import Interface.Controller;
 			count = count / division;
 			if (count > 8) {
 				count = 8;
+			}	else if (count == 0) {
+				count = 1;
 			}
 			return count;
 		}
