@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import TAB_TO_XML.App;
+import TAB_TO_XML.BParser;
 
 class BParserTest {
 	
@@ -147,7 +147,8 @@ class BParserTest {
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.parseAlter(BParser.stepCount(2, a.get(2).charAt(7)));
+		BParser parse = new BParser();
+		String b = parse.parseAlter(BParser.stepCount(2, a.get(2).charAt(7)));
 		String c = "1";
 		assertEquals(b, c);
 	}
@@ -159,7 +160,8 @@ class BParserTest {
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.parseAlter(BParser.stepCount(0, a.get(0).charAt(15)));
+		BParser parse = new BParser();
+		String b = parse.parseAlter(BParser.stepCount(0, a.get(0).charAt(15)));
 		String c = "0";
 		assertEquals(b, c);
 	}

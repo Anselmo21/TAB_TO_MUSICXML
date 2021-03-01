@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import TAB_TO_XML.App;
+import TAB_TO_XML.GuitarParser;
 
 class GuitarParserTest {
 	

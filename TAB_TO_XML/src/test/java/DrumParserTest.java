@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import TAB_TO_XML.App;
+import TAB_TO_XML.DParser;
 
 class GuitarParserTest {
 	
@@ -84,7 +84,7 @@ class GuitarParserTest {
 	}
 	
 	@Test
-	public void test_stepCount_01() {
+	public void test_stepCount_02() {
 		String b = DParser.stepCount(0);
 		String c = "A";
 		assertEquals(b, c);
