@@ -173,25 +173,25 @@ public class App {
 			ArrayList<BassModel.StaffTuning> staffTunings = new ArrayList<BassModel.StaffTuning>();
 			BassModel.StaffTuning staffTuning0 = new BassModel.StaffTuning();
 			staffTuning0.setLine(1);
-			staffTuning0.setTuningStep("G");
-			staffTuning0.setTuningOctave("2");
+			staffTuning0.setTuningStep("E");
+			staffTuning0.setTuningOctave("1");
 			staffTunings.add(staffTuning0);
 
 			BassModel.StaffTuning staffTuning1 = new BassModel.StaffTuning();
 			staffTuning1.setLine(2);
-			staffTuning1.setTuningStep("D");
-			staffTuning1.setTuningOctave("2");
+			staffTuning1.setTuningStep("A");
+			staffTuning1.setTuningOctave("1");
 			staffTunings.add(staffTuning1);
 
 			BassModel.StaffTuning staffTuning2 = new BassModel.StaffTuning();
 			staffTuning2.setLine(3);
-			staffTuning2.setTuningStep("A");
-			staffTuning2.setTuningOctave("3");
+			staffTuning2.setTuningStep("D");
+			staffTuning2.setTuningOctave("2");
 			staffTunings.add(staffTuning2);
 
 			BassModel.StaffTuning staffTuning3 = new BassModel.StaffTuning();
 			staffTuning3.setLine(4);
-			staffTuning3.setTuningStep("E");
+			staffTuning3.setTuningStep("2");
 			staffTuning3.setTuningOctave("3");
 			staffTunings.add(staffTuning3);
 
