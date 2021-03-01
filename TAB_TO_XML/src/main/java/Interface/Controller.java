@@ -103,7 +103,7 @@ public class Controller {
 			else {
 				Alert errorAlert = new Alert(AlertType.ERROR); 
 				errorAlert.setHeaderText("Input not valid!"); 
-				errorAlert.setContentText("Provide text file."); 
+				errorAlert.setContentText("Provide text file or paste tablature on the textbox to your left."); 
 				errorAlert.showAndWait();
 				errorAlert.close();
 			}
