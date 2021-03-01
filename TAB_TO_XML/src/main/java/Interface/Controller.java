@@ -70,7 +70,8 @@ public class Controller {
 				String instrument = App.identifyInstrument(App.getFileList(write.getText()));
 				if (instrument.equals("Guitar")) getInstrument.setText("Instrument: Guitar");
 				else if (instrument.equals("Drums")) getInstrument.setText("Instrument: Drums");
-				else getInstrument.setText("Instrument: Bass");
+				else if (instrument.equals("Bass")) getInstrument.setText("Instrument: Bass");
+				else getInstrument.setText("No Instrument Detected");
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
@@ -91,9 +92,18 @@ public class Controller {
 			if (write.getText() != "") {
 				String storeText = write.getText();
 				String instrument = App.identifyInstrument(App.getFileList(storeText));
+				if (!instrument.equals("Guitar") || !instrument.equals("Drums") || !instrument.equals("Bass")) {
+					Alert errorAlert = new Alert(AlertType.ERROR); 
+					errorAlert.setHeaderText("Input not valid!"); 
+					errorAlert.setContentText("Please provide a valid tablature!"); 
+					errorAlert.showAndWait();
+					errorAlert.close();
+					return;
+				}
 				if (instrument.equals("Guitar")) getInstrument.setText("Instrument: Guitar");
 				else if (instrument.equals("Drums")) getInstrument.setText("Instrument: Drums");
-				else getInstrument.setText("Instrument: Bass");
+				else if (instrument.equals("Bass")) getInstrument.setText("Instrument: Bass");
+				else getInstrument.setText("No Instrument Detected");
 				App.setTab(storeText);
 				App.main(null);
 				String getConversion = App.getConversion();
@@ -105,10 +115,10 @@ public class Controller {
 				errorAlert.setHeaderText("Input not valid!"); 
 				errorAlert.setContentText("Provide text file."); 
 				errorAlert.showAndWait();
+				errorAlert.close();
 			}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 
