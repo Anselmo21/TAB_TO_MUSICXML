@@ -1,32 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.Controller">
    <children>
-      <AnchorPane layoutX="-15.0" stylesheets="@Intro.css">
+      <AnchorPane layoutX="-15.0" prefHeight="700.0" prefWidth="900.0" stylesheets="@Intro.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextArea fx:id="write" layoutX="25.0" layoutY="75.0" prefHeight="455.0" prefWidth="445.0" promptText="Paste a tablature here, or edit a browsed tablature!">
-               <font>
-                  <Font name="Consolas Bold" size="14.0" />
-               </font></TextArea>
-            <Button fx:id="convert" layoutX="849.0" layoutY="562.0" mnemonicParsing="false" onAction="#handleButtonConvert" text="Convert" />
-            <Label layoutX="323.0" layoutY="35.0" prefHeight="40.0" prefWidth="304.0" text="Browse using the button below" textFill="WHITE" wrapText="true">
-               <font>
-                  <Font name="Bookman Old Style Bold" size="18.0" />
-               </font>
-            </Label>
-          <Button fx:id="browse" layoutX="25.0" layoutY="562.0" mnemonicParsing="false" onAction="#handleButtonBrowse" text="Browse File" />
-            <Label fx:id="path" layoutX="25.0" layoutY="599.0" prefHeight="62.0" prefWidth="435.0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="39.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="490.0" AnchorPane.topAnchor="599.0" />
-            <Button fx:id="save" disable="true" layoutX="844.0" layoutY="628.0" mnemonicParsing="false" onAction="#handleButtonSave" text="Save File" />
-            <TextArea fx:id="view" editable="false" layoutX="483.0" layoutY="75.0" prefHeight="455.0" prefWidth="446.0">
-               <font>
-                  <Font name="Consolas" size="14.0" />
-               </font></TextArea>
+            <GridPane layoutX="7.0" layoutY="75.0" prefHeight="445.0" prefWidth="924.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="21.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <TextArea fx:id="write" prefHeight="455.0" prefWidth="445.0" promptText="Paste a tablature here, or edit a browsed tablature!">
+                     <font>
+                        <Font name="Consolas Bold" size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </GridPane.margin>
+                  </TextArea>
+                  <TextArea fx:id="view" editable="false" prefHeight="455.0" prefWidth="446.0" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Consolas" size="14.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </GridPane.margin>
+                  </TextArea>
+               </children>
+            </GridPane>
+            <Button fx:id="convert" layoutX="849.0" layoutY="562.0" mnemonicParsing="false" onAction="#handleButtonConvert" text="Convert" AnchorPane.bottomAnchor="116.4" AnchorPane.rightAnchor="36.99999999999997" />
+          <Button fx:id="browse" layoutX="25.0" layoutY="562.0" mnemonicParsing="false" onAction="#handleButtonBrowse" text="Browse File" AnchorPane.bottomAnchor="116.39999999999995" AnchorPane.leftAnchor="25.0" />
+            <GridPane layoutX="140.0" layoutY="532.0" prefHeight="102.0" prefWidth="506.0" AnchorPane.bottomAnchor="66.0" AnchorPane.leftAnchor="140.0" AnchorPane.rightAnchor="254.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="path" prefHeight="62.0" prefWidth="435.0" textFill="WHITE" wrapText="true" />
+               </children>
+               <padding>
+                  <Insets bottom="40.0" />
+               </padding>
+            </GridPane>
+            <Button fx:id="save" disable="true" layoutX="844.0" layoutY="628.0" mnemonicParsing="false" onAction="#handleButtonSave" text="Save File" AnchorPane.bottomAnchor="50.399999999999956" AnchorPane.rightAnchor="37.0" />
+            <TilePane alignment="CENTER" layoutX="291.0" layoutY="25.0" AnchorPane.leftAnchor="291.0" AnchorPane.rightAnchor="305.0" AnchorPane.topAnchor="25.0">
+               <children>
+                  <Label prefHeight="40.0" prefWidth="304.0" text="Browse using the button below" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Bookman Old Style Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </TilePane>
+            <ChoiceBox fx:id="instrumentBox" layoutX="25.0" layoutY="663.0" prefHeight="22.0" prefWidth="100.0" visible="false" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.leftAnchor="25.0" />
+            <GridPane layoutX="25.0" layoutY="599.0" prefHeight="34.0" prefWidth="210.0" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="665.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label fx:id="getInstrument" prefHeight="34.0" prefWidth="185.0" textFill="WHITE" />
+               </children>
+            </GridPane>
          </children>
       </AnchorPane>
    </children>

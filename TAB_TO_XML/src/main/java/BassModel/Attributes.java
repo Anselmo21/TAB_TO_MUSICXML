@@ -1,13 +1,9 @@
-package DrumModel;
+package BassModel;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-//import guitarModel.Clef;
-//import guitarModel.Key;
-import guitarModel.StaffDetails;
-
-
 public class Attributes {
+
 	int divisions;
 
 	Key key;
