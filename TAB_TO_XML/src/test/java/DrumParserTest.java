@@ -1,14 +1,11 @@
-package TAB_TO_XML;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class DrumParserTest {
-
-
+class GuitarParserTest {
 	
 	/*
 	 * This method is executed before each test method is executed.
@@ -61,6 +58,21 @@ public class DrumParserTest {
 		
 	}
 	
+	@Test
+	public void test_divisionCount_02() {
+		ArrayList<String> a = new ArrayList<>();
+		a.add("--------x-------");
+		a.add("----------------");
+		a.add("oooo------------");
+		a.add("----oo----------");
+		a.add("------oo--------");
+		a.add("o-------o-------");
+		int b = DParser.divisionCount(a);
+		int c = 4;
+		assertEquals(b, c);
+		
+	}
+	
 	/*******************************************************************/
 	
 	@Test
@@ -70,7 +82,13 @@ public class DrumParserTest {
 		assertEquals(b, c);
 	}
 	
-	/*******************************************************************/
+	@Test
+	public void test_stepCount_01() {
+		String b = DParser.stepCount(0);
+		String c = "A";
+		assertEquals(b, c);
+	}
 	
+	/*******************************************************************/
 	
 }

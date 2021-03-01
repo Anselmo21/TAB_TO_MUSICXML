@@ -101,14 +101,28 @@ class GuitarParserTest {
 	
 	@Test
 	public void test_stepCount_01() {
-		String b = GuitarParser.stepCount(2, 2);
-		String c = "A";
+		ArrayList<String> a = new ArrayList<>();
+		a.add("-----------0-----");
+		a.add("---------0---0---");
+		a.add("-------1-------1-");
+		a.add("-----2-----------");
+		a.add("---2-------------");
+		a.add("-0---------------");
+		String b = GuitarParser.stepCount(4, a.get(4).charAt(3));
+		String c = "B";
 		assertEquals(b, c);
 	}
 	
 	@Test
 	public void test_stepCount_02() {
-		String b = GuitarParser.stepCount(5, 4);
+		ArrayList<String> a = new ArrayList<>();
+		a.add("-----------0-----");
+		a.add("---------0---0---");
+		a.add("-------1-------1-");
+		a.add("-----2-----------");
+		a.add("---2-------------");
+		a.add("-0---------------");
+		String b = GuitarParser.stepCount(2, a.get(2).charAt(7));
 		String c = "G#";
 		assertEquals(b, c);
 	}
@@ -117,14 +131,28 @@ class GuitarParserTest {
 	
 	@Test
 	public void test_octaveCount_01() {
-		String b = GuitarParser.octaveCount(0, 8);
+		ArrayList<String> a = new ArrayList<>();
+		a.add("-----------0-----");
+		a.add("---------0---0---");
+		a.add("-------1-------1-");
+		a.add("-----2-----------");
+		a.add("---2-------------");
+		a.add("-0---------------");
+		String b = GuitarParser.octaveCount(0, a.get(0).charAt(11));
 		String c = "5";
 		assertEquals(b, c);
 	}
 	
 	@Test
 	public void test_octaveCount_02() {
-		String b = GuitarParser.octaveCount(3, 2);
+		ArrayList<String> a = new ArrayList<>();
+		a.add("-----------0-----");
+		a.add("---------0---0---");
+		a.add("-------1-------1-");
+		a.add("-----2-----------");
+		a.add("---2-------------");
+		a.add("-0---------------");
+		String b = GuitarParser.octaveCount(3, a.get(3).charAt(5));
 		String c = "3";
 		assertEquals(b, c);
 	}
@@ -133,14 +161,28 @@ class GuitarParserTest {
 	
 	@Test
 	public void test_parseAlter_01() {
-		String b = GuitarParser.parseAlter("A#");
+		ArrayList<String> a = new ArrayList<>();
+		a.add("-----------0-----");
+		a.add("---------0---0---");
+		a.add("-------1-------1-");
+		a.add("-----2-----------");
+		a.add("---2-------------");
+		a.add("-0---------------");
+		String b = GuitarParser.parseAlter(GuitarParser.stepCount(2, a.get(2).charAt(7)));
 		String c = "1";
 		assertEquals(b, c);
 	}
 	
 	@Test
 	public void test_parseAlter_02() {
-		String b = GuitarParser.parseAlter("G");
+		ArrayList<String> a = new ArrayList<>();
+		a.add("-----------0-----");
+		a.add("---------0---0---");
+		a.add("-------1-------1-");
+		a.add("-----2-----------");
+		a.add("---2-------------");
+		a.add("-0---------------");
+		String b = GuitarParser.parseAlter(GuitarParser.stepCount(4, a.get(4).charAt(3)));
 		String c = "0";
 		assertEquals(b, c);
 	}
