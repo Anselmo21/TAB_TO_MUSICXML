@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import TAB_TO_XML.App;
+import TAB_TO_XML.BParser;
 
 class BParserTest {
 	
@@ -181,7 +182,7 @@ class BParserTest {
 		}
 		b.add(" ");
 		c.add(b);
-		d = BParser.method1(a);
+		d = BParser.tabToCollection(a);
 		
 		assertEquals(c.get(0).get(0), d.get(0).get(0));
 		
@@ -208,7 +209,7 @@ class BParserTest {
 		b.add("-1---------------");
 		b.add("-2---------------");
 		c.add(b);
-		d = BParser.method2(a);
+		d = BParser.collectionToMeasure(a);
 		
 		assertEquals(c.get(0).get(0), d.get(0).get(0));
 	}
