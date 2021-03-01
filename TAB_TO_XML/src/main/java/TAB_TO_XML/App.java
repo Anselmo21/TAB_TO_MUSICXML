@@ -659,8 +659,11 @@ public class App {
 			if (content.get(i) != "") storeInstrument.add(content.get(i));
 			else break;
 		}
+		System.out.println(storeInstrument.size());
 		getInstrument.add(storeInstrument);
 		return getInstrument.get(0).size();
 	}
 
 }
+
+//push to resolve conflict
