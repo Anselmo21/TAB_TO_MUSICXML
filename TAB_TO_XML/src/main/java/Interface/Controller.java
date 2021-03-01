@@ -70,8 +70,7 @@ public class Controller {
 				String instrument = App.identifyInstrument(App.getFileList(write.getText()));
 				if (instrument.equals("Guitar")) getInstrument.setText("Instrument: Guitar");
 				else if (instrument.equals("Drums")) getInstrument.setText("Instrument: Drums");
-				else if (instrument.equals("Bass")) getInstrument.setText("Instrument: Bass");
-				else getInstrument.setText("No Instrument Detected");
+				else getInstrument.setText("Instrument: Bass");
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
@@ -94,8 +93,7 @@ public class Controller {
 				String instrument = App.identifyInstrument(App.getFileList(storeText));
 				if (instrument.equals("Guitar")) getInstrument.setText("Instrument: Guitar");
 				else if (instrument.equals("Drums")) getInstrument.setText("Instrument: Drums");
-				else if (instrument.equals("Bass")) getInstrument.setText("Instrument: Bass");
-				else getInstrument.setText("No Instrument Detected");
+				else getInstrument.setText("Instrument: Bass");
 				App.setTab(storeText);
 				App.main(null);
 				String getConversion = App.getConversion();
