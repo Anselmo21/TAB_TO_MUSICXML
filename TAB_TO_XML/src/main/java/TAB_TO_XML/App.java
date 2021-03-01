@@ -21,46 +21,46 @@ import guitarModel.*;
 public class App {
 
 	static String conversion;
-	
+
 	private static String tab;
-	
-	
+
+
 	public static void setTab(String textBox) {
 		tab = textBox;
 	}
-	
+
 	public static String getTab() {
 		return tab;
 	}
 
 	public static void main(String[] args) {
-		
+
 		switch (getInstrument()) {
-			case "Guitar":
-				conversion = guitarTabToXML(getFileList(tab));
-				break;
-			case "Bass":
-				conversion = bassTabToXML(getFileList(tab));
-				break;
-			case "Drums":
-				conversion = drumTabToXML(getFileList(tab));
-				break;
-			default:
-				break;
+		case "Guitar":
+			conversion = guitarTabToXML(getFileList(tab));
+			break;
+		case "Bass":
+			conversion = bassTabToXML(getFileList(tab));
+			break;
+		case "Drums":
+			conversion = drumTabToXML(getFileList(tab));
+			break;
+		default:
+			break;
 		}
-		
+
 		if (conversion != null) {
 			conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 					+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
 					+ conversion;
 		}
-			
+
 	}
-	
+
 	public static ArrayList<String> getFileList(String text) {
 		// read input file, store in array list
 		//return GuitarParser.readText(GuitarParser.getText()); // TODO: change location of the used methods here
-		
+
 		ArrayList<String> textList = new ArrayList<>();
 		Scanner in = null;
 		try {
@@ -76,9 +76,9 @@ public class App {
 		}
 		return textList;
 	}
-	
+
 	public static String getInstrument() {
-		
+
 		return identifyInstrument(getFileList(tab));
 	}
 
@@ -93,7 +93,7 @@ public class App {
 			// get a set of collections
 			ArrayList<ArrayList<String>> collections = new ArrayList<>();
 			collections = BParser.method1(tabAsList);
-			
+
 			BassModel.ScorePartwise scorePartwise = new BassModel.ScorePartwise();
 			scorePartwise.setVersion("3.1");
 			BassModel.PartList partList = new BassModel.PartList();
@@ -146,7 +146,7 @@ public class App {
 
 		return null;
 	}
-	
+
 	private static BassModel.Measure parseBassMeasure(ArrayList<String> meas, int measureNumber) {
 
 		BassModel.Measure newMeasure = new BassModel.Measure();
@@ -195,7 +195,7 @@ public class App {
 			staffTuning3.setTuningOctave("3");
 			staffTunings.add(staffTuning3);
 
-		
+
 
 			staffDetails.setStaffTunings(staffTunings);
 			attributes.setStaffDetails(staffDetails);
@@ -271,14 +271,14 @@ public class App {
 	public static String guitarTabToXML(ArrayList<String> tabAsList) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
-//			InputStream inputStream = new FileInputStream("C:\\Users\\shawn\\Desktop\\parts1.xml");
-//			TypeReference<List<Part>> typeReference = new TypeReference<List<Part>>() {};
-//			List<Part> parts = mapper.readValue(inputStream, typeReference);
-//			
-//			for (Part p : parts) {
-//				System.out.println("name is: " + p.getId());
-//			}
-			
+			//			InputStream inputStream = new FileInputStream("C:\\Users\\shawn\\Desktop\\parts1.xml");
+			//			TypeReference<List<Part>> typeReference = new TypeReference<List<Part>>() {};
+			//			List<Part> parts = mapper.readValue(inputStream, typeReference);
+			//			
+			//			for (Part p : parts) {
+			//				System.out.println("name is: " + p.getId());
+			//			}
+
 			// get a set of collections
 			ArrayList<ArrayList<String>> collections = new ArrayList<>();
 			collections = GuitarParser.method1(tabAsList);
@@ -466,7 +466,7 @@ public class App {
 
 		return newMeasure;
 	}
-	
+
 	public static String drumTabToXML(ArrayList<String> tabAsList) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
@@ -474,7 +474,7 @@ public class App {
 			// get a set of collections
 			ArrayList<ArrayList<String>> collections = new ArrayList<>();
 			collections = DParser.method1(tabAsList);
-			
+
 			DrumModel.ScorePartwise scorePartwise = new DrumModel.ScorePartwise();
 			scorePartwise.setVersion("3.1");
 			DrumModel.PartList partList = new DrumModel.PartList();
@@ -579,27 +579,27 @@ public class App {
 					note.get(note.size() - 1).setDuration(duration.toString());
 
 					note.get(note.size() - 1).setType(DParser.typeDeclare(duration));
-					
+
 					Instrument instrument = new Instrument();
 					instrument.setID(DParser.identifyID(x));
 					note.get(note.size() - 1).setInstrument(instrument);
-					
+
 					note.get(note.size() - 1).setVoice("1");
 					note.get(note.size() - 1).setStem("up");
 					note.get(note.size() - 1).setNoteHead(null);
-					
+
 					Beam beam = new Beam();
-					
+
 					if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
-						
+
 					}
 					else {
-						
+
 					}
 					beam.setNumber(null);
 					beam.setValue(DParser.beamState(meas, x, y));
 					note.get(note.size() - 1).setBeam(null);
-					
+
 					Unpitched unpitched = new Unpitched();
 					unpitched.setDisplayOctave(DParser.octaveCount(x));
 					unpitched.setDisplayStep(DParser.stepCount(x));
@@ -610,20 +610,20 @@ public class App {
 				}
 			}
 		}
-		
+
 		// backup here
-		
+
 		for (int y = 0; y < meas.get(0).length(); y++) {
 			char character = meas.get(meas.size() - 1).charAt(y);
-			
-			
+
+
 		}
 
 		newMeasure.setNote(note);
 
 		return newMeasure;
 	}
-	
+
 	/**
 	 * This method will figure out which instrument the tab is meant to be 
 	 * played for.
@@ -642,10 +642,11 @@ public class App {
 			}
 		}
 		if (helpMe(content) == 4) return "Bass";
-			return "Guitar";
+		
+		return "Guitar";
 
 	}
-	
+
 	/**
 	 * This method helps identify if the instrument is a bass or a guitar.
 	 * @param content
