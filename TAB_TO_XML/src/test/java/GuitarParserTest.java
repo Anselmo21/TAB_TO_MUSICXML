@@ -31,7 +31,7 @@ class GuitarParserTest {
 		a.add("---2-------------");
 		a.add("-0---------------");
 		int b = GuitarParser.durationCount(a, 5, 1);
-		int c = 2;
+		int c = 1;
 		assertEquals(b, c);
 		
 	}
@@ -164,7 +164,7 @@ class GuitarParserTest {
 		}
 		b.add(" ");
 		c.add(b);
-		d = method1(a);
+		d = GuitarParser.method1(a);
 		
 		assertEquals(c.get(0).get(0), d.get(0).get(0));
 		
@@ -197,7 +197,7 @@ class GuitarParserTest {
 		b.add("-2---------------");
 		b.add("-0---------------");
 		c.add(b);
-		d = method2(a);
+		d = GuitarParser.method2(a);
 		
 		assertEquals(c.get(0).get(0), d.get(0).get(0));
 	}
