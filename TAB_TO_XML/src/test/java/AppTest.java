@@ -57,6 +57,16 @@ class AppTest {
 		bassTab.add("D |--------------------|");
 		bassTab.add("A |--------------------|");
 		bassTab.add("E |-/5--7-----7--5--7--|");
+		bassTab.add("");
+		bassTab.add("G |--------7-----------|");
+		bassTab.add("D |--------------------|");
+		bassTab.add("A |--------------------|");
+		bassTab.add("E |-/5--7-----7--5--7--|");
+		bassTab.add("");
+		bassTab.add("G |--------7-----------|");
+		bassTab.add("D |--------------------|");
+		bassTab.add("A |--------------------|");
+		bassTab.add("E |-/5--7-----7--5--7--|");
 		String actual = App.identifyInstrument(bassTab);
 		String expected = "Bass";
 		assertEquals(actual,expected);
