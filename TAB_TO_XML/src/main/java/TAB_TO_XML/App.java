@@ -651,7 +651,12 @@ public class App {
 
 	}
 	
-	public static int helpMe(ArrayList<String> content) {
+	/**
+	 * This method helps identify if the instrument is a bass or a guitar.
+	 * @param content
+	 * @return
+	 */
+	private static int helpMe(ArrayList<String> content) {
 		ArrayList<ArrayList<String>> getInstrument = new ArrayList<>();
 		ArrayList<String> storeInstrument = new ArrayList<>();
 		for (int i = 0; i < content.size(); i++) {
