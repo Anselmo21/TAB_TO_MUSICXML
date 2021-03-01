@@ -231,7 +231,7 @@ public class App {
 					Integer duration = BParser.durationCount(meas, y, division);
 					note.get(note.size() - 1).setDuration(duration.toString());
 
-					note.get(note.size() - 1).setType(BParser.typeDeclare(duration));
+					//note.get(note.size() - 1).setType(BParser.typeDeclare(duration));
 					note.get(note.size() - 1).setVoice("1");
 
 					// if the note is length 2, it contains a sharp
@@ -430,7 +430,7 @@ public class App {
 					Integer duration = GuitarParser.durationCount(meas, y, division);
 					note.get(note.size() - 1).setDuration(duration.toString());
 
-					note.get(note.size() - 1).setType(GuitarParser.typeDeclare(duration));
+					//note.get(note.size() - 1).setType(GuitarParser.typeDeclare(duration));
 					note.get(note.size() - 1).setVoice("1");
 
 					// if the note is length 2, it contains a sharp
