@@ -37,22 +37,22 @@ public class App {
 		
 		switch (getInstrument()) {
 			case "Guitar":
-				conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
-						+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
-						+ guitarTabToXML(getFileList(tab));
+				conversion = guitarTabToXML(getFileList(tab));
 				break;
 			case "Bass":
-				conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
-						+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
-						+ bassTabToXML(getFileList(tab));
+				conversion = bassTabToXML(getFileList(tab));
 				break;
 			case "Drums":
-				conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
-						+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
-						+ drumTabToXML(getFileList(tab));
+				conversion = drumTabToXML(getFileList(tab));
 				break;
 			default:
 				break;
+		}
+		
+		if (conversion != null) {
+			conversion = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
+					+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
+					+ conversion;
 		}
 			
 	}
