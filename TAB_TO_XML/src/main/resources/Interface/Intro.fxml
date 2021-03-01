@@ -33,9 +33,9 @@
                         <Insets left="15.0" right="15.0" />
                      </GridPane.margin>
                   </TextArea>
-                  <TextArea fx:id="view" editable="false" prefHeight="455.0" prefWidth="446.0" GridPane.columnIndex="1">
+                  <TextArea fx:id="view" editable="false" prefHeight="455.0" prefWidth="446.0" promptText="The converted MUSICXML will be displayed here!" GridPane.columnIndex="1">
                      <font>
-                        <Font name="Consolas" size="14.0" />
+                        <Font name="Consolas Bold" size="14.0" />
                      </font>
                      <GridPane.margin>
                         <Insets left="15.0" right="15.0" />
