@@ -642,9 +642,9 @@ public class App {
 			}
 		}
 		if (helpMe(content) == 4) return "Bass";
+		else if (helpMe(content) == 6) return "Guitar";
 		
-		return "Guitar";
-
+		return "No Instrument Detected";
 	}
 
 	/**
