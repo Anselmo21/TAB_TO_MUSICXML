@@ -120,7 +120,7 @@ public class DParser {
 		return beamnum;
 	}
 	// inputing strings of lines.
-	public static ArrayList<ArrayList<String>> method1(ArrayList<String> inputFile){	
+	public static ArrayList<ArrayList<String>> tabToCollection(ArrayList<String> inputFile){	
 		
 		
 		ArrayList<ArrayList<String>> Collections = new ArrayList<ArrayList<String>>();
@@ -145,7 +145,7 @@ public class DParser {
 	
 	
 	// input of six lines
-	public static ArrayList<ArrayList<String>> method2(ArrayList<String> input){ 
+	public static ArrayList<ArrayList<String>> collectionToMeasure(ArrayList<String> input){ 
 		
 		ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
 		ArrayList<String> eachSection = new ArrayList<String>();

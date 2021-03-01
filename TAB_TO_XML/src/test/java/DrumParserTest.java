@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import TAB_TO_XML.DParser;
 
-class GuitarParserTest {
+class DrumParserTest {
 	
 	/*
 	 * This method is executed before each test method is executed.

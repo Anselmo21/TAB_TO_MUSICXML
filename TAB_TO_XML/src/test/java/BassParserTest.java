@@ -147,8 +147,7 @@ class BParserTest {
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		BParser parse = new BParser();
-		String b = parse.parseAlter(BParser.stepCount(2, a.get(2).charAt(7)));
+		String b = BParser.parseAlter(BParser.stepCount(2, a.get(2).charAt(7)));
 		String c = "1";
 		assertEquals(b, c);
 	}
@@ -160,8 +159,7 @@ class BParserTest {
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		BParser parse = new BParser();
-		String b = parse.parseAlter(BParser.stepCount(0, a.get(0).charAt(15)));
+		String b = BParser.parseAlter(BParser.stepCount(0, a.get(0).charAt(15)));
 		String c = "0";
 		assertEquals(b, c);
 	}
@@ -183,7 +181,7 @@ class BParserTest {
 		}
 		b.add(" ");
 		c.add(b);
-		d = BParser.method1(a);
+		d = BParser.tabToCollection(a);
 		
 		assertEquals(c.get(0).get(0), d.get(0).get(0));
 		
@@ -210,7 +208,7 @@ class BParserTest {
 		b.add("-1---------------");
 		b.add("-2---------------");
 		c.add(b);
-		d = BParser.method2(a);
+		d = BParser.collectionToMeasure(a);
 		
 		assertEquals(c.get(0).get(0), d.get(0).get(0));
 	}

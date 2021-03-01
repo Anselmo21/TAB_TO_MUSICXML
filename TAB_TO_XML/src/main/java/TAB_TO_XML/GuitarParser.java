@@ -92,8 +92,8 @@ public class GuitarParser {
 			return fretboard[row][column];
 	}
 	
-	// inputing strings of lines.
-	public static ArrayList<ArrayList<String>> method1(ArrayList<String> inputFile){	
+	// returns a list of list<string>, where each list<string> is a collection
+	public static ArrayList<ArrayList<String>> tabToCollection(ArrayList<String> inputFile){	
 		
 		
 		ArrayList<ArrayList<String>> Collections = new ArrayList<ArrayList<String>>();
@@ -118,8 +118,8 @@ public class GuitarParser {
 	}
 	
 	
-	// input of six lines
-	public static ArrayList<ArrayList<String>> method2(ArrayList<String> input){ 
+	//return list of list<string>, where each list<string> represents a single measure
+	public static ArrayList<ArrayList<String>> collectionToMeasure(ArrayList<String> input){ 
 		
 		ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
 		ArrayList<String> eachSection = new ArrayList<String>();
@@ -140,7 +140,7 @@ public class GuitarParser {
 											
 	}
 	
-	public String parseAlter(String note) { 
+	public static String parseAlter(String note) { 
 		
 		for (int i = 0; i < note.length(); i++) { 
 			if (note.charAt(i) == '#') { 

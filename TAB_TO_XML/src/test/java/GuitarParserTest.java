@@ -207,7 +207,7 @@ class GuitarParserTest {
 		}
 		b.add(" ");
 		c.add(b);
-		d = GuitarParser.method1(a);
+		d = GuitarParser.tabToCollection(a);
 		
 		assertEquals(c.get(0).get(0), d.get(0).get(0));
 		
@@ -240,7 +240,7 @@ class GuitarParserTest {
 		b.add("-2---------------");
 		b.add("-0---------------");
 		c.add(b);
-		d = GuitarParser.method2(a);
+		d = GuitarParser.collectionToMeasure(a);
 		
 		assertEquals(c.get(0).get(0), d.get(0).get(0));
 	}

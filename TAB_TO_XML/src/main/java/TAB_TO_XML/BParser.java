@@ -93,7 +93,7 @@ import Interface.Controller;
 		}
 		
 		// inputing strings of lines.
-		public static ArrayList<ArrayList<String>> method1(ArrayList<String> inputFile){	
+		public static ArrayList<ArrayList<String>> tabToCollection(ArrayList<String> inputFile){	
 			
 			
 			ArrayList<ArrayList<String>> Collections = new ArrayList<ArrayList<String>>();
@@ -120,7 +120,7 @@ import Interface.Controller;
 		
 		
 		// input of six lines
-		public static ArrayList<ArrayList<String>> method2(ArrayList<String> input){ 
+		public static ArrayList<ArrayList<String>> collectionToMeasure(ArrayList<String> input){ 
 			
 			ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
 			ArrayList<String> eachSection = new ArrayList<String>();
@@ -141,7 +141,7 @@ import Interface.Controller;
 												
 		}
 		
-		public String parseAlter(String note) { 
+		public static String parseAlter(String note) { 
 			
 			for (int i = 0; i < note.length(); i++) { 
 				if (note.charAt(i) == '#') { 

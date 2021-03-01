@@ -92,7 +92,7 @@ public class App {
 
 			// get a set of collections
 			ArrayList<ArrayList<String>> collections = new ArrayList<>();
-			collections = BParser.method1(tabAsList);
+			collections = BParser.tabToCollection(tabAsList);
 
 			BassModel.ScorePartwise scorePartwise = new BassModel.ScorePartwise();
 			scorePartwise.setVersion("3.1");
@@ -116,7 +116,7 @@ public class App {
 			int measureCount = 0;
 			// iter through each collection
 			for (int i = 0; i < collections.size(); i++) {
-				ArrayList<ArrayList<String>> measuresOfCollection = BParser.method2(collections.get(i));
+				ArrayList<ArrayList<String>> measuresOfCollection = BParser.collectionToMeasure(collections.get(i));
 
 				// iter through each measure set
 				for (int j = 0; j < measuresOfCollection.size(); j++) {
@@ -281,7 +281,7 @@ public class App {
 
 			// get a set of collections
 			ArrayList<ArrayList<String>> collections = new ArrayList<>();
-			collections = GuitarParser.method1(tabAsList);
+			collections = GuitarParser.tabToCollection(tabAsList);
 
 			guitarModel.ScorePartwise scorePartwise = new guitarModel.ScorePartwise();
 			scorePartwise.setVersion("3.1");
@@ -305,7 +305,7 @@ public class App {
 			int measureCount = 0;
 			// iter through each collection
 			for (int i = 0; i < collections.size(); i++) {
-				ArrayList<ArrayList<String>> measuresOfCollection = GuitarParser.method2(collections.get(i));
+				ArrayList<ArrayList<String>> measuresOfCollection = GuitarParser.collectionToMeasure(collections.get(i));
 
 				// iter through each measure set
 				for (int j = 0; j < measuresOfCollection.size(); j++) {
@@ -473,7 +473,7 @@ public class App {
 
 			// get a set of collections
 			ArrayList<ArrayList<String>> collections = new ArrayList<>();
-			collections = DParser.method1(tabAsList);
+			collections = DParser.tabToCollection(tabAsList);
 
 			DrumModel.ScorePartwise scorePartwise = new DrumModel.ScorePartwise();
 			scorePartwise.setVersion("3.1");
@@ -497,7 +497,7 @@ public class App {
 			int measureCount = 0;
 			// iter through each collection
 			for (int i = 0; i < collections.size(); i++) {
-				ArrayList<ArrayList<String>> measuresOfCollection = DParser.method2(collections.get(i));
+				ArrayList<ArrayList<String>> measuresOfCollection = DParser.collectionToMeasure(collections.get(i));
 
 				// iter through each measure set
 				for (int j = 0; j < measuresOfCollection.size(); j++) {
