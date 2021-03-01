@@ -90,24 +90,30 @@ class BParserTest {
 	
 	@Test
 	public void test_stepCount_01() {
+		/*
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
 		String b = BParser.stepCount(2, a.get(2).charAt(7));
+		*/
+		String b = BParser.stepCount(2, 1);
 		String c = "A#";
 		assertEquals(b, c);
 	}
 	
 	@Test
 	public void test_stepCount_02() {
+		/*
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
 		String b = BParser.stepCount(3, a.get(3).charAt(5));
+		*/
+		String b = BParser.stepCount(3, 2);
 		String c = "F#";
 		assertEquals(b, c);
 	}
@@ -116,24 +122,30 @@ class BParserTest {
 	
 	@Test
 	public void test_octaveCount_01() {
+		/*
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
 		String b = BParser.octaveCount(0, a.get(0).charAt(11));
+		*/
+		String b = BParser.octaveCount(0, 0);
 		String c = "2";
 		assertEquals(b, c);
 	}
 	
 	@Test
 	public void test_octaveCount_02() {
+		/*
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.octaveCount(2, a.get(0).charAt(15));
+		String b = BParser.octaveCount(2, a.get(0).charAt(7));
+		*/
+		String b = BParser.octaveCount(2, 1);
 		String c = "1";
 		assertEquals(b, c);
 	}
@@ -142,24 +154,28 @@ class BParserTest {
 	
 	@Test
 	public void test_parseAlter_01() {
+		/*
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.parseAlter(BParser.stepCount(2, a.get(2).charAt(7)));
+		*/
+		String b = BParser.parseAlter(BParser.stepCount(2, 1));
 		String c = "1";
 		assertEquals(b, c);
 	}
 	
 	@Test
 	public void test_parseAlter_02() {
+		/*
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.parseAlter(BParser.stepCount(0, a.get(0).charAt(15)));
+		*/
+		String b = BParser.parseAlter(BParser.stepCount(0, 0));
 		String c = "0";
 		assertEquals(b, c);
 	}
