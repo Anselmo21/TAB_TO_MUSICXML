@@ -13,11 +13,11 @@ public class DParser {
 	 * @param parse is the array list of strings that contains a whole line of notes
 	 * @return an integer representing the duration of the note.
 	 */
-	public static Integer durationCount(ArrayList<String> parse, int row) {
+	public static Integer durationCount(ArrayList<String> parse, int column) {
 		Integer count = 1;
 		
 		outerloop: 
-		for (int i = row + 1; i < parse.get(0).length(); i++) {
+		for (int i = column + 1; i < parse.get(0).length(); i++) {
 				for (int j = 0; j < parse.size(); j++) {
 					if (parse.get(j).charAt(i) !=  '-') {
 						break outerloop;
