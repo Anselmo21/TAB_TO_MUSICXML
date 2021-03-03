@@ -56,7 +56,7 @@ class AppTest {
 		guitarTab.add("|-0---------------|-0---------------|");
 		String actual = App.identifyInstrument(guitarTab);
 		String expected = "Guitar";
-		assertEquals(actual,expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -70,7 +70,7 @@ class AppTest {
 		drumTab.add("BD|o-------o-------|o-------o-------|");
 		String actual = App.identifyInstrument(drumTab);
 		String expected = "Drums";
-		assertEquals(actual,expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -92,7 +92,7 @@ class AppTest {
 		bassTab.add("E |-/5--7-----7--5--7--|");
 		String actual = App.identifyInstrument(bassTab);
 		String expected = "Bass";
-		assertEquals(actual,expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -1131,7 +1131,7 @@ class AppTest {
 		actual = actual.replaceAll("\\s+","");
 		expected = expected.replaceAll("\\s+","");
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -1518,7 +1518,7 @@ class AppTest {
 		actual = actual.replaceAll("\\s+","");
 		expected = expected.replaceAll("\\s+","");
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 
 }
