@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import TAB_TO_XML.BParser;
 
-class BParserTest {
+class BassParserTest {
 	
 	@Test
 	public void test_durationCount_01() {
@@ -90,30 +90,24 @@ class BParserTest {
 	
 	@Test
 	public void test_stepCount_01() {
-		/*
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.stepCount(2, a.get(2).charAt(7));
-		*/
-		String b = BParser.stepCount(2, 1);
+		String b = BParser.stepCount(2, Character.getNumericValue(a.get(2).charAt(7)));
 		String c = "A#";
 		assertEquals(b, c);
 	}
 	
 	@Test
 	public void test_stepCount_02() {
-		/*
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.stepCount(3, a.get(3).charAt(5));
-		*/
-		String b = BParser.stepCount(3, 2);
+		String b = BParser.stepCount(3, Character.getNumericValue(a.get(3).charAt(5)));
 		String c = "F#";
 		assertEquals(b, c);
 	}
@@ -122,30 +116,24 @@ class BParserTest {
 	
 	@Test
 	public void test_octaveCount_01() {
-		/*
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.octaveCount(0, a.get(0).charAt(11));
-		*/
-		String b = BParser.octaveCount(0, 0);
+		String b = BParser.octaveCount(0, Character.getNumericValue(a.get(0).charAt(11)));
 		String c = "2";
 		assertEquals(b, c);
 	}
 	
 	@Test
 	public void test_octaveCount_02() {
-		/*
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.octaveCount(2, a.get(0).charAt(7));
-		*/
-		String b = BParser.octaveCount(2, 1);
+		String b = BParser.octaveCount(2, Character.getNumericValue(a.get(2).charAt(7)));
 		String c = "1";
 		assertEquals(b, c);
 	}
@@ -154,28 +142,24 @@ class BParserTest {
 	
 	@Test
 	public void test_parseAlter_01() {
-		/*
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		*/
-		String b = BParser.parseAlter(BParser.stepCount(2, 1));
+		String b = BParser.parseAlter(BParser.stepCount(2, Character.getNumericValue(a.get(2).charAt(7))));
 		String c = "1";
 		assertEquals(b, c);
 	}
 	
 	@Test
 	public void test_parseAlter_02() {
-		/*
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		*/
-		String b = BParser.parseAlter(BParser.stepCount(0, 0));
+		String b = BParser.parseAlter(BParser.stepCount(0, Character.getNumericValue(a.get(0).charAt(11))));
 		String c = "0";
 		assertEquals(b, c);
 	}
@@ -183,7 +167,7 @@ class BParserTest {
 /*******************************************************************/
 	
 	@Test
-	public void test_method1_01() {
+	public void test_tabToCollection_01() {
 		ArrayList<String> a = new ArrayList<>();
 		ArrayList<String> b = new ArrayList<>();
 		ArrayList<ArrayList<String>> c = new ArrayList<>();
@@ -204,7 +188,7 @@ class BParserTest {
 	}
 	
 	@Test
-	public void test_method2_01() {
+	public void test_collectionToMeasure_01() {
 		ArrayList<String> a = new ArrayList<>();
 		ArrayList<String> b = new ArrayList<>();
 		ArrayList<ArrayList<String>> c = new ArrayList<>();
