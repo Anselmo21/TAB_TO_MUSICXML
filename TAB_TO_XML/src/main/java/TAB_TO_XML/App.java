@@ -2,6 +2,7 @@ package TAB_TO_XML;
 
 import java.io.File;
 
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -652,7 +653,7 @@ public class App {
 	 * @param content
 	 * @return
 	 */
-	private static int helpMe(ArrayList<String> content) {
+	public static int helpMe(ArrayList<String> content) {
 		int count = 0;
 		for (int i = 0; i < content.size(); i++) {
 			if (!content.get(i).equals("")) count++;

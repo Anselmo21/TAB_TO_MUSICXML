@@ -8,6 +8,7 @@ import TAB_TO_XML.GuitarParser;
 
 class GuitarParserTest {
 	
+	
 	@Test
 	public void test_durationCount_01() {
 		ArrayList<String> a = new ArrayList<>();
