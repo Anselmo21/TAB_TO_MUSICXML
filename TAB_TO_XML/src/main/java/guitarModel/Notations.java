@@ -2,6 +2,7 @@ package guitarModel;
 
 public class Notations {
 	Technical technical;
+//	Slur slur;
 
 	public Notations() {}
 	public Notations(Technical technical) {
@@ -16,4 +17,12 @@ public class Notations {
 	public void setTechnical(Technical technical) {
 		this.technical = technical;
 	}
+	
+//	public void setSlur(Slur slur) {
+//		this.slur = slur;
+//	}
+//	
+//	public Slur getSlur() {
+//		return slur;
+//	}
 }
