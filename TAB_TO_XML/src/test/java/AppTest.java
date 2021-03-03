@@ -7,6 +7,29 @@ import org.junit.jupiter.api.Test;
 import TAB_TO_XML.App;
 
 class AppTest {
+	
+	@Test
+	public void getFileListTest1() {
+		String text = "Hello\nWorld\nOut\nThere";
+		ArrayList<String> actual = App.getFileList(text);
+		ArrayList<String> expected = new ArrayList<String>();
+		expected.add("Hello");
+		expected.add("World");
+		expected.add("Out");
+		expected.add("There");
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void getFileListTest2() {
+		String text = "This";
+		ArrayList<String> actual = App.getFileList(text);
+		ArrayList<String> expected = new ArrayList<String>();
+		expected.add("This");
+		
+		assertEquals(expected, actual);
+	}
 
 	@Test
 	public void identifyInstrumentTest1() {
