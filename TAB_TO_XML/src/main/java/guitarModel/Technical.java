@@ -3,6 +3,8 @@ package guitarModel;
 public class Technical {
 	String string;
 	String fret;
+//	HammerOn hammerOn;
+//	PullOff pullOff;
 
 	public Technical() {}
 	public Technical(String string, String fret) {
@@ -22,4 +24,20 @@ public class Technical {
 	public void setFret(String fret) {
 		this.fret = fret;
 	}
+	
+//	public void setHammerOn(HammerOn hammerOn) {
+//		this.hammerOn = hammerOn;
+//	}
+//	
+//	public HammerOn getHammerOn() {
+//		return hammerOn;
+//	}
+//	
+//	public void setPullOff(PullOff pullOff) {
+//		this.pullOff = pullOff;
+//	}
+//	
+//	public PullOff getPullOff() {
+//		return pullOff;
+//	}
 }
