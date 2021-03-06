@@ -1,8 +1,26 @@
 package BassModel;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import guitarModel.Slur;
+
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Notations {
 	Technical technical;
-
+	
+	Slur slur;
+	
+	public Slur getSlur() { 
+		
+		return slur; 
+		
+	}
+	
+	public void setSlur(Slur s) { 
+		
+		slur = s; 
+		
+	}
 	public Notations() {}
 	public Notations(Technical technical) {
 		super();
