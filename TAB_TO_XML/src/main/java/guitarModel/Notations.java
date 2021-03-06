@@ -32,4 +32,6 @@ public class Notations {
 	public void setTechnical(Technical technical) {
 		this.technical = technical;
 	}
+	
+
 }
