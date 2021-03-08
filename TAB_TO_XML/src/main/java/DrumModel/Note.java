@@ -9,7 +9,8 @@ public class Note {
 	String type; 
 	String stem;
 	String notehead;
-	Beam beam; 
+	Beam beam1;
+	Beam beam2;
 	
 	public void setUnpitch(Unpitched pitch) { 
 		unpitch = pitch;
@@ -87,21 +88,30 @@ public class Note {
 		
 	}
 	
-	public void setBeam(Beam beam) { 
-		this.beam = beam;
+	public void setBeam1(Beam beam) { 
+		this.beam1 = beam;
 		
 	}
 	
-	public Beam getBeam() { 
+	public Beam getBeam1() { 
 		
-		return beam;
+		return beam1;
+	}
+	
+	public void setBeam2(Beam beam) {
+		this.beam2 = beam;
+	}
+	
+	public Beam getBeam2() {
+		return beam2;
 	}
 	
 	public Note() {}
-	public Note(Unpitched pitch, String duration, String voice, String stem, String type, String notehead, Instrument instrument, Beam beam) {
+	public Note(Unpitched pitch, String duration, String voice, String stem, String type, String notehead, Instrument instrument, Beam beam1, Beam beam2) {
 		
 		super();
-		this.beam = beam;
+		this.beam1 = beam1;
+		this.beam2 = beam2;
 		this.instrument = instrument;
 		this.unpitch = pitch;
 		this.duration = duration;
