@@ -3,6 +3,7 @@ package TAB_TO_XML;
 import java.io.File;
 
 
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -417,6 +418,14 @@ public class App {
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
 			Boolean hasPrevColNote = false;
+			int nextColumn = 0;
+			int prevColumn = 0;
+			if (y + 1 < meas.get(0).length()) { //prevent index out of bounds
+				nextColumn = y + 1;
+			}
+			if (y - 1 > 0) {
+				prevColumn = y - 1;
+			}
 			for (int x = meas.size() - 1; x >= 0; x--) {
 				char character = meas.get(x).charAt(y);
 
@@ -451,7 +460,20 @@ public class App {
 					// set notations, technical is a sub-element of notations
 					guitarModel.Notations notations = new guitarModel.Notations();
 					guitarModel.Technical technical = new guitarModel.Technical();
-					if (meas.get(x+1).charAt(y) == 'h' || meas.get(x+1).charAt(y) == 'H') {
+					if (meas.get(x).charAt(prevColumn) == 'h' || meas.get(x).charAt(prevColumn) == 'H') {
+						guitarModel.HammerOn hammer = new guitarModel.HammerOn();
+						hammer.setNumber(1);
+						hammer.setType("stop");
+					
+						
+						guitarModel.Slur slur = new guitarModel.Slur(); 
+						slur.setNumber(1);
+						slur.setType("stop");
+						technical.setHammer(hammer);
+						notations.setSlur(slur);
+					}
+		
+					if (meas.get(x).charAt(nextColumn) == 'h' || meas.get(x).charAt(nextColumn) == 'H') {
 						
 						guitarModel.HammerOn hammer = new guitarModel.HammerOn();
 						hammer.setNumber(1);
@@ -462,12 +484,15 @@ public class App {
 						slur.setNumber(1);
 						slur.setPlacement("above");
 						slur.setType("start");
-						
+						technical.setHammer(hammer);
+						notations.setSlur(slur);
 					}
+		
 					technical.setFret("" + character);
 					Integer stringNumber = (x + 1);
 					technical.setString(stringNumber.toString());
 					notations.setTechnical(technical);
+							
 					note.get(note.size() - 1).setNotations(notations);
 
 					// set has note in the column to true

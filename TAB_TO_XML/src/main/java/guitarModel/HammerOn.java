@@ -1,18 +1,21 @@
 
 package guitarModel;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
-public class HammerOn {
+public class HammerOn  {
 	
 	@JacksonXmlProperty(isAttribute=true)
 	int number;
 	
 	@JacksonXmlProperty(isAttribute=true)
 	String type; 
+
 	
-	//This field stores the symbol associated to the hammer on...which is either h or H
-	String symbol;
+	@JacksonXmlText
+	String symbol; 
 	
 	public int getNumber() {
 		
@@ -46,7 +49,7 @@ public class HammerOn {
 	
 	public String getSymbol() { 
 		
-		return symbol;
+	return symbol;
 		
-	}
+}
 }

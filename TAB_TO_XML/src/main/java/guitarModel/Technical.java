@@ -10,7 +10,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class Technical {
 	String string;
 	String fret;
-
+	
 	@JacksonXmlProperty(localName = "hammer-on")
 	HammerOn hammer; 
 	
@@ -24,10 +24,7 @@ public class Technical {
 	ArrayList<PullOff> pulloff;
 	
 	
-	public HammerOn getHammerOn() { 
-		return hammer;
-		
-	}
+	
 	
 	public void setHammer(HammerOn h) { 
 		
