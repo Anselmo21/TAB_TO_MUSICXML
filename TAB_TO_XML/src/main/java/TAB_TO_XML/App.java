@@ -451,6 +451,19 @@ public class App {
 					// set notations, technical is a sub-element of notations
 					guitarModel.Notations notations = new guitarModel.Notations();
 					guitarModel.Technical technical = new guitarModel.Technical();
+					if (meas.get(x+1).charAt(y) == 'h' || meas.get(x+1).charAt(y) == 'H') {
+						
+						guitarModel.HammerOn hammer = new guitarModel.HammerOn();
+						hammer.setNumber(1);
+						hammer.setType("start");
+						hammer.setSymbol("H");
+						
+						guitarModel.Slur slur = new guitarModel.Slur(); 
+						slur.setNumber(1);
+						slur.setPlacement("above");
+						slur.setType("start");
+						
+					}
 					technical.setFret("" + character);
 					Integer stringNumber = (x + 1);
 					technical.setString(stringNumber.toString());

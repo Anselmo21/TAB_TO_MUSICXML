@@ -139,7 +139,7 @@ public class GuitarParser {
 		return sections;
 											
 	}
-	
+
 	public static String parseAlter(String note) { 
 		
 		for (int i = 0; i < note.length(); i++) { 
@@ -150,9 +150,21 @@ public class GuitarParser {
 		}
 		return "0";
 	}
-	public static boolean isChord(ArrayList<String> line, char note) { 
-		return false;
+	public static boolean hasHammer(ArrayList<String> content) { 
 		
+		for (int i = 0; i < content.size(); i++) { 
+			if (content.get(i).contains("h")) { 
+				return true;
+			}
+			
+		}
+		
+		return false; 
 	}
-	public static String[] parseChord() {return null;}
-}
+	
+	public static boolean hasPullOff(ArrayList<String> content, char note) { 
+		return true;
+	}
+ }
+
+		
