@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Notations {
-	Technical technical;
-	Slur slur;
+	private Technical technical;
+	private Slur slur;
 	
 	public Slur getSlur() { 
 		

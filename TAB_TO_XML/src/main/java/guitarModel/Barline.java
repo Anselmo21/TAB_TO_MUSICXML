@@ -5,10 +5,10 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class Barline {
 
 	@JacksonXmlProperty(isAttribute=true)
-	String location;
+	private String location;
 
 	@JacksonXmlProperty(localName = "bar-style")
-	String barStyle;
+	private String barStyle;
 
 	public Barline() {}
 	public Barline(String location, String barStyle) {

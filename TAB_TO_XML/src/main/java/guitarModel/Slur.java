@@ -8,13 +8,13 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class Slur {
 
 	@JacksonXmlProperty(isAttribute=true)
-	int number;
+	private int number;
 	
 	@JacksonXmlProperty(isAttribute=true) 
-	String placement;
+	private String placement;
 	
 	@JacksonXmlProperty(isAttribute=true)
-	String type; 
+	private String type; 
 	
 	public void setNumber(int number) { 
 		

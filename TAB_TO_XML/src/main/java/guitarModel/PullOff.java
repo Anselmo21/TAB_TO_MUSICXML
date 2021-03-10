@@ -6,14 +6,14 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class PullOff {
 	
 	@JacksonXmlProperty(isAttribute=true)
-	int number;
+	private int number;
 	
 	@JacksonXmlProperty(isAttribute=true)
-	String type; 
+	private String type; 
 	
 	// This field stores the value associated with the pull off..
 	//usually a p or P
-	String symbol;
+	private String symbol;
 	
 	public int getNumber() {
 		

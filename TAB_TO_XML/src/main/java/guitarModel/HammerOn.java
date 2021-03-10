@@ -8,14 +8,14 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 public class HammerOn  {
 	
 	@JacksonXmlProperty(isAttribute=true)
-	int number;
+	private int number;
 	
 	@JacksonXmlProperty(isAttribute=true)
-	String type; 
+	private String type; 
 
 	
 	@JacksonXmlText
-	String symbol; 
+	private String symbol; 
 	
 	public int getNumber() {
 		

@@ -8,11 +8,11 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Technical {
-	String string;
-	String fret;
+	private String string;
+	private String fret;
 	
 	@JacksonXmlProperty(localName = "hammer-on")
-	HammerOn hammer; 
+	private HammerOn hammer; 
 	
 	/*
 	 * This has to be an array list because for some reason some notes have
@@ -21,10 +21,15 @@ public class Technical {
 	 */
 	@JacksonXmlElementWrapper(useWrapping = false)
 	@JacksonXmlProperty(localName = "pull-off")
-	ArrayList<PullOff> pulloff;
+	private ArrayList<PullOff> pulloff;
 	
 	
 	
+	public HammerOn getHammer() {
+		
+		return hammer;
+		
+	}
 	
 	public void setHammer(HammerOn h) { 
 		
