@@ -21,22 +21,11 @@ import DrumModel.*;
 import guitarModel.*;
 
 public class App {
-
-	static String conversion;
-
-	private static String tab;
-
-
-	public static void setTab(String textBox) {
-		tab = textBox;
-	}
-
-	public static String getTab() {
-		return tab;
-	}
 	
-	public static void runConversion() {
-		switch (getInstrument()) {
+	public static String runConversion(String tab) {
+		String conversion = null;
+		
+		switch (getInstrument(tab)) {
 		case "Guitar":
 			conversion = guitarTabToXML(getFileList(tab));
 			break;
@@ -55,6 +44,8 @@ public class App {
 					+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
 					+ conversion;
 		}
+		
+		return conversion;
 	}
 
 	public static ArrayList<String> getFileList(String text) {
@@ -77,13 +68,9 @@ public class App {
 		return textList;
 	}
 
-	public static String getInstrument() {
+	public static String getInstrument(String tab) {
 
 		return identifyInstrument(getFileList(tab));
-	}
-
-	public static String getConversion() {
-		return conversion;
 	}
 
 	public static String bassTabToXML(ArrayList<String> tabAsList) {

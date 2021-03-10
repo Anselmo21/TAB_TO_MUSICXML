@@ -96,9 +96,7 @@ public class Controller {
 				else if (instrument.equals("Drums")) getInstrument.setText("Instrument: Drums");
 				else if (instrument.equals("Bass")) getInstrument.setText("Instrument: Bass");
 				else getInstrument.setText("No Instrument Found");
-				App.setTab(storeText);
-				App.runConversion();
-				String getConversion = App.getConversion();
+				String getConversion = App.runConversion(storeText);
 				view.appendText(getConversion);
 				save.setDisable(false);
 			}
