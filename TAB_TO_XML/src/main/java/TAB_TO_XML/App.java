@@ -34,9 +34,8 @@ public class App {
 	public static String getTab() {
 		return tab;
 	}
-
-	public static void main(String[] args) {
-
+	
+	public static void runConversion() {
 		switch (getInstrument()) {
 		case "Guitar":
 			conversion = guitarTabToXML(getFileList(tab));
@@ -56,7 +55,6 @@ public class App {
 					+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
 					+ conversion;
 		}
-
 	}
 
 	public static ArrayList<String> getFileList(String text) {
