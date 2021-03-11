@@ -2,6 +2,7 @@ package guitarModel;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Notations {
 	private Technical technical;

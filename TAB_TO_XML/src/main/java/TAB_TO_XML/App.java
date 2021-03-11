@@ -445,6 +445,39 @@ public class App {
 					// set notations, technical is a sub-element of notations
 					guitarModel.Notations notations = new guitarModel.Notations();
 					guitarModel.Technical technical = new guitarModel.Technical();
+					
+					//Pull-off techniques
+					if (meas.get(x).charAt(prevColumn) == 'p' || meas.get(x).charAt(prevColumn) == 'P') {
+						guitarModel.PullOff pull = new guitarModel.PullOff();
+						pull.setNumber(1);
+						pull.setType("stop");
+						
+						guitarModel.Slur sl = new guitarModel.Slur(); 
+						sl.setNumber(1); 
+						sl.setType("stop");
+						technical.setPull(pull);
+						notations.setSlur(sl);
+						
+					}
+					
+					
+					//Pull-off techniques 
+					if (meas.get(x).charAt(nextColumn) == 'p' || meas.get(x).charAt(nextColumn) == 'P') {
+						guitarModel.PullOff pl = new guitarModel.PullOff();
+						pl.setNumber(1);
+						pl.setType("start");
+						pl.setSymbol("P");
+						
+						guitarModel.Slur su = new guitarModel.Slur();
+						su.setNumber(1);
+						su.setPlacement("above");
+						su.setType("start");
+						technical.setPull(pl);
+						notations.setSlur(su);
+					}
+					
+						
+						//Hammer-on technique
 					if (meas.get(x).charAt(prevColumn) == 'h' || meas.get(x).charAt(prevColumn) == 'H') {
 						guitarModel.HammerOn hammer = new guitarModel.HammerOn();
 						hammer.setNumber(1);
@@ -457,20 +490,21 @@ public class App {
 						technical.setHammer(hammer);
 						notations.setSlur(slur);
 					}
-		
+					
+					//Hammer-on technique
 					if (meas.get(x).charAt(nextColumn) == 'h' || meas.get(x).charAt(nextColumn) == 'H') {
 						
-						guitarModel.HammerOn hammer = new guitarModel.HammerOn();
-						hammer.setNumber(1);
-						hammer.setType("start");
-						hammer.setSymbol("H");
+						guitarModel.HammerOn ham = new guitarModel.HammerOn();
+						ham.setNumber(1);
+						ham.setType("start");
+						ham.setSymbol("H");
 						
-						guitarModel.Slur slur = new guitarModel.Slur(); 
-						slur.setNumber(1);
-						slur.setPlacement("above");
-						slur.setType("start");
-						technical.setHammer(hammer);
-						notations.setSlur(slur);
+						guitarModel.Slur sr = new guitarModel.Slur(); 
+						sr.setNumber(1);
+						sr.setPlacement("above");
+						sr.setType("start");
+						technical.setHammer(ham);
+						notations.setSlur(sr);
 					}
 		
 					technical.setFret("" + character);

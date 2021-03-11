@@ -3,9 +3,11 @@ package guitarModel;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+@JsonPropertyOrder({"pulloff", "hammer", "string", "fret"})
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Technical {
 	private String string;
@@ -19,9 +21,9 @@ public class Technical {
 	 * 2 pull offs and I'm not sure how much more it can have
 	 * 
 	 */
-	@JacksonXmlElementWrapper(useWrapping = false)
+
 	@JacksonXmlProperty(localName = "pull-off")
-	private ArrayList<PullOff> pulloff;
+	private PullOff pulloff;
 	
 	
 	
@@ -37,17 +39,10 @@ public class Technical {
 		
 	}
 	
-	public ArrayList<PullOff> getPullOff() {
-		
-		return pulloff;
-		
+	public void setPull(PullOff pull) { 
+		pulloff = pull;
 	}
-	
-	public void setPullOff(ArrayList<PullOff> p) { 
-		
-		pulloff = p;
-		
-	}
+
 
 	public Technical() {}
 	public Technical(String string, String fret) {

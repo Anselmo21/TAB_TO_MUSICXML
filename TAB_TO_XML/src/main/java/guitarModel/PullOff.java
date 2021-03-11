@@ -2,6 +2,7 @@
 package guitarModel;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
 public class PullOff {
 	
@@ -13,6 +14,7 @@ public class PullOff {
 	
 	// This field stores the value associated with the pull off..
 	//usually a p or P
+	@JacksonXmlText
 	private String symbol;
 	
 	public int getNumber() {
