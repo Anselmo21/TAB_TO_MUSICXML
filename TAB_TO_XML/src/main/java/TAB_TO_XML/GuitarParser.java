@@ -17,7 +17,7 @@ public class GuitarParser {
 		Integer count = 1;
 		
 		outerloop: 
-		for (int i = row + 1; i < parse.get(0).length(); i++) {
+		for (int i = row+1; i < parse.get(0).length(); i++) {
 				for (int j = 0; j < parse.size(); j++) {
 					if (Character.isDigit(parse.get(j).charAt(i))) {
 						break outerloop;
