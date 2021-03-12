@@ -401,14 +401,14 @@ public class App {
 		ArrayList<guitarModel.Note> note = new ArrayList<guitarModel.Note>();
 
 		// iter through each measure
-		for (int y = 0; y < meas.get(0).length(); y++) {
+		for (int y = meas.get(0).indexOf("|") + 1; y < meas.get(0).length(); y++) {
 			Boolean hasPrevColNote = false;
 			int nextColumn = 0;
 			int prevColumn = 0;
 			if (y + 1 < meas.get(0).length()) { //prevent index out of bounds
 				nextColumn = y + 1;
 			}
-			if (y - 1 > 0) {
+			if (y - 1 > meas.get(0).indexOf("|") + 1) {
 				prevColumn = y - 1;
 			}
 			for (int x = meas.size() - 1; x >= 0; x--) {
