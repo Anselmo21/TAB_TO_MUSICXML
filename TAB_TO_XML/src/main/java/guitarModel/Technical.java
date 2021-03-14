@@ -14,34 +14,33 @@ public class Technical {
 	private String fret;
 	
 	@JacksonXmlProperty(localName = "hammer-on")
-	private HammerOn hammer; 
+	@JacksonXmlElementWrapper(useWrapping = false)
+	private ArrayList<HammerOn> hammer; 
 	
 	/*
 	 * This has to be an array list because for some reason some notes have
 	 * 2 pull offs and I'm not sure how much more it can have
 	 * 
 	 */
-
+	
+	@JacksonXmlElementWrapper(useWrapping = false)
 	@JacksonXmlProperty(localName = "pull-off")
-	private PullOff pulloff;
+	private ArrayList<PullOff> pulloff;
 	
 	
 	
-	public HammerOn getHammer() {
+	public ArrayList<HammerOn> getHammer() {
 		
 		return hammer;
 		
 	}
 	
-	public void setHammer(HammerOn h) { 
+	public void setHammer(ArrayList<HammerOn> h) { 
 		
 		hammer = h;
 		
 	}
-	
-	public void setPull(PullOff pull) { 
-		pulloff = pull;
-	}
+
 
 
 	public Technical() {}
@@ -61,6 +60,11 @@ public class Technical {
 	}
 	public void setFret(String fret) {
 		this.fret = fret;
+	}
+
+	public void setPull(ArrayList<PullOff> pullList) {
+		pulloff = pullList;
+		
 	}
 
 }

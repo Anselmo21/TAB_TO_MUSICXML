@@ -162,9 +162,8 @@ public class GuitarParser {
 		return false; 
 	}
 	
-	public static boolean hasPullOff(ArrayList<String> content, char note) { 
-		return true;
-	}
+	
+	
  }
 
 		
