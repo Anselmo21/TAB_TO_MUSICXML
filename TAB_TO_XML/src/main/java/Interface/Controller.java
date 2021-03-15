@@ -31,6 +31,7 @@ public class Controller {
 	BufferedReader input;
 	StreamResult output;
 	FileChooser fc, saveFile;
+	static String obtainText;
 
 	@FXML
 	Button browse, convert, save;
@@ -88,6 +89,7 @@ public class Controller {
 	@FXML
 	public void handleButtonConvert(ActionEvent event) {
 		view.clear();
+		obtainText = write.getText();
 		try {
 			if (write.getText() != "") {
 				String storeText = write.getText();
