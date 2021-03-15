@@ -32,6 +32,7 @@ public class Controller {
 	StreamResult output;
 	FileChooser fc, saveFile;
 	static String obtainText;
+	static boolean pressed;
 
 	@FXML
 	Button browse, convert, save;
@@ -158,6 +159,12 @@ public class Controller {
 		else if (instrument.equals("Drums")) instrumentBox.setValue("Drums");
 		else if (instrument.equals("Bass")) instrumentBox.setValue("Bass");
 		else instrumentBox.setValue("None");
+	}
+
+	public boolean browseButtonPressed() {
+		if (browse.isPressed()) pressed = true;
+		else pressed = false; 
+		return pressed;
 	}
 }
 

@@ -18,6 +18,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 import Interface.Controller;
@@ -26,7 +28,8 @@ import Interface.Controller;
 public class Runner extends Application {
 
 	static TextArea textArea;
-	
+	WindowEvent window;
+
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 		Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Interface/Intro.fxml"));
@@ -38,23 +41,24 @@ public class Runner extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		primaryStage.setOnCloseRequest(e -> closeProgram());
+		primaryStage.setOnCloseRequest(window -> closeProgram(window));
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
 
-	public void closeProgram() {
+	public void closeProgram(WindowEvent e) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirmation");
 		alert.setHeaderText("This action will close the application.");
 		alert.setContentText("Do you want to save any edits before closing?");
 
 		ButtonType yes = new ButtonType("Yes");
-		ButtonType no = new ButtonType("No", ButtonData.CANCEL_CLOSE);
+		ButtonType no = new ButtonType("No");
+		ButtonType cancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
 
-		alert.getButtonTypes().setAll(yes, no);
+		alert.getButtonTypes().setAll(yes, cancel, no);
 
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == yes){
@@ -65,7 +69,7 @@ public class Runner extends Application {
 			try {
 				if (xmlFile.getAbsolutePath() != null) {
 					print = new PrintWriter(xmlFile.getAbsolutePath());
-					print.println(Controller.obtainText);
+					if (!Controller.pressed) print.println(Controller.obtainText);
 					Alert saveAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window
 					saveAlert.setHeaderText("The converted file has been saved to " + xmlFile.getAbsolutePath()); 
 					saveAlert.setContentText("Thank you for using Allegro Tab Converter!"); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
@@ -75,12 +79,13 @@ public class Runner extends Application {
 				else {
 				}
 			}
-			catch(Exception e) {
+			catch(Exception ex) {
 			}
 		} 
-		else {
+		else if (result.get() == no) {
 			alert.close();
 		}
+		else e.consume();
 	}
 }
 
