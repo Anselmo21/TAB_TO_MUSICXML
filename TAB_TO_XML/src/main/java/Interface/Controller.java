@@ -31,6 +31,7 @@ public class Controller {
 	BufferedReader input;
 	StreamResult output;
 	FileChooser fc, saveFile;
+	static String obtainText;
 
 	@FXML
 	Button browse, convert, save;
@@ -39,10 +40,7 @@ public class Controller {
 	Label path, getInstrument;
 
 	@FXML
-	public static TextArea view;
-
-	@FXML
-	public TextArea write;
+	TextArea view, write;
 
 	@SuppressWarnings("rawtypes")
 	@FXML
@@ -91,6 +89,7 @@ public class Controller {
 	@FXML
 	public void handleButtonConvert(ActionEvent event) {
 		view.clear();
+		obtainText = write.getText();
 		try {
 			if (write.getText() != "") {
 				String storeText = write.getText();
@@ -160,13 +159,7 @@ public class Controller {
 		else if (instrument.equals("Bass")) instrumentBox.setValue("Bass");
 		else instrumentBox.setValue("None");
 	}
-	
-	public static String getTextArea() {
-		return view.getText();
-	}
-	
 }
-
 
 //if (!instrument.equals("Guitar") || !instrument.equals("Drums") || !instrument.equals("Bass")) {
 //	Alert errorAlert = new Alert(AlertType.ERROR); 
