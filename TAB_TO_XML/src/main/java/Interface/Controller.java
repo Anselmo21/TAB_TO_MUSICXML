@@ -39,7 +39,10 @@ public class Controller {
 	Label path, getInstrument;
 
 	@FXML
-	TextArea view, write;
+	public static TextArea view;
+
+	@FXML
+	public TextArea write;
 
 	@SuppressWarnings("rawtypes")
 	@FXML
@@ -157,7 +160,13 @@ public class Controller {
 		else if (instrument.equals("Bass")) instrumentBox.setValue("Bass");
 		else instrumentBox.setValue("None");
 	}
+	
+	public static String getTextArea() {
+		return view.getText();
+	}
+	
 }
+
 
 //if (!instrument.equals("Guitar") || !instrument.equals("Drums") || !instrument.equals("Bass")) {
 //	Alert errorAlert = new Alert(AlertType.ERROR); 
