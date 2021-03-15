@@ -13,16 +13,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.stage.FileChooser.ExtensionFilter;
-
-import Interface.Controller;
 
 
 public class Runner extends Application {
@@ -69,7 +65,8 @@ public class Runner extends Application {
 			try {
 				if (xmlFile.getAbsolutePath() != null) {
 					print = new PrintWriter(xmlFile.getAbsolutePath());
-					if (!Controller.pressed) print.println(Controller.obtainText);
+					
+					print.println(Controller.obtainText);
 					Alert saveAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window
 					saveAlert.setHeaderText("The converted file has been saved to " + xmlFile.getAbsolutePath()); 
 					saveAlert.setContentText("Thank you for using Allegro Tab Converter!"); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.

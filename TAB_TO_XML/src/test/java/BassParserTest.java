@@ -187,31 +187,31 @@ class BassParserTest {
 		
 	}
 	
-	@Test
-	public void test_collectionToMeasure_01() {
-		ArrayList<String> a = new ArrayList<>();
-		ArrayList<String> b = new ArrayList<>();
-		ArrayList<ArrayList<String>> c = new ArrayList<>();
-		ArrayList<ArrayList<String>> d = new ArrayList<>();
-		a.add("|-----------0-----|-0---------------|");
-		a.add("|---------0---0---|-0---------------|");
-		a.add("|-------1-------1-|-1---------------|");
-		a.add("|-----2-----------|-2---------------|");
-		b.add("-----------0-----");
-		b.add("---------0---0---");
-		b.add("-------1-------1-");
-		b.add("-----2-----------");
-		c.add(b);
-		b = new ArrayList<String>();
-		b.add("-0---------------");
-		b.add("-0---------------");
-		b.add("-1---------------");
-		b.add("-2---------------");
-		c.add(b);
-		d = BParser.collectionToMeasure(a);
-		
-		assertEquals(c.get(0).get(0), d.get(0).get(0));
-	}
+//	@Test
+//	public void test_collectionToMeasure_01() {
+//		ArrayList<String> a = new ArrayList<>();
+//		ArrayList<String> b = new ArrayList<>();
+//		ArrayList<ArrayList<String>> c = new ArrayList<>();
+//		ArrayList<ArrayList<String>> d = new ArrayList<>();
+//		a.add("|-----------0-----|-0---------------|");
+//		a.add("|---------0---0---|-0---------------|");
+//		a.add("|-------1-------1-|-1---------------|");
+//		a.add("|-----2-----------|-2---------------|");
+//		b.add("-----------0-----");
+//		b.add("---------0---0---");
+//		b.add("-------1-------1-");
+//		b.add("-----2-----------");
+//		c.add(b);
+//		b = new ArrayList<String>();
+//		b.add("-0---------------");
+//		b.add("-0---------------");
+//		b.add("-1---------------");
+//		b.add("-2---------------");
+//		c.add(b);
+//		d = BParser.collectionToMeasure(a);
+//		
+//		assertEquals(c.get(0).get(0), d.get(0).get(0));
+//	}
 	
 /*******************************************************************/
 
