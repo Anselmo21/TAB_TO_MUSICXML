@@ -560,6 +560,9 @@ public class App {
 		newMeasure.setBarline(null);
 
 		ArrayList<DrumModel.Note> note = new ArrayList<DrumModel.Note>();
+		DrumModel.Backup bup = new DrumModel.Backup();
+		
+		Integer backupcount = 0;
 
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
@@ -569,13 +572,88 @@ public class App {
 
 				if (character == 'x' || character == 'o') {
 					// if has previous note in column
-					if (hasPrevColNote) {
-						note.add(new DrumModel.Note());
-					} else {
-						note.add(new DrumModel.Note());
-					}
-
+					
 					Integer duration = DParser.durationCount(meas, y);
+					
+					if (hasPrevColNote == false) {
+						if (character == 'o') {
+							if (DParser.beamNumber(DParser.typeDeclare(duration)) == 0) {
+								note.add(new DrumModel.Note());
+							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 1) {
+								DrumModel.Note1B newn = new DrumModel.Note1B();
+								newn.setBeam(DParser.beamState(meas, x, y));
+								newn.setLocation("1");
+								note.add(newn);
+							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
+								DrumModel.Note2B newn = new DrumModel.Note2B();
+								newn.setBeam1(DParser.beamState(meas, x, y));
+								newn.setLocation1("1");
+								newn.setBeam2(DParser.beamState(meas, x, y));
+								newn.setLocation2("2");
+								note.add(newn);
+							}
+						}	else if (character == 'x') {
+							if (DParser.beamNumber(DParser.typeDeclare(duration)) == 0) {
+								DrumModel.NoteNH newn = new DrumModel.NoteNH();
+								newn.setNoteHead("x");
+								note.add(newn);
+							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 1) {
+								DrumModel.NoteNH1B newn = new DrumModel.NoteNH1B();
+								newn.setNoteHead("x");
+								newn.setBeam(DParser.beamState(meas, x, y));
+								newn.setLocation("1");
+								note.add(newn);
+							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
+								DrumModel.NoteNH2B newn = new DrumModel.NoteNH2B();
+								newn.setNoteHead("x");
+								newn.setBeam1(DParser.beamState(meas, x, y));
+								newn.setLocation1("1");
+								newn.setBeam2(DParser.beamState(meas, x, y));
+								newn.setLocation2("2");
+								note.add(newn);
+							}
+						}	
+						backupcount = backupcount + duration;
+					}	else if (hasPrevColNote == true) {
+						if (character == 'o') {
+							if (DParser.beamNumber(DParser.typeDeclare(duration)) == 0) {
+								note.add(new DrumModel.ChordNote());
+							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 1) {
+								DrumModel.ChordNote1B newn = new DrumModel.ChordNote1B();
+								newn.setBeam(DParser.beamState(meas, x, y));
+								newn.setLocation("1");
+								note.add(newn);
+							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
+								DrumModel.ChordNote2B newn = new DrumModel.ChordNote2B();
+								newn.setBeam1(DParser.beamState(meas, x, y));
+								newn.setLocation1("1");
+								newn.setBeam2(DParser.beamState(meas, x, y));
+								newn.setLocation2("2");
+								note.add(newn);
+							}
+						}	else if (character == 'x') {
+							if (DParser.beamNumber(DParser.typeDeclare(duration)) == 0) {
+								DrumModel.ChordNoteNH newn = new DrumModel.ChordNoteNH();
+								newn.setNoteHead("x");
+								note.add(newn);
+							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 1) {
+								DrumModel.ChordNoteNH1B newn = new DrumModel.ChordNoteNH1B();
+								newn.setNoteHead("x");
+								newn.setBeam(DParser.beamState(meas, x, y));
+								newn.setLocation("1");
+								note.add(newn);
+							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
+								DrumModel.ChordNoteNH2B newn = new DrumModel.ChordNoteNH2B();
+								newn.setNoteHead("x");
+								newn.setBeam1(DParser.beamState(meas, x, y));
+								newn.setLocation1("1");
+								newn.setBeam1(DParser.beamState(meas, x, y));
+								newn.setLocation1("2");
+								note.add(newn);
+							}
+						} 
+					}
+	
 					note.get(note.size() - 1).setDuration(duration.toString());
 
 					note.get(note.size() - 1).setType(DParser.typeDeclare(duration));
@@ -586,19 +664,6 @@ public class App {
 
 					note.get(note.size() - 1).setVoice("1");
 					note.get(note.size() - 1).setStem("up");
-					note.get(note.size() - 1).setNoteHead(null);
-
-					Beam beam = new Beam();
-
-					if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
-
-					}
-					else {
-
-					}
-					beam.setNumber(null);
-					beam.setValue(DParser.beamState(meas, x, y));
-					note.get(note.size() - 1).setBeam(null);
 
 					Unpitched unpitched = new Unpitched();
 					unpitched.setDisplayOctave(DParser.octaveCount(x));
@@ -612,12 +677,60 @@ public class App {
 		}
 
 		// backup here
+				for (int y = 0; y < meas.get(0).length(); y++) {
+					char character = meas.get(meas.size() - 1).charAt(y);
+					if (character == 'o') {
+						Integer n = backupcount - y;
+						System.out.println(n);
+						bup.setDuration(n.toString());
+						break;
+					}
+				}
 
-		for (int y = 0; y < meas.get(0).length(); y++) {
-			char character = meas.get(meas.size() - 1).charAt(y);
+				Integer durwrest = 0;
+				for (int y = 0; y < meas.get(0).length(); y++) {
+					char character = meas.get(meas.size() - 1).charAt(y);
+					if (character == 'o') {
+						note.add(new DrumModel.Note());
+						for (int x = meas.size() - 2; x >= 2; x--) {
+							if (Character.isDigit(meas.get(x).charAt(y))) {
+								for (int i = y + 1; i < meas.get(0).length(); i++) {
+									int tmp = 0;
+									if (Character.isDigit(meas.get(x).charAt(i))) {
+										tmp++;
+									} else {
+										break;
+									}
+									if (tmp > durwrest) {
+										durwrest = tmp;
+									}
+								}
+							}
+						}
 
+						if (durwrest > 0) {
+							note.get(note.size() - 1).setDuration(durwrest.toString());
+							note.get(note.size() - 1).setType(DParser.typeDeclare(durwrest));
+						} else {
+							Integer duration = DParser.durationCount(meas, y);
+							note.get(note.size() - 1).setDuration(duration.toString());
+							note.get(note.size() - 1).setType(DParser.typeDeclare(duration));
+						}
 
-		}
+						Instrument instrument = new Instrument();
+						instrument.setID(DParser.identifyID(meas.size() - 1));
+						note.get(note.size() - 1).setInstrument(instrument);
+
+						note.get(note.size() - 1).setVoice("2");
+						note.get(note.size() - 1).setStem("down");
+
+						Unpitched unpitched = new Unpitched();
+						unpitched.setDisplayOctave(DParser.octaveCount(meas.size() - 1));
+						unpitched.setDisplayStep(DParser.stepCount(meas.size() - 1));
+						note.get(note.size() - 1).setUnpitch(unpitched);
+					}
+				}
+
 
 		newMeasure.setNote(note);
 

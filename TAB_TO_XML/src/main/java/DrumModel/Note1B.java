@@ -1,7 +1,17 @@
 package DrumModel;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-public class Note {
+@JsonPropertyOrder({"unpitch", "duration", "instrument", "voice", "type", "stem", "beam"})
+public class Note1B extends Note{
+
+	@JacksonXmlProperty(isAttribute=true)
+	String location;
+	
+	@JacksonXmlProperty(localName = "beam")
+	String beam;
+	
 	Unpitched unpitch;
 	String duration; 
 	Instrument instrument;
@@ -79,10 +89,28 @@ public class Note {
 		
 	}
 	
-	public Note() {}
-	public Note(Unpitched pitch, String duration, String voice, String stem, String type, Instrument instrument) {
+	public void setBeam(String beam) {
+		this.beam = beam;
+	}
+	
+	public String getBeam() {
+		return beam;
+	}
+	
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+	public String getLocation() {
+		return location;
+	}
+	
+	public Note1B() {}
+	public Note1B(Unpitched pitch, String duration, String voice, String stem, String type, Instrument instrument, String beam, String location) {
 		
 		super();
+		this.beam = beam;
+		this.location = location;
 		this.instrument = instrument;
 		this.unpitch = pitch;
 		this.duration = duration;
