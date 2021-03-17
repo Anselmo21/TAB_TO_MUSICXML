@@ -78,7 +78,7 @@ import Interface.Controller;
 		 * @return an String that represents the type of the note.
 		 */
 		public static String typeDeclare(int duration) {
-			String[] types = new String[] { "", "eighth", "quarter", "quarter and eighth", "half", "", "quarter and half", "", "whole" };
+			String[] types = new String[] { "", "eighth", "quarter", "quarter and eighth", "half", "eighth and half", "quarter and half", "", "whole" };
 			return types[duration];
 		}
 

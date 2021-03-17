@@ -9,8 +9,9 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'jacoco'
     id 'application'
-      id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
 }
 
 repositories {
@@ -33,7 +34,9 @@ dependencies {
     //testImplementation 'junit:junit:4.13'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    
+    testCompile 'org.testfx:testfx-core:4.0.16-alpha'
+    testCompile 'org.testfx:testfx-junit5:4.0.16-alpha'
+    testCompile group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
 }
 
 test {
@@ -41,6 +44,7 @@ test {
     testLogging {
         events 'passed', 'skipped','failed'
     }
+    finalizedBy jacocoTestReport
 }
 
 run {    
@@ -53,6 +57,16 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
     version = "15.0.1"
     //configuration = 'compileOnly'
+}
+
+
+jacoco {
+	toolVersion="0.8.6"
+	reportsDirectory = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport {
+	dependsOn test
 }
 
 mainClassName = 'Interface.Runner'

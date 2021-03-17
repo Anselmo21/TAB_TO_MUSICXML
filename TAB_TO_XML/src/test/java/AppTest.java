@@ -7,6 +7,77 @@ import org.junit.jupiter.api.Test;
 import TAB_TO_XML.App;
 
 class AppTest {
+	
+	@Test
+	public void getFileListTest1() {
+		String text = "Hello\nWorld\nOut\nThere";
+		ArrayList<String> actual = App.getFileList(text);
+		ArrayList<String> expected = new ArrayList<String>();
+		expected.add("Hello");
+		expected.add("World");
+		expected.add("Out");
+		expected.add("There");
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void getFileListTest2() {
+		String text = "This";
+		ArrayList<String> actual = App.getFileList(text);
+		ArrayList<String> expected = new ArrayList<String>();
+		expected.add("This");
+		
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void getFileListTest3() {
+		String text = "|-----------0-----|-0---------------|\n"
+				+ "|---------0---0---|-0---------------|\n"
+				+ "|-------1-------1-|-1---------------|\n"
+				+ "|-----2-----------|-2---------------|\n"
+				+ "|---2-------------|-2---------------|\n"
+				+ "|-0---------------|-0---------------|\n"
+				+ "\n"
+				+ "|-----------0-----|-0---------------|\n"
+				+ "|---------0---0---|-0---------------|\n"
+				+ "|-------1-------1-|-1---------------|\n"
+				+ "|-----2-----------|-2---------------|\n"
+				+ "|---2-------------|-2---------------|\n"
+				+ "|-0---------------|-0---------------|\n"
+				+ "\n"
+				+ "|-----------0-----|-0---------------|\n"
+				+ "|---------0---0---|-0---------------|\n"
+				+ "|-------1-------1-|-1---------------|\n"
+				+ "|-----2-----------|-2---------------|\n"
+				+ "|---2-------------|-2---------------|\n"
+				+ "|-0---------------|-0---------------|";
+		ArrayList<String> actual = App.getFileList(text);
+		ArrayList<String> expected = new ArrayList<>();
+		expected.add("|-----------0-----|-0---------------|");
+		expected.add("|---------0---0---|-0---------------|");
+		expected.add("|-------1-------1-|-1---------------|");
+		expected.add("|-----2-----------|-2---------------|");
+		expected.add("|---2-------------|-2---------------|");
+		expected.add("|-0---------------|-0---------------|");
+		expected.add("");
+		expected.add("|-----------0-----|-0---------------|");
+		expected.add("|---------0---0---|-0---------------|");
+		expected.add("|-------1-------1-|-1---------------|");
+		expected.add("|-----2-----------|-2---------------|");
+		expected.add("|---2-------------|-2---------------|");
+		expected.add("|-0---------------|-0---------------|");
+		expected.add("");
+		expected.add("|-----------0-----|-0---------------|");
+		expected.add("|---------0---0---|-0---------------|");
+		expected.add("|-------1-------1-|-1---------------|");
+		expected.add("|-----2-----------|-2---------------|");
+		expected.add("|---2-------------|-2---------------|");
+		expected.add("|-0---------------|-0---------------|");
+		
+		assertEquals(expected, actual);
+	}
 
 	@Test
 	public void identifyInstrumentTest1() {
@@ -33,7 +104,7 @@ class AppTest {
 		guitarTab.add("|-0---------------|-0---------------|");
 		String actual = App.identifyInstrument(guitarTab);
 		String expected = "Guitar";
-		assertEquals(actual,expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -47,7 +118,7 @@ class AppTest {
 		drumTab.add("BD|o-------o-------|o-------o-------|");
 		String actual = App.identifyInstrument(drumTab);
 		String expected = "Drums";
-		assertEquals(actual,expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -69,7 +140,7 @@ class AppTest {
 		bassTab.add("E |-/5--7-----7--5--7--|");
 		String actual = App.identifyInstrument(bassTab);
 		String expected = "Bass";
-		assertEquals(actual,expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -138,7 +209,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>6</string>\n"
@@ -153,7 +224,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>5</string>\n"
@@ -168,7 +239,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>4</string>\n"
@@ -184,7 +255,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -199,7 +270,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -214,7 +285,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>1</string>\n"
@@ -229,7 +300,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -245,7 +316,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -262,7 +333,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>6</string>\n"
@@ -278,7 +349,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>5</string>\n"
@@ -294,7 +365,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>4</string>\n"
@@ -311,7 +382,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -327,7 +398,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -343,7 +414,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>1</string>\n"
@@ -439,7 +510,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>6</string>\n"
@@ -454,7 +525,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>5</string>\n"
@@ -469,7 +540,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>4</string>\n"
@@ -485,7 +556,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -500,7 +571,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -515,7 +586,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>1</string>\n"
@@ -530,7 +601,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -546,7 +617,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -563,7 +634,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>6</string>\n"
@@ -579,7 +650,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>5</string>\n"
@@ -595,7 +666,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>4</string>\n"
@@ -612,7 +683,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -628,7 +699,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -644,7 +715,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>1</string>\n"
@@ -661,7 +732,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>6</string>\n"
@@ -676,7 +747,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>5</string>\n"
@@ -691,7 +762,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>4</string>\n"
@@ -707,7 +778,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -722,7 +793,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -737,7 +808,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>1</string>\n"
@@ -752,7 +823,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -768,7 +839,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -785,7 +856,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>6</string>\n"
@@ -801,7 +872,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>5</string>\n"
@@ -817,7 +888,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>4</string>\n"
@@ -834,7 +905,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -850,7 +921,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -866,7 +937,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>8</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>whole</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>1</string>\n"
@@ -946,7 +1017,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>4</string>\n"
@@ -962,7 +1033,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -977,7 +1048,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -992,7 +1063,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>1</string>\n"
@@ -1007,7 +1078,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -1023,7 +1094,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>2</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>quarter</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -1039,7 +1110,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>4</string>\n"
@@ -1056,7 +1127,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -1072,7 +1143,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -1088,7 +1159,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>1</string>\n"
@@ -1108,7 +1179,7 @@ class AppTest {
 		actual = actual.replaceAll("\\s+","");
 		expected = expected.replaceAll("\\s+","");
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -1173,7 +1244,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>4</string>\n"
@@ -1189,7 +1260,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -1204,7 +1275,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -1219,7 +1290,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>1</string>\n"
@@ -1234,7 +1305,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -1250,7 +1321,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>2</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>quarter</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -1266,7 +1337,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>4</string>\n"
@@ -1283,7 +1354,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -1299,7 +1370,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -1315,7 +1386,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>1</string>\n"
@@ -1333,7 +1404,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>4</string>\n"
@@ -1349,7 +1420,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -1364,7 +1435,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -1379,7 +1450,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>1</string>\n"
@@ -1394,7 +1465,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -1410,7 +1481,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>2</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>quarter</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -1426,7 +1497,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>4</string>\n"
@@ -1443,7 +1514,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>3</string>\n"
@@ -1459,7 +1530,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>2</string>\n"
@@ -1475,7 +1546,7 @@ class AppTest {
 				+ "        </pitch>\n"
 				+ "        <duration>1</duration>\n"
 				+ "        <voice>1</voice>\n"
-				+ "        <type/>\n"
+				+ "        <type>eighth</type>\n"
 				+ "        <notations>\n"
 				+ "          <technical>\n"
 				+ "            <string>1</string>\n"
@@ -1495,7 +1566,7 @@ class AppTest {
 		actual = actual.replaceAll("\\s+","");
 		expected = expected.replaceAll("\\s+","");
 		
-		assertEquals(actual, expected);
+		assertEquals(expected, actual);
 	}
 
 }

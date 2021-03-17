@@ -1,8 +1,47 @@
 package guitarModel;
 
+import java.util.ArrayList;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+
+@JsonPropertyOrder({"pulloff", "hammer", "string", "fret"})
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Technical {
-	String string;
-	String fret;
+	private String string;
+	private String fret;
+	
+	@JacksonXmlProperty(localName = "hammer-on")
+	@JacksonXmlElementWrapper(useWrapping = false)
+	private ArrayList<HammerOn> hammer; 
+	
+	/*
+	 * This has to be an array list because for some reason some notes have
+	 * 2 pull offs and I'm not sure how much more it can have
+	 * 
+	 */
+	
+	@JacksonXmlElementWrapper(useWrapping = false)
+	@JacksonXmlProperty(localName = "pull-off")
+	private ArrayList<PullOff> pulloff;
+	
+	
+	
+	public ArrayList<HammerOn> getHammer() {
+		
+		return hammer;
+		
+	}
+	
+	public void setHammer(ArrayList<HammerOn> h) { 
+		
+		hammer = h;
+		
+	}
+
+
 
 	public Technical() {}
 	public Technical(String string, String fret) {
@@ -22,4 +61,10 @@ public class Technical {
 	public void setFret(String fret) {
 		this.fret = fret;
 	}
+
+	public void setPull(ArrayList<PullOff> pullList) {
+		pulloff = pullList;
+		
+	}
+
 }

@@ -1,8 +1,25 @@
 package guitarModel;
 
-public class Notations {
-	Technical technical;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public class Notations {
+	private Technical technical;
+	private Slur slur;
+	
+	public Slur getSlur() { 
+		
+		return slur; 
+		
+	}
+	
+	public void setSlur(Slur s) { 
+		
+		slur = s; 
+		
+	}
+	
 	public Notations() {}
 	public Notations(Technical technical) {
 		super();
@@ -16,4 +33,6 @@ public class Notations {
 	public void setTechnical(Technical technical) {
 		this.technical = technical;
 	}
+	
+
 }

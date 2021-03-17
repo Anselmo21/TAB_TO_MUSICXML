@@ -10,13 +10,13 @@ import java.util.List;
 public class Measure {
 
 	@JacksonXmlProperty(isAttribute=true)
-	int number;
+	private int number;
 
-	Attributes attributes;
+	private Attributes attributes;
 	
     @JacksonXmlElementWrapper(useWrapping = false)
-	ArrayList<Note> note;
-	Barline barline;
+	private ArrayList<Note> note;
+	private Barline barline;
 
 	public Measure() {}
 	public Measure(int number, ArrayList<Note> note, Attributes attributes, Barline barline) {

@@ -16,14 +16,16 @@ public class Measure {
     @JacksonXmlElementWrapper(useWrapping = false)
 	ArrayList<Note> note;
 	Barline barline;
+	Backup backup;
 
 	public Measure() {}
-	public Measure(int number, ArrayList<Note> note, Attributes attributes, Barline barline) {
+	public Measure(int number, ArrayList<Note> note, Attributes attributes, Barline barline, Backup backup) {
 		super();
 		this.number = number;
 		this.note = note;
 		this.attributes = attributes;
 		this.barline = barline;
+		this.backup = backup;
 	}
 	public int getNumber() {
 		return number;
@@ -48,6 +50,12 @@ public class Measure {
 	}
 	public void setBarline(Barline barline) {
 		this.barline = barline;
+	}
+	public void setBackup(Backup backup) {
+		this.backup = backup;
+	}
+	public Backup getBackup() {
+		return backup;
 	}
 
 }
