@@ -27,7 +27,7 @@
                <children>
                   <TextArea fx:id="write" prefHeight="455.0" prefWidth="445.0" promptText="Paste a tablature here, or edit a browsed tablature!">
                      <font>
-                        <Font name="Consolas Bold" size="14.0" />
+                        <Font name="Courier New Bold" size="14.0" />
                      </font>
                      <GridPane.margin>
                         <Insets left="15.0" right="15.0" />
@@ -35,7 +35,7 @@
                   </TextArea>
                   <TextArea fx:id="view" editable="false" prefHeight="455.0" prefWidth="446.0" promptText="The converted MUSICXML will be displayed here!" GridPane.columnIndex="1">
                      <font>
-                        <Font name="Consolas Bold" size="14.0" />
+                        <Font name="Courier New Bold" size="14.0" />
                      </font>
                      <GridPane.margin>
                         <Insets left="15.0" right="15.0" />
