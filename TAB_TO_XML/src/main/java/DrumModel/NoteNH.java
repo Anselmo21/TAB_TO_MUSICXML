@@ -1,13 +1,16 @@
 package DrumModel;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-public class Note {
+@JsonPropertyOrder({"unpitch", "duration", "instrument", "voice", "type", "stem", "notehead"})
+public class NoteNH extends Note{
 	Unpitched unpitch;
 	String duration; 
 	Instrument instrument;
 	String voice; 
 	String type; 
 	String stem;
+	String notehead;
 	
 	public void setUnpitch(Unpitched pitch) { 
 		unpitch = pitch;
@@ -79,8 +82,16 @@ public class Note {
 		
 	}
 	
-	public Note() {}
-	public Note(Unpitched pitch, String duration, String voice, String stem, String type, Instrument instrument) {
+	public void setNoteHead(String notehead) {
+		this.notehead = notehead;
+	}
+	
+	public String getNoteHead() {
+		return notehead;
+	}
+	
+	public NoteNH() {}
+	public NoteNH(Unpitched pitch, String duration, String voice, String stem, String type, Instrument instrument, String notehead) {
 		
 		super();
 		this.instrument = instrument;
@@ -90,7 +101,7 @@ public class Note {
 		this.type = type;
 		this.stem = stem;
 		this.voice = voice;
+		this.notehead = notehead;
 		
 	}
-	
 }
