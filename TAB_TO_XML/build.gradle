@@ -59,6 +59,7 @@ javafx {
     //configuration = 'compileOnly'
 }
 
+
 jacoco {
 	toolVersion="0.8.6"
 	reportsDirectory = file("$buildDir/customJacocoReportDir")
