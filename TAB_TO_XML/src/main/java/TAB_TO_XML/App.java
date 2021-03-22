@@ -684,9 +684,15 @@ public class App {
 								note.add(newn);
 							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
 								DrumModel.Note2B newn = new DrumModel.Note2B();
-								newn.setBeam1(DParser.beamState(meas, x, y));
+								DrumModel.Beam beam1 = new DrumModel.Beam();
+								beam1.setNumber("1");
+								beam1.setValue(DParser.beamState(meas, x, y));
+								newn.setBeam1(beam1);
 								newn.setLocation1("1");
-								newn.setBeam2(DParser.beamState(meas, x, y));
+								DrumModel.Beam beam2 = new DrumModel.Beam();
+								beam2.setNumber("2");
+								beam2.setValue(DParser.beamState(meas, x, y));
+								newn.setBeam2(beam2);
 								newn.setLocation2("2");
 								note.add(newn);
 							}
@@ -723,9 +729,15 @@ public class App {
 								note.add(newn);
 							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
 								DrumModel.ChordNote2B newn = new DrumModel.ChordNote2B();
-								newn.setBeam1(DParser.beamState(meas, x, y));
+								DrumModel.Beam beam1 = new DrumModel.Beam();
+								beam1.setNumber("1");
+								beam1.setValue(DParser.beamState(meas, x, y));
+								newn.setBeam1(beam1);
 								newn.setLocation1("1");
-								newn.setBeam2(DParser.beamState(meas, x, y));
+								DrumModel.Beam beam2 = new DrumModel.Beam();
+								beam2.setNumber("2");
+								beam2.setValue(DParser.beamState(meas, x, y));
+								newn.setBeam2(beam2);
 								newn.setLocation2("2");
 								note.add(newn);
 							}
