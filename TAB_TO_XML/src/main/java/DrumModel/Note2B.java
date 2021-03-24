@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-@JsonPropertyOrder({"unpitch", "duration", "instrument", "voice", "type", "stem", "beam1", "beam2"})
+@JsonPropertyOrder({"unpitch", "duration", "instrument", "voice", "type", "stem", "beam[0]", "beam[1]"})
 public class Note2B extends Note{
 
 	@JacksonXmlProperty(isAttribute=true)

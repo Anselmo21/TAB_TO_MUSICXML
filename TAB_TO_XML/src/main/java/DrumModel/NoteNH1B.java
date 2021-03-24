@@ -9,7 +9,7 @@ public class NoteNH1B extends Note{
 	String location;
 	
 	@JacksonXmlProperty(localName = "beam")
-	String beam;
+	Beam beam;
 	
 	Unpitched unpitch;
 	String duration; 
@@ -97,11 +97,11 @@ public class NoteNH1B extends Note{
 		return notehead;
 	}
 	
-	public void setBeam(String beam) {
+	public void setBeam(Beam beam) {
 		this.beam = beam;
 	}
 	
-	public String getBeam() {
+	public Beam getBeam() {
 		return beam;
 	}
 	
@@ -114,19 +114,5 @@ public class NoteNH1B extends Note{
 	}
 	
 	public NoteNH1B() {}
-	public NoteNH1B(Unpitched pitch, String duration, String voice, String stem, String type, Instrument instrument, String notehead, String beam, String location) {
-		
-		super();
-		this.beam = beam;
-		this.location = location;
-		this.instrument = instrument;
-		this.unpitch = pitch;
-		this.duration = duration;
-		this.voice = voice;
-		this.type = type;
-		this.stem = stem;
-		this.voice = voice;
-		this.notehead = notehead;
-		
-	}
+
 }

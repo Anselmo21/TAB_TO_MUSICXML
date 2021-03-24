@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import BassModel.*;
+import BassModel.Note;
 import DrumModel.*;
 import guitarModel.*;
 
@@ -658,9 +659,7 @@ public class App {
 
 		newMeasure.setBarline(null);
 
-		ArrayList<DrumModel.Note> note = new ArrayList<DrumModel.Note>();
-		DrumModel.Backup bup = new DrumModel.Backup();
-		
+		ArrayList<Object> note = new ArrayList<Object>();
 		Integer backupcount = 0;
 
 		// iter through each measure
@@ -672,49 +671,228 @@ public class App {
 				if (character == 'x' || character == 'o') {
 					// if has previous note in column
 					Integer duration = DParser.durationCount(meas, y);
+					String type = DParser.typeDeclare(duration);
 					
 					if (hasPrevColNote == false) {
 						if (character == 'o') {
 							if (DParser.beamNumber(DParser.typeDeclare(duration)) == 0) {
 								note.add(new DrumModel.Note());
+								((DrumModel.Note) note.get(note.size() - 1)).setDuration(duration.toString());
+
+								((DrumModel.Note) note.get(note.size() - 1)).setType(type);
+
+								Instrument instrument = new Instrument();
+								instrument.setID(DParser.identifyID(x));
+								((DrumModel.Note) note.get(note.size() - 1)).setInstrument(instrument);
+
+								((Note) note.get(note.size() - 1)).setVoice("1");
+								((DrumModel.Note) note.get(note.size() - 1)).setStem("up");
+
+								Unpitched unpitched = new Unpitched();
+								unpitched.setDisplayOctave(DParser.octaveCount(x));
+								unpitched.setDisplayStep(DParser.stepCount(x));
+								((DrumModel.Note) note.get(note.size() - 1)).setUnpitch(unpitched);
 							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 1) {
+								if (DParser.beamState(meas, type, x, y) != "No beam") {
 								DrumModel.Note1B newn = new DrumModel.Note1B();
-								newn.setBeam(DParser.beamState(meas, x, y));
-								newn.setLocation("1");
+								DrumModel.Beam beam = new DrumModel.Beam();
+								beam.setNumber("1");
+								beam.setValue(DParser.beamState(meas, type, x, y));
+								newn.setBeam(beam);
 								note.add(newn);
+								((Note1B) note.get(note.size() - 1)).setDuration(duration.toString());
+
+								((Note1B) note.get(note.size() - 1)).setType(type);
+
+								Instrument instrument = new Instrument();
+								instrument.setID(DParser.identifyID(x));
+								((DrumModel.Note1B) note.get(note.size() - 1)).setInstrument(instrument);
+
+								((Note1B) note.get(note.size() - 1)).setVoice("1");
+								((DrumModel.Note1B) note.get(note.size() - 1)).setStem("up");
+
+								Unpitched unpitched = new Unpitched();
+								unpitched.setDisplayOctave(DParser.octaveCount(x));
+								unpitched.setDisplayStep(DParser.stepCount(x));
+								((DrumModel.Note1B) note.get(note.size() - 1)).setUnpitch(unpitched);
+								}	else {
+									note.add(new DrumModel.Note());
+									((DrumModel.Note) note.get(note.size() - 1)).setDuration(duration.toString());
+
+									((DrumModel.Note) note.get(note.size() - 1)).setType(type);
+
+									Instrument instrument = new Instrument();
+									instrument.setID(DParser.identifyID(x));
+									((DrumModel.Note) note.get(note.size() - 1)).setInstrument(instrument);
+
+									((Note) note.get(note.size() - 1)).setVoice("1");
+									((DrumModel.Note) note.get(note.size() - 1)).setStem("up");
+
+									Unpitched unpitched = new Unpitched();
+									unpitched.setDisplayOctave(DParser.octaveCount(x));
+									unpitched.setDisplayStep(DParser.stepCount(x));
+									((DrumModel.Note) note.get(note.size() - 1)).setUnpitch(unpitched);
+								}
 							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
+								if (DParser.beamState(meas, type, x, y) != "No beam") {
 								DrumModel.Note2B newn = new DrumModel.Note2B();
 								DrumModel.Beam beam1 = new DrumModel.Beam();
 								beam1.setNumber("1");
-								beam1.setValue(DParser.beamState(meas, x, y));
+								beam1.setValue(DParser.beamState(meas, type, x, y));
 								newn.setBeam1(beam1);
-								newn.setLocation1("1");
 								DrumModel.Beam beam2 = new DrumModel.Beam();
 								beam2.setNumber("2");
-								beam2.setValue(DParser.beamState(meas, x, y));
+								beam2.setValue(DParser.beamState(meas, type, x, y));
 								newn.setBeam2(beam2);
-								newn.setLocation2("2");
 								note.add(newn);
+								((Note2B) note.get(note.size() - 1)).setDuration(duration.toString());
+
+								((Note2B) note.get(note.size() - 1)).setType(type);
+
+								Instrument instrument = new Instrument();
+								instrument.setID(DParser.identifyID(x));
+								((DrumModel.Note) note.get(note.size() - 1)).setInstrument(instrument);
+
+								((Note2B) note.get(note.size() - 1)).setVoice("1");
+								((DrumModel.Note2B) note.get(note.size() - 1)).setStem("up");
+
+								Unpitched unpitched = new Unpitched();
+								unpitched.setDisplayOctave(DParser.octaveCount(x));
+								unpitched.setDisplayStep(DParser.stepCount(x));
+								((DrumModel.Note2B) note.get(note.size() - 1)).setUnpitch(unpitched);
+								}	else {
+									note.add(new DrumModel.Note());
+									((DrumModel.Note) note.get(note.size() - 1)).setDuration(duration.toString());
+
+									((DrumModel.Note) note.get(note.size() - 1)).setType(type);
+
+									Instrument instrument = new Instrument();
+									instrument.setID(DParser.identifyID(x));
+									((DrumModel.Note) note.get(note.size() - 1)).setInstrument(instrument);
+
+									((DrumModel.Note) note.get(note.size() - 1)).setVoice("1");
+									((DrumModel.Note) note.get(note.size() - 1)).setStem("up");
+
+									Unpitched unpitched = new Unpitched();
+									unpitched.setDisplayOctave(DParser.octaveCount(x));
+									unpitched.setDisplayStep(DParser.stepCount(x));
+									((DrumModel.Note) note.get(note.size() - 1)).setUnpitch(unpitched);
+								}
 							}
 						}	else if (character == 'x') {
 							if (DParser.beamNumber(DParser.typeDeclare(duration)) == 0) {
 								DrumModel.NoteNH newn = new DrumModel.NoteNH();
 								newn.setNoteHead("x");
 								note.add(newn);
+								((NoteNH) note.get(note.size() - 1)).setDuration(duration.toString());
+
+								((NoteNH) note.get(note.size() - 1)).setType(type);
+
+								Instrument instrument = new Instrument();
+								instrument.setID(DParser.identifyID(x));
+								((DrumModel.NoteNH) note.get(note.size() - 1)).setInstrument(instrument);
+
+								((NoteNH) note.get(note.size() - 1)).setVoice("1");
+								((DrumModel.NoteNH) note.get(note.size() - 1)).setStem("up");
+
+								Unpitched unpitched = new Unpitched();
+								unpitched.setDisplayOctave(DParser.octaveCount(x));
+								unpitched.setDisplayStep(DParser.stepCount(x));
+								((DrumModel.NoteNH) note.get(note.size() - 1)).setUnpitch(unpitched);
 							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 1) {
+								if (DParser.beamState(meas, type, x, y) != "No beam") {
 								DrumModel.NoteNH1B newn = new DrumModel.NoteNH1B();
 								newn.setNoteHead("x");
-								newn.setBeam(DParser.beamState(meas, x, y));
-								newn.setLocation("1");
+								DrumModel.Beam beam = new DrumModel.Beam();
+								beam.setNumber("1");
+								beam.setValue(DParser.beamState(meas, type, x, y));
+								newn.setBeam(beam);
 								note.add(newn);
+								((NoteNH1B) note.get(note.size() - 1)).setDuration(duration.toString());
+
+								((NoteNH1B) note.get(note.size() - 1)).setType(type);
+
+								Instrument instrument = new Instrument();
+								instrument.setID(DParser.identifyID(x));
+								((DrumModel.NoteNH1B) note.get(note.size() - 1)).setInstrument(instrument);
+
+								((NoteNH1B) note.get(note.size() - 1)).setVoice("1");
+								((DrumModel.NoteNH1B) note.get(note.size() - 1)).setStem("up");
+
+								Unpitched unpitched = new Unpitched();
+								unpitched.setDisplayOctave(DParser.octaveCount(x));
+								unpitched.setDisplayStep(DParser.stepCount(x));
+								((DrumModel.NoteNH1B) note.get(note.size() - 1)).setUnpitch(unpitched);
+								}	else {
+									DrumModel.NoteNH newn = new DrumModel.NoteNH();
+									newn.setNoteHead("x");
+									note.add(newn);
+									((NoteNH) note.get(note.size() - 1)).setDuration(duration.toString());
+
+									((NoteNH) note.get(note.size() - 1)).setType(type);
+
+									Instrument instrument = new Instrument();
+									instrument.setID(DParser.identifyID(x));
+									((DrumModel.NoteNH) note.get(note.size() - 1)).setInstrument(instrument);
+
+									((NoteNH) note.get(note.size() - 1)).setVoice("1");
+									((DrumModel.NoteNH) note.get(note.size() - 1)).setStem("up");
+
+									Unpitched unpitched = new Unpitched();
+									unpitched.setDisplayOctave(DParser.octaveCount(x));
+									unpitched.setDisplayStep(DParser.stepCount(x));
+									((DrumModel.NoteNH) note.get(note.size() - 1)).setUnpitch(unpitched);
+								}
 							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
+								if (DParser.beamState(meas, type, x, y) != "No beam") {
 								DrumModel.NoteNH2B newn = new DrumModel.NoteNH2B();
 								newn.setNoteHead("x");
-								newn.setBeam1(DParser.beamState(meas, x, y));
+								DrumModel.Beam beam1 = new DrumModel.Beam();
+								beam1.setNumber("1");
+								beam1.setValue(DParser.beamState(meas, type, x, y));
+								newn.setBeam1(beam1);
 								newn.setLocation1("1");
-								newn.setBeam2(DParser.beamState(meas, x, y));
+								DrumModel.Beam beam2 = new DrumModel.Beam();
+								beam2.setNumber("2");
+								beam2.setValue(DParser.beamState(meas, type, x, y));
+								newn.setBeam2(beam2);
 								newn.setLocation2("2");
 								note.add(newn);
+								((NoteNH2B) note.get(note.size() - 1)).setDuration(duration.toString());
+
+								((NoteNH2B) note.get(note.size() - 1)).setType(type);
+
+								Instrument instrument = new Instrument();
+								instrument.setID(DParser.identifyID(x));
+								((DrumModel.NoteNH2B) note.get(note.size() - 1)).setInstrument(instrument);
+
+								((NoteNH2B) note.get(note.size() - 1)).setVoice("1");
+								((DrumModel.NoteNH2B) note.get(note.size() - 1)).setStem("up");
+
+								Unpitched unpitched = new Unpitched();
+								unpitched.setDisplayOctave(DParser.octaveCount(x));
+								unpitched.setDisplayStep(DParser.stepCount(x));
+								((DrumModel.NoteNH2B) note.get(note.size() - 1)).setUnpitch(unpitched);
+								}	else {
+									DrumModel.NoteNH newn = new DrumModel.NoteNH();
+									newn.setNoteHead("x");
+									note.add(newn);
+									((NoteNH) note.get(note.size() - 1)).setDuration(duration.toString());
+
+									((NoteNH) note.get(note.size() - 1)).setType(type);
+
+									Instrument instrument = new Instrument();
+									instrument.setID(DParser.identifyID(x));
+									((DrumModel.NoteNH) note.get(note.size() - 1)).setInstrument(instrument);
+
+									((NoteNH) note.get(note.size() - 1)).setVoice("1");
+									((DrumModel.NoteNH) note.get(note.size() - 1)).setStem("up");
+
+									Unpitched unpitched = new Unpitched();
+									unpitched.setDisplayOctave(DParser.octaveCount(x));
+									unpitched.setDisplayStep(DParser.stepCount(x));
+									((DrumModel.NoteNH) note.get(note.size() - 1)).setUnpitch(unpitched);
+								}
 							}
 						}	
 						backupcount = backupcount + duration;
@@ -722,77 +900,61 @@ public class App {
 						if (character == 'o') {
 							if (DParser.beamNumber(DParser.typeDeclare(duration)) == 0) {
 								note.add(new DrumModel.ChordNote());
-							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 1) {
-								DrumModel.ChordNote1B newn = new DrumModel.ChordNote1B();
-								newn.setBeam(DParser.beamState(meas, x, y));
-								newn.setLocation("1");
-								note.add(newn);
-							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
-								DrumModel.ChordNote2B newn = new DrumModel.ChordNote2B();
-								DrumModel.Beam beam1 = new DrumModel.Beam();
-								beam1.setNumber("1");
-								beam1.setValue(DParser.beamState(meas, x, y));
-								newn.setBeam1(beam1);
-								newn.setLocation1("1");
-								DrumModel.Beam beam2 = new DrumModel.Beam();
-								beam2.setNumber("2");
-								beam2.setValue(DParser.beamState(meas, x, y));
-								newn.setBeam2(beam2);
-								newn.setLocation2("2");
-								note.add(newn);
-							}
+								((DrumModel.ChordNote) note.get(note.size() - 1)).setDuration(duration.toString());
+
+								((DrumModel.ChordNote) note.get(note.size() - 1)).setType(type);
+
+								Instrument instrument = new Instrument();
+								instrument.setID(DParser.identifyID(x));
+								((DrumModel.ChordNote) note.get(note.size() - 1)).setInstrument(instrument);
+
+								((DrumModel.ChordNote) note.get(note.size() - 1)).setVoice("1");
+								((DrumModel.ChordNote) note.get(note.size() - 1)).setStem("up");
+
+								Unpitched unpitched = new Unpitched();
+								unpitched.setDisplayOctave(DParser.octaveCount(x));
+								unpitched.setDisplayStep(DParser.stepCount(x));
+								((DrumModel.ChordNote) note.get(note.size() - 1)).setUnpitch(unpitched);
+							}	
 						}	else if (character == 'x') {
 							if (DParser.beamNumber(DParser.typeDeclare(duration)) == 0) {
 								DrumModel.ChordNoteNH newn = new DrumModel.ChordNoteNH();
 								newn.setNoteHead("x");
 								note.add(newn);
-							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 1) {
-								DrumModel.ChordNoteNH1B newn = new DrumModel.ChordNoteNH1B();
-								newn.setNoteHead("x");
-								newn.setBeam(DParser.beamState(meas, x, y));
-								newn.setLocation("1");
-								note.add(newn);
-							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
-								DrumModel.ChordNoteNH2B newn = new DrumModel.ChordNoteNH2B();
-								newn.setNoteHead("x");
-								newn.setBeam1(DParser.beamState(meas, x, y));
-								newn.setLocation1("1");
-								newn.setBeam1(DParser.beamState(meas, x, y));
-								newn.setLocation1("2");
-								note.add(newn);
-							}
+								((DrumModel.ChordNoteNH) note.get(note.size() - 1)).setDuration(duration.toString());
+
+								((DrumModel.ChordNoteNH) note.get(note.size() - 1)).setType(type);
+
+								Instrument instrument = new Instrument();
+								instrument.setID(DParser.identifyID(x));
+								((DrumModel.ChordNoteNH) note.get(note.size() - 1)).setInstrument(instrument);
+
+								((DrumModel.ChordNoteNH) note.get(note.size() - 1)).setVoice("1");
+								((DrumModel.ChordNoteNH) note.get(note.size() - 1)).setStem("up");
+
+								Unpitched unpitched = new Unpitched();
+								unpitched.setDisplayOctave(DParser.octaveCount(x));
+								unpitched.setDisplayStep(DParser.stepCount(x));
+								((DrumModel.ChordNoteNH) note.get(note.size() - 1)).setUnpitch(unpitched);
 						} 
 					}
-	
-					note.get(note.size() - 1).setDuration(duration.toString());
-
-					note.get(note.size() - 1).setType(DParser.typeDeclare(duration));
-
-					Instrument instrument = new Instrument();
-					instrument.setID(DParser.identifyID(x));
-					note.get(note.size() - 1).setInstrument(instrument);
-
-					note.get(note.size() - 1).setVoice("1");
-					note.get(note.size() - 1).setStem("up");
-
-					Unpitched unpitched = new Unpitched();
-					unpitched.setDisplayOctave(DParser.octaveCount(x));
-					unpitched.setDisplayStep(DParser.stepCount(x));
-					note.get(note.size() - 1).setUnpitch(unpitched);
+					}
 
 					// set has note in the column to true
 					hasPrevColNote = true;
 				}
 			}
 		}
-
+		
+		
 		// backup here
+		DrumModel.Backup bup = new DrumModel.Backup();
 				for (int y = 0; y < meas.get(0).length(); y++) {
 					char character = meas.get(meas.size() - 1).charAt(y);
 					if (character == 'o') {
 						Integer n = backupcount - y;
-						System.out.println(n);
 						bup.setDuration(n.toString());
+						note.add(bup);
 						break;
 					}
 				}
@@ -819,31 +981,30 @@ public class App {
 						}
 
 						if (durwrest > 0) {
-							note.get(note.size() - 1).setDuration(durwrest.toString());
-							note.get(note.size() - 1).setType(DParser.typeDeclare(durwrest));
+							((DrumModel.Note) note.get(note.size() - 1)).setDuration(durwrest.toString());
+							((DrumModel.Note) note.get(note.size() - 1)).setType(DParser.typeDeclare(durwrest));
 						} else {
 							Integer duration = DParser.durationCount(meas, y);
-							note.get(note.size() - 1).setDuration(duration.toString());
-							note.get(note.size() - 1).setType(DParser.typeDeclare(duration));
+							((DrumModel.Note) note.get(note.size() - 1)).setDuration(duration.toString());
+							((DrumModel.Note) note.get(note.size() - 1)).setType(DParser.typeDeclare(duration));
 						}
 
 						Instrument instrument = new Instrument();
 						instrument.setID(DParser.identifyID(meas.size() - 1));
-						note.get(note.size() - 1).setInstrument(instrument);
+						((DrumModel.Note) note.get(note.size() - 1)).setInstrument(instrument);
 
-						note.get(note.size() - 1).setVoice("2");
-						note.get(note.size() - 1).setStem("down");
+						((DrumModel.Note) note.get(note.size() - 1)).setVoice("2");
+						((DrumModel.Note) note.get(note.size() - 1)).setStem("down");
 
 						Unpitched unpitched = new Unpitched();
 						unpitched.setDisplayOctave(DParser.octaveCount(meas.size() - 1));
 						unpitched.setDisplayStep(DParser.stepCount(meas.size() - 1));
-						note.get(note.size() - 1).setUnpitch(unpitched);
+						((DrumModel.Note) note.get(note.size() - 1)).setUnpitch(unpitched);
 					}
 				}
 
 
 		newMeasure.setNote(note);
-
 		return newMeasure;
 	}
 
