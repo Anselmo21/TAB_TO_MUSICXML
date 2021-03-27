@@ -580,8 +580,82 @@ public class App {
 			DrumModel.PartList partList = new DrumModel.PartList();
 			ArrayList<DrumModel.ScorePart> scoreParts = new ArrayList<DrumModel.ScorePart>();
 			DrumModel.ScorePart scorepart = new DrumModel.ScorePart();
+			ArrayList<DrumModel.ScoreInstrument> scoreInst = new ArrayList<DrumModel.ScoreInstrument>();
 			scorepart.setId("P1");
 			scorepart.setPartName("Drumset");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I36");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Bass Drum 1");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I37");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Bass Drum 2");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I38");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Side Stick");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I39");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Snare");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I42");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Low Floor Tom");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I43");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Closed Hi-Hat");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I44");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("High Floor Tom");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I45");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Pedal Hi-Hat");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I46");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Low Tom");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I47");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Open Hi-Hat");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I48");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Low-Mid Tom");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I49");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Hi-Mid Tom");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I50");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Crash Cymbal 1");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I51");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("High Tom");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I52");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Ride Cymbal 1");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I53");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Chinese Cymbal");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I54");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Ride Bell");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I55");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Tambourine");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I56");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Splash Cymbal");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I57");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Cowbell");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I58");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Crash Cymbal 2");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I60");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Ride Cymbal 2");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I64");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Open Hi Conga");
+			scoreInst.add(new DrumModel.ScoreInstrument());
+			scoreInst.get(scoreInst.size() - 1).setID("P1-I65");
+			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Low Conga");
+			scorepart.setScoreInstrument(scoreInst);
 			scoreParts.add(scorepart);
 
 			partList.setScoreParts(scoreParts);
@@ -959,36 +1033,38 @@ public class App {
 					}
 				}
 
-				Integer durwrest = 0;
+				Integer rest;
 				for (int y = 0; y < meas.get(0).length(); y++) {
+					rest = 1;
 					char character = meas.get(meas.size() - 1).charAt(y);
 					if (character == 'o') {
 						note.add(new DrumModel.Note());
 						for (int x = meas.size() - 2; x >= 2; x--) {
-							if (Character.isDigit(meas.get(x).charAt(y))) {
+							if (meas.get(x).charAt(y) == 'o') {
+								int tmp = 1;
 								for (int i = y + 1; i < meas.get(0).length(); i++) {
-									int tmp = 0;
-									if (Character.isDigit(meas.get(x).charAt(i))) {
+									if (meas.get(x).charAt(i) == 'o') {
 										tmp++;
 									} else {
 										break;
 									}
-									if (tmp > durwrest) {
-										durwrest = tmp;
+									if (tmp > rest) {
+										rest = tmp;
 									}
 								}
 							}
 						}
-
-						if (durwrest > 0) {
-							((DrumModel.Note) note.get(note.size() - 1)).setDuration(durwrest.toString());
-							((DrumModel.Note) note.get(note.size() - 1)).setType(DParser.typeDeclare(durwrest));
+						
+						Integer duration;
+						if (rest > 1) {
+							duration = 8 - rest;
 						} else {
-							Integer duration = DParser.durationCount(meas, y);
-							((DrumModel.Note) note.get(note.size() - 1)).setDuration(duration.toString());
-							((DrumModel.Note) note.get(note.size() - 1)).setType(DParser.typeDeclare(duration));
+							duration = DParser.durationCount(meas, y);
 						}
 
+						((DrumModel.Note) note.get(note.size() - 1)).setDuration(duration.toString());
+						((DrumModel.Note) note.get(note.size() - 1)).setType(DParser.typeDeclare(duration));
+						
 						Instrument instrument = new Instrument();
 						instrument.setID(DParser.identifyID(meas.size() - 1));
 						((DrumModel.Note) note.get(note.size() - 1)).setInstrument(instrument);
@@ -1000,6 +1076,13 @@ public class App {
 						unpitched.setDisplayOctave(DParser.octaveCount(meas.size() - 1));
 						unpitched.setDisplayStep(DParser.stepCount(meas.size() - 1));
 						((DrumModel.Note) note.get(note.size() - 1)).setUnpitch(unpitched);
+						
+						if (rest >  1) {
+							note.add(new DrumModel.RestNote());
+							((DrumModel.RestNote) note.get(note.size() - 1)).setDuration(rest.toString());
+							((DrumModel.RestNote) note.get(note.size() - 1)).setVoice("2");
+							((DrumModel.RestNote) note.get(note.size() - 1)).setType(DParser.typeDeclare(rest));
+						}
 					}
 				}
 
