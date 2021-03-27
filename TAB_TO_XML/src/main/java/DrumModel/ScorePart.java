@@ -1,5 +1,6 @@
 package DrumModel;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 
@@ -12,6 +13,7 @@ public class ScorePart {
 	
 	//brand new attribute not seen in guitar!
 	@JacksonXmlProperty(localName = "score-instrument")
+    @JacksonXmlElementWrapper(useWrapping = false)
 	ArrayList<ScoreInstrument> instruments; 
 	
 
