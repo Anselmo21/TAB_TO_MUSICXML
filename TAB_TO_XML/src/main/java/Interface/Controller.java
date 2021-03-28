@@ -24,6 +24,7 @@ import TAB_TO_XML.App;
 public class Controller {
 
 	ObservableList<String> instrumentsList = FXCollections.observableArrayList("None", "Guitar", "Drums", "Bass");
+	ObservableList<String> timeSignatureList = FXCollections.observableArrayList("1/4", "2/4", "3/4", "4/4");
 
 	Desktop screen = Desktop.getDesktop();
 	File tablature;
@@ -33,6 +34,11 @@ public class Controller {
 	FileChooser fc, saveFile;
 	static String obtainText;
 	static boolean pressed;
+	static String time;
+	
+	@SuppressWarnings("rawtypes")
+	@FXML
+	ChoiceBox timeSignature;
 
 	@FXML
 	Button browse, convert, save;
@@ -47,6 +53,17 @@ public class Controller {
 	@FXML
 	ChoiceBox instrumentBox;
 
+	
+	
+	@SuppressWarnings("unchecked")
+	@FXML
+	private void initialize() {
+		timeSignature.setItems(timeSignatureList);
+		time = (String)timeSignature.getValue();
+	}
+	
+	
+	
 	/**
 	 * This method enables browsing through the file explorer for .txt files. After browsing, it shows the text on the file in a 
 	 * text area. 
@@ -146,20 +163,20 @@ public class Controller {
 		}
 	}
 
-	//To be implemented
-	@SuppressWarnings("unchecked")
-	@FXML
-	public void initialize() {
-		instrumentBox.setItems(instrumentsList);
-		instrumentBox.setValue("None");
-		String storeText = write.getText();
-		ArrayList<String> instrumentIdentify = App.getFileList(storeText); 
-		String instrument = App.identifyInstrument(instrumentIdentify);
-		if (instrument.equals("Guitar")) instrumentBox.setValue("Guitar");
-		else if (instrument.equals("Drums")) instrumentBox.setValue("Drums");
-		else if (instrument.equals("Bass")) instrumentBox.setValue("Bass");
-		else instrumentBox.setValue("None");
-	}
+//	//To be implemented
+//	@SuppressWarnings("unchecked")
+//	@FXML
+//	public void initialize() {
+//		instrumentBox.setItems(instrumentsList);
+//		instrumentBox.setValue("None");
+//		String storeText = write.getText();
+//		ArrayList<String> instrumentIdentify = App.getFileList(storeText); 
+//		String instrument = App.identifyInstrument(instrumentIdentify);
+//		if (instrument.equals("Guitar")) instrumentBox.setValue("Guitar");
+//		else if (instrument.equals("Drums")) instrumentBox.setValue("Drums");
+//		else if (instrument.equals("Bass")) instrumentBox.setValue("Bass");
+//		else instrumentBox.setValue("None");
+//	}
 
 	public boolean browseButtonPressed() {
 		if (browse.isPressed()) pressed = true;
