@@ -655,7 +655,7 @@ public class App {
 			scoreInst.add(new DrumModel.ScoreInstrument());
 			scoreInst.get(scoreInst.size() - 1).setID("P1-I65");
 			scoreInst.get(scoreInst.size() - 1).setInstrumentName("Low Conga");
-			scorepart.setScoreInstrument(scoreInst);
+			scorepart.setScoreInstruments(scoreInst);
 			scoreParts.add(scorepart);
 
 			partList.setScoreParts(scoreParts);
