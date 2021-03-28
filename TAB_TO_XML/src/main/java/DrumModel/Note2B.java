@@ -94,12 +94,12 @@ public class Note2B extends Note{
 		
 	}
 	
-	public void setBeam1(Beam beam) {
-		this.beam[0] = beam;
+	public void setBeam(Beam beam, int beamnum) {
+		this.beam[beamnum] = beam;
 	}
 	
-	public Beam getBeam1() {
-		return beam[0];
+	public Beam[] getBeam() {
+		return beam;
 	}
 	
 	public void setLocation1(String location) {
@@ -108,14 +108,6 @@ public class Note2B extends Note{
 	
 	public String getLocation1() {
 		return location1;
-	}
-	
-	public void setBeam2(Beam beam) {
-		this.beam[1] = beam;
-	}
-	
-	public Beam getBeam2() {
-		return beam[1];
 	}
 	
 	public void setLocation2(String location) {

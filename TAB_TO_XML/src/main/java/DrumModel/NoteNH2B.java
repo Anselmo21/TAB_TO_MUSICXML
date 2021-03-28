@@ -102,12 +102,12 @@ public class NoteNH2B extends Note{
 		return notehead;
 	}
 	
-	public void setBeam1(Beam beam) {
-		this.beam[0] = beam;
+	public void setBeam(Beam beam, int beamnum) {
+		this.beam[beamnum] = beam;
 	}
 	
-	public Beam getBeam1() {
-		return beam[0];
+	public Beam[] getBeam() {
+		return beam;
 	}
 	
 	public void setLocation1(String location) {

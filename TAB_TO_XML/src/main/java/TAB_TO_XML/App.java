@@ -813,11 +813,13 @@ public class App {
 								DrumModel.Beam beam1 = new DrumModel.Beam();
 								beam1.setNumber("1");
 								beam1.setValue(DParser.beamState(meas, type, x, y));
-								newn.setBeam1(beam1);
+								newn.setBeam(beam1, 0);
+								newn.setLocation1("1");
 								DrumModel.Beam beam2 = new DrumModel.Beam();
 								beam2.setNumber("2");
 								beam2.setValue(DParser.beamState(meas, type, x, y));
-								newn.setBeam2(beam2);
+								newn.setBeam(beam2, 1);
+								newn.setLocation2("2");
 								note.add(newn);
 								((Note2B) note.get(note.size() - 1)).setDuration(duration.toString());
 
@@ -924,12 +926,12 @@ public class App {
 								DrumModel.Beam beam1 = new DrumModel.Beam();
 								beam1.setNumber("1");
 								beam1.setValue(DParser.beamState(meas, type, x, y));
-								newn.setBeam1(beam1);
+								newn.setBeam(beam1, 0);
 								newn.setLocation1("1");
 								DrumModel.Beam beam2 = new DrumModel.Beam();
 								beam2.setNumber("2");
 								beam2.setValue(DParser.beamState(meas, type, x, y));
-								newn.setBeam2(beam2);
+								newn.setBeam(beam2, 1);
 								newn.setLocation2("2");
 								note.add(newn);
 								((NoteNH2B) note.get(note.size() - 1)).setDuration(duration.toString());
