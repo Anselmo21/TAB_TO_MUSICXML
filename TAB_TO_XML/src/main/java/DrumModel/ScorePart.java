@@ -11,15 +11,15 @@ public class ScorePart {
 	@JacksonXmlProperty(localName = "part-name")
 	String partName; 
 	
-	//brand new attribute not seen in guitar!
+	// These aren't working for some reason
 	@JacksonXmlProperty(localName = "score-instrument")
     @JacksonXmlElementWrapper(useWrapping = false)
-	ArrayList<ScoreInstrument> instruments; 
+	ArrayList<ScoreInstrument> instruments;
 	
 
 	public ScorePart() {}
 	
-	public void setScoreInstrument(ArrayList<ScoreInstrument> instrument) { 
+	public void setScoreInstrument(ArrayList<ScoreInstrument> instruments) { 
 		
 		this.instruments = instruments;
 		
