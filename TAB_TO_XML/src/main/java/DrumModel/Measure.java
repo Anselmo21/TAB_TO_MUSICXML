@@ -17,6 +17,18 @@ public class Measure {
 	ArrayList<Object> note;
 	Barline barline;
 	Backup backup;
+	
+	@JacksonXmlProperty(localName = "note")
+    @JacksonXmlElementWrapper(useWrapping = false)
+	ArrayList<Object> noteBack;
+
+	public Backup getBackup() {
+		return backup;
+	}
+
+	public void setBackup(Backup backup) {
+		this.backup = backup;
+	}
 
 	public Measure() {}
 	
