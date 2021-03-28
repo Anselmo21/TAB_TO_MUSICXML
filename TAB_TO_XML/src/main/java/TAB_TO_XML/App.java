@@ -856,7 +856,7 @@ public class App {
 						}	else if (character == 'x') {
 							if (DParser.beamNumber(DParser.typeDeclare(duration)) == 0) {
 								DrumModel.NoteNH newn = new DrumModel.NoteNH();
-								newn.setNoteHead("x");
+								newn.setNotehead("x");
 								note.add(newn);
 								((NoteNH) note.get(note.size() - 1)).setDuration(duration.toString());
 
@@ -876,7 +876,7 @@ public class App {
 							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 1) {
 								if (DParser.beamState(meas, type, x, y) != "No beam") {
 								DrumModel.NoteNH1B newn = new DrumModel.NoteNH1B();
-								newn.setNoteHead("x");
+								newn.setNotehead("x");
 								DrumModel.Beam beam = new DrumModel.Beam();
 								beam.setNumber("1");
 								beam.setValue(DParser.beamState(meas, type, x, y));
@@ -899,7 +899,7 @@ public class App {
 								((DrumModel.NoteNH1B) note.get(note.size() - 1)).setUnpitch(unpitched);
 								}	else {
 									DrumModel.NoteNH newn = new DrumModel.NoteNH();
-									newn.setNoteHead("x");
+									newn.setNotehead("x");
 									note.add(newn);
 									((NoteNH) note.get(note.size() - 1)).setDuration(duration.toString());
 
@@ -920,7 +920,7 @@ public class App {
 							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
 								if (DParser.beamState(meas, type, x, y) != "No beam") {
 								DrumModel.NoteNH2B newn = new DrumModel.NoteNH2B();
-								newn.setNoteHead("x");
+								newn.setNotehead("x");
 								DrumModel.Beam beam1 = new DrumModel.Beam();
 								beam1.setNumber("1");
 								beam1.setValue(DParser.beamState(meas, type, x, y));
@@ -949,7 +949,7 @@ public class App {
 								((DrumModel.NoteNH2B) note.get(note.size() - 1)).setUnpitch(unpitched);
 								}	else {
 									DrumModel.NoteNH newn = new DrumModel.NoteNH();
-									newn.setNoteHead("x");
+									newn.setNotehead("x");
 									note.add(newn);
 									((NoteNH) note.get(note.size() - 1)).setDuration(duration.toString());
 

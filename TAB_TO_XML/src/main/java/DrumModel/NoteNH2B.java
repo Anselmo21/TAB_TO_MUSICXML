@@ -94,11 +94,11 @@ public class NoteNH2B extends Note{
 		
 	}
 	
-	public void setNoteHead(String notehead) {
+	public void setNotehead(String notehead) {
 		this.notehead = notehead;
 	}
 	
-	public String getNoteHead() {
+	public String getNotehead() {
 		return notehead;
 	}
 	
