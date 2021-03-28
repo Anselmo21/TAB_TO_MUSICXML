@@ -1,9 +1,12 @@
 package DrumModel;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ScorePart {
 	@JacksonXmlProperty(isAttribute=true)
 	String id;
