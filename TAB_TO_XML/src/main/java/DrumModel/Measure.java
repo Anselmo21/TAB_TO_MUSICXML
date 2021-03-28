@@ -22,6 +22,14 @@ public class Measure {
     @JacksonXmlElementWrapper(useWrapping = false)
 	ArrayList<Object> noteBack;
 
+	public ArrayList<Object> getNoteBack() {
+		return noteBack;
+	}
+
+	public void setNoteBack(ArrayList<Object> noteBack) {
+		this.noteBack = noteBack;
+	}
+
 	public Backup getBackup() {
 		return backup;
 	}
