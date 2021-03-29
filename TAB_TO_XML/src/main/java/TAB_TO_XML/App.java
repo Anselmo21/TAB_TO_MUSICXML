@@ -895,7 +895,7 @@ public class App {
 								note.add(new DrumModel.ChordNote());
 						}	else if (character == 'x') {
 								DrumModel.ChordNoteNH newn = new DrumModel.ChordNoteNH();
-								newn.setNoteHead("x");
+								newn.setNotehead("x");
 								note.add(newn);
 					}
 					}
@@ -913,7 +913,7 @@ public class App {
 					Unpitched unpitched = new Unpitched();
 					unpitched.setDisplayOctave(DParser.octaveCount(x));
 					unpitched.setDisplayStep(DParser.stepCount(x));
-					note.get(note.size() - 1).setUnpitch(unpitched);
+					note.get(note.size() - 1).setUnpitched(unpitched);
 					
 					// set has note in the column to true
 					if (beamcount == 4) {
@@ -937,9 +937,8 @@ public class App {
 					}
 				}
 
-				Integer rest;
+				Integer sync = 0;
 				for (int y = 0; y < meas.get(0).length(); y++) {
-					rest = 1;
 					char character = meas.get(meas.size() - 1).charAt(y);
 					if (character == 'o') {
 						noteback.add(new DrumModel.Note());
@@ -952,18 +951,19 @@ public class App {
 									} else {
 										break;
 									}
-									if (tmp > rest) {
-										rest = tmp;
-									}
+								}
+								if (tmp > sync) {
+									sync = tmp;
 								}
 							}
 						}
 						
 						Integer duration;
-						if (rest > 1) {
-							duration = 8 - rest;
+						Integer rest = 8 - sync;
+						if (sync > 0) {
+							duration = sync;
 						} else {
-							duration = DParser.durationCount(meas, y);
+							duration = DParser.durationCountLastLine(meas, y);
 						}
 
 						((DrumModel.Note) noteback.get(noteback.size() - 1)).setDuration(duration.toString());
@@ -979,15 +979,16 @@ public class App {
 						Unpitched unpitched = new Unpitched();
 						unpitched.setDisplayOctave(DParser.octaveCount(meas.size() - 1));
 						unpitched.setDisplayStep(DParser.stepCount(meas.size() - 1));
-						((DrumModel.Note) noteback.get(noteback.size() - 1)).setUnpitch(unpitched);
+						((DrumModel.Note) noteback.get(noteback.size() - 1)).setUnpitched(unpitched);
 						
-						if (rest >  1) {
+						if (sync >  0) {
 							noteback.add(new DrumModel.RestNote());
 							((DrumModel.RestNote) noteback.get(noteback.size() - 1)).setDuration(rest.toString());
 							((DrumModel.RestNote) noteback.get(noteback.size() - 1)).setVoice("2");
 							((DrumModel.RestNote) noteback.get(noteback.size() - 1)).setType(DParser.typeDeclare(rest));
 						}
 					}
+					sync = 0;
 				}
 
 

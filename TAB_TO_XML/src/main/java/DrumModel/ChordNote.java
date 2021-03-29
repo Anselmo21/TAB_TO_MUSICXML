@@ -3,12 +3,12 @@ package DrumModel;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-@JsonPropertyOrder({"chord", "unpitch", "duration", "instrument", "voice", "type", "stem"})
+@JsonPropertyOrder({"chord", "unpitched", "duration", "instrument", "voice", "type", "stem"})
 public class ChordNote extends Note{
 	@JacksonXmlProperty(localName = "chord")
 	String chord;
 	
-	Unpitched unpitch;
+	Unpitched unpitched;
 	String duration; 
 	Instrument instrument;
 	String voice; 
@@ -20,14 +20,14 @@ public class ChordNote extends Note{
 		   
 	}
 	
-	public void setUnpitch(Unpitched pitch) { 
-		unpitch = pitch;
+	public void setUnpitched(Unpitched pitch) { 
+		unpitched = pitch;
 		
 	}
 	
-	public Unpitched getUnpitch() { 
+	public Unpitched getUnpitched() { 
 		
-		return unpitch;
+		return unpitched;
 		
 	}
 	
@@ -91,17 +91,6 @@ public class ChordNote extends Note{
 	}
 	
 	public ChordNote() {}
-	public ChordNote(Unpitched pitch, String duration, String voice, String stem, String type, Instrument instrument) {
-		
-		super();
-		this.instrument = instrument;
-		this.unpitch = pitch;
-		this.duration = duration;
-		this.voice = voice;
-		this.type = type;
-		this.stem = stem;
-		this.voice = voice;
-		
-	}
+	
 	
 }

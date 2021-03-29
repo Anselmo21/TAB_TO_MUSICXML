@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-@JsonPropertyOrder({"unpitch", "duration", "instrument", "voice", "type", "stem", "notehead", "beam[0]", "beam[1]"})
+@JsonPropertyOrder({"unpitched", "duration", "instrument", "voice", "type", "stem", "notehead", "beam[0]", "beam[1]"})
 public class NoteNH2B extends Note{
 	@JacksonXmlProperty(isAttribute=true)
 	String location1;
@@ -16,7 +16,7 @@ public class NoteNH2B extends Note{
 	@JacksonXmlProperty(isAttribute=true)
 	String location2;
 	
-	Unpitched unpitch;
+	Unpitched unpitched;
 	String duration; 
 	Instrument instrument;
 	String voice; 
@@ -24,14 +24,14 @@ public class NoteNH2B extends Note{
 	String stem;
 	String notehead;
 	
-	public void setUnpitch(Unpitched pitch) { 
-		unpitch = pitch;
+	public void setUnpitched(Unpitched pitch) { 
+		unpitched = pitch;
 		
 	}
 	
-	public Unpitched getUnpitch() { 
+	public Unpitched getUnpitched() { 
 		
-		return unpitch;
+		return unpitched;
 		
 	}
 	

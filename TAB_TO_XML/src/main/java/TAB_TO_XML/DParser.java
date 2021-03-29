@@ -34,6 +34,30 @@ public class DParser {
 		}
 		return count;
 	}
+	
+	/**
+	 * Counts duration of a note.
+	 * 
+	 * @param parse is the array list of strings that contains a whole line of notes
+	 * @return an integer representing the duration of the note.
+	 */
+	public static Integer durationCountLastLine(ArrayList<String> parse, int column) {
+		Integer count = 1;
+		
+		outerloop: 
+		for (int i = column + 1; i < parse.get(0).length(); i++) {
+					if (parse.get(5).charAt(i) !=  '-') {
+						break outerloop;
+					}
+					else {
+						count++;
+					}
+				}
+		if (count > 16) {
+			count = 16;
+		}
+		return count;
+	}
 
 	/**
 	 * Counts the division of the whole tablature

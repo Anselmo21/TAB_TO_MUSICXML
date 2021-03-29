@@ -1,21 +1,21 @@
 package DrumModel;
 
 public class Note {
-	Unpitched unpitch;
+	Unpitched unpitched;
 	String duration; 
 	Instrument instrument;
 	String voice; 
 	String type; 
 	String stem;
 	
-	public void setUnpitch(Unpitched pitch) { 
-		unpitch = pitch;
+	public void setUnpitched(Unpitched pitch) { 
+		unpitched = pitch;
 		
 	}
 	
-	public Unpitched getUnpitch() { 
+	public Unpitched getUnpitched() { 
 		
-		return unpitch;
+		return unpitched;
 		
 	}
 	

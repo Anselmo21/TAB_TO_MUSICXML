@@ -3,10 +3,12 @@ package DrumModel;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonPropertyOrder({"number", "attributes", "note", "backup", "noteBack", "barline"})
 public class Measure {
 	@JacksonXmlProperty(isAttribute=true)
 	int number;
@@ -15,8 +17,8 @@ public class Measure {
 	
     @JacksonXmlElementWrapper(useWrapping = false)
 	ArrayList<Note> note;
-	Barline barline;
 	Backup backup;
+	Barline barline;
 	
     @JacksonXmlElementWrapper(useWrapping = false)
 	ArrayList<Object> noteBack;
