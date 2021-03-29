@@ -761,7 +761,7 @@ public class App {
 
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
 			// mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
-			return mapper.writeValueAsString(scorePartwise);
+			return mapper.writeValueAsString(scorePartwise).replace("noteBack", "note");
 
 		} catch (Exception e) {
 			e.printStackTrace();
