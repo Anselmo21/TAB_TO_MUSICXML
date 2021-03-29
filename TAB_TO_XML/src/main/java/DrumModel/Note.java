@@ -80,6 +80,17 @@ public class Note {
 	}
 	
 	public Note() {}
-	
+	public Note(Unpitched pitch, String duration, String voice, String stem, String type, Instrument instrument) {
+		
+		super();
+		this.instrument = instrument;
+		this.unpitch = pitch;
+		this.duration = duration;
+		this.voice = voice;
+		this.type = type;
+		this.stem = stem;
+		this.voice = voice;
+		
+	}
 	
 }

@@ -14,19 +14,19 @@ public class Measure {
 	Attributes attributes;
 	
     @JacksonXmlElementWrapper(useWrapping = false)
-	ArrayList<Note> note;
+	ArrayList<Object> note;
 	Barline barline;
 	Backup backup;
 	
 	@JacksonXmlProperty(localName = "note")
     @JacksonXmlElementWrapper(useWrapping = false)
-	ArrayList<Note> noteBack;
+	ArrayList<Object> noteBack;
 
-	public ArrayList<Note> getNoteBack() {
+	public ArrayList<Object> getNoteBack() {
 		return noteBack;
 	}
 
-	public void setNoteBack(ArrayList<Note> noteBack) {
+	public void setNoteBack(ArrayList<Object> noteBack) {
 		this.noteBack = noteBack;
 	}
 
@@ -46,10 +46,10 @@ public class Measure {
 	public void setNumber(int number) {
 		this.number = number;
 	}
-	public ArrayList<Note> getNote() {
+	public ArrayList<Object> getNote() {
 		return note;
 	}
-	public void setNote(ArrayList<Note> note) {
+	public void setNote(ArrayList<Object> note) {
 		this.note = note;
 	}
 	public Attributes getAttributes() {
