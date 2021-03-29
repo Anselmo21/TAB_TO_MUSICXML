@@ -65,8 +65,8 @@ public class Runner extends Application {
 			try {
 				if (xmlFile.getAbsolutePath() != null) {
 					print = new PrintWriter(xmlFile.getAbsolutePath());
-					
 					print.println(Controller.obtainText);
+					
 					Alert saveAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window
 					saveAlert.setHeaderText("The converted file has been saved to " + xmlFile.getAbsolutePath()); 
 					saveAlert.setContentText("Thank you for using Allegro Tab Converter!"); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
