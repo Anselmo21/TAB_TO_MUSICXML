@@ -35,13 +35,13 @@ public class Controller {
 	static String obtainText;
 	static boolean pressed;
 	static String time;
-	
+
 	@SuppressWarnings("rawtypes")
 	@FXML
 	ChoiceBox timeSignature;
 
 	@FXML
-	Button browse, convert, save;
+	Button browse, convert, save, edits;
 
 	@FXML
 	Label path, getInstrument;
@@ -53,17 +53,23 @@ public class Controller {
 	@FXML
 	ChoiceBox instrumentBox;
 
-	
-	
+
+
 	@SuppressWarnings("unchecked")
 	@FXML
 	private void initialize() {
 		timeSignature.setItems(timeSignatureList);
 		time = (String)timeSignature.getValue();
+		instrumentBox.setItems(instrumentsList);
+		String instrument = App.identifyInstrument(App.getFileList(write.getText()));
+		if (instrument.equals("Guitar")) instrumentBox.setValue("Guitar");
+		else if (instrument.equals("Drums")) instrumentBox.setValue("Drums");
+		else if (instrument.equals("Bass")) instrumentBox.setValue("Bass");
+		else instrumentBox.setValue("None");
 	}
-	
-	
-	
+
+
+
 	/**
 	 * This method enables browsing through the file explorer for .txt files. After browsing, it shows the text on the file in a 
 	 * text area. 
@@ -73,12 +79,13 @@ public class Controller {
 	@FXML
 	public void handleButtonBrowse(ActionEvent event) {
 		write.clear();
+		pressed = true;
 		fc = new FileChooser();
 		fc.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 		tablature = fc.showOpenDialog(null);
 
 		if (tablature != null) {
-			path.setText(tablature.getAbsolutePath());
+			//path.setText(tablature.getAbsolutePath());
 			Scanner sc = null;
 			save.setVisible(true);
 			try {
@@ -163,33 +170,42 @@ public class Controller {
 		}
 	}
 
-//	//To be implemented
-//	@SuppressWarnings("unchecked")
-//	@FXML
-//	public void initialize() {
-//		instrumentBox.setItems(instrumentsList);
-//		instrumentBox.setValue("None");
-//		String storeText = write.getText();
-//		ArrayList<String> instrumentIdentify = App.getFileList(storeText); 
-//		String instrument = App.identifyInstrument(instrumentIdentify);
-//		if (instrument.equals("Guitar")) instrumentBox.setValue("Guitar");
-//		else if (instrument.equals("Drums")) instrumentBox.setValue("Drums");
-//		else if (instrument.equals("Bass")) instrumentBox.setValue("Bass");
-//		else instrumentBox.setValue("None");
-//	}
-
-	public boolean browseButtonPressed() {
-		if (browse.isPressed()) pressed = true;
-		else pressed = false; 
-		return pressed;
+	@FXML
+	public void handleButtonSaveEdits(ActionEvent event) {
+		PrintWriter print = null;
+		if (pressed) {
+			//save edits in the browsed path file.
+			try {
+				print = new PrintWriter(tablature.getAbsolutePath());
+				print.print(write.getText());
+				System.out.println(write.getText());
+			}
+			catch (Exception e) {
+				Alert errorAlert = new Alert(AlertType.ERROR); 
+				errorAlert.setHeaderText("Edits could not be saved!"); 
+				errorAlert.setContentText("A file path was not found. Please check if you have browsed properly!"); 
+				errorAlert.showAndWait();
+			}
+		}
+		else {
+			//make a new file and save edits there
+			FileChooser saveFile = new FileChooser();
+			saveFile.getExtensionFilters().add(new ExtensionFilter("Text file", "*.txt"));
+			File xmlFile = saveFile.showSaveDialog(null);
+			try {
+				if (xmlFile.getAbsolutePath() != null) {
+					print = new PrintWriter(xmlFile.getAbsolutePath());
+					print.println(write.getText());
+					System.out.println(write.getText());
+				}
+			}
+			catch (Exception e) {
+				Alert errorAlert = new Alert(AlertType.ERROR); 
+				errorAlert.setHeaderText("Edits could not be saved!"); 
+				errorAlert.setContentText("A file path was not found. Please check if you have selected a valid file path!"); 
+				errorAlert.showAndWait();
+			}
+		}
 	}
-}
 
-//if (!instrument.equals("Guitar") || !instrument.equals("Drums") || !instrument.equals("Bass")) {
-//	Alert errorAlert = new Alert(AlertType.ERROR); 
-//	errorAlert.setHeaderText("Input not valid!"); 
-//	errorAlert.setContentText("Please provide a valid tablature!"); 
-//	errorAlert.showAndWait();
-//	errorAlert.close();
-//	return;
-//}
+}

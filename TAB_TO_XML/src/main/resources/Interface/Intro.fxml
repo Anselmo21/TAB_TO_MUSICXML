@@ -55,7 +55,6 @@
                   </Label>
                </children>
             </TilePane>
-            <ChoiceBox fx:id="instrumentBox" layoutX="25.0" layoutY="663.0" prefHeight="22.0" prefWidth="100.0" visible="false" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.leftAnchor="25.0" />
             <GridPane layoutX="20.0" layoutY="698.0" prefHeight="34.0" prefWidth="210.0" AnchorPane.bottomAnchor="67.6" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="700.8000000000001">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -67,8 +66,8 @@
                   <Label fx:id="getInstrument" prefHeight="34.0" prefWidth="185.0" textFill="WHITE" />
                </children>
             </GridPane>
-            <Button layoutX="28.0" layoutY="628.0" mnemonicParsing="false" text="Save Edits" AnchorPane.bottomAnchor="149.60000000000002" AnchorPane.leftAnchor="28.0" />
-            <TilePane alignment="TOP_CENTER" layoutX="291.0" layoutY="561.0" prefHeight="22.0" prefWidth="118.0" AnchorPane.leftAnchor="291.0" AnchorPane.rightAnchor="445.8" AnchorPane.topAnchor="561.0">
+            <Button fx:id="edits" layoutX="28.0" layoutY="628.0" mnemonicParsing="false" onAction="#handleButtonSaveEdits" text="Save Edits" AnchorPane.bottomAnchor="149.60000000000002" AnchorPane.leftAnchor="28.0" />
+            <TilePane alignment="TOP_CENTER" layoutX="291.0" layoutY="561.0" prefHeight="22.0" prefWidth="118.0" AnchorPane.bottomAnchor="215.0" AnchorPane.leftAnchor="291.0" AnchorPane.rightAnchor="445.8">
                <children>
                   <Label prefHeight="24.0" prefWidth="163.0" text="Time Signature: " textFill="WHITE" />
                </children>
@@ -76,6 +75,11 @@
             <TilePane alignment="TOP_CENTER" layoutX="443.0" layoutY="573.0" prefHeight="22.0" prefWidth="80.0" AnchorPane.bottomAnchor="204.60000000000002" AnchorPane.leftAnchor="443.0" AnchorPane.rightAnchor="377.0">
                <children>
                   <ChoiceBox fx:id="timeSignature" prefHeight="22.0" prefWidth="80.0" />
+               </children>
+            </TilePane>
+            <TilePane alignment="TOP_CENTER" layoutX="15.0" layoutY="763.0" prefHeight="22.0" prefWidth="100.0" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="785.0">
+               <children>
+                  <ChoiceBox fx:id="instrumentBox" prefHeight="22.0" prefWidth="100.0" visible="false" />
                </children>
             </TilePane>
          </children>
