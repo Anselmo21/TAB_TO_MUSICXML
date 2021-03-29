@@ -916,6 +916,9 @@ public class App {
 					note.get(note.size() - 1).setUnpitch(unpitched);
 					
 					// set has note in the column to true
+					if (beamcount == 4) {
+						beamcount = 0;
+					}
 					hasPrevColNote = true;
 				}
 			}
