@@ -1,6 +1,6 @@
 package DrumModel;
 
-public class RestNote extends Note {
+public class RestNote {
 	Rest rest;
 	String duration; 
 	String voice; 

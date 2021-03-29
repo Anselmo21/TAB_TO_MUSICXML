@@ -3,7 +3,6 @@ package DrumModel;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
@@ -20,13 +19,13 @@ public class Measure {
 	Backup backup;
 	
     @JacksonXmlElementWrapper(useWrapping = false)
-	ArrayList<Note> noteBack;
+	ArrayList<Object> noteBack;
 
-	public ArrayList<Note> getNoteBack() {
+	public ArrayList<Object> getNoteBack() {
 		return noteBack;
 	}
 
-	public void setNoteBack(ArrayList<Note> noteBack) {
+	public void setNoteBack(ArrayList<Object> noteBack) {
 		this.noteBack = noteBack;
 	}
 

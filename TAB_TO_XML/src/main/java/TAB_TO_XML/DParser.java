@@ -86,66 +86,92 @@ public class DParser {
 	 * @param parse is the array list of strings that contains a whole line of notes
 	 * @return an String that returns either begin, continue and end.
 	 */
-	public static String beamState(ArrayList<String> parse, String type, int row, int column) {
+	public static String beamState(ArrayList<String> parse, String type, int row, int column, int beamcount) {
 		String state = null;
+		if (beamcount > 0 && beamcount < 3) {
 		if (type == "16th")	{
 			if (column > 0 && column < parse.get(0).length() - 1) {
-				boolean isbottom = true;
-				for (int i = 4; i >= row; i--) {
-					if (parse.get(i).charAt(column) == 'o' && parse.get(i).charAt(column) == 'x') {
-						isbottom = false;
+				int statenum = 0;
+				for (int i = 4; i >= 0; i--) {
+					if (parse.get(i).charAt(column+1) == 'x' || parse.get(i).charAt(column+1) == 'o') {
+						statenum += 2;
+						break;
 					}
 				}
-				if (isbottom == true) {
-				if ((parse.get(row).charAt(column+1) == 'x' || parse.get(row).charAt(column+1) == 'o') 
-						&& (parse.get(row).charAt(column-1) == 'o' || parse.get(row).charAt(column-1) == 'x')) {
-					state = "continue";
-				} else if ((parse.get(row).charAt(column+1) == 'o' && (parse.get(row).charAt(column-1) != 'o' || parse.get(row).charAt(column-1) != 'x')) || 
-						(parse.get(row).charAt(column+1) == 'x' && (parse.get(row).charAt(column-1) != 'x' || parse.get(row).charAt(column-1) != 'o'))) {
-					state = "begin";
-				} else if ((parse.get(row).charAt(column+1) != 'x' && parse.get(row).charAt(column+1) != 'o' && parse.get(row).charAt(column-1) == 'o') || 
-						(parse.get(row).charAt(column+1) != 'o' && parse.get(row).charAt(column+1) != 'x' && parse.get(row).charAt(column-1) == 'x')) {
-					state = "end";
+				for (int i = 4; i >= 0; i--) {
+					 if (parse.get(i).charAt(column-1) == 'x' || parse.get(i).charAt(column-1) == 'o') {
+						statenum += 1;
+						break;
+					}
 				}
+				if (statenum == 3) {
+					state = "continue";
+				} else if (statenum == 2) {
+					state = "begin";
+				} else if (statenum == 1) {
+					state = "end";
 				}	else {
+					state = "No beam";
+				}
+			}	else if (column == 0 || beamcount == 0) {
+				state = "begin";
+			}	else if (beamcount == 3 || column == parse.get(0).length() - 2) {
+				state = "end";
+			}
+		}	else if (type == "eighth") {
+			if (column > 1 && column < parse.get(0).length() - 2) {
+				int statenum = 0;
+				for (int i = 4; i >= 0; i--) {
+					if (parse.get(i).charAt(column+2) == 'x' || parse.get(i).charAt(column+2) == 'o') {
+						statenum += 2;
+						break;
+					}
+				}
+				for (int i = 4; i >= 0; i--) {
+					 if (parse.get(i).charAt(column-2) == 'x' || parse.get(i).charAt(column-2) == 'o') {
+						statenum += 1;
+						break;
+					}
+				}
+				if (statenum == 3) {
+					state = "continue";
+				} else if (statenum == 2) {
+					state = "begin";
+				} else if (statenum == 1) {
+					state = "end";
+				}	else if (statenum == 0){
 					state = "No beam";
 				}
 			}	else if (column == 0) {
 				state = "begin";
 			}	else {
 				state = "end";
-			}
-		}	else if (type == "eighth") {
-			if (column > 1 && column < parse.get(0).length() - 2) {
-				boolean isbottom = true;
-				for (int i = 4; i >= row; i--) {
-					if (parse.get(i).charAt(column) == 'o' && parse.get(i).charAt(column) == 'x') {
-						isbottom = false;
-					}
-				}
-				if (isbottom == true) {
-					if ((parse.get(row).charAt(column+2) == 'x' || parse.get(row).charAt(column+2) == 'o') 
-							&& (parse.get(row).charAt(column-2) == 'o' || parse.get(row).charAt(column-2) == 'x')) {
-						state = "continue";
-					} else if ((parse.get(row).charAt(column+2) == 'o' && (parse.get(row).charAt(column-2) != 'o' || parse.get(row).charAt(column-2) != 'x')) || 
-							(parse.get(row).charAt(column+2) == 'x' && (parse.get(row).charAt(column-2) != 'x' || parse.get(row).charAt(column-2) != 'o'))) {
-						state = "begin";
-					} else if ((parse.get(row).charAt(column+2) != 'x' && parse.get(row).charAt(column+2) != 'o' && parse.get(row).charAt(column-2) == 'o') || 
-							(parse.get(row).charAt(column+2) != 'o' && parse.get(row).charAt(column+2) != 'x' && parse.get(row).charAt(column-2) == 'x')) {
-						state = "end";
-					}
-				}	else {
-					state = "No beam";
-				}
-			}	else if (column <= 1) {
-				state = "begin";
-			}	else {
-				state = "end";
-			}
+			}	
+		}
+		} else if (beamcount == 0) {
+			state = "begin";
+		}	else if (beamcount == 3) {
+			state = "end";
 		}
 		return state;
 	}
 
+	/**
+	 * Helper method to update the size of the beams
+	 * 
+	 * @param state is the state of the note which is placed on a beam and beamcount is the current size of the beam.
+	 * @return an int that returns from 1 to 4
+	 */
+	public static int countBeam(String state, int beamcount) {
+		if (state == "begin") {
+			beamcount = 1;
+		}	else if (state == "end") {
+			beamcount = 4;
+		}	else {
+			beamcount++;
+		}
+		return beamcount;
+	}
 	
 	/**
 	 * Method used to get the state of the beam
