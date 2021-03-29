@@ -8,9 +8,14 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 @JsonPropertyOrder({"harmonic", "pulloff", "hammer", "string", "fret"})
-public class Technical {
+public class HarmonicTechnical extends Technical{
+
+	@JacksonXmlProperty(localName = "harmonic")
+	private String harmonics;
+	
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	protected String string;
+
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	protected String fret;
 	
@@ -46,8 +51,8 @@ public class Technical {
 
 
 
-	public Technical() {}
-	public Technical(String string, String fret) {
+	public HarmonicTechnical() {}
+	public HarmonicTechnical(String string, String fret) {
 		super();
 		this.string = string;
 		this.fret = fret;
@@ -70,5 +75,8 @@ public class Technical {
 		
 	}
 
-
+	public void setHarmonics() {
+		this.harmonics = null;
+		
+	}
 }
