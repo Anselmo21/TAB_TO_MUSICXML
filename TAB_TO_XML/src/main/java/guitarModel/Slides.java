@@ -14,7 +14,6 @@ public class Slides {
 	private String type; 
 	
 	
-	
 	public void setNumber(int number) { 
 		
 		this.number = number; 

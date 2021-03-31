@@ -15,6 +15,7 @@ public class Notations {
 	@JacksonXmlElementWrapper(useWrapping = false)
 	private ArrayList<Slides> slides;
 	
+	
 	private Technical technical;
 	
 	private Slur slur;

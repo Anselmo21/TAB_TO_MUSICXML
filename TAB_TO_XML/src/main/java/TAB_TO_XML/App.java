@@ -521,6 +521,7 @@ public class App {
 //							
 //						}
 //					}
+					
 					//Natural Harmonics or not
 					if (meas.get(x).charAt(prevColumn) == '[' && meas.get(x).charAt(nextColumn) == ']' ) {
 						
