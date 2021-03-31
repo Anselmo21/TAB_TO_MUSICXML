@@ -144,6 +144,20 @@ class AppTest {
 	}
 	
 	@Test
+	public void identifyInstrumentTest4() {
+		ArrayList<String> guitarTab = new ArrayList<>();
+		guitarTab.add("CC|-----------x-----|-0---------------|");
+		guitarTab.add("HH|---------0---0---|-0---------------|");
+		guitarTab.add("SD|-------1-------1-|-1---------------|");
+		guitarTab.add("HT|-----2-----------|-2---------------|");
+		guitarTab.add("MT|---2-------------|-2---------------|");
+		guitarTab.add("BD|-0---------------|-0---------------|");
+		String actual = App.identifyInstrument(guitarTab);
+		String expected = "Guitar";
+		assertEquals(expected, actual);
+	}
+	
+	@Test
 	public void guitarTabToXMLTest1() {
 		ArrayList<String> tabAsList = App.getFileList(
 				"|-----------0-----|-0---------------|\n"
