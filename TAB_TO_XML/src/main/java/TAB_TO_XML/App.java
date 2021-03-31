@@ -1006,6 +1006,7 @@ public class App {
 		// backup here
 		DrumModel.Backup bup = new DrumModel.Backup();
 		ArrayList<Object> noteback = new ArrayList<Object>();
+		bup.setDuration("0");
 				for (int y = 0; y < meas.get(0).length(); y++) {
 					char character = meas.get(meas.size() - 1).charAt(y);
 					if (character == 'o') {
@@ -1071,7 +1072,9 @@ public class App {
 
 
 		newMeasure.setNote(note);
-		newMeasure.setBackup(bup);
+		if (bup.getDuration() != "0") {
+			newMeasure.setBackup(bup);
+		}
 		newMeasure.setNoteBack(noteback);
 		return newMeasure;
 	}
@@ -1088,13 +1091,22 @@ public class App {
 	 */
 	public static String identifyInstrument(ArrayList<String> content) { 
 
+		boolean isdrum = true;
+		outerloop:
 		for (int i = 0; i < content.size(); i++) { 
-			if (content.get(i).contains("x") || content.get(i).contains("o")) {
-				return "Drums";
+			for (int j = 0; j < content.get(0).length(); j++) {
+			if (Character.isDigit(content.get(i).charAt(j))) {
+				isdrum = false;
+				break outerloop;
+			}
 			}
 		}
+		if (isdrum == true) {
+			return "Drums";
+		}	else {
 		if (helpMe(content) == 4) return "Bass";
 		else if (helpMe(content) == 6) return "Guitar";
+		}
 		
 		return "No Instrument Detected";
 	}

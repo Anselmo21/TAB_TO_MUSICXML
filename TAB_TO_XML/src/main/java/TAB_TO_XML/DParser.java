@@ -46,7 +46,7 @@ public class DParser {
 		
 		outerloop: 
 		for (int i = column + 1; i < parse.get(0).length(); i++) {
-					if (parse.get(5).charAt(i) !=  '-') {
+					if (parse.get(parse.size()-1).charAt(i) !=  '-') {
 						break outerloop;
 					}
 					else {
