@@ -104,12 +104,24 @@ public class App {
 			int measureCount = 0;
 			// iter through each collection
 			for (int i = 0; i < collections.size(); i++) {
+				
+				// get tuning steps
+				ArrayList<String> tuningSteps = new ArrayList<String>();
+				for(int x = 0; x < collections.get(i).size(); x++) {
+					for (int y = 0; y < collections.get(i).get(x).length(); y++) {
+						if(collections.get(i).get(x).charAt(y) == '|') {
+							tuningSteps.add(collections.get(i).get(x).substring(0, y));
+							break;
+						}
+					}
+				}
+				
 				ArrayList<ArrayList<String>> measuresOfCollection = BParser.collectionToMeasure(collections.get(i));
 
 				// iter through each measure set
 				for (int j = 0; j < measuresOfCollection.size(); j++) {
 					measureCount++;
-					BassModel.Measure newMeasure = parseBassMeasure(measuresOfCollection.get(j), measureCount);
+					BassModel.Measure newMeasure = parseBassMeasure(measuresOfCollection.get(j), measureCount, tuningSteps);
 					measures.add(newMeasure);
 				}
 			}
@@ -135,7 +147,7 @@ public class App {
 		return null;
 	}
 
-	private static BassModel.Measure parseBassMeasure(ArrayList<String> meas, int measureNumber) {
+	private static BassModel.Measure parseBassMeasure(ArrayList<String> meas, int measureNumber, ArrayList<String> tuningSteps) {
 
 		BassModel.Measure newMeasure = new BassModel.Measure();
 		newMeasure.setNumber(measureNumber);
@@ -159,30 +171,38 @@ public class App {
 
 			// staff tunings
 			ArrayList<BassModel.StaffTuning> staffTunings = new ArrayList<BassModel.StaffTuning>();
-			BassModel.StaffTuning staffTuning0 = new BassModel.StaffTuning();
-			staffTuning0.setLine(1);
-			staffTuning0.setTuningStep("E");
-			staffTuning0.setTuningOctave("1");
-			staffTunings.add(staffTuning0);
-
-			BassModel.StaffTuning staffTuning1 = new BassModel.StaffTuning();
-			staffTuning1.setLine(2);
-			staffTuning1.setTuningStep("A");
-			staffTuning1.setTuningOctave("1");
-			staffTunings.add(staffTuning1);
-
-			BassModel.StaffTuning staffTuning2 = new BassModel.StaffTuning();
-			staffTuning2.setLine(3);
-			staffTuning2.setTuningStep("D");
-			staffTuning2.setTuningOctave("2");
-			staffTunings.add(staffTuning2);
-
-			BassModel.StaffTuning staffTuning3 = new BassModel.StaffTuning();
-			staffTuning3.setLine(4);
-			staffTuning3.setTuningStep("2");
-			staffTuning3.setTuningOctave("3");
-			staffTunings.add(staffTuning3);
-
+//			BassModel.StaffTuning staffTuning0 = new BassModel.StaffTuning();
+//			staffTuning0.setLine(1);
+//			staffTuning0.setTuningStep("E");
+//			staffTuning0.setTuningOctave("1");
+//			staffTunings.add(staffTuning0);
+//
+//			BassModel.StaffTuning staffTuning1 = new BassModel.StaffTuning();
+//			staffTuning1.setLine(2);
+//			staffTuning1.setTuningStep("A");
+//			staffTuning1.setTuningOctave("1");
+//			staffTunings.add(staffTuning1);
+//
+//			BassModel.StaffTuning staffTuning2 = new BassModel.StaffTuning();
+//			staffTuning2.setLine(3);
+//			staffTuning2.setTuningStep("D");
+//			staffTuning2.setTuningOctave("2");
+//			staffTunings.add(staffTuning2);
+//
+//			BassModel.StaffTuning staffTuning3 = new BassModel.StaffTuning();
+//			staffTuning3.setLine(4);
+//			staffTuning3.setTuningStep("2");
+//			staffTuning3.setTuningOctave("3");
+//			staffTunings.add(staffTuning3);
+			
+			
+			for(int i = 0; i < tuningSteps.size(); i++) {
+				BassModel.StaffTuning staffTuning0 = new BassModel.StaffTuning();
+				staffTuning0.setLine(i+1);
+				staffTuning0.setTuningStep(tuningSteps.get(i));
+				staffTuning0.setTuningOctave("2");
+				staffTunings.add(staffTuning0);
+			}
 
 
 			staffDetails.setStaffTunings(staffTunings);
