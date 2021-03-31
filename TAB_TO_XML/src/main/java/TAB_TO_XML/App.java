@@ -450,11 +450,11 @@ public class App {
 					//if it's a graced note
 					if (meas.get(x).charAt(prevColumn) == 'g') { 
 						GraceNote grace = new guitarModel.GraceNote();
-						note.add(new guitarModel.GraceNote());
 						grace.setStem();//sets the stem value to "none"
+						note.add(grace);
 					}
 					// if has previous note in column
-					if (hasPrevColNote) {
+					else if (hasPrevColNote) {
 						note.add(new guitarModel.ChordNote());
 					} else {
 						note.add(new guitarModel.Note());
