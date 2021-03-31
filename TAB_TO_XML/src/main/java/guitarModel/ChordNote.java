@@ -1,6 +1,7 @@
 package guitarModel;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 @JsonPropertyOrder({ "chord", "pitch", "duration", "voice", "type", "notations" })

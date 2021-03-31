@@ -486,7 +486,7 @@ public class App {
 					guitarModel.HarmonicTechnical tech = new guitarModel.HarmonicTechnical();
 					ArrayList<guitarModel.PullOff> pullList = new ArrayList<guitarModel.PullOff>();
 					ArrayList<guitarModel.HammerOn> hammerList = new ArrayList<guitarModel.HammerOn>();
-					
+					ArrayList<guitarModel.Slides> slideList = new ArrayList<guitarModel.Slides>();
 				
 //					//consecutive pull offs 
 //					if(character == 'p' || character == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) { 
@@ -523,7 +523,26 @@ public class App {
 //					}
 					//Natural Harmonics or not
 					if (meas.get(x).charAt(prevColumn) == '[' && meas.get(x).charAt(nextColumn) == ']' ) {
+						
 						tech.setHarmonics();
+						
+					//Slide Techniques: START
+					if (meas.get(x).charAt(nextColumn) == 's') {
+						guitarModel.Slides slide = new guitarModel.Slides();
+						slide.setNumber(1);
+						slide.setType("start");
+						slideList.add(slide);
+						notations.setSlides(slideList);
+					}
+					//Slide Techniques: END
+					if (meas.get(x).charAt(prevColumn) == 's') {					
+						guitarModel.Slides s11 = new guitarModel.Slides(); 
+						s11.setNumber(1); 
+						s11.setType("stop");
+						slideList.add(s11);
+						notations.setSlides(slideList);
+					}
+							
 					//Pull-off techniques: START
 					if (meas.get(x).charAt(nextColumn) == 'p' || meas.get(x).charAt(nextColumn) == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
 						guitarModel.PullOff pl = new guitarModel.PullOff(); 
@@ -592,7 +611,29 @@ public class App {
 					note.get(note.size() - 1).setNotations(notations);
 					
 					} 
-					else { //If it's not a Harmonic Technical Note 
+					
+					/*
+					 * If it's not a Harmonic Technical Note 
+					 */
+					else { 
+						//Slide Techniques: START
+						if (meas.get(x).charAt(nextColumn) == 's' ) {
+							guitarModel.Slides sd = new guitarModel.Slides();
+							sd.setNumber(1);
+							
+							sd.setType("start");
+							slideList.add(sd);
+							notations.setSlides(slideList);
+						}
+						//Slide Techniques: END
+						if (meas.get(x).charAt(prevColumn) == 's') 
+						{
+							guitarModel.Slides sl1 = new guitarModel.Slides(); 
+							sl1.setNumber(1); 
+							sl1.setType("stop");
+							slideList.add(sl1);
+							notations.setSlides(slideList);
+						}
 						if (meas.get(x).charAt(nextColumn) == 'p' || meas.get(x).charAt(nextColumn) == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
 							guitarModel.PullOff pl = new guitarModel.PullOff(); 
 							pl.setNumber(1);
