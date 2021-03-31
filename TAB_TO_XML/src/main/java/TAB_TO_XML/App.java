@@ -22,6 +22,17 @@ import DrumModel.*;
 import guitarModel.*;
 
 public class App {
+	public static void main(String[]args) { 
+		ArrayList<String> tab = new ArrayList<String>();
+		tab.add("aaa|-----------0-----|-1-------------9-|");
+		tab.add("aaa|---------0---0---|-0---------------|");
+		tab.add("aaa|-------1-------1-|-1---------------|");
+		tab.add("aaa|-----2-----------|-2---------------|"); 
+		tab.add("aaa|---2-------------|-2---------------|");
+		tab.add("aaa|-0---------------|-0---------------|");
+		App.guitarTabToXML(tab);
+			
+	}
 	
 	public static String runConversion(String tab) {
 		String conversion = null;
@@ -434,8 +445,14 @@ public class App {
 			}
 			for (int x = meas.size() - 1; x >= 0; x--) {
 				char character = meas.get(x).charAt(y);
-
+				
 				if (Character.isDigit(character)) {
+					//if it's a graced note
+					if (meas.get(x).charAt(prevColumn) == 'g') { 
+						GraceNote grace = new guitarModel.GraceNote();
+						note.add(new guitarModel.GraceNote());
+						grace.setStem();//sets the stem value to "none"
+					}
 					// if has previous note in column
 					if (hasPrevColNote) {
 						note.add(new guitarModel.ChordNote());
