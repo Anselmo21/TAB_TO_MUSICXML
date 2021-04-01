@@ -128,7 +128,16 @@ public class GuitarParser {
 		for (int z = 1; z < input.size(); z=z+6){
 			for (int i = 0; i < (input.get(0).length()-1)/18; i++) {	
 				for (int j = 0; j < 6; j++) {
-					eachSection.add(input.get(j+z-1).substring(1+18*i, 18*(i+1)));
+					if (!(input.get(j+z-1).subSequence(0, 1).equals("|"))) {
+						int count=0;
+						while(!(input.get(j+z-1).subSequence(count, count+1).equals("|"))) {
+							count++;
+						}
+						eachSection.add(input.get(j+z-1).substring(1+18*i+count, 18*(i+1)+count));
+					}
+					else {
+						eachSection.add(input.get(j+z-1).substring(1+18*i, 18*(i+1)));
+					}
 				}
 				sections.add(eachSection);
 				eachSection = new ArrayList<String>();

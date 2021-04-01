@@ -130,7 +130,22 @@ import Interface.Controller;
 				for (int i = 0; i < (input.get(0).length()-1)/21; i++) {	
 					for (int j = 0; j < 4; j++) {
 						eachSection.add(input.get(j+z-1).substring(1+21*i, 21*(i+1)));
+						
+						
+						if (!(input.get(j+z-1).subSequence(0, 1).equals("|"))) {
+							int count=0;
+							while(!(input.get(j+z-1).subSequence(count, count+1).equals("|"))) {
+								count++;
+							}
+							eachSection.add(input.get(j+z-1).substring(1+21*i+count, 21*(i+1)+count));
+						}
+						else {
+							eachSection.add(input.get(j+z-1).substring(1+21*i, 21*(i+1)));
+						}
+						
 					}
+					
+					
 					sections.add(eachSection);
 					eachSection = new ArrayList<String>();
 				}
