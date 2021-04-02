@@ -673,6 +673,7 @@ public class App {
 					note.get(note.size() - 1).setDuration(duration.toString());
 					}
 
+					
 					note.get(note.size() - 1).setType(GuitarParser.typeDeclare(duration));
 					note.get(note.size() - 1).setVoice("1");
 
