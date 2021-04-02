@@ -1,5 +1,6 @@
 package BassModel;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
@@ -11,6 +12,8 @@ public class BassGraceNote extends Note{
 	@JacksonXmlProperty(localName = "stem")
 	private String stem;
 	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	private String duration; 
 	
 	public void setGrace() { 
 		this.grace = null;
@@ -19,7 +22,9 @@ public class BassGraceNote extends Note{
 	public void setStem() { 
 		this.stem = "none";
 	}
-
+	public void setDuration() { 
+		this.duration = null;
+	}
 	//Default Constructor
 	public BassGraceNote() {}
 	

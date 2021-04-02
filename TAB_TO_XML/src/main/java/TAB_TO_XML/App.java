@@ -236,6 +236,7 @@ public class App {
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
 			Boolean hasPrevColNote = false;
+			Boolean isGrace = false;
 			int nextColumn1 = 0;
 			int prevColumn1 = 0;
 			if (y + 1 < meas.get(0).length()) { //prevent index out of bounds
@@ -249,8 +250,10 @@ public class App {
 
 				if (Character.isDigit(character)) {
 					if (meas.get(x).charAt(prevColumn1) == 'g') { 
+						isGrace = true;
 						BassGraceNote grace1 = new BassModel.BassGraceNote();
 						grace1.setStem();//sets the stem value to "none"
+						grace1.setDuration();
 						note.add(grace1);
 					}
 					else if (hasPrevColNote) {
@@ -260,8 +263,11 @@ public class App {
 					}
 
 					Integer duration = BParser.durationCount(meas, y, division);
+					
+					if(isGrace == false) {
 					note.get(note.size() - 1).setDuration(duration.toString());
-
+					}
+					
 					note.get(note.size() - 1).setType(BParser.typeDeclare(duration));
 					note.get(note.size() - 1).setVoice("1");
 
@@ -633,6 +639,7 @@ public class App {
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
 			Boolean hasPrevColNote = false;
+			Boolean isGrace = false;
 			int nextColumn = 0;
 			int prevColumn = 0;
 			if (y + 1 < meas.get(0).length()) { //prevent index out of bounds
@@ -647,7 +654,9 @@ public class App {
 				if (Character.isDigit(character)) {
 					//if it's a graced note
 					if (meas.get(x).charAt(prevColumn) == 'g') { 
+						isGrace = true;
 						GraceNote grace = new guitarModel.GraceNote();
+						grace.setDuration();
 						grace.setStem();//sets the stem value to "none"
 						note.add(grace);
 					}
@@ -659,7 +668,10 @@ public class App {
 					}
 
 					Integer duration = GuitarParser.durationCount(meas, y, division);
+					
+					if (isGrace == false) {
 					note.get(note.size() - 1).setDuration(duration.toString());
+					}
 
 					note.get(note.size() - 1).setType(GuitarParser.typeDeclare(duration));
 					note.get(note.size() - 1).setVoice("1");
