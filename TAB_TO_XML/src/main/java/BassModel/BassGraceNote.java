@@ -15,6 +15,9 @@ public class BassGraceNote extends Note{
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private String duration; 
 	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	private String type; 
+	
 	public void setGrace() { 
 		this.grace = null;
 	}
@@ -27,6 +30,12 @@ public class BassGraceNote extends Note{
 	}
 	//Default Constructor
 	public BassGraceNote() {}
+
+
+	public void removeNoteType() {
+		this.type = null;
+		
+	}
 	
 }
 

@@ -254,6 +254,7 @@ public class App {
 						BassGraceNote grace1 = new BassModel.BassGraceNote();
 						grace1.setStem();//sets the stem value to "none"
 						grace1.setDuration();
+						grace1.removeNoteType();
 						note.add(grace1);
 					}
 					else if (hasPrevColNote) {
@@ -266,9 +267,9 @@ public class App {
 					
 					if(isGrace == false) {
 					note.get(note.size() - 1).setDuration(duration.toString());
+					note.get(note.size() - 1).setType(BParser.typeDeclare(duration));
 					}
 					
-					note.get(note.size() - 1).setType(BParser.typeDeclare(duration));
 					note.get(note.size() - 1).setVoice("1");
 
 					// if the note is length 2, it contains a sharp
@@ -657,6 +658,7 @@ public class App {
 						isGrace = true;
 						GraceNote grace = new guitarModel.GraceNote();
 						grace.setDuration();
+						grace.setNoteType();
 						grace.setStem();//sets the stem value to "none"
 						note.add(grace);
 					}
@@ -671,11 +673,9 @@ public class App {
 					
 					if (isGrace == false) {
 					note.get(note.size() - 1).setDuration(duration.toString());
+					note.get(note.size() - 1).setType(GuitarParser.typeDeclare(duration));
 					}
 					
-
-					
-					note.get(note.size() - 1).setType(GuitarParser.typeDeclare(duration));
 					note.get(note.size() - 1).setVoice("1");
 
 					// if the note is length 2, it contains a sharp

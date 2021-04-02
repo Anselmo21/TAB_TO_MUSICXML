@@ -15,6 +15,9 @@ public class GraceNote extends Note {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	private String duration; 
 	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	private String type;
+	
 	public void setGrace() { 
 		this.grace = null;
 	}
@@ -26,7 +29,13 @@ public class GraceNote extends Note {
 		this.duration = null;
 	}
 
+
 	//Default Constructor
 	public GraceNote() {}
+
+	public void setNoteType() {
+		this.type = null;
+		
+	}
 	
 }
