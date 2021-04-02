@@ -286,6 +286,7 @@ public class App {
 					ArrayList<BassModel.BassPullOff> pullList = new ArrayList<BassModel.BassPullOff>();
 					ArrayList<BassModel.BassHammer> hammerList = new ArrayList<BassModel.BassHammer>();
 					ArrayList<BassModel.BassSlide> slideList = new ArrayList<BassModel.BassSlide>();
+					
 					//Natural Harmonics or not
 					
 					if (meas.get(x).charAt(prevColumn1) == '[' && meas.get(x).charAt(nextColumn1) == ']' ) {
@@ -294,15 +295,15 @@ public class App {
 						
 					//Slide Techniques: START
 					if (meas.get(x).charAt(nextColumn1) == 's') {
-						guitarModel.Slides slide = new guitarModel.Slides();
+						BassModel.BassSlide slide = new BassModel.BassSlide();
 						slide.setNumber(1);
 						slide.setType("start");
 						slideList.add(slide);
 						notations.setSlides(slideList);
 					}
 					//Slide Techniques: END
-					if (meas.get(x).charAt(prevColumn) == 's') {					
-						guitarModel.Slides s11 = new guitarModel.Slides(); 
+					if (meas.get(x).charAt(prevColumn1) == 's') {					
+						BassModel.BassSlide s11 = new BassModel.BassSlide(); 
 						s11.setNumber(1); 
 						s11.setType("stop");
 						slideList.add(s11);
@@ -310,14 +311,14 @@ public class App {
 					}
 							
 					//Pull-off techniques: START
-					if (meas.get(x).charAt(nextColumn) == 'p' || meas.get(x).charAt(nextColumn) == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
-						guitarModel.PullOff pl = new guitarModel.PullOff(); 
+					if (meas.get(x).charAt(nextColumn1) == 'p' || meas.get(x).charAt(nextColumn1) == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn1)) && Character.isDigit(meas.get(x).charAt(nextColumn1))) {
+						BassModel.BassPullOff pl = new BassModel.BassPullOff(); 
 						pl.setNumber(1);
 						pl.setType("start");
 						pl.setSymbol("P");
 						pullList.add(pl);
 						
-						guitarModel.Slur su = new guitarModel.Slur();
+						BassModel.BassSlur su = new BassModel.BassSlur();
 						su.setNumber(1);
 					//	su.setPlacement("above");
 						su.setType("start");
@@ -327,12 +328,12 @@ public class App {
 					}
 					
 					//Pull-off techniques: END
-					if (meas.get(x).charAt(prevColumn) == 'p' || meas.get(x).charAt(prevColumn) == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
-						guitarModel.PullOff pull = new guitarModel.PullOff();
+					if (meas.get(x).charAt(prevColumn1) == 'p' || meas.get(x).charAt(prevColumn1) == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn1)) && Character.isDigit(meas.get(x).charAt(nextColumn1))) {
+						BassModel.BassPullOff pull = new BassModel.BassPullOff();
 						pull.setNumber(1);
 						pull.setType("stop");
 						pullList.add(pull);
-						guitarModel.Slur sl = new guitarModel.Slur(); 
+						BassModel.BassSlur sl = new BassModel.BassSlur(); 
 						sl.setNumber(1); 
 						sl.setType("stop");
 						tech.setPull(pullList);
@@ -341,15 +342,15 @@ public class App {
 					}
 					
 					//Hammer-on technique: START 
-					if (meas.get(x).charAt(nextColumn) == 'h' || meas.get(x).charAt(nextColumn) == 'H' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
+					if (meas.get(x).charAt(nextColumn1) == 'h' || meas.get(x).charAt(nextColumn1) == 'H' && Character.isDigit(meas.get(x).charAt(prevColumn1)) && Character.isDigit(meas.get(x).charAt(nextColumn1))) {
 						
-						guitarModel.HammerOn ham = new guitarModel.HammerOn();
+						BassModel.BassHammer ham = new BassModel.BassHammer();
 						ham.setNumber(1);
 						ham.setType("start");
 						ham.setSymbol("H");
 						hammerList.add(ham);
 						
-						guitarModel.Slur sr = new guitarModel.Slur(); 
+						BassModel.BassSlur sr = new BassModel.BassSlur(); 
 						sr.setNumber(1);
 						sr.setType("start");
 						tech.setHammer(hammerList);
@@ -357,14 +358,14 @@ public class App {
 					}
 		
 						//Hammer-on technique: END
-					if (meas.get(x).charAt(prevColumn) == 'h' || meas.get(x).charAt(prevColumn) == 'H' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
-						guitarModel.HammerOn hammer = new guitarModel.HammerOn();
+					if (meas.get(x).charAt(prevColumn1) == 'h' || meas.get(x).charAt(prevColumn1) == 'H' && Character.isDigit(meas.get(x).charAt(prevColumn1)) && Character.isDigit(meas.get(x).charAt(nextColumn1))) {
+						BassModel.BassHammer hammer = new BassModel.BassHammer();
 						hammer.setNumber(1);
 						hammer.setType("stop");
 						
 						hammerList.add(hammer);
 						
-						guitarModel.Slur slur = new guitarModel.Slur(); 
+						BassModel.BassSlur slur = new BassModel.BassSlur(); 
 						slur.setNumber(1);
 						slur.setType("stop");
 						tech.setHammer(hammerList);
@@ -383,8 +384,8 @@ public class App {
 					 */
 					else { 
 						//Slide Techniques: START
-						if (meas.get(x).charAt(nextColumn) == 's' ) {
-							guitarModel.Slides sd = new guitarModel.Slides();
+						if (meas.get(x).charAt(nextColumn1) == 's' ) {
+							BassModel.BassSlide sd = new BassModel.BassSlide();
 							sd.setNumber(1);
 							
 							sd.setType("start");
@@ -392,54 +393,54 @@ public class App {
 							notations.setSlides(slideList);
 						}
 						//Slide Techniques: END
-						if (meas.get(x).charAt(prevColumn) == 's') 
+						if (meas.get(x).charAt(prevColumn1) == 's') 
 						{
-							guitarModel.Slides sl1 = new guitarModel.Slides(); 
+							BassModel.BassSlide sl1 = new BassModel.BassSlide(); 
 							sl1.setNumber(1); 
 							sl1.setType("stop");
 							slideList.add(sl1);
 							notations.setSlides(slideList);
 						}
-						if (meas.get(x).charAt(nextColumn) == 'p' || meas.get(x).charAt(nextColumn) == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
-							guitarModel.PullOff pl = new guitarModel.PullOff(); 
+						if (meas.get(x).charAt(nextColumn1) == 'p' || meas.get(x).charAt(nextColumn1) == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn1)) && Character.isDigit(meas.get(x).charAt(nextColumn1))) {
+							BassModel.BassPullOff pl = new BassModel.BassPullOff(); 
 							pl.setNumber(1);
 							pl.setType("start");
 							pl.setSymbol("P");
 							pullList.add(pl);
 							
-							guitarModel.Slur su = new guitarModel.Slur();
+							BassModel.BassSlur su = new BassModel.BassSlur();
 							su.setNumber(1);
 						//	su.setPlacement("above");
 							su.setType("start");
-							technical.setPull(pullList);
+							technical.setPullOff(pullList);
 							notations.setSlur(su);
 						
 						}
 						
 						//Pull-off techniques: END
-						if (meas.get(x).charAt(prevColumn) == 'p' || meas.get(x).charAt(prevColumn) == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
-							guitarModel.PullOff pull = new guitarModel.PullOff();
+						if (meas.get(x).charAt(prevColumn1) == 'p' || meas.get(x).charAt(prevColumn1) == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn1)) && Character.isDigit(meas.get(x).charAt(nextColumn1))) {
+							BassModel.BassPullOff pull = new BassModel.BassPullOff();
 							pull.setNumber(1);
 							pull.setType("stop");
 							pullList.add(pull);
-							guitarModel.Slur sl = new guitarModel.Slur(); 
+							BassModel.BassSlur sl = new BassModel.BassSlur(); 
 							sl.setNumber(1); 
 							sl.setType("stop");
-							technical.setPull(pullList);
+							technical.setPullOff(pullList);
 							notations.setSlur(sl);
 							
 						}
 						
 						//Hammer-on technique: START 
-						if (meas.get(x).charAt(nextColumn) == 'h' || meas.get(x).charAt(nextColumn) == 'H' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
+						if (meas.get(x).charAt(nextColumn1) == 'h' || meas.get(x).charAt(nextColumn1) == 'H' && Character.isDigit(meas.get(x).charAt(prevColumn1)) && Character.isDigit(meas.get(x).charAt(nextColumn1))) {
 							
-							guitarModel.HammerOn ham = new guitarModel.HammerOn();
+							BassModel.BassHammer ham = new BassModel.BassHammer();
 							ham.setNumber(1);
 							ham.setType("start");
 							ham.setSymbol("H");
 							hammerList.add(ham);
 							
-							guitarModel.Slur sr = new guitarModel.Slur(); 
+							BassModel.BassSlur sr = new BassModel.BassSlur(); 
 							sr.setNumber(1);
 							sr.setType("start");
 							technical.setHammer(hammerList);
@@ -447,14 +448,14 @@ public class App {
 						}
 			
 							//Hammer-on technique: END
-						if (meas.get(x).charAt(prevColumn) == 'h' || meas.get(x).charAt(prevColumn) == 'H' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
-							guitarModel.HammerOn hammer = new guitarModel.HammerOn();
+						if (meas.get(x).charAt(prevColumn1) == 'h' || meas.get(x).charAt(prevColumn1) == 'H' && Character.isDigit(meas.get(x).charAt(prevColumn1)) && Character.isDigit(meas.get(x).charAt(nextColumn1))) {
+							BassModel.BassHammer hammer = new BassModel.BassHammer();
 							hammer.setNumber(1);
 							hammer.setType("stop");
 							
 							hammerList.add(hammer);
 							
-							guitarModel.Slur slur = new guitarModel.Slur(); 
+							BassModel.BassSlur slur = new BassModel.BassSlur(); 
 							slur.setNumber(1);
 							slur.setType("stop");
 							technical.setHammer(hammerList);
@@ -473,8 +474,9 @@ public class App {
 					note.get(note.size() - 1).setNotations(notations);
 
 					// set has note in the column to true
-					hasPrevColNote = true;
+					
 				}
+				hasPrevColNote = true;
 			}
 		}
 
