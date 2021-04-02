@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 @JsonPropertyOrder({ "grace", "pitch", "duration", "voice","stem", "type", "notations" })
-public class BassGraceNote {
+public class BassGraceNote extends Note{
 	@JacksonXmlProperty(localName = "grace")
 	private String grace;
 

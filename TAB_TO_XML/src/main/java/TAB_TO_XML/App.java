@@ -236,12 +236,24 @@ public class App {
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
 			Boolean hasPrevColNote = false;
+			int nextColumn1 = 0;
+			int prevColumn1 = 0;
+			if (y + 1 < meas.get(0).length()) { //prevent index out of bounds
+				nextColumn1 = y + 1;
+			}
+			if (y - 1 > 0) {
+				prevColumn1 = y - 1;
+			}
 			for (int x = meas.size() - 1; x >= 0; x--) {
 				char character = meas.get(x).charAt(y);
 
 				if (Character.isDigit(character)) {
-					// if has previous note in column
-					if (hasPrevColNote) {
+					if (meas.get(x).charAt(prevColumn1) == 'g') { 
+						BassGraceNote grace1 = new BassModel.BassGraceNote();
+						grace1.setStem();//sets the stem value to "none"
+						note.add(grace1);
+					}
+					else if (hasPrevColNote) {
 						note.add(new BassModel.ChordNote());
 					} else {
 						note.add(new BassModel.Note());
@@ -270,6 +282,190 @@ public class App {
 					// set notations, technical is a sub-element of notations
 					BassModel.Notations notations = new BassModel.Notations();
 					BassModel.Technical technical = new BassModel.Technical();
+					BassModel.BassHarmonicTech tech = new BassModel.BassHarmonicTech();  
+					ArrayList<BassModel.BassPullOff> pullList = new ArrayList<BassModel.BassPullOff>();
+					ArrayList<BassModel.BassHammer> hammerList = new ArrayList<BassModel.BassHammer>();
+					ArrayList<BassModel.BassSlide> slideList = new ArrayList<BassModel.BassSlide>();
+					//Natural Harmonics or not
+					
+					if (meas.get(x).charAt(prevColumn1) == '[' && meas.get(x).charAt(nextColumn1) == ']' ) {
+						
+						tech.setHarmonics();
+						
+					//Slide Techniques: START
+					if (meas.get(x).charAt(nextColumn1) == 's') {
+						guitarModel.Slides slide = new guitarModel.Slides();
+						slide.setNumber(1);
+						slide.setType("start");
+						slideList.add(slide);
+						notations.setSlides(slideList);
+					}
+					//Slide Techniques: END
+					if (meas.get(x).charAt(prevColumn) == 's') {					
+						guitarModel.Slides s11 = new guitarModel.Slides(); 
+						s11.setNumber(1); 
+						s11.setType("stop");
+						slideList.add(s11);
+						notations.setSlides(slideList);
+					}
+							
+					//Pull-off techniques: START
+					if (meas.get(x).charAt(nextColumn) == 'p' || meas.get(x).charAt(nextColumn) == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
+						guitarModel.PullOff pl = new guitarModel.PullOff(); 
+						pl.setNumber(1);
+						pl.setType("start");
+						pl.setSymbol("P");
+						pullList.add(pl);
+						
+						guitarModel.Slur su = new guitarModel.Slur();
+						su.setNumber(1);
+					//	su.setPlacement("above");
+						su.setType("start");
+						tech.setPull(pullList);
+						notations.setSlur(su);
+					
+					}
+					
+					//Pull-off techniques: END
+					if (meas.get(x).charAt(prevColumn) == 'p' || meas.get(x).charAt(prevColumn) == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
+						guitarModel.PullOff pull = new guitarModel.PullOff();
+						pull.setNumber(1);
+						pull.setType("stop");
+						pullList.add(pull);
+						guitarModel.Slur sl = new guitarModel.Slur(); 
+						sl.setNumber(1); 
+						sl.setType("stop");
+						tech.setPull(pullList);
+						notations.setSlur(sl);
+						
+					}
+					
+					//Hammer-on technique: START 
+					if (meas.get(x).charAt(nextColumn) == 'h' || meas.get(x).charAt(nextColumn) == 'H' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
+						
+						guitarModel.HammerOn ham = new guitarModel.HammerOn();
+						ham.setNumber(1);
+						ham.setType("start");
+						ham.setSymbol("H");
+						hammerList.add(ham);
+						
+						guitarModel.Slur sr = new guitarModel.Slur(); 
+						sr.setNumber(1);
+						sr.setType("start");
+						tech.setHammer(hammerList);
+						notations.setSlur(sr);
+					}
+		
+						//Hammer-on technique: END
+					if (meas.get(x).charAt(prevColumn) == 'h' || meas.get(x).charAt(prevColumn) == 'H' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
+						guitarModel.HammerOn hammer = new guitarModel.HammerOn();
+						hammer.setNumber(1);
+						hammer.setType("stop");
+						
+						hammerList.add(hammer);
+						
+						guitarModel.Slur slur = new guitarModel.Slur(); 
+						slur.setNumber(1);
+						slur.setType("stop");
+						tech.setHammer(hammerList);
+						notations.setSlur(slur);
+					}
+					tech.setFret("" + character);
+					Integer stringNumber = (x + 1);
+					tech.setString(stringNumber.toString());
+					notations.setTechnical(tech);
+					note.get(note.size() - 1).setNotations(notations);
+					
+					} 
+					
+					/*
+					 * If it's not a Harmonic Technical Note 
+					 */
+					else { 
+						//Slide Techniques: START
+						if (meas.get(x).charAt(nextColumn) == 's' ) {
+							guitarModel.Slides sd = new guitarModel.Slides();
+							sd.setNumber(1);
+							
+							sd.setType("start");
+							slideList.add(sd);
+							notations.setSlides(slideList);
+						}
+						//Slide Techniques: END
+						if (meas.get(x).charAt(prevColumn) == 's') 
+						{
+							guitarModel.Slides sl1 = new guitarModel.Slides(); 
+							sl1.setNumber(1); 
+							sl1.setType("stop");
+							slideList.add(sl1);
+							notations.setSlides(slideList);
+						}
+						if (meas.get(x).charAt(nextColumn) == 'p' || meas.get(x).charAt(nextColumn) == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
+							guitarModel.PullOff pl = new guitarModel.PullOff(); 
+							pl.setNumber(1);
+							pl.setType("start");
+							pl.setSymbol("P");
+							pullList.add(pl);
+							
+							guitarModel.Slur su = new guitarModel.Slur();
+							su.setNumber(1);
+						//	su.setPlacement("above");
+							su.setType("start");
+							technical.setPull(pullList);
+							notations.setSlur(su);
+						
+						}
+						
+						//Pull-off techniques: END
+						if (meas.get(x).charAt(prevColumn) == 'p' || meas.get(x).charAt(prevColumn) == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
+							guitarModel.PullOff pull = new guitarModel.PullOff();
+							pull.setNumber(1);
+							pull.setType("stop");
+							pullList.add(pull);
+							guitarModel.Slur sl = new guitarModel.Slur(); 
+							sl.setNumber(1); 
+							sl.setType("stop");
+							technical.setPull(pullList);
+							notations.setSlur(sl);
+							
+						}
+						
+						//Hammer-on technique: START 
+						if (meas.get(x).charAt(nextColumn) == 'h' || meas.get(x).charAt(nextColumn) == 'H' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
+							
+							guitarModel.HammerOn ham = new guitarModel.HammerOn();
+							ham.setNumber(1);
+							ham.setType("start");
+							ham.setSymbol("H");
+							hammerList.add(ham);
+							
+							guitarModel.Slur sr = new guitarModel.Slur(); 
+							sr.setNumber(1);
+							sr.setType("start");
+							technical.setHammer(hammerList);
+							notations.setSlur(sr);
+						}
+			
+							//Hammer-on technique: END
+						if (meas.get(x).charAt(prevColumn) == 'h' || meas.get(x).charAt(prevColumn) == 'H' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) {
+							guitarModel.HammerOn hammer = new guitarModel.HammerOn();
+							hammer.setNumber(1);
+							hammer.setType("stop");
+							
+							hammerList.add(hammer);
+							
+							guitarModel.Slur slur = new guitarModel.Slur(); 
+							slur.setNumber(1);
+							slur.setType("stop");
+							technical.setHammer(hammerList);
+							notations.setSlur(slur);
+						}
+						technical.setFret("" + character);
+						Integer stringNumber = (x + 1);
+						technical.setString(stringNumber.toString());
+						notations.setTechnical(technical);
+						note.get(note.size() - 1).setNotations(notations);
+					}
 					technical.setFret("" + character);
 					Integer stringNumber = (x + 1);
 					technical.setString(stringNumber.toString());
