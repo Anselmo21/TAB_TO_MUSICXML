@@ -188,60 +188,48 @@ public class App {
 			staffDetails.setStaffLines("4");
 
 			// staff tunings
-			ArrayList<BassModel.StaffTuning> staffTunings = new ArrayList<BassModel.StaffTuning>();
-//			BassModel.StaffTuning staffTuning0 = new BassModel.StaffTuning();
-//			staffTuning0.setLine(1);
-//			staffTuning0.setTuningStep("E");
-//			staffTuning0.setTuningOctave("1");
-//			staffTunings.add(staffTuning0);
-//
-//			BassModel.StaffTuning staffTuning1 = new BassModel.StaffTuning();
-//			staffTuning1.setLine(2);
-//			staffTuning1.setTuningStep("A");
-//			staffTuning1.setTuningOctave("1");
-//			staffTunings.add(staffTuning1);
-//
-//			BassModel.StaffTuning staffTuning2 = new BassModel.StaffTuning();
-//			staffTuning2.setLine(3);
-//			staffTuning2.setTuningStep("D");
-//			staffTuning2.setTuningOctave("2");
-//			staffTunings.add(staffTuning2);
-//
-//			BassModel.StaffTuning staffTuning3 = new BassModel.StaffTuning();
-//			staffTuning3.setLine(4);
-//			staffTuning3.setTuningStep("2");
-//			staffTuning3.setTuningOctave("3");
-//			staffTunings.add(staffTuning3);
-			
+			ArrayList<BassModel.StaffTuning> staffTunings = new ArrayList<BassModel.StaffTuning>();			
 			
 			for(int i = 0; i < tuningSteps.size(); i++) {
 				BassModel.StaffTuning staffTuning0 = new BassModel.StaffTuning();
 				staffTuning0.setLine(i+1);
 				if (!tuningSteps.get(i).equals("")) {
 					staffTuning0.setTuningStep(tuningSteps.get(i));
-					staffTuning0.setTuningOctave("2");
 				}
 				else {
 					switch(i) {
 						case 0:
 							staffTuning0.setTuningStep("E");
-							staffTuning0.setTuningOctave("1");
 							break;
 						case 1:
 							staffTuning0.setTuningStep("A");
-							staffTuning0.setTuningOctave("1");
 							break;
 							
 						case 2:
 							staffTuning0.setTuningStep("D");
-							staffTuning0.setTuningOctave("2");
 							break;
 							
 						case 3:
 							staffTuning0.setTuningStep("G");
-							staffTuning0.setTuningOctave("3");
 							break;
 					}
+				}
+				
+				switch(i) {
+					case 0:
+						staffTuning0.setTuningOctave("1");
+						break;
+					case 1:
+						staffTuning0.setTuningOctave("1");
+						break;
+						
+					case 2:
+						staffTuning0.setTuningOctave("2");
+						break;
+						
+					case 3:
+						staffTuning0.setTuningOctave("3");
+						break;
 				}
 				staffTunings.add(staffTuning0);
 			}
@@ -619,80 +607,63 @@ public class App {
 
 			// staff tunings
 			ArrayList<guitarModel.StaffTuning> staffTunings = new ArrayList<guitarModel.StaffTuning>();
-//			guitarModel.StaffTuning staffTuning0 = new guitarModel.StaffTuning();
-//			staffTuning0.setLine(1);
-//			staffTuning0.setTuningStep("E");
-//			staffTuning0.setTuningOctave("2");
-//			staffTunings.add(staffTuning0);
-//
-//			guitarModel.StaffTuning staffTuning1 = new guitarModel.StaffTuning();
-//			staffTuning1.setLine(2);
-//			staffTuning1.setTuningStep("A");
-//			staffTuning1.setTuningOctave("2");
-//			staffTunings.add(staffTuning1);
-//
-//			guitarModel.StaffTuning staffTuning2 = new guitarModel.StaffTuning();
-//			staffTuning2.setLine(3);
-//			staffTuning2.setTuningStep("D");
-//			staffTuning2.setTuningOctave("3");
-//			staffTunings.add(staffTuning2);
-//
-//			guitarModel.StaffTuning staffTuning3 = new guitarModel.StaffTuning();
-//			staffTuning3.setLine(4);
-//			staffTuning3.setTuningStep("G");
-//			staffTuning3.setTuningOctave("3");
-//			staffTunings.add(staffTuning3);
-//
-//			guitarModel.StaffTuning staffTuning4 = new guitarModel.StaffTuning();
-//			staffTuning4.setLine(5);
-//			staffTuning4.setTuningStep("B");
-//			staffTuning4.setTuningOctave("3");
-//			staffTunings.add(staffTuning4);
-//
-//			guitarModel.StaffTuning staffTuning5 = new guitarModel.StaffTuning();
-//			staffTuning5.setLine(6);
-//			staffTuning5.setTuningStep("E");
-//			staffTuning5.setTuningOctave("4");
-//			staffTunings.add(staffTuning5);
 			
 			for(int i = 0; i < tuningSteps.size(); i++) {
 				guitarModel.StaffTuning staffTuning0 = new guitarModel.StaffTuning();
 				staffTuning0.setLine(i+1);
 				if (!tuningSteps.get(i).equals("")) {
 					staffTuning0.setTuningStep(tuningSteps.get(i));
-					staffTuning0.setTuningOctave("2");
 				}
 				else {
 					switch(i) {
 						case 0:
 							staffTuning0.setTuningStep("E");
-							staffTuning0.setTuningOctave("2");
 							break;
 						case 1:
 							staffTuning0.setTuningStep("A");
-							staffTuning0.setTuningOctave("2");
 							break;
 							
 						case 2:
 							staffTuning0.setTuningStep("D");
-							staffTuning0.setTuningOctave("3");
 							break;
 							
 						case 3:
 							staffTuning0.setTuningStep("G");
-							staffTuning0.setTuningOctave("3");
 							break;
 							
 						case 4:
 							staffTuning0.setTuningStep("B");
-							staffTuning0.setTuningOctave("3");
 							break;
 							
 						case 5:
 							staffTuning0.setTuningStep("E");
-							staffTuning0.setTuningOctave("4");
 							break;
 					}
+				}
+				
+				switch(i) {
+					case 0:
+						staffTuning0.setTuningOctave("2");
+						break;
+					case 1:
+						staffTuning0.setTuningOctave("2");
+						break;
+						
+					case 2:
+						staffTuning0.setTuningOctave("3");
+						break;
+						
+					case 3:
+						staffTuning0.setTuningOctave("3");
+						break;
+						
+					case 4:
+						staffTuning0.setTuningOctave("3");
+						break;
+						
+					case 5:
+						staffTuning0.setTuningOctave("4");
+						break;
 				}
 				
 				staffTunings.add(staffTuning0);
