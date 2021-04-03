@@ -1018,7 +1018,7 @@ class AppTest {
 				+ "            <tuning-octave>2</tuning-octave>\n"
 				+ "          </staff-tuning>\n"
 				+ "          <staff-tuning line=\"4\">\n"
-				+ "            <tuning-step>2</tuning-step>\n"
+				+ "            <tuning-step>G</tuning-step>\n"
 				+ "            <tuning-octave>3</tuning-octave>\n"
 				+ "          </staff-tuning>\n"
 				+ "        </staff-details>\n"
