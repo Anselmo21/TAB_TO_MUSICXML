@@ -17,6 +17,7 @@ public class Technical {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	String fret;
 	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JacksonXmlElementWrapper(useWrapping = false)
 	@JacksonXmlProperty(localName = "hammer-on")
 	ArrayList<BassHammer> hammer; 
