@@ -7,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-import guitarModel.HammerOn;
-import guitarModel.PullOff;
 
 @JsonPropertyOrder({"harmonic", "pulloff", "hammer", "string", "fret"})
 public class BassHarmonicTech extends Technical {
@@ -52,6 +50,10 @@ public class BassHarmonicTech extends Technical {
 	}
 
 
+
+	public ArrayList<BassPullOff> getPulloff() {
+		return pulloff;
+	}
 
 	public BassHarmonicTech() {}
 	public BassHarmonicTech(String string, String fret) {

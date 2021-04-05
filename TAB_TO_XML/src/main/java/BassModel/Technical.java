@@ -44,13 +44,13 @@ public class Technical {
 		
 	}
 	
-	public ArrayList<BassPullOff> getPullOff() {
+	public ArrayList<BassPullOff> getPulloff() {
 		
 		return pulloff;
 		
 	}
 	
-	public void setPullOff(ArrayList<BassPullOff> p) { 
+	public void setPulloff(ArrayList<BassPullOff> p) { 
 		
 		pulloff = p;
 		

@@ -348,7 +348,7 @@ public class App {
 						su.setNumber(1);
 					//	su.setPlacement("above");
 						su.setType("start");
-						tech.setPull(pullList);
+						tech.setPulloff(pullList);
 						notations.setSlur(su);
 					
 					}
@@ -362,7 +362,7 @@ public class App {
 						BassModel.BassSlur sl = new BassModel.BassSlur(); 
 						sl.setNumber(1); 
 						sl.setType("stop");
-						tech.setPull(pullList);
+						tech.setPulloff(pullList);
 						notations.setSlur(sl);
 						
 					}
@@ -438,7 +438,7 @@ public class App {
 							su.setNumber(1);
 						//	su.setPlacement("above");
 							su.setType("start");
-							technical.setPullOff(pullList);
+							technical.setPulloff(pullList);
 							notations.setSlur(su);
 						
 						}
@@ -452,7 +452,7 @@ public class App {
 							BassModel.BassSlur sl = new BassModel.BassSlur(); 
 							sl.setNumber(1); 
 							sl.setType("stop");
-							technical.setPullOff(pullList);
+							technical.setPulloff(pullList);
 							notations.setSlur(sl);
 							
 						}
