@@ -72,7 +72,7 @@ public class BassHarmonicTech extends Technical {
 		this.fret = fret;
 	}
 
-	public void setPull(ArrayList<BassPullOff> pullList) {
+	public void setPulloff(ArrayList<BassPullOff> pullList) {
 		pulloff = pullList;
 		
 	}
