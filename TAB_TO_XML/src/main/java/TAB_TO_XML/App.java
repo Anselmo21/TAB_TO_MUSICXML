@@ -101,17 +101,23 @@ public class App {
 		
 	}
 	
-	public static HashMap<Integer, String> getTimeSignatures(String input) {
-		HashMap<Integer, String> map = new HashMap<>();
+	public static HashMap<Integer, Integer[]> getTimeSignatures(String input) {
+		HashMap<Integer, Integer[]> map = new HashMap<>();
 		
 		String[] lines = input.split("\n");
 		
 		for (String line : lines) {
 			String[] command = line.split(":");
 			if (command.length >= 2) {
-				
 				try	{
-					map.put(Integer.parseInt(command[0]), command[1]);
+					int measure = Integer.parseInt(command[0]);
+					String[] temp = command[1].split("/");
+					if (temp.length == 2) {
+						Integer[] timeSignature = new Integer[2];
+						timeSignature[0] = Integer.parseInt(temp[0]);
+						timeSignature[1] = Integer.parseInt(temp[1]);
+						map.put(measure, timeSignature);
+					}
 				}
 				catch(NumberFormatException ex) {
 					ex.printStackTrace();
