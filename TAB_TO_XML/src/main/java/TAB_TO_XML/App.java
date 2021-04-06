@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -98,6 +99,20 @@ public class App {
 		
 		return tuningSteps;
 		
+	}
+	
+	public static HashMap<String, String> getTimeSignatures(String input) {
+		HashMap<String, String> map = new HashMap<>();
+		
+		String[] lines = input.split("\n");
+		
+		for (String line : lines) {
+			String[] command = line.split(":");
+			if (command.length >= 2)
+				map.put(command[0], command[1]);
+		}
+		
+		return map;
 	}
 
 	public static String bassTabToXML(ArrayList<String> tabAsList) {
