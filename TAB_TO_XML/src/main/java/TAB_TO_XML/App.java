@@ -1118,7 +1118,7 @@ public class App {
 
 		DrumModel.Measure newMeasure = new DrumModel.Measure();
 		newMeasure.setNumber(measureNumber);
-		int division = DParser.divisionCount(meas);
+		int division = DParser.divisionCount(meas.get(0), 4);
 		// if first measure, set the attributes
 		if (measureNumber == 1) {
 			DrumModel.Attributes attributes = new DrumModel.Attributes();
@@ -1140,7 +1140,9 @@ public class App {
 
 			newMeasure.setAttributes(attributes);
 		} else {
-			newMeasure.setAttributes(null);
+			DrumModel.Attributes attributes = new DrumModel.Attributes();
+			attributes.setDivisions(division);
+			newMeasure.setAttributes(attributes);
 		}
 
 		newMeasure.setBarline(null);

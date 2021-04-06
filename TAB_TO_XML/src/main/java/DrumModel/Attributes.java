@@ -1,16 +1,21 @@
 package DrumModel;
 
 
-//import guitarModel.Clef;
-//import guitarModel.Key;
-import guitarModel.StaffDetails;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 
 
 public class Attributes {
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	int divisions;
-
+	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	Key key;
+	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	Time time;
+	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	Clef clef;
 
 	public int getDivisions() {

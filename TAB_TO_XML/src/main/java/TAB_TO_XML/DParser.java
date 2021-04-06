@@ -65,8 +65,8 @@ public class DParser {
 	 * @param parse is the array list of strings that contains a whole line of notes
 	 * @return an integer that represents the division of the whole tablature.
 	 */
-	public static int divisionCount(ArrayList<String> parse) {
-		return (parse.get(0).length()) / 4;
+	public static int divisionCount(String line, int numerator) {
+		return line.length() / numerator; 
 	}
 
 	/**
