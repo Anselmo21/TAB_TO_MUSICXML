@@ -37,6 +37,8 @@ public class GuitarParser {
 		}
 		return count;
 	}
+	
+	
 
 	/// May require fix again
 	/**
@@ -49,7 +51,7 @@ public class GuitarParser {
 		return (parse.get(0).length()-1) / 8;
 	}
 
-
+	
 	/**
 	 * Method used to get the step count.
 	 * 
