@@ -587,7 +587,7 @@ public class App {
 
 		guitarModel.Measure newMeasure = new guitarModel.Measure();
 		newMeasure.setNumber(measureNumber);
-		int division = GuitarParser.divisionCount(meas);
+		int division = GuitarParser.divisionCount(meas.get(0), 8);
 		// if first measure, set the attributes
 		if (measureNumber == 1) {
 			guitarModel.Attributes attributes = new guitarModel.Attributes();
@@ -679,7 +679,9 @@ public class App {
 
 			newMeasure.setAttributes(attributes);
 		} else {
-			newMeasure.setAttributes(null);
+			guitarModel.Attributes attributes = new guitarModel.Attributes();
+			attributes.setDivisions(division);
+			newMeasure.setAttributes(attributes);
 		}
 
 		newMeasure.setBarline(null);
