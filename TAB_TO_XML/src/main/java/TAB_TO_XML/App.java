@@ -169,7 +169,7 @@ public class App {
 
 		BassModel.Measure newMeasure = new BassModel.Measure();
 		newMeasure.setNumber(measureNumber);
-		int division = BParser.divisionCount(meas);
+		int division = BParser.divisionCount(meas.get(0), 8);
 		// if first measure, set the attributes
 		if (measureNumber == 1) {
 			BassModel.Attributes attributes = new BassModel.Attributes();
@@ -245,7 +245,9 @@ public class App {
 
 			newMeasure.setAttributes(attributes);
 		} else {
-			newMeasure.setAttributes(null);
+			BassModel.Attributes attributes = new BassModel.Attributes();
+			attributes.setDivisions(division);
+			newMeasure.setAttributes(attributes);
 		}
 
 		newMeasure.setBarline(null);
