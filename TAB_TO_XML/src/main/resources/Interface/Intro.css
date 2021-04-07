@@ -1,8 +1,5 @@
-.root{
-    -fx-font-family: 'JetBrains Mono';
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-background-image: url("/Interface/Title.jpg");
-    -fx-background-repeat: no-repeat;
+.root {
+	-fx-background-image: url("/Interface/colorful-digital-wave-with-chaotic-particles-dark-background_87621-163.jpg");
+	-fx-background-repeat: no-repeat;
     -fx-background-size: stretch;
 }

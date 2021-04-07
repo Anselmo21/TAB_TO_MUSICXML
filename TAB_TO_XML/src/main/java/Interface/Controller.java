@@ -11,21 +11,27 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Font;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 import TAB_TO_XML.App;
 
 public class Controller {
 
-	ObservableList<String> instrumentsList = FXCollections.observableArrayList("None", "Guitar", "Drums", "Bass");
-	ObservableList<String> timeSignatureList = FXCollections.observableArrayList("1/4", "2/4", "3/4", "4/4");
-
+	private static Window window = new Stage();
 	Desktop screen = Desktop.getDesktop();
 	File tablature;
 	File xmlFile;
@@ -33,39 +39,21 @@ public class Controller {
 	StreamResult output;
 	FileChooser fc, saveFile;
 	static String obtainText;
-	static boolean pressed;
-	static String time;
-
-	@SuppressWarnings("rawtypes")
-	@FXML
-	ChoiceBox timeSignature;
 
 	@FXML
-	Button browse, convert, save, edits;
+	Button browse, convert, save;
 
 	@FXML
 	Label path, getInstrument;
 
 	@FXML
-	TextArea view, write;
-
-	@SuppressWarnings("rawtypes")
-	@FXML
-	ChoiceBox instrumentBox;
-
-
-
+	TextArea view, write, customization;
+	
+	
 	@SuppressWarnings("unchecked")
 	@FXML
 	private void initialize() {
-		timeSignature.setItems(timeSignatureList);
-		time = (String)timeSignature.getValue();
-		instrumentBox.setItems(instrumentsList);
-		String instrument = App.identifyInstrument(App.getFileList(write.getText()));
-		if (instrument.equals("Guitar")) instrumentBox.setValue("Guitar");
-		else if (instrument.equals("Drums")) instrumentBox.setValue("Drums");
-		else if (instrument.equals("Bass")) instrumentBox.setValue("Bass");
-		else instrumentBox.setValue("None");
+		save.setDisable(true);
 	}
 
 
@@ -78,16 +66,15 @@ public class Controller {
 
 	@FXML
 	public void handleButtonBrowse(ActionEvent event) {
+		save.setDisable(true);
 		write.clear();
-		pressed = true;
+		getInstrument.setText("");
 		fc = new FileChooser();
 		fc.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
+		browse.setDisable(true);
 		tablature = fc.showOpenDialog(null);
-
 		if (tablature != null) {
-			//path.setText(tablature.getAbsolutePath());
 			Scanner sc = null;
-			save.setVisible(true);
 			try {
 				sc = new Scanner(tablature);
 				while (sc.hasNextLine()) {
@@ -98,11 +85,13 @@ public class Controller {
 				else if (instrument.equals("Drums")) getInstrument.setText("Instrument: Drums");
 				else if (instrument.equals("Bass")) getInstrument.setText("Instrument: Bass");
 				else getInstrument.setText("No Instrument Found");
+				browse.setDisable(false);
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		browse.setDisable(false);
 	}
 
 
@@ -124,6 +113,7 @@ public class Controller {
 				else if (instrument.equals("Bass")) getInstrument.setText("Instrument: Bass");
 				else getInstrument.setText("No Instrument Found");
 				String getConversion = App.runConversion(storeText);
+				App.getTimeSignatures(customization.getText());
 				view.appendText(getConversion);
 				save.setDisable(false);
 			}
@@ -169,43 +159,29 @@ public class Controller {
 		catch(Exception e) {
 		}
 	}
+	
 
-	@FXML
-	public void handleButtonSaveEdits(ActionEvent event) {
-		PrintWriter print = null;
-		if (pressed) {
-			//save edits in the browsed path file.
-			try {
-				print = new PrintWriter(tablature.getAbsolutePath());
-				print.print(write.getText());
-				System.out.println(write.getText());
-			}
-			catch (Exception e) {
-				Alert errorAlert = new Alert(AlertType.ERROR); 
-				errorAlert.setHeaderText("Edits could not be saved!"); 
-				errorAlert.setContentText("A file path was not found. Please check if you have browsed properly!"); 
-				errorAlert.showAndWait();
-			}
-		}
-		else {
-			//make a new file and save edits there
-			FileChooser saveFile = new FileChooser();
-			saveFile.getExtensionFilters().add(new ExtensionFilter("Text file", "*.txt"));
-			File xmlFile = saveFile.showSaveDialog(null);
-			try {
-				if (xmlFile.getAbsolutePath() != null) {
-					print = new PrintWriter(xmlFile.getAbsolutePath());
-					print.println(write.getText());
-					System.out.println(write.getText());
-				}
-			}
-			catch (Exception e) {
-				Alert errorAlert = new Alert(AlertType.ERROR); 
-				errorAlert.setHeaderText("Edits could not be saved!"); 
-				errorAlert.setContentText("A file path was not found. Please check if you have selected a valid file path!"); 
-				errorAlert.showAndWait();
-			}
-		}
+	public void handleErrors() {
+		//
 	}
+	
+	public Window openNewWindow(String fxml, String name) {
+		try {
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(fxml));
 
+            Stage stage = new Stage();
+            stage.setTitle(name);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(Runner.stage);
+            stage.setResizable(false);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            return scene.getWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		return null;
+	}
+	
 }

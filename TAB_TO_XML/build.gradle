@@ -30,6 +30,8 @@ dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:28.0-jre'
 
+	compile group: 'org.fxmisc.richtext', name: 'richtextfx', version: '0.10.6'
+
     // Use JUnit test framework
     //testImplementation 'junit:junit:4.13'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
@@ -53,10 +55,11 @@ run {
     }
 }
 
+mainClassName = 'Interface.Runner'
+
 javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
     version = "15.0.1"
-    //configuration = 'compileOnly'
 }
 
 
@@ -69,4 +72,28 @@ jacocoTestReport {
 	dependsOn test
 }
 
-mainClassName = 'Interface.Runner'
+task uberJar(type: Jar) {
+	manifest {
+		attributes 'Main-Class': 'Interface.Runner'
+	}
+	archiveClassifier = 'uber'
+	
+	from sourceSets.main.output
+	
+	dependsOn configurations.runtimeClasspath
+	from {
+		configurations.runtimeClasspath.findAll {it.name.endsWith('jar')}.collect{ zipTree(it) }
+	}
+}
+
+task debug {
+	group = "application"
+	description = "Runs this project on debug mode"
+	doFirst {
+		application {
+			applicationDefaultJvmArgs = ['-Xdebug', '-Xrunjdwp: transport=dt_socket, server=y,suspend=y,address=2311']
+		}
+	}
+}
+
+debug.finalizedBy run

@@ -20,17 +20,18 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-
 public class Runner extends Application {
 
 	static TextArea textArea;
 	WindowEvent window;
+	public static Stage stage;
 
 	@Override
-	public void start(Stage primaryStage) throws Exception{
+	public void start(Stage primaryStage) throws Exception {
+		stage = primaryStage;
 		Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Interface/Intro.fxml"));
 		primaryStage.setTitle("Allegro Tab Converter");
-		Scene scene = new Scene(root, 935, 800);
+		Scene scene = new Scene(root, 935, 700);
 		scene.getStylesheets().add(getClass().getClassLoader().getResource("Interface/Intro.css").toExternalForm());
 		Image logo = new Image("/Interface/music-background.jpg");
 		primaryStage.getIcons().add(logo);
@@ -85,5 +86,3 @@ public class Runner extends Application {
 		else e.consume();
 	}
 }
-
-
