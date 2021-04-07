@@ -1112,11 +1112,12 @@ public class App {
 			// iter through each collection
 			for (int i = 0; i < collections.size(); i++) {
 				ArrayList<ArrayList<String>> measuresOfCollection = DParser.collectionToMeasure(collections.get(i));
+				ArrayList<ArrayList<String>> instrumentIDs = DParser.collectionToMeasureExtractID(collections.get(i));
 
 				// iter through each measure set
 				for (int j = 0; j < measuresOfCollection.size(); j++) {
 					measureCount++;
-					DrumModel.Measure newMeasure = parseDrumMeasure(measuresOfCollection.get(j), measureCount);
+					DrumModel.Measure newMeasure = parseDrumMeasure(measuresOfCollection.get(j), instrumentIDs.get(j), measureCount);
 					measures.add(newMeasure);
 				}
 			}
@@ -1142,7 +1143,7 @@ public class App {
 		return null;
 	}
 
-	private static DrumModel.Measure parseDrumMeasure(ArrayList<String> meas, int measureNumber) {
+	private static DrumModel.Measure parseDrumMeasure(ArrayList<String> meas, ArrayList<String> IDs, int measureNumber) {
 
 		DrumModel.Measure newMeasure = new DrumModel.Measure();
 		newMeasure.setNumber(measureNumber);
@@ -1168,9 +1169,7 @@ public class App {
 
 			newMeasure.setAttributes(attributes);
 		} else {
-			DrumModel.Attributes attributes = new DrumModel.Attributes();
-			attributes.setDivisions(division);
-			newMeasure.setAttributes(attributes);
+			newMeasure.setAttributes(null);
 		}
 
 		newMeasure.setBarline(null);
@@ -1184,7 +1183,7 @@ public class App {
 			for (int x = meas.size() - 2; x >= 0; x--) {
 				char character = meas.get(x).charAt(y);
 
-				if (character == 'x' || character == 'o') {
+				if (character == 'x' || character == 'o' || character == 'd' || character == 'f' || character == 'X') {
 					// if has previous note in column
 					Integer duration = DParser.durationCount(meas, y);
 					String type = DParser.typeDeclare(duration);
@@ -1390,11 +1389,13 @@ public class App {
 		boolean isdrum = true;
 		outerloop:
 		for (int i = 0; i < content.size(); i++) { 
-			for (int j = 0; j < content.get(0).length(); j++) {
-			if (Character.isDigit(content.get(i).charAt(j))) {
-				isdrum = false;
-				break outerloop;
-			}
+			if (content.get(i).contains("|") && !(content.get(i).contains("REPEAT"))) {
+				for (int j = 0; j < content.get(i).length(); j++) {
+					if (Character.isDigit(content.get(i).charAt(j))) {
+						isdrum = false;
+						break outerloop;
+					}
+				}
 			}
 		}
 		if (isdrum == true) {
@@ -1406,6 +1407,7 @@ public class App {
 		
 		return "No Instrument Detected";
 	}
+
 
 	/**
 	 * This method helps identify if the instrument is a bass or a guitar.

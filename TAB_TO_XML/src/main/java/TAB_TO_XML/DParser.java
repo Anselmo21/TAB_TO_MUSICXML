@@ -220,18 +220,28 @@ public class DParser {
 		
 		ArrayList<String> eachCollection = new ArrayList<String>();
 		
+		int count = 0;
 		for (int i = 0; i < inputFile.size(); i++) {
 			if (inputFile.get(i).contains("|")) {
-				for (int j = 0; j < 6; j++) {
+				for (int j = i; j < inputFile.size(); j++) {
+					if (inputFile.get(j).contains("|")) {
+						count++;
+					}	else  {
+						break;
+					}
+				}
+				for (int j = 0; j < count; j++) {
 					eachCollection.add(inputFile.get(i+j));
 				}
 				eachCollection.add(" ");
 				Collections.add(eachCollection);
 				eachCollection = new ArrayList<String>();
-				i = i + 6;
+				i = i + count;
+				count = 0;
 			}
 		}
 		// returns 2d arrays of the input lines 
+		
 		return Collections;
 	}
 	
@@ -243,11 +253,22 @@ public class DParser {
 		ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
 		ArrayList<String> eachSection = new ArrayList<String>();
 		
+		input = subtractID(input);
+
 		// assumes that all the measures have 16 dashes/notes excluding the vertical lines
-		for (int z = 1; z < input.size(); z=z+6){
-			for (int i = 0; i < (input.get(0).length()-3)/17; i++) {	
-				for (int j = 0; j < 6; j++) {
-					eachSection.add(input.get(j+z-1).substring(3+17*i, 17*(i+1)+2));
+		for (int z = 1; z < input.size(); z=z+(input.size())){
+			for (int i = 0; i < (input.get(0).length()-1)/17; i++) {
+				for (int j = 0; j < input.size(); j++) {
+					if (!(input.get(j+z-1).subSequence(0, 1).equals("|"))) {
+						int count=0;
+						while(!(input.get(j+z-1).subSequence(count, count+1).equals("|"))) {
+							count++;
+						}
+						eachSection.add(input.get(j+z-1).substring(1+17*i+count, 17*(i+1)+count));
+					}
+					else {
+						eachSection.add(input.get(j+z-1).substring(1+17*i, 17*(i+1)));
+					}
 				}	
 				sections.add(eachSection);
 				eachSection = new ArrayList<String>();
@@ -256,6 +277,44 @@ public class DParser {
 		// returns  2d array of substrings of the measure excluding the vertical lines	
 		return sections;
 	}
+	
+	private static ArrayList<String> subtractID(ArrayList<String> input){ 
+		
+		ArrayList<String> eachSection = new ArrayList<String>();
+		
+		int o = input.get(0).length();
+		
+		for (int i = 0; i < input.size()-1; i++) {
+			eachSection.add(input.get(i).substring(2, o));
+		}
+		
+		
+		return eachSection;
+	}
+	
+	public static ArrayList<ArrayList<String>> collectionToMeasureExtractID(ArrayList<String> input){ 
+		
+		ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
+		ArrayList<String> eachSection = new ArrayList<String>();
+		
+		// assumes that all the measures have 16 dashes/notes excluding the vertical lines
+		for (int z = 1; z < input.size(); z=z+input.size()){
+			for (int i = 0; i < (input.get(0).length()-1)/17; i++) {
+				for (int j = 0; j < input.size()-1; j++) {
+					int count=0;
+					while(!(input.get(j+z-1).subSequence(count, count+1).equals("|"))) {
+						count++;
+					}
+					eachSection.add(input.get(j+z-1).substring(0, count));
+					}
+				sections.add(eachSection);
+				eachSection = new ArrayList<String>();
+			}
+		}
+		// returns  2d array of substrings of the ID of the instruments
+		return sections;
+	}
+	
 	
 	
 	public static boolean isChord(ArrayList<String> line, char note) { 
