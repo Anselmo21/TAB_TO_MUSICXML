@@ -1182,6 +1182,7 @@ public class App {
 			Boolean hasPrevColNote = false;
 			for (int x = meas.size() - 2; x >= 0; x--) {
 				char character = meas.get(x).charAt(y);
+				String ID = IDs.get(x);
 
 				if (character == 'x' || character == 'o' || character == 'd' || character == 'f' || character == 'X') {
 					// if has previous note in column
@@ -1191,34 +1192,78 @@ public class App {
 					if (hasPrevColNote == false) {
 						if (character == 'o') {
 							if (DParser.beamNumber(DParser.typeDeclare(duration)) == 0) {
-								note.add(new DrumModel.Note());
-							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 1) {
-								if (DParser.beamState(meas, type, x, y, beamcount) != "No beam") {
-								DrumModel.Note1B newn = new DrumModel.Note1B();
-								DrumModel.Beam beam = new DrumModel.Beam();
-								beam.setNumber("1");
-								beam.setValue(DParser.beamState(meas, type, x, y, beamcount));
-								newn.setBeam(beam);
-								note.add(newn);
-								beamcount = DParser.countBeam(DParser.beamState(meas, type, x, y, beamcount), beamcount);
+								if (ID.equals("CC") || ID.equals("C ") || ID.equals("HH") || ID.equals("Rd") || ID.equals("RD") || ID.equals("R ")) {
+									DrumModel.NoteNH newn = new DrumModel.NoteNH();
+									newn.setNotehead("circle-x");
+									note.add(newn);
 								}	else {
 									note.add(new DrumModel.Note());
 								}
-							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
-								if (DParser.beamState(meas, type, x, y, beamcount) != "No beam") {
-								DrumModel.Note2B newn = new DrumModel.Note2B();
-								DrumModel.Beam beam1 = new DrumModel.Beam();
-								beam1.setNumber("1");
-								beam1.setValue(DParser.beamState(meas, type, x, y, beamcount));
-								newn.setBeam(beam1, 0);
-								DrumModel.Beam beam2 = new DrumModel.Beam();
-								beam2.setNumber("2");
-								beam2.setValue(DParser.beamState(meas, type, x, y, beamcount));
-								newn.setBeam(beam2, 1);
-								note.add(newn);
-								beamcount = DParser.countBeam(DParser.beamState(meas, type, x, y, beamcount), beamcount);
+							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 1) {
+								if (ID.equals("CC") || ID.equals("C ") || ID.equals("HH") || ID.equals("Rd") || ID.equals("RD") || ID.equals("R ")) {
+									if (DParser.beamState(meas, type, x, y, beamcount) != "No beam") {
+										DrumModel.NoteNH1B newn = new DrumModel.NoteNH1B();
+										DrumModel.Beam beam = new DrumModel.Beam();
+										newn.setNotehead("circle-x");
+										beam.setNumber("1");
+										beam.setValue(DParser.beamState(meas, type, x, y, beamcount));
+										newn.setBeam(beam);
+										note.add(newn);
+										beamcount = DParser.countBeam(DParser.beamState(meas, type, x, y, beamcount), beamcount);
+									}	else {
+										DrumModel.NoteNH newn = new DrumModel.NoteNH();
+										newn.setNotehead("circle-x");
+										note.add(newn);
+									}
 								}	else {
-									note.add(new DrumModel.Note());
+									if (DParser.beamState(meas, type, x, y, beamcount) != "No beam") {
+										DrumModel.Note1B newn = new DrumModel.Note1B();
+										DrumModel.Beam beam = new DrumModel.Beam();
+										beam.setNumber("1");
+										beam.setValue(DParser.beamState(meas, type, x, y, beamcount));
+										newn.setBeam(beam);
+										note.add(newn);
+										beamcount = DParser.countBeam(DParser.beamState(meas, type, x, y, beamcount), beamcount);
+									}	else {
+										note.add(new DrumModel.Note());
+									}
+								}
+							}	else if (DParser.beamNumber(DParser.typeDeclare(duration)) == 2) {
+								if (ID.equals("CC") || ID.equals("C ") || ID.equals("HH") || ID.equals("Rd") || ID.equals("RD") || ID.equals("R ")) {
+									if (DParser.beamState(meas, type, x, y, beamcount) != "No beam") {
+										DrumModel.NoteNH2B newn = new DrumModel.NoteNH2B();
+										newn.setNotehead("circle-x");
+										DrumModel.Beam beam1 = new DrumModel.Beam();
+										beam1.setNumber("1");
+										beam1.setValue(DParser.beamState(meas, type, x, y, beamcount));
+										newn.setBeam(beam1, 0);
+										DrumModel.Beam beam2 = new DrumModel.Beam();
+										beam2.setNumber("2");
+										beam2.setValue(DParser.beamState(meas, type, x, y, beamcount));
+										newn.setBeam(beam2, 1);
+										note.add(newn);
+										beamcount = DParser.countBeam(DParser.beamState(meas, type, x, y, beamcount), beamcount);
+									}	else {
+										DrumModel.NoteNH newn = new DrumModel.NoteNH();
+										newn.setNotehead("circle-x");
+										note.add(newn);
+									}
+								}	else {
+									if (DParser.beamState(meas, type, x, y, beamcount) != "No beam") {
+										DrumModel.Note2B newn = new DrumModel.Note2B();
+										DrumModel.Beam beam1 = new DrumModel.Beam();
+										beam1.setNumber("1");
+										beam1.setValue(DParser.beamState(meas, type, x, y, beamcount));
+										newn.setBeam(beam1, 0);
+										DrumModel.Beam beam2 = new DrumModel.Beam();
+										beam2.setNumber("2");
+										beam2.setValue(DParser.beamState(meas, type, x, y, beamcount));
+										newn.setBeam(beam2, 1);
+										note.add(newn);
+										beamcount = DParser.countBeam(DParser.beamState(meas, type, x, y, beamcount), beamcount);
+									}	else {
+										note.add(new DrumModel.Note());
+									}
 								}
 							}
 						}	else if (character == 'x') {
@@ -1265,7 +1310,13 @@ public class App {
 						backupcount = backupcount + duration;
 					}	else if (hasPrevColNote == true) {
 						if (character == 'o') {
+							if (ID.equals("CC") || ID.equals("C ") || ID.equals("HH") || ID.equals("Rd") || ID.equals("RD") || ID.equals("R ")) {
+								DrumModel.ChordNoteNH newn = new DrumModel.ChordNoteNH();
+								newn.setNotehead("circle-x");
+								note.add(newn);
+							}	else {
 								note.add(new DrumModel.ChordNote());
+							}
 						}	else if (character == 'x') {
 								DrumModel.ChordNoteNH newn = new DrumModel.ChordNoteNH();
 								newn.setNotehead("x");
@@ -1277,15 +1328,15 @@ public class App {
 					note.get(note.size() - 1).setType(type);
 
 					Instrument instrument = new Instrument();
-					instrument.setID(DParser.identifyID(x));
+					instrument.setID(DParser.identifyID(ID, character));
 					note.get(note.size() - 1).setInstrument(instrument);
 
 					note.get(note.size() - 1).setVoice("1");
 					note.get(note.size() - 1).setStem("up");
 
 					Unpitched unpitched = new Unpitched();
-					unpitched.setDisplayOctave(DParser.octaveCount(x));
-					unpitched.setDisplayStep(DParser.stepCount(x));
+					unpitched.setDisplayOctave(DParser.octaveCount(ID));
+					unpitched.setDisplayStep(DParser.stepCount(ID));
 					note.get(note.size() - 1).setUnpitched(unpitched);
 					
 					// set has note in the column to true
@@ -1296,7 +1347,6 @@ public class App {
 				}
 			}
 		}
-		
 		
 		// backup here
 		DrumModel.Backup bup = new DrumModel.Backup();
@@ -1312,6 +1362,7 @@ public class App {
 				}
 
 				Integer sync = 0;
+				String ID = IDs.get(IDs.size()-1);
 				for (int y = 0; y < meas.get(0).length(); y++) {
 					char character = meas.get(meas.size() - 1).charAt(y);
 					if (character == 'o') {
@@ -1344,15 +1395,15 @@ public class App {
 						((DrumModel.Note) noteback.get(noteback.size() - 1)).setType(DParser.typeDeclare(duration));
 						
 						Instrument instrument = new Instrument();
-						instrument.setID(DParser.identifyID(meas.size() - 1));
+						instrument.setID(DParser.identifyID(ID, character));
 						((DrumModel.Note) noteback.get(noteback.size() - 1)).setInstrument(instrument);
 
 						((DrumModel.Note) noteback.get(noteback.size() - 1)).setVoice("2");
 						((DrumModel.Note) noteback.get(noteback.size() - 1)).setStem("down");
 
 						Unpitched unpitched = new Unpitched();
-						unpitched.setDisplayOctave(DParser.octaveCount(meas.size() - 1));
-						unpitched.setDisplayStep(DParser.stepCount(meas.size() - 1));
+						unpitched.setDisplayOctave(DParser.octaveCount(ID));
+						unpitched.setDisplayStep(DParser.stepCount(ID));
 						((DrumModel.Note) noteback.get(noteback.size() - 1)).setUnpitched(unpitched);
 						
 						if (sync >  0) {

@@ -75,9 +75,15 @@ public class DParser {
 	 * @param parse is the array list of strings that contains a whole line of notes
 	 * @return an String that represents the fret of the note.
 	 */
-	public static String stepCount(int row) {
-		String[] step = new String[] { "A", "G", "C", "E", "D", "F" };	
-		return step[row];
+	public static String stepCount(String ID) {
+		String[] Symbols = new String[] { "CC", "C ", "HH", "R ", "Rd", "RD", "T ", "HT", "t ", "MT", "SN", "SD", "FT", "BD", "B " };
+		String[] step = new String[] { "A", "A", "G", "F", "F", "F", "E", "E", "D", "D", "C", "C", "A", "F", "F" };
+		for (int i = 0; i < Symbols.length; i++) {
+			if (Symbols[i].equals(ID)) {
+				return step[i];
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -91,13 +97,27 @@ public class DParser {
 		return types[duration];
 	}
 	
-	public static String identifyID(int row) {
-		String[] step = new String[] { "P1-I50", "P1-I43", "P1-I39", "P1-I48", "P1-I46", "P1-I36" };	
-		return step[row];
+	public static String identifyID(String ID, Character Character) {
+		String[] Symbols = new String[] { "CC", "C ", "R ", "Rd", "RD", "T ", "HT", "t ", "MT", "SN", "SD", "FT", "BD", "B " };
+		String[] IDs = new String[] { "P1-I50", "P1-I50", "P1-I43", "P1-I43", "P1-I43", "P1-I48", "P1-I48", "P1-I46", "P1-I46", "P1-I39", "P1-I39", "P1-I42", "P1-I36", "P1-I36" };
+		if (ID.equals("HH")) {
+			if (Character == 'x' || Character == 'X') {
+				return "P1-I43";
+			}	else if (Character == 'o') {
+				return "P1-I47";
+			}
+		}	else {
+		for (int i = 0; i < Symbols.length; i++) {
+			if (Symbols[i].equals(ID)) {
+				return IDs[i];
+			}
+		}
+		}
+		return null;
 	}
 
-	public static String octaveCount(int row) {
-		if (row == 5) {
+	public static String octaveCount(String ID) {
+		if (ID.equals("FT") || ID.equals("BD") || ID.equals("B ")) {
 			return "4";
 		}	else {
 			return "5";
@@ -253,21 +273,31 @@ public class DParser {
 		ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
 		ArrayList<String> eachSection = new ArrayList<String>();
 		
-		input = subtractID(input);
+		ArrayList<String> in = new ArrayList<String>();
+		
+		int o = input.get(0).length();
+		
+		for (int i = 0; i < input.size()-1; i++) {
+			if (input.get(i).subSequence(0, 2).equals("Hf") || input.get(i).subSequence(0, 2).equals("HF")) {
+				break;
+			}	else if (!(input.get(i).contains("REPEAT"))) {
+			in.add(input.get(i).substring(2, o));
+			}
+		}
 
 		// assumes that all the measures have 16 dashes/notes excluding the vertical lines
-		for (int z = 1; z < input.size(); z=z+(input.size())){
-			for (int i = 0; i < (input.get(0).length()-1)/17; i++) {
-				for (int j = 0; j < input.size(); j++) {
-					if (!(input.get(j+z-1).subSequence(0, 1).equals("|"))) {
+		for (int z = 1; z < in.size(); z=z+(in.size())){
+			for (int i = 0; i < (in.get(0).length()-1)/17; i++) {
+				for (int j = 0; j < in.size(); j++) {
+					if (!(in.get(j+z-1).subSequence(0, 1).equals("|"))) {
 						int count=0;
-						while(!(input.get(j+z-1).subSequence(count, count+1).equals("|"))) {
+						while(!(in.get(j+z-1).subSequence(count, count+1).equals("|"))) {
 							count++;
 						}
-						eachSection.add(input.get(j+z-1).substring(1+17*i+count, 17*(i+1)+count));
+						eachSection.add(in.get(j+z-1).substring(1+17*i+count, 17*(i+1)+count));
 					}
 					else {
-						eachSection.add(input.get(j+z-1).substring(1+17*i, 17*(i+1)));
+						eachSection.add(in.get(j+z-1).substring(1+17*i, 17*(i+1)));
 					}
 				}	
 				sections.add(eachSection);
@@ -278,34 +308,30 @@ public class DParser {
 		return sections;
 	}
 	
-	private static ArrayList<String> subtractID(ArrayList<String> input){ 
-		
-		ArrayList<String> eachSection = new ArrayList<String>();
-		
-		int o = input.get(0).length();
-		
-		for (int i = 0; i < input.size()-1; i++) {
-			eachSection.add(input.get(i).substring(2, o));
-		}
-		
-		
-		return eachSection;
-	}
-	
 	public static ArrayList<ArrayList<String>> collectionToMeasureExtractID(ArrayList<String> input){ 
 		
 		ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
 		ArrayList<String> eachSection = new ArrayList<String>();
 		
+		ArrayList<String> in = new ArrayList<String>();
+		
+		for (int i = 0; i < input.size()-1; i++) {
+			if (!(input.get(i).contains("REPEAT"))) {
+			in.add(input.get(i));
+			}	else if (input.get(i).subSequence(0, 2).equals("Hf") || input.get(i).subSequence(0, 2).equals("HF")) {
+				break;
+			}
+		}
+		
 		// assumes that all the measures have 16 dashes/notes excluding the vertical lines
-		for (int z = 1; z < input.size(); z=z+input.size()){
-			for (int i = 0; i < (input.get(0).length()-1)/17; i++) {
-				for (int j = 0; j < input.size()-1; j++) {
+		for (int z = 1; z < in.size(); z=z+in.size()){
+			for (int i = 0; i < (in.get(0).length()-1)/17; i++) {
+				for (int j = 0; j < in.size(); j++) {
 					int count=0;
-					while(!(input.get(j+z-1).subSequence(count, count+1).equals("|"))) {
+					while(!(in.get(j+z-1).subSequence(count, count+1).equals("|"))) {
 						count++;
 					}
-					eachSection.add(input.get(j+z-1).substring(0, count));
+					eachSection.add(in.get(j+z-1).substring(0, count));
 					}
 				sections.add(eachSection);
 				eachSection = new ArrayList<String>();
@@ -313,9 +339,7 @@ public class DParser {
 		}
 		// returns  2d array of substrings of the ID of the instruments
 		return sections;
-	}
-	
-	
+	}	
 	
 	public static boolean isChord(ArrayList<String> line, char note) { 
 		return false;
