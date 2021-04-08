@@ -168,53 +168,8 @@ public class GuitarParser {
 						end=i;
 				}
 			}
-			return convertToLetters(note.substring(start, end+1));
+			return note.substring(start, end+1);
 		}
-
-	private static String convertToLetters(String note) { 
-		String[] convert= {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R",
-				"S","T","U","V","W","X","Y","Z","!","@","#","$","%"};
-		String symbol="";
-		String num="";
-		String add="";
-		int digits=0;
-		int len = note.length();
-		for (int i = 0; i < len; i++) { 
-			if (Character.isDigit(note.charAt(i))) { 
-				digits++;
-				num=num+note.substring(i, i+1);
-			}
-			else {
-				if(digits>0) {
-					if(digits>1) {
-						for(int z=0;z<digits-1;z++)
-							add=add+"-";
-					}
-					
-
-					symbol=convert[Integer.parseInt(num)];
-					
-
-					note=note.substring(0, i-digits)+ symbol + add + note.substring(i);
-					digits=0;
-					num="";
-					symbol="";
-					add="";
-				}
-			}
-		}
-		return note;
-	}
-	
-
-	private static int convertToNum(String input) {
-		String convert= "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%";
-		String number="";
-		number=number+Integer.toString(convert.indexOf(input));
-		return Integer.parseInt(number);
-	}
-	
-
 
 
 	public static String parseAlter(String note) { 
