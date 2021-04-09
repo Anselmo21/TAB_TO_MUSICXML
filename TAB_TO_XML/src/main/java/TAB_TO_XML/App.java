@@ -23,30 +23,21 @@ import DrumModel.*;
 import guitarModel.*;
 
 public class App {
-	public static void main(String[]args) { 
-		ArrayList<String> tab = new ArrayList<String>();
-		tab.add("aaa|-----------0-----|-1-------------9-|");
-		tab.add("aaa|---------0---0---|-0---------------|");
-		tab.add("aaa|-------1-------1-|-1---------------|");
-		tab.add("aaa|-----2-----------|-2---------------|"); 
-		tab.add("aaa|---2-------------|-2---------------|");
-		tab.add("aaa|-0---------------|-0---------------|");
-		App.guitarTabToXML(tab);
-			
-	}
 	
-	public static String runConversion(String tab) {
+	public static String runConversion(String tab, String customization) {
 		String conversion = null;
+		
+		HashMap<Integer, Integer[]> timeSigs = getTimeSignatures(customization);
 		
 		switch (getInstrument(tab)) {
 		case "Guitar":
-			conversion = guitarTabToXML(getFileList(tab));
+			conversion = guitarTabToXML(getFileList(tab), timeSigs);
 			break;
 		case "Bass":
-			conversion = bassTabToXML(getFileList(tab));
+			conversion = bassTabToXML(getFileList(tab), timeSigs);
 			break;
 		case "Drums":
-			conversion = drumTabToXML(getFileList(tab));
+			conversion = drumTabToXML(getFileList(tab), timeSigs);
 			break;
 		default:
 			break;
@@ -128,7 +119,7 @@ public class App {
 		return map;
 	}
 
-	public static String bassTabToXML(ArrayList<String> tabAsList) {
+	public static String bassTabToXML(ArrayList<String> tabAsList, HashMap<Integer, Integer[]> timeSigs) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
 
@@ -167,7 +158,7 @@ public class App {
 				// iter through each measure set
 				for (int j = 0; j < measuresOfCollection.size(); j++) {
 					measureCount++;
-					BassModel.Measure newMeasure = parseBassMeasure(measuresOfCollection.get(j), measureCount, tuningSteps);
+					BassModel.Measure newMeasure = parseBassMeasure(measuresOfCollection.get(j), measureCount, tuningSteps, timeSigs);
 					measures.add(newMeasure);
 				}
 			}
@@ -193,11 +184,13 @@ public class App {
 		return null;
 	}
 
-	private static BassModel.Measure parseBassMeasure(ArrayList<String> meas, int measureNumber, ArrayList<String> tuningSteps) {
+	private static BassModel.Measure parseBassMeasure(ArrayList<String> meas, int measureNumber, ArrayList<String> tuningSteps, HashMap<Integer, Integer[]> timeSigs) {
 
 		BassModel.Measure newMeasure = new BassModel.Measure();
 		newMeasure.setNumber(measureNumber);
-		int division = BParser.divisionCount(meas.get(0), 8);
+		Integer[] timeSig = timeSigs.getOrDefault(measureNumber, new Integer[]{8, 4});
+		int division = BParser.divisionCount(meas.get(0), timeSig[0]);
+		
 		// if first measure, set the attributes
 		if (measureNumber == 1) {
 			BassModel.Attributes attributes = new BassModel.Attributes();
@@ -541,7 +534,7 @@ public class App {
 		return newMeasure;
 	}
 
-	public static String guitarTabToXML(ArrayList<String> tabAsList) {
+	public static String guitarTabToXML(ArrayList<String> tabAsList, HashMap<Integer, Integer[]> timeSigs) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
 			//			InputStream inputStream = new FileInputStream("C:\\Users\\shawn\\Desktop\\parts1.xml");
@@ -587,7 +580,7 @@ public class App {
 				// iter through each measure set
 				for (int j = 0; j < measuresOfCollection.size(); j++) {
 					measureCount++;
-					guitarModel.Measure newMeasure = parseGuitarMeasure(measuresOfCollection.get(j), measureCount, tuningSteps);
+					guitarModel.Measure newMeasure = parseGuitarMeasure(measuresOfCollection.get(j), measureCount, tuningSteps, timeSigs);
 					measures.add(newMeasure);
 				}
 			}
@@ -613,11 +606,13 @@ public class App {
 		return null;
 	}
 
-	private static guitarModel.Measure parseGuitarMeasure(ArrayList<String> meas, int measureNumber, ArrayList<String> tuningSteps) {
+	private static guitarModel.Measure parseGuitarMeasure(ArrayList<String> meas, int measureNumber, ArrayList<String> tuningSteps, HashMap<Integer, Integer[]> timeSigs) {
 
 		guitarModel.Measure newMeasure = new guitarModel.Measure();
 		newMeasure.setNumber(measureNumber);
-		int division = GuitarParser.divisionCount(meas.get(0), 8);
+		Integer[] timeSig = timeSigs.getOrDefault(measureNumber, new Integer[]{8, 4});
+		int division = GuitarParser.divisionCount(meas.get(0), timeSig[0]);
+		
 		// if first measure, set the attributes
 		if (measureNumber == 1) {
 			guitarModel.Attributes attributes = new guitarModel.Attributes();
@@ -1007,7 +1002,7 @@ public class App {
 		return newMeasure;
 	}
 
-	public static String drumTabToXML(ArrayList<String> tabAsList) {
+	public static String drumTabToXML(ArrayList<String> tabAsList, HashMap<Integer, Integer[]> timeSigs) {
 		try {
 			ObjectMapper mapper = new XmlMapper();
 
@@ -1117,7 +1112,7 @@ public class App {
 				// iter through each measure set
 				for (int j = 0; j < measuresOfCollection.size(); j++) {
 					measureCount++;
-					DrumModel.Measure newMeasure = parseDrumMeasure(measuresOfCollection.get(j), instrumentIDs.get(j), measureCount);
+					DrumModel.Measure newMeasure = parseDrumMeasure(measuresOfCollection.get(j), instrumentIDs.get(j), measureCount, timeSigs);
 					measures.add(newMeasure);
 				}
 			}
@@ -1143,11 +1138,13 @@ public class App {
 		return null;
 	}
 
-	private static DrumModel.Measure parseDrumMeasure(ArrayList<String> meas, ArrayList<String> IDs, int measureNumber) {
+	private static DrumModel.Measure parseDrumMeasure(ArrayList<String> meas, ArrayList<String> IDs, int measureNumber, HashMap<Integer, Integer[]> timeSigs) {
 
 		DrumModel.Measure newMeasure = new DrumModel.Measure();
 		newMeasure.setNumber(measureNumber);
-		int division = DParser.divisionCount(meas.get(0), 4);
+		Integer[] timeSig = timeSigs.getOrDefault(measureNumber, new Integer[]{4, 4});
+		int division = DParser.divisionCount(meas.get(0), timeSig[0]);
+		
 		// if first measure, set the attributes
 		if (measureNumber == 1) {
 			DrumModel.Attributes attributes = new DrumModel.Attributes();
