@@ -3,15 +3,21 @@ package Interface;
 import java.awt.Desktop;
 
 import java.io.*;
+import java.net.URL;
 import java.util.*;
+import java.util.prefs.Preferences;
 
 import javax.xml.transform.stream.StreamResult;
+
+import org.fxmisc.richtext.CodeArea;
+import org.fxmisc.richtext.LineNumberFactory;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -29,7 +35,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import TAB_TO_XML.App;
 
-public class Controller {
+public class Controller implements Initializable {
 
 	private static Window window = new Stage();
 	Desktop screen = Desktop.getDesktop();
@@ -47,13 +53,18 @@ public class Controller {
 	Label path, getInstrument;
 
 	@FXML
-	TextArea view, write, customization;
+	TextArea view, customization;
 	
-	
-	@SuppressWarnings("unchecked")
 	@FXML
-	private void initialize() {
+    private CodeArea write;
+
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
 		save.setDisable(true);
+		write.setStyle("-fx-font-family: Monospace; -fx-font-size: 12pt; -fx-font-weight: bold;");
+		write.setParagraphGraphicFactory(LineNumberFactory.get(write));
+        new ErrorHighlightingInput(write).enableHighlighting();
 	}
 
 
@@ -159,29 +170,34 @@ public class Controller {
 		catch(Exception e) {
 		}
 	}
-	
 
-	public void handleErrors() {
-		//
-	}
-	
+
+//	public void handleErrors(String error) {
+//		 switch (error) {
+//         case "Level 1 - Minimal Error Checking" -> ErrorHighlightingInput.ERROR_SENSITIVITY = 1;
+//         case "Level 3 - Advanced Error Checking" -> ErrorHighlightingInput.ERROR_SENSITIVITY = 3;
+//         case "Level 4 - Detailed Error Checking" -> ErrorHighlightingInput.ERROR_SENSITIVITY = 4;
+//         default -> Input.ERROR_SENSITIVITY = 2;
+//	}
+
 	public Window openNewWindow(String fxml, String name) {
 		try {
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(fxml));
+			Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(fxml));
 
-            Stage stage = new Stage();
-            stage.setTitle(name);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initOwner(Runner.stage);
-            stage.setResizable(false);
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            return scene.getWindow();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+			Stage stage = new Stage();
+			stage.setTitle(name);
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.initOwner(Runner.stage);
+			stage.setResizable(false);
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+			return scene.getWindow();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
-	
+
+
 }

@@ -1,5 +1,15 @@
 .root {
-	-fx-background-image: url("/Interface/colorful-digital-wave-with-chaotic-particles-dark-background_87621-163.jpg");
+	-fx-background-image: url("/Interface/Title.jpg");
 	-fx-background-repeat: no-repeat;
     -fx-background-size: stretch;
+}
+
+.styled-text-area {
+    -fx-effect: innershadow( gaussian , #00000015 , 5 , 0 , 2 , 2 );
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    -fx-border-color: #ccc;
+    -fx-font-family: Courier New;
+    -fx-fontsize: 14px;
+    -fx-fontstyle: bold;
 }
