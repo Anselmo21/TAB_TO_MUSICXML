@@ -54,7 +54,7 @@
                   </Label>
                </children>
             </TilePane>
-            <GridPane layoutX="25.0" layoutY="617.0" prefHeight="34.0" prefWidth="210.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="695.8000000000001">
+            <GridPane layoutX="13.0" layoutY="616.0" prefHeight="34.0" prefWidth="210.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="707.8000000000001">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                </columnConstraints>
