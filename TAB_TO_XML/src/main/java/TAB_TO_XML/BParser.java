@@ -63,10 +63,13 @@ import Interface.Controller;
 		public static String stepCount(int row, int column) {
 
 			String[][] fretboard = new String[][] {
-				{ "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G" },
-				{ "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D" },
-				{ "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A" },
-				{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" }};
+				{ "G2", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G" },
+
+				{ "D2", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D" },
+
+				{ "A1", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A" },
+
+				{ "E1", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" }};
 				
 				return fretboard[row][column];
 		}
