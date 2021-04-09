@@ -1,11 +1,13 @@
 package guitarModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@JsonPropertyOrder({"attributes", "barline", "direction"})
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Measure {
 
@@ -16,10 +18,12 @@ public class Measure {
 	
     @JacksonXmlElementWrapper(useWrapping = false)
 	private ArrayList<Note> note;
-	private Barline barline;
+    
+    @JacksonXmlElementWrapper(useWrapping = false)
+	private ArrayList<Barline> barline;
 
 	public Measure() {}
-	public Measure(int number, ArrayList<Note> note, Attributes attributes, Barline barline) {
+	public Measure(int number, ArrayList<Note> note, Attributes attributes, ArrayList<Barline> barline) {
 		super();
 		this.number = number;
 		this.note = note;
@@ -44,10 +48,10 @@ public class Measure {
 	public void setAttributes(Attributes attributes) {
 		this.attributes = attributes;
 	}
-	public Barline getBarline() {
+	public 	ArrayList<Barline> getBarline() {
 		return barline;
 	}
-	public void setBarline(Barline barline) {
+	public void setBarline(ArrayList<Barline> barline) {
 		this.barline = barline;
 	}
 

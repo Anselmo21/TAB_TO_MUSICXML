@@ -585,11 +585,11 @@ public class App {
 				}
 			}
 
-			// set last measure to have barline values
-			guitarModel.Barline barline = new guitarModel.Barline();
-			barline.setBarStyle("light-heavy");
-			barline.setLocation("right");
-			measures.get(measures.size() - 1).setBarline(barline);
+//			// set last measure to have barline values
+//			guitarModel.Barline barline = new guitarModel.Barline();
+//			barline.setBarStyle("light-heavy");
+//			barline.setLocation("right");
+//			measures.get(measures.size() - 1).setBarline(barline);
 
 			parts.get(0).setMeasures(measures);
 
@@ -612,6 +612,7 @@ public class App {
 		newMeasure.setNumber(measureNumber);
 		Integer[] timeSig = timeSigs.getOrDefault(measureNumber, new Integer[]{8, 4});
 		int division = GuitarParser.divisionCount(meas.get(0), timeSig[0]);
+		ArrayList<guitarModel.Barline> barL = new ArrayList<>();
 		
 		// if first measure, set the attributes
 		if (measureNumber == 1) {
@@ -709,7 +710,7 @@ public class App {
 			newMeasure.setAttributes(attributes);
 		}
 
-		newMeasure.setBarline(null);
+//		newMeasure.setBarline(null);
 
 		ArrayList<guitarModel.Note> note = new ArrayList<guitarModel.Note>();
 
@@ -727,6 +728,7 @@ public class App {
 			}
 			for (int x = meas.size() - 1; x >= 0; x--) {
 				char character = meas.get(x).charAt(y);
+				
 				
 				if (Character.isDigit(character)) {
 					//if it's a graced note
@@ -775,40 +777,7 @@ public class App {
 					ArrayList<guitarModel.PullOff> pullList = new ArrayList<guitarModel.PullOff>();
 					ArrayList<guitarModel.HammerOn> hammerList = new ArrayList<guitarModel.HammerOn>();
 					ArrayList<guitarModel.Slides> slideList = new ArrayList<guitarModel.Slides>();
-				
-//					//consecutive pull offs 
-//					if(character == 'p' || character == 'P' && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) { 
-//						if (meas.get(x).charAt(nextColumn + 1) == 'p' || meas.get(x).charAt(nextColumn + 1) == 'P') {
-//							guitarModel.PullOff before = new guitarModel.PullOff();
-//							guitarModel.PullOff after = new guitarModel.PullOff();
-//							before.setNumber(1);
-//							after.setNumber(1);
-//							before.setType("stop");
-//							after.setType("start");
-//							after.setSymbol("P");
-//							pullList.add(before);
-//							pullList.add(after);
-//							technical.setPull(pullList);
-//							notations.setSlur(null);
-//						}
-//					}
-//					//consecutive hammer-ons
-//					if ((character == 'h') || (character == 'H') && Character.isDigit(meas.get(x).charAt(prevColumn)) && Character.isDigit(meas.get(x).charAt(nextColumn))) { 
-//						if (meas.get(x).charAt(nextColumn + 1) == 'h' || meas.get(x).charAt(nextColumn + 1) == 'H') {
-//							guitarModel.HammerOn before1 = new guitarModel.HammerOn();
-//							guitarModel.HammerOn after1 = new guitarModel.HammerOn();
-//							before1.setNumber(1);
-//							after1.setNumber(1);
-//							before1.setType("stop");
-//							after1.setType("start");
-//							after1.setSymbol("H");
-//							hammerList.add(before1);
-//							hammerList.add(after1);
-//							technical.setHammer(hammerList);
-//							notations.setSlur(null);
-//							
-//						}
-//					}
+						
 					
 					//Natural Harmonics or not
 					if (meas.get(x).charAt(prevColumn) == '[' && meas.get(x).charAt(nextColumn) == ']' ) {
