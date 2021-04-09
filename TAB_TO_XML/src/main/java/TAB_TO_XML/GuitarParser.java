@@ -121,35 +121,57 @@ public class GuitarParser {
 	
 	
 	//return list of list<string>, where each list<string> represents a single measure
-	public static ArrayList<ArrayList<String>> collectionToMeasure(ArrayList<String> input){ 
-		
-		ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
-		ArrayList<String> eachSection = new ArrayList<String>();
-		
-		// assumes that all the measures have 17 dashes/notes excluding the vertical lines
-		for (int z = 1; z < input.size(); z=z+6){
-			for (int i = 0; i < (input.get(0).length()-1)/18; i++) {	
-				for (int j = 0; j < 6; j++) {
-					if (!(input.get(j+z-1).subSequence(0, 1).equals("|"))) {
-						int count=0;
-						while(!(input.get(j+z-1).subSequence(count, count+1).equals("|"))) {
-							count++;
+		public static ArrayList<ArrayList<String>> collectionToMeasure(ArrayList<String> input){ 
+			
+
+			ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
+			ArrayList<String> eachSection = new ArrayList<String>();
+			
+
+			// assumes that all the measures have 17 dashes/notes excluding the vertical lines
+			for (int z = 1; z < input.size(); z=z+6){
+				for (int i = 0; i < (input.get(z-1).split("\\|").length-1); i++) {	
+					for (int j = 0; j < 6; j++) {
+						if (!(input.get(j+z-1).subSequence(0, 1).equals("|"))) {
+							int count=0;
+							while(!(input.get(j+z-1).subSequence(count, count+1).equals("|"))) {
+								count++;
+							}
+							eachSection.add(splitter(input.get(j+z-1),count,i));
 						}
-						eachSection.add(input.get(j+z-1).substring(1+18*i+count, 18*(i+1)+count));
+						else {
+							eachSection.add(splitter(input.get(j+z-1),0,i));
+						}
 					}
-					else {
-						eachSection.add(input.get(j+z-1).substring(1+18*i, 18*(i+1)));
-					}
+					sections.add(eachSection);
+					eachSection = new ArrayList<String>();
 				}
-				sections.add(eachSection);
-				eachSection = new ArrayList<String>();
 			}
+			
+
+			// returns  2d array of substrings of the measure excluding the vertical lines	
+			return sections;
+			//test push
+												
+
 		}
-		
-		// returns  2d array of substrings of the measure excluding the vertical lines	
-		return sections;
-											
-	}
+
+		private static String splitter(String note, int count,int element) { 
+			note=note.substring(count);
+			int digits=0;
+			int start=0,end=0;
+			for (int i = 0; i < note.length(); i++) { 
+				if (note.subSequence(i, i+1).equals("|")) { 
+					digits++;
+					if (digits==element+1)
+						start=i;
+					else if(digits==element+2)
+						end=i;
+				}
+			}
+			return note.substring(start, end+1);
+		}
+
 
 	public static String parseAlter(String note) { 
 		
