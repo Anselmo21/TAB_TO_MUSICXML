@@ -7,7 +7,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-@JsonPropertyOrder({"attributes", "barline", "direction"})
+@JsonPropertyOrder({"attributes", "barline", "direction", "note"})
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Measure {
 
@@ -22,6 +22,9 @@ public class Measure {
     @JacksonXmlElementWrapper(useWrapping = false)
 	private ArrayList<Barline> barline;
 
+    @JacksonXmlProperty(localName = "direction")
+	private GuitarDirection direction;
+    
 	public Measure() {}
 	public Measure(int number, ArrayList<Note> note, Attributes attributes, ArrayList<Barline> barline) {
 		super();
@@ -54,5 +57,13 @@ public class Measure {
 	public void setBarline(ArrayList<Barline> barline) {
 		this.barline = barline;
 	}
+	
+	public void setGuitarDirection(GuitarDirection dir) {
+		
+		this.direction = dir;
+		
+	}
+
+	
 
 }

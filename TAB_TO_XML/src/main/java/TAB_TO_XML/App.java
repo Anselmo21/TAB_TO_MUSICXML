@@ -729,6 +729,41 @@ public class App {
 			for (int x = meas.size() - 1; x >= 0; x--) {
 				char character = meas.get(x).charAt(y);
 				
+				//Repeats: Variable Number Of Times
+				if (Character.isDigit(character) && y == meas.get(0).length()-1) { 
+					guitarModel.GuitarDirection dir = new guitarModel.GuitarDirection();
+					dir.setPlacement("above");
+					guitarModel.GuitarDirectionType dirType = new guitarModel.GuitarDirectionType();
+					guitarModel.GuitarWords gWord =  new guitarModel.GuitarWords();
+					gWord.setRelativeX();
+					gWord.setRelativeY();
+					gWord.setRepeatText(character);
+					dirType.setWord(gWord);
+					dir.setDirectionType(dirType);
+					newMeasure.setGuitarDirection(dir);
+				}
+				
+				//Repeats: Forward Direction
+				if (character == '|' && meas.get(nextColumn).charAt(y) == '*') { 
+					guitarModel.Barline barForward = new guitarModel.Barline(); 
+					barForward.setLocation("left");
+					barForward.setBarStyle("heavy-light");
+					guitarModel.GuitarRepeat repeatForward = new guitarModel.GuitarRepeat();
+					repeatForward.setDirection("forward");
+					barL.add(barForward);
+					
+				}
+				//Repeats: Backward Direction 
+				if (character == '*' && meas.get(nextColumn).charAt(y) == '|') { 
+					guitarModel.Barline barBackward = new guitarModel.Barline();
+					barBackward.setLocation("right");
+					barBackward.setBarStyle("light-heavy");
+					guitarModel.GuitarRepeat repeatBackward = new guitarModel.GuitarRepeat(); 
+					repeatBackward.setDirection("backward");
+					barL.add(barBackward);
+				}
+			
+				newMeasure.setBarline(barL);
 				
 				if (Character.isDigit(character)) {
 					//if it's a graced note
