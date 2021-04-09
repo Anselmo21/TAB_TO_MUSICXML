@@ -13,3 +13,20 @@
     -fx-fontsize: 14px;
     -fx-fontstyle: bold;
 }
+
+.highPriorityError {
+    -rtfx-background-color: #ffa6a6;
+}
+
+.mediumPriorityError {
+    -rtfx-background-color: #ffe2a3;
+}
+
+.lowPriorityError {
+    -rtfx-background-color: #ccfffd;
+}
+
+.noError  {
+    -rtfx-background-color: #00204020;
+    border: #cccccc;
+}
