@@ -737,14 +737,14 @@ public class App {
 					guitarModel.GuitarWords gWord =  new guitarModel.GuitarWords();
 					gWord.setRelativeX();
 					gWord.setRelativeY();
-					gWord.setRepeatText(character);
+					gWord.setRepeatText((int)character);
 					dirType.setWord(gWord);
 					dir.setDirectionType(dirType);
 					newMeasure.setGuitarDirection(dir);
 				}
 				
 				//Repeats: Forward Direction
-				if (character == '|' && meas.get(nextColumn).charAt(y) == '*') { 
+				if (character == '|' && meas.get(x).charAt(nextColumn) == '*') { 
 					guitarModel.Barline barForward = new guitarModel.Barline(); 
 					barForward.setLocation("left");
 					barForward.setBarStyle("heavy-light");
@@ -754,7 +754,7 @@ public class App {
 					
 				}
 				//Repeats: Backward Direction 
-				if (character == '*' && meas.get(nextColumn).charAt(y) == '|') { 
+				else if (character == '|' && meas.get(x).charAt(prevColumn) == '*') { 
 					guitarModel.Barline barBackward = new guitarModel.Barline();
 					barBackward.setLocation("right");
 					barBackward.setBarStyle("light-heavy");
@@ -762,7 +762,14 @@ public class App {
 					repeatBackward.setDirection("backward");
 					barL.add(barBackward);
 				}
-			
+				
+				else { 
+//					// set last measure to have barline values
+					guitarModel.Barline barline = new guitarModel.Barline();
+					barline.setBarStyle("light-heavy");
+					barline.setLocation("right");
+					barL.add(barline);
+				}
 				newMeasure.setBarline(barL);
 				
 				if (Character.isDigit(character)) {
