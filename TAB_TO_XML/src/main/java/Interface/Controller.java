@@ -113,7 +113,8 @@ public class Controller {
 				else if (instrument.equals("Bass")) getInstrument.setText("Instrument: Bass");
 				else getInstrument.setText("No Instrument Found");
 				String getConversion = App.runConversion(storeText);
-				App.getTimeSignatures(customization.getText());
+				String getCustomization = customization.getText();
+				App.getTimeSignatures(getCustomization);
 				view.appendText(getConversion);
 				save.setDisable(false);
 			}
