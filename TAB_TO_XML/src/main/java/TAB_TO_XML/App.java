@@ -716,6 +716,7 @@ public class App {
 
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
+			Boolean isDoubleDigit = false; 
 			Boolean hasPrevColNote = false;
 			Boolean isGrace = false;
 			int nextColumn = 0;
@@ -773,15 +774,22 @@ public class App {
 				newMeasure.setBarline(barL);
 				
 			
-				
+				String doubleDigit = ""; 
 				
 				if (Character.isDigit(character)) {
 					//if it's a graced note
 					if (Character.isDigit(meas.get(x).charAt(nextColumn))) {
+						 isDoubleDigit = true; 
+						 doubleDigit = new StringBuilder("").append(character).append(meas.get(x).charAt(nextColumn)).append("").toString(); //concatenates the two digits
 						
-						 character += meas.get(x).charAt(nextColumn);
+						 if (y + 1 < meas.get(0).length()) {
+							 
+						 y++;
+						 
+						 }
 						 
 					}
+					
 					if (meas.get(x).charAt(prevColumn) == 'g') { 
 						isGrace = true;
 						GraceNote grace = new guitarModel.GraceNote();
@@ -912,7 +920,16 @@ public class App {
 						tech.setHammer(hammerList);
 						notations.setSlur(slur);
 					}
+					if (isDoubleDigit == true) { 
+						
+						tech.setFret(doubleDigit);
+						
+					}
+					else {
+						
 					tech.setFret("" + character);
+					
+					}
 					Integer stringNumber = (x + 1);
 					tech.setString(stringNumber.toString());
 					notations.setTechnical(tech);
@@ -1002,7 +1019,14 @@ public class App {
 							technical.setHammer(hammerList);
 							notations.setSlur(slur);
 						}
+						if (isDoubleDigit == true) { 
+							
+							technical.setFret(doubleDigit);
+							
+						}
+						else {
 						technical.setFret("" + character);
+						}
 						Integer stringNumber = (x + 1);
 						technical.setString(stringNumber.toString());
 						notations.setTechnical(technical);
