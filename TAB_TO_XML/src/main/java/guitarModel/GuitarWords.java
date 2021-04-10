@@ -25,4 +25,5 @@ public class GuitarWords {
 	public void setRepeatText(int number) { 
 		this.repeatText = "Repeat " + number + " times";
 	}
+	
 }

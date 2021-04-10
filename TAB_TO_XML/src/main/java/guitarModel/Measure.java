@@ -14,8 +14,12 @@ public class Measure {
 	@JacksonXmlProperty(isAttribute=true)
 	private int number;
 
+	@JacksonXmlProperty(localName = "attributes")
 	private Attributes attributes;
 	
+	@JacksonXmlProperty(localName = "direction")
+	private GuitarDirection direction;
+	 
     @JacksonXmlElementWrapper(useWrapping = false)
 	private ArrayList<Note> note;
     
@@ -25,8 +29,7 @@ public class Measure {
     @JacksonXmlProperty(localName = "barline")
     private BackwardBarline barline1;
 
-    @JacksonXmlProperty(localName = "direction")
-	private GuitarDirection direction;
+   
     
 	public Measure() {}
 	public Measure(int number, ArrayList<Note> note, Attributes attributes, ForwardBarline barline) {

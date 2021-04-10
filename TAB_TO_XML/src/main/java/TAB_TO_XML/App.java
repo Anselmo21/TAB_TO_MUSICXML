@@ -535,6 +535,7 @@ public class App {
 	}
 
 	public static String guitarTabToXML(ArrayList<String> tabAsList, HashMap<Integer, Integer[]> timeSigs) {
+		boolean isThereRepeat = false;
 		try {
 			ObjectMapper mapper = new XmlMapper();
 			//			InputStream inputStream = new FileInputStream("C:\\Users\\shawn\\Desktop\\parts1.xml");
@@ -576,21 +577,25 @@ public class App {
 				ArrayList<String> tuningSteps = getTuningSteps(collections.get(i));
 				
 				ArrayList<ArrayList<String>> measuresOfCollection = GuitarParser.collectionToMeasure(collections.get(i));
-
+				
 				// iter through each measure set
 				for (int j = 0; j < measuresOfCollection.size(); j++) {
 					measureCount++;
-					guitarModel.Measure newMeasure = parseGuitarMeasure(measuresOfCollection.get(j), measureCount, tuningSteps, timeSigs);
+					guitarModel.Measure newMeasure = parseGuitarMeasure(measuresOfCollection.get(j), measureCount, tuningSteps, timeSigs,isThereRepeat);
 					measures.add(newMeasure);
 				}
 			}
+			// set last measure to have barline values
+			if (isThereRepeat == false) {
+				guitarModel.BackwardBarline onebarline = new guitarModel.BackwardBarline();
+				onebarline.setBarStyle("light-heavy");
+				onebarline.setLocation("right");
+				measures.get(measures.size() - 1).setBackwardBarline(onebarline);
 
-//			// set last measure to have barline values
-//			guitarModel.Barline barline = new guitarModel.Barline();
-//			barline.setBarStyle("light-heavy");
-//			barline.setLocation("right");
-//			measures.get(measures.size() - 1).setBarline(barline);
+			}
 
+//			
+//			
 			parts.get(0).setMeasures(measures);
 
 			scorePartwise.setParts(parts);
@@ -606,13 +611,13 @@ public class App {
 		return null;
 	}
 
-	private static guitarModel.Measure parseGuitarMeasure(ArrayList<String> meas, int measureNumber, ArrayList<String> tuningSteps, HashMap<Integer, Integer[]> timeSigs) {
+	private static guitarModel.Measure parseGuitarMeasure(ArrayList<String> meas, int measureNumber, ArrayList<String> tuningSteps, HashMap<Integer, Integer[]> timeSigs, boolean isThereRepeat) {
 
 		guitarModel.Measure newMeasure = new guitarModel.Measure();
 		newMeasure.setNumber(measureNumber);
 		Integer[] timeSig = timeSigs.getOrDefault(measureNumber, new Integer[]{8, 4});
 		int division = GuitarParser.divisionCount(meas.get(0), timeSig[0]);
-		ArrayList<guitarModel.Barline> barL = new ArrayList<>();
+		
 		
 		//Repeating Measures
 		Boolean forwardRepeatExist = false;
@@ -719,7 +724,7 @@ public class App {
 //		newMeasure.setBarline(null);
 
 		ArrayList<guitarModel.Note> note = new ArrayList<guitarModel.Note>();
-		
+		int numVarRepeats = 0; //Number of Variable Repeats
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
 			Boolean isDoubleDigit = false; 
@@ -736,10 +741,11 @@ public class App {
 			for (int x = meas.size() - 1; x >= 0; x--) {
 				char character = meas.get(x).charAt(y);
 				
+
 				//Repeats: Variable Number Of Times
 				if (Character.isDigit(character) && y == meas.get(0).length()-1) { 
 					variableRepeatExist = true;
-
+					numVarRepeats = character; 
 				}
 
 				//Repeats: Forward Direction
@@ -753,15 +759,6 @@ public class App {
 					backwardRepeatExist = true; 
 
 				}
-				
-//				else { 
-////					// set last measure to have barline values
-//					guitarModel.Barline barline = new guitarModel.Barline();
-//					barline.setBarStyle("light-heavy");
-//					barline.setLocation("right");
-//					barL.add(barline);
-//				}
-//				newMeasure.setBarline(barL);
 				
 				// Variables to store double digit frets
 				String doubleDigit = ""; 
@@ -1035,7 +1032,6 @@ public class App {
 				}
 			}
 		}
-		
 		if (variableRepeatExist == true) {
 			guitarModel.GuitarDirection dir = new guitarModel.GuitarDirection();
 			dir.setPlacement("above");
@@ -1043,32 +1039,37 @@ public class App {
 			guitarModel.GuitarWords gWord =  new guitarModel.GuitarWords();
 			gWord.setRelativeX();
 			gWord.setRelativeY();
-			gWord.setRepeatText((int)character);
+			gWord.setRepeatText(numVarRepeats);
 			dirType.setWord(gWord);
 			dir.setDirectionType(dirType);
 			newMeasure.setGuitarDirection(dir);
+			isThereRepeat = true;
 			
 		}
 		
 		if (forwardRepeatExist == true) { 
-			guitarModel.Barline barForward = new guitarModel.Barline(); 
+			guitarModel.ForwardBarline barForward = new guitarModel.ForwardBarline(); 
 			barForward.setLocation("left");
 			barForward.setBarStyle("heavy-light");
 			guitarModel.GuitarRepeat repeatForward = new guitarModel.GuitarRepeat();
 			repeatForward.setDirection("forward");
-			barL.add(barForward);
+			newMeasure.setForwardBarline(barForward);
+			isThereRepeat = true;
 		}
 		
 		if (backwardRepeatExist == true) { 
-			guitarModel.Barline barBackward = new guitarModel.Barline();
+			guitarModel.BackwardBarline barBackward = new guitarModel.BackwardBarline();
 			barBackward.setLocation("right");
 			barBackward.setBarStyle("light-heavy");
 			guitarModel.GuitarRepeat repeatBackward = new guitarModel.GuitarRepeat(); 
 			repeatBackward.setDirection("backward");
-			barL.add(barBackward);
+			newMeasure.setBackwardBarline(barBackward);
+			isThereRepeat = true;
+		} 
+		if (backwardRepeatExist == false && forwardRepeatExist == false && variableRepeatExist == false) { 
+			isThereRepeat = false;
 		}
 		
-		newMeasure.setBarline(barL);
 		newMeasure.setNote(note);
 
 		return newMeasure;
