@@ -785,6 +785,7 @@ public class App {
 						 int numRepresentation = Integer.parseInt(doubleDigit);
 						 correctDoubleDigit = String.valueOf(numRepresentation);
 						 
+						 
 						 //Skip the digit in the nextColumn in our iteration provided we don't go over the length 
 						 if (y + 1 < meas.get(0).length()) {
 							 
