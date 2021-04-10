@@ -772,8 +772,16 @@ public class App {
 				}
 				newMeasure.setBarline(barL);
 				
+			
+				
+				
 				if (Character.isDigit(character)) {
 					//if it's a graced note
+					if (Character.isDigit(meas.get(x).charAt(nextColumn))) {
+						
+						 character += meas.get(x).charAt(nextColumn);
+						 
+					}
 					if (meas.get(x).charAt(prevColumn) == 'g') { 
 						isGrace = true;
 						GraceNote grace = new guitarModel.GraceNote();
@@ -788,7 +796,7 @@ public class App {
 					} else {
 						note.add(new guitarModel.Note());
 					}
-
+					
 					Integer duration = GuitarParser.durationCount(meas, y, division);
 					
 					if (isGrace == false) {
