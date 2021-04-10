@@ -244,7 +244,13 @@ class GuitarParserTest {
 		c.add(b);
 		d = GuitarParser.collectionToMeasure(a);
 		
-		assertEquals(c.get(0).get(0), d.get(0).get(0));
+		for (int i = 0; i < c.size(); i++) {
+			for (int j = 0; j < 6; i++) {
+				assertEquals(c.get(i).get(j), d.get(i).get(j));
+			}
+			
+		}
+		assertTrue(c.equals(d));
 	}
 	
 	@Test
@@ -276,7 +282,13 @@ class GuitarParserTest {
 		c.add(b);
 		d = GuitarParser.collectionToMeasure(a);
 		
-		assertEquals(c.get(0).get(0), d.get(0).get(0));
+		for (int i = 0; i < c.size(); i++) {
+			for (int j = 0; j < 6; i++) {
+				assertEquals(c.get(i).get(j), d.get(i).get(j));
+			}
+			
+		}
+		assertTrue(c.equals(d));
 	}
 	
 /*******************************************************************/
