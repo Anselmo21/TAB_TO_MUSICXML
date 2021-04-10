@@ -3,7 +3,7 @@ package guitarModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-public class Barline {
+public class BackwardBarline {
 
 	@JacksonXmlProperty(isAttribute=true)
 	private String location;
@@ -19,8 +19,8 @@ public class Barline {
 		this.repeat  = r; 
 	}
 	
-	public Barline() {}
-	public Barline(String location, String barStyle) {
+	public BackwardBarline() {}
+	public BackwardBarline(String location, String barStyle) {
 		super();
 		this.location = location;
 		this.barStyle = barStyle;
@@ -41,5 +41,4 @@ public class Barline {
 	public void setBarStyle(String barStyle) {
 		this.barStyle = barStyle;
 	}
-
 }

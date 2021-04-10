@@ -614,6 +614,12 @@ public class App {
 		int division = GuitarParser.divisionCount(meas.get(0), timeSig[0]);
 		ArrayList<guitarModel.Barline> barL = new ArrayList<>();
 		
+		//Repeating Measures
+		Boolean forwardRepeatExist = false;
+		Boolean backwardRepeatExist = false; 
+		Boolean variableRepeatExist = false;
+		
+		
 		// if first measure, set the attributes
 		if (measureNumber == 1) {
 			guitarModel.Attributes attributes = new guitarModel.Attributes();
@@ -713,7 +719,7 @@ public class App {
 //		newMeasure.setBarline(null);
 
 		ArrayList<guitarModel.Note> note = new ArrayList<guitarModel.Note>();
-
+		
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
 			Boolean isDoubleDigit = false; 
@@ -732,46 +738,30 @@ public class App {
 				
 				//Repeats: Variable Number Of Times
 				if (Character.isDigit(character) && y == meas.get(0).length()-1) { 
-					guitarModel.GuitarDirection dir = new guitarModel.GuitarDirection();
-					dir.setPlacement("above");
-					guitarModel.GuitarDirectionType dirType = new guitarModel.GuitarDirectionType();
-					guitarModel.GuitarWords gWord =  new guitarModel.GuitarWords();
-					gWord.setRelativeX();
-					gWord.setRelativeY();
-					gWord.setRepeatText((int)character);
-					dirType.setWord(gWord);
-					dir.setDirectionType(dirType);
-					newMeasure.setGuitarDirection(dir);
+					variableRepeatExist = true;
+
 				}
 
 				//Repeats: Forward Direction
 				if (character == '|' && meas.get(x).charAt(nextColumn) == '*') { 
-					guitarModel.Barline barForward = new guitarModel.Barline(); 
-					barForward.setLocation("left");
-					barForward.setBarStyle("heavy-light");
-					guitarModel.GuitarRepeat repeatForward = new guitarModel.GuitarRepeat();
-					repeatForward.setDirection("forward");
-					barL.add(barForward);
+					forwardRepeatExist = true;
+
 					
 				}
 				//Repeats: Backward Direction 
 				else if (character == '|' && meas.get(x).charAt(prevColumn) == '*') { 
-					guitarModel.Barline barBackward = new guitarModel.Barline();
-					barBackward.setLocation("right");
-					barBackward.setBarStyle("light-heavy");
-					guitarModel.GuitarRepeat repeatBackward = new guitarModel.GuitarRepeat(); 
-					repeatBackward.setDirection("backward");
-					barL.add(barBackward);
+					backwardRepeatExist = true; 
+
 				}
 				
-				else { 
-//					// set last measure to have barline values
-					guitarModel.Barline barline = new guitarModel.Barline();
-					barline.setBarStyle("light-heavy");
-					barline.setLocation("right");
-					barL.add(barline);
-				}
-				newMeasure.setBarline(barL);
+//				else { 
+////					// set last measure to have barline values
+//					guitarModel.Barline barline = new guitarModel.Barline();
+//					barline.setBarStyle("light-heavy");
+//					barline.setLocation("right");
+//					barL.add(barline);
+//				}
+//				newMeasure.setBarline(barL);
 				
 				// Variables to store double digit frets
 				String doubleDigit = ""; 
@@ -1045,7 +1035,40 @@ public class App {
 				}
 			}
 		}
-
+		
+		if (variableRepeatExist == true) {
+			guitarModel.GuitarDirection dir = new guitarModel.GuitarDirection();
+			dir.setPlacement("above");
+			guitarModel.GuitarDirectionType dirType = new guitarModel.GuitarDirectionType();
+			guitarModel.GuitarWords gWord =  new guitarModel.GuitarWords();
+			gWord.setRelativeX();
+			gWord.setRelativeY();
+			gWord.setRepeatText((int)character);
+			dirType.setWord(gWord);
+			dir.setDirectionType(dirType);
+			newMeasure.setGuitarDirection(dir);
+			
+		}
+		
+		if (forwardRepeatExist == true) { 
+			guitarModel.Barline barForward = new guitarModel.Barline(); 
+			barForward.setLocation("left");
+			barForward.setBarStyle("heavy-light");
+			guitarModel.GuitarRepeat repeatForward = new guitarModel.GuitarRepeat();
+			repeatForward.setDirection("forward");
+			barL.add(barForward);
+		}
+		
+		if (backwardRepeatExist == true) { 
+			guitarModel.Barline barBackward = new guitarModel.Barline();
+			barBackward.setLocation("right");
+			barBackward.setBarStyle("light-heavy");
+			guitarModel.GuitarRepeat repeatBackward = new guitarModel.GuitarRepeat(); 
+			repeatBackward.setDirection("backward");
+			barL.add(barBackward);
+		}
+		
+		newMeasure.setBarline(barL);
 		newMeasure.setNote(note);
 
 		return newMeasure;

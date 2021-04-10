@@ -7,7 +7,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-@JsonPropertyOrder({"attributes", "barline", "direction", "note"})
+@JsonPropertyOrder({"attributes", "barline", "direction", "note", "barline"})
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Measure {
 
@@ -19,14 +19,17 @@ public class Measure {
     @JacksonXmlElementWrapper(useWrapping = false)
 	private ArrayList<Note> note;
     
-    @JacksonXmlElementWrapper(useWrapping = false)
-	private ArrayList<Barline> barline;
+    @JacksonXmlProperty(localName = "barline")
+	private ForwardBarline barline;
+    
+    @JacksonXmlProperty(localName = "barline")
+    private BackwardBarline barline1;
 
     @JacksonXmlProperty(localName = "direction")
 	private GuitarDirection direction;
     
 	public Measure() {}
-	public Measure(int number, ArrayList<Note> note, Attributes attributes, ArrayList<Barline> barline) {
+	public Measure(int number, ArrayList<Note> note, Attributes attributes, ForwardBarline barline) {
 		super();
 		this.number = number;
 		this.note = note;
@@ -51,11 +54,15 @@ public class Measure {
 	public void setAttributes(Attributes attributes) {
 		this.attributes = attributes;
 	}
-	public 	ArrayList<Barline> getBarline() {
+	public 	ForwardBarline getBarline() {
 		return barline;
 	}
-	public void setBarline(ArrayList<Barline> barline) {
+	public void setForwardBarline(ForwardBarline barline) {
 		this.barline = barline;
+	}
+	
+	public void setBackwardBarline(BackwardBarline barline) { 
+		this.barline1 = barline;
 	}
 	
 	public void setGuitarDirection(GuitarDirection dir) {
