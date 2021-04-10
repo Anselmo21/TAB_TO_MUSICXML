@@ -773,15 +773,19 @@ public class App {
 				}
 				newMeasure.setBarline(barL);
 				
-			
+				// Variables to store double digit frets
 				String doubleDigit = ""; 
+				String correctDoubleDigit = ""; 
 				
 				if (Character.isDigit(character)) {
-					//if it's a graced note
+					// if it's a double digit fret tuning 
 					if (Character.isDigit(meas.get(x).charAt(nextColumn))) {
 						 isDoubleDigit = true; 
 						 doubleDigit = new StringBuilder("").append(character).append(meas.get(x).charAt(nextColumn)).append("").toString(); //concatenates the two digits
-						
+						 int numRepresentation = Integer.parseInt(doubleDigit);
+						 correctDoubleDigit = String.valueOf(numRepresentation);
+						 
+						 //Skip the digit in the nextColumn in our iteration provided we don't go over the length 
 						 if (y + 1 < meas.get(0).length()) {
 							 
 						 y++;
@@ -789,7 +793,7 @@ public class App {
 						 }
 						 
 					}
-					
+					//if it's a graced note
 					if (meas.get(x).charAt(prevColumn) == 'g') { 
 						isGrace = true;
 						GraceNote grace = new guitarModel.GraceNote();
@@ -922,7 +926,7 @@ public class App {
 					}
 					if (isDoubleDigit == true) { 
 						
-						tech.setFret(doubleDigit);
+						tech.setFret(correctDoubleDigit);
 						
 					}
 					else {
@@ -1021,9 +1025,10 @@ public class App {
 						}
 						if (isDoubleDigit == true) { 
 							
-							technical.setFret(doubleDigit);
+							technical.setFret(correctDoubleDigit);
 							
 						}
+						
 						else {
 						technical.setFret("" + character);
 						}
