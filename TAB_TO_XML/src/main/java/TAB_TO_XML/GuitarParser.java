@@ -61,7 +61,7 @@ public class GuitarParser {
 	public static String stepCount(int row, int column) {
 
 		String[][] fretboard = new String[][] {
-			{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" },
+			{ "D2", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" },
 			{ "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" },
 			{ "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G" },
 			{ "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D" },
