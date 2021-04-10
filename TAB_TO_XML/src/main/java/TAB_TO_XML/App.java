@@ -742,7 +742,11 @@ public class App {
 					dir.setDirectionType(dirType);
 					newMeasure.setGuitarDirection(dir);
 				}
-				
+				for (String s: meas) { 
+					
+					System.out.println(s);
+					
+				}
 				//Repeats: Forward Direction
 				if (character == '|' && meas.get(x).charAt(nextColumn) == '*') { 
 					guitarModel.Barline barForward = new guitarModel.Barline(); 

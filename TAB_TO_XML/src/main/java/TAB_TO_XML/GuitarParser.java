@@ -138,7 +138,7 @@ public class GuitarParser {
 								count++;
 							}
 							eachSection.add(splitter(input.get(j+z-1),count,i));
-						}
+						} 
 						else {
 							eachSection.add(splitter(input.get(j+z-1),0,i));
 						}
