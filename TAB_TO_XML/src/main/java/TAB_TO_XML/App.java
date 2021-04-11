@@ -186,7 +186,7 @@ public class App {
 
 		BassModel.Measure newMeasure = new BassModel.Measure();
 		newMeasure.setNumber(measureNumber);
-		Integer[] timeSig = timeSigs.getOrDefault(measureNumber, new Integer[] { 8, 4 });
+		Integer[] timeSig = timeSigs.getOrDefault(measureNumber, new Integer[] { 4, 4 });
 		int division = BParser.divisionCount(meas.get(0), timeSig[0]);
 
 		// if first measure, set the attributes
@@ -615,7 +615,7 @@ public class App {
 
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
 			// mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
-			return mapper.writeValueAsString(scorePartwise);
+			return mapper.writeValueAsString(scorePartwise).replace("backwardBarline", "barline");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -629,7 +629,7 @@ public class App {
 
 		guitarModel.Measure newMeasure = new guitarModel.Measure();
 		newMeasure.setNumber(measureNumber);
-		Integer[] timeSig = timeSigs.getOrDefault(measureNumber, new Integer[] { 8, 4 });
+		Integer[] timeSig = timeSigs.getOrDefault(measureNumber, new Integer[] { 4, 4 });
 		int division = GuitarParser.divisionCount(meas.get(0), timeSig[0]);
 
 		// Repeating Measures
@@ -1064,7 +1064,7 @@ public class App {
 			gWord.setRepeatText(numVarRepeats);
 			dirType.setWord(gWord);
 			dir.setDirectionType(dirType);
-			newMeasure.setGuitarDirection(dir);
+			newMeasure.setDirection(dir);
 			isThereRepeat = true;
 
 		}
@@ -2168,7 +2168,7 @@ public class App {
 				for (int j = 0; j < content.get(i).length(); j++) {
 					if (Character.isDigit(content.get(i).charAt(j))) {
 						isdrum = false;
-						System.out.println(content.get(i));
+						//System.out.println(content.get(i));
 						break outerloop;
 					}
 				}
