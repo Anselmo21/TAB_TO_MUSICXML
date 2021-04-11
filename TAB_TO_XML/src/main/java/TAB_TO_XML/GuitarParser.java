@@ -50,7 +50,8 @@ public class GuitarParser {
 	public static int divisionCount(String line, int numerator) {
 		line = line.replaceAll("|", "");
 		line = line.replaceAll("\\*", "");
-		return line.length() / numerator; 
+		return  (line.length() / numerator) / 2;
+		
 	}
 
 	
@@ -87,7 +88,7 @@ public class GuitarParser {
 	 * @return an String that represents the type of the note.
 	 */
 	public static String typeDeclare(int duration, int division) {
-		double noteValue = (4.0 * (double) division) / duration;
+		double noteValue =  ( 4 *(double) division) / duration;
 		if (noteValue >= 1024 ) {return "1024th";} 
 		else if (noteValue >= 512) {return "512th"; }
 		else if (noteValue >= 256) { return "256th"; } 
@@ -95,7 +96,7 @@ public class GuitarParser {
 		else if (noteValue >= 64) { return "64th"; } 
 		else if (noteValue >= 32) { return "32nd"; } 
 		else if (noteValue >= 16) { return "16th"; } 
-		else if (noteValue >= 8) { return "8th"; } 
+		else if (noteValue >= 8) { return "eighth"; } 
 		else if (noteValue >= 4) { return "quarter";} 
 		else if (noteValue >= 2) { return "half" ; } 
 		else if (noteValue >= 1) { return "whole" ; } 
