@@ -733,11 +733,17 @@ public class App {
 		}
 
 //		newMeasure.setBarline(null);
-
+		int BeforenumberP = 0; // for pull offs (before)
+		int BeforenumberH = 0; // for hammer ons ""
+		int AfternumberP = 0; // for pull offs (after)
+		int AfternumberH = 0; // for hammer ons ""
 		ArrayList<guitarModel.Note> note = new ArrayList<guitarModel.Note>();
 		int numVarRepeats = 0; // Number of Variable Repeats
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
+			
+			Boolean hasPrevHammer = false; //reset automatically when new col is reached
+			Boolean hasPrevPull = false; // same condition above 
 			Boolean isDoubleDigit = false;
 			Boolean hasPrevColNote = false;
 			Boolean isGrace = false;
@@ -750,8 +756,10 @@ public class App {
 				prevColumn = y - 1;
 			}
 			for (int x = meas.size() - 1; x >= 0; x--) {
+				
+				
 				char character = meas.get(x).charAt(y);
-
+				
 				// Repeats: Variable Number Of Times
 				if (Character.isDigit(character) && y == meas.get(0).length() - 1) {
 					variableRepeatExist = true;
@@ -775,6 +783,43 @@ public class App {
 
 				if (Character.isDigit(character)) {
 					// if it's a double digit fret tuning
+					if (meas.get(x).charAt(nextColumn) == 'p' || meas.get(x).charAt(nextColumn) == 'P') { 
+						BeforenumberP++;
+						
+					}
+					else { 
+						BeforenumberP = 0;
+					}
+					
+					if (meas.get(x).charAt(prevColumn) == 'p' || meas.get(x).charAt(prevColumn) == 'P') { 
+						AfternumberP++;
+						
+					}
+					
+					else { 
+						AfternumberP = 0; 
+						
+					}
+					
+					if (meas.get(x).charAt(nextColumn) == 'h' || meas.get(x).charAt(nextColumn) == 'H') {
+					
+						BeforenumberH++;
+						
+					}
+					else { 
+						BeforenumberH = 0;
+					}
+					if (meas.get(x).charAt(prevColumn) == 'h' || meas.get(x).charAt(prevColumn) == 'H') { 
+						AfternumberH++;
+						
+						
+					}
+					else { 
+						AfternumberH = 0; 
+					}
+			
+				
+					
 					if (Character.isDigit(meas.get(x).charAt(nextColumn))) {
 						isDoubleDigit = true;
 						doubleDigit = new StringBuilder("").append(character).append(meas.get(x).charAt(nextColumn))
@@ -981,11 +1026,15 @@ public class App {
 							slideList.add(sl1);
 							notations.setSlides(slideList);
 						}
+						
+						// Pull Off: Beginning
 						if (meas.get(x).charAt(nextColumn) == 'p' || meas.get(x).charAt(nextColumn) == 'P'
 								&& Character.isDigit(meas.get(x).charAt(prevColumn))
 								&& Character.isDigit(meas.get(x).charAt(nextColumn))) {
+							hasPrevPull = true; 
 							guitarModel.PullOff pl = new guitarModel.PullOff();
-							pl.setNumber(1);
+							
+							pl.setNumber(BeforenumberP);
 							pl.setType("start");
 							pl.setSymbol("P");
 							pullList.add(pl);
@@ -994,7 +1043,7 @@ public class App {
 							}
 							else {
 							guitarModel.Slur su = new guitarModel.Slur();
-							su.setNumber(1);
+							su.setNumber(BeforenumberP);
 							// su.setPlacement("above");
 							su.setType("start");
 							technical.setPull(pullList);
@@ -1007,8 +1056,9 @@ public class App {
 						if (meas.get(x).charAt(prevColumn) == 'p' || meas.get(x).charAt(prevColumn) == 'P'
 								&& Character.isDigit(meas.get(x).charAt(prevColumn))
 								&& Character.isDigit(meas.get(x).charAt(nextColumn))) {
+							hasPrevPull = true;
 							guitarModel.PullOff pull = new guitarModel.PullOff();
-							pull.setNumber(1);
+							pull.setNumber(AfternumberP);
 							pull.setType("stop");
 							pullList.add(pull);
 							if (meas.get(x).charAt(nextColumn) == 'p' || meas.get(x).charAt(nextColumn) == 'P') {
@@ -1016,7 +1066,7 @@ public class App {
 							}
 							else { 
 							guitarModel.Slur sl = new guitarModel.Slur();
-							sl.setNumber(1);
+							sl.setNumber(AfternumberP);
 							sl.setType("stop");
 							technical.setPull(pullList);
 							notations.setSlur(sl);
@@ -1028,9 +1078,9 @@ public class App {
 						if (meas.get(x).charAt(nextColumn) == 'h' || meas.get(x).charAt(nextColumn) == 'H'
 								&& Character.isDigit(meas.get(x).charAt(prevColumn))
 								&& Character.isDigit(meas.get(x).charAt(nextColumn))) {
-
+							hasPrevHammer = true; 
 							guitarModel.HammerOn ham = new guitarModel.HammerOn();
-							ham.setNumber(1);
+							ham.setNumber(BeforenumberH);
 							ham.setType("start");
 							ham.setSymbol("H");
 							hammerList.add(ham);
@@ -1041,7 +1091,7 @@ public class App {
 							
 							else { 
 							guitarModel.Slur sr = new guitarModel.Slur();
-							sr.setNumber(1);
+							sr.setNumber(BeforenumberH);
 							sr.setType("start");
 							technical.setHammer(hammerList);
 							notations.setSlur(sr);
@@ -1052,10 +1102,11 @@ public class App {
 						if (meas.get(x).charAt(prevColumn) == 'h' || meas.get(x).charAt(prevColumn) == 'H'
 								&& Character.isDigit(meas.get(x).charAt(prevColumn))
 								&& Character.isDigit(meas.get(x).charAt(nextColumn))) {
+							hasPrevHammer = true; 
 							guitarModel.HammerOn hammer = new guitarModel.HammerOn();
-							hammer.setNumber(1);
+							hammer.setNumber(AfternumberH);
 							hammer.setType("stop");
-
+							
 							hammerList.add(hammer);
 							if (meas.get(x).charAt(nextColumn) == 'h' || meas.get(x).charAt(nextColumn) == 'H') {
 								technical.setHammer(hammerList);
@@ -1063,7 +1114,7 @@ public class App {
 							
 							else {
 							guitarModel.Slur slur = new guitarModel.Slur();
-							slur.setNumber(1);
+							slur.setNumber(AfternumberH);
 							slur.setType("stop");
 							technical.setHammer(hammerList);
 							notations.setSlur(slur);
