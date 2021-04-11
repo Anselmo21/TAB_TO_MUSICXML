@@ -291,6 +291,43 @@ class GuitarParserTest {
 		assertTrue(c.equals(d));
 	}
 	
+	@Test
+	public void test_collectionToMeasure_03() {
+		ArrayList<String> a = new ArrayList<>();
+		ArrayList<String> b = new ArrayList<>();
+		ArrayList<ArrayList<String>> c = new ArrayList<>();
+		ArrayList<ArrayList<String>> d = new ArrayList<>();
+		a.add("|-----------0-----||----------0--------||");
+		a.add("|---------0---0---||----------0--------||");
+		a.add("|-------1-------1-||*---------1-------*||");
+		a.add("|-----2-----------||*---------2-------*||");
+		a.add("|---2-------------||------2---2--------||");
+		a.add("|-0---------------||--0-------0--------||");
+		b.add("-----------0-----");
+		b.add("---------0---0---");
+		b.add("-------1-------1-");
+		b.add("-----2-----------");
+		b.add("---2-------------");
+		b.add("-0---------------");
+		c.add(b);
+		b = new ArrayList<String>();
+		b.add("|----------0--------|");
+		b.add("|----------0--------|");
+		b.add("|*---------1-------*|");
+		b.add("|*---------2-------*|");
+		b.add("|------2---2--------|");
+		b.add("|--0-------0--------|");
+		c.add(b);
+		d = GuitarParser.collectionToMeasure(a);
+		
+		for (int i = 0; i < c.size(); i++) {
+			for (int j = 0; j < 6; i++) {
+				assertEquals(c.get(i).get(j), d.get(i).get(j));
+			}
+			
+		}
+		assertTrue(c.equals(d));
+	}
 /*******************************************************************/
 
 	
