@@ -886,16 +886,23 @@ public class App {
 							guitarModel.PullOff pull = new guitarModel.PullOff();
 							pull.setNumber(1);
 							pull.setType("stop");
-							pullList.add(pull);
+							pullList.add(pull); 
+							
+							if (meas.get(x).charAt(nextColumn) == 'p' || meas.get(x).charAt(nextColumn) == 'P') { 
+								tech.setPull(pullList);
+							}
+							else {
 							guitarModel.Slur sl = new guitarModel.Slur();
 							sl.setNumber(1);
 							sl.setType("stop");
 							tech.setPull(pullList);
 							notations.setSlur(sl);
+							}
 
 						}
 
-						// Hammer-on technique: START
+						
+						// Hammer-on technique: STARTmeas.get(x).charAt(nextColumn) == 'h'
 						if (meas.get(x).charAt(nextColumn) == 'h' || meas.get(x).charAt(nextColumn) == 'H'
 								&& Character.isDigit(meas.get(x).charAt(prevColumn))
 								&& Character.isDigit(meas.get(x).charAt(nextColumn))) {
@@ -905,12 +912,16 @@ public class App {
 							ham.setType("start");
 							ham.setSymbol("H");
 							hammerList.add(ham);
-
+							if (meas.get(x).charAt(prevColumn) == 'h' || meas.get(x).charAt(prevColumn) == 'h') {
+								tech.setHammer(hammerList);
+							}
+							else {
 							guitarModel.Slur sr = new guitarModel.Slur();
 							sr.setNumber(1);
 							sr.setType("start");
 							tech.setHammer(hammerList);
 							notations.setSlur(sr);
+							}
 						}
 
 						// Hammer-on technique: END
@@ -922,12 +933,16 @@ public class App {
 							hammer.setType("stop");
 
 							hammerList.add(hammer);
-
+							if (meas.get(x).charAt(nextColumn) == 'h' || meas.get(x).charAt(nextColumn) == 'H') {
+								tech.setHammer(hammerList);
+							}
+							else { 
 							guitarModel.Slur slur = new guitarModel.Slur();
 							slur.setNumber(1);
 							slur.setType("stop");
 							tech.setHammer(hammerList);
 							notations.setSlur(slur);
+							}
 						}
 						if (isDoubleDigit == true) {
 
@@ -974,13 +989,17 @@ public class App {
 							pl.setType("start");
 							pl.setSymbol("P");
 							pullList.add(pl);
-
+							if (meas.get(x).charAt(prevColumn) == 'p' || meas.get(x).charAt(prevColumn) == 'P') {
+								technical.setPull(pullList);
+							}
+							else {
 							guitarModel.Slur su = new guitarModel.Slur();
 							su.setNumber(1);
 							// su.setPlacement("above");
 							su.setType("start");
 							technical.setPull(pullList);
 							notations.setSlur(su);
+							}
 
 						}
 
@@ -992,11 +1011,16 @@ public class App {
 							pull.setNumber(1);
 							pull.setType("stop");
 							pullList.add(pull);
+							if (meas.get(x).charAt(nextColumn) == 'p' || meas.get(x).charAt(nextColumn) == 'P') {
+								technical.setPull(pullList);
+							}
+							else { 
 							guitarModel.Slur sl = new guitarModel.Slur();
 							sl.setNumber(1);
 							sl.setType("stop");
 							technical.setPull(pullList);
 							notations.setSlur(sl);
+							}
 
 						}
 
@@ -1010,12 +1034,18 @@ public class App {
 							ham.setType("start");
 							ham.setSymbol("H");
 							hammerList.add(ham);
-
+					
+							if (meas.get(x).charAt(prevColumn) == 'h' || meas.get(x).charAt(prevColumn) == 'H') {
+								technical.setHammer(hammerList);
+							}
+							
+							else { 
 							guitarModel.Slur sr = new guitarModel.Slur();
 							sr.setNumber(1);
 							sr.setType("start");
 							technical.setHammer(hammerList);
 							notations.setSlur(sr);
+							}
 						}
 
 						// Hammer-on technique: END
@@ -1027,12 +1057,18 @@ public class App {
 							hammer.setType("stop");
 
 							hammerList.add(hammer);
-
+							if (meas.get(x).charAt(nextColumn) == 'h' || meas.get(x).charAt(nextColumn) == 'H') {
+								technical.setHammer(hammerList);
+							}
+							
+							else {
 							guitarModel.Slur slur = new guitarModel.Slur();
 							slur.setNumber(1);
 							slur.setType("stop");
 							technical.setHammer(hammerList);
 							notations.setSlur(slur);
+							}
+							
 						}
 						if (isDoubleDigit == true) {
 
