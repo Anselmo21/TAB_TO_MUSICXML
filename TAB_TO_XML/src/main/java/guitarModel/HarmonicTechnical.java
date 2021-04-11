@@ -11,7 +11,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 public class HarmonicTechnical extends Technical{
 
 	@JacksonXmlProperty(localName = "harmonic")
-	private String harmonics;
+	private Harmonic harmonics;
 	
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	protected String string;
@@ -75,8 +75,8 @@ public class HarmonicTechnical extends Technical{
 		
 	}
 
-	public void setHarmonics() {
-		this.harmonics = null;
+	public void setHarmonics(Harmonic har) {
+		this.harmonics = har;
 		
 	}
 }

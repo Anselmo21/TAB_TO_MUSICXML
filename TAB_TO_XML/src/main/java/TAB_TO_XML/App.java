@@ -906,8 +906,9 @@ public class App {
 
 					// Natural Harmonics or not
 					if (meas.get(x).charAt(prevColumn) == '[' && meas.get(x).charAt(nextColumn) == ']') {
-
-						tech.setHarmonics();
+						guitarModel.Harmonic h = new guitarModel.Harmonic();
+						h.setNatural();
+						tech.setHarmonics(h);
 
 						// Slide Techniques: START
 						if (meas.get(x).charAt(nextColumn) == 's') {
