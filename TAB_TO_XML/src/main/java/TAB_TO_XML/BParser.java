@@ -51,7 +51,7 @@ import Interface.Controller;
 		 */
 		public static int divisionCount(String line, int numerator) {
 			line = line.replaceAll("|", "");
-			line = line.replaceAll("*", "");
+			line = line.replaceAll("\\*", "");
 			return line.length() / numerator; 
 		}
 

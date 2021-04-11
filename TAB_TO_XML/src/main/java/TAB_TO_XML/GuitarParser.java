@@ -49,7 +49,7 @@ public class GuitarParser {
 	 */
 	public static int divisionCount(String line, int numerator) {
 		line = line.replaceAll("|", "");
-		line = line.replaceAll("*", "");
+		line = line.replaceAll("\\*", "");
 		return line.length() / numerator; 
 	}
 
@@ -67,7 +67,8 @@ public class GuitarParser {
 			{ "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" },
 			{ "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G" },
 			{ "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D" },
-			{ "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A" } };
+			{ "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A" },
+			{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" }};
 		
 		for (int i = 0; i < fretboard.length; i++) {
 			if (fretboard[i][0].equals(tuningSteps.get(row))) {
