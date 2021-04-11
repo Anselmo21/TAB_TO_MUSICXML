@@ -30,7 +30,7 @@
                         <Font name="Courier New Bold" size="14.0" />
                      </font>
                   </TextArea>
-                  <CodeArea fx:id="write" prefHeight="455.0" prefWidth="437.0" stylesheets="@Intro.css" />
+                  <CodeArea fx:id="write" prefHeight="455.0" prefWidth="446.0" stylesheets="@Intro.css" />
                </children>
             </GridPane>
             <Button fx:id="convert" layoutX="793.0" layoutY="568.0" mnemonicParsing="false" onAction="#handleButtonConvert" text="Convert" AnchorPane.rightAnchor="13.399999999999977">
@@ -41,7 +41,7 @@
                <font>
                   <Font name="Bookman Old Style Bold" size="16.0" />
                </font></Button>
-            <Button fx:id="save" layoutX="819.0" layoutY="621.0" mnemonicParsing="false" onAction="#handleButtonSave" text="Save" AnchorPane.rightAnchor="14.600000000000023">
+            <Button fx:id="save" layoutX="819.0" layoutY="621.0" mnemonicParsing="false" onAction="#handleButtonSave" text="Export" AnchorPane.rightAnchor="14.600000000000023">
                <font>
                   <Font name="Bookman Old Style Bold" size="16.0" />
                </font></Button>
@@ -54,7 +54,7 @@
                   </Label>
                </children>
             </TilePane>
-            <GridPane layoutX="13.0" layoutY="616.0" prefHeight="34.0" prefWidth="210.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="707.8000000000001">
+            <GridPane layoutX="14.0" layoutY="654.0" prefHeight="34.0" prefWidth="210.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="706.8000000000001">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                </columnConstraints>
@@ -78,6 +78,11 @@
                   </TextArea>
                </children>
             </TilePane>
+            <Button fx:id="edits" layoutX="14.0" layoutY="622.0" mnemonicParsing="false" onAction="#handleButtonEdits" text="Save..." AnchorPane.leftAnchor="13.0">
+               <font>
+                  <Font name="Bookman Old Style Bold" size="16.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </center>

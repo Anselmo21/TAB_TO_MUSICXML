@@ -11,6 +11,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.fxmisc.richtext.CodeArea;
 import org.fxmisc.richtext.LineNumberFactory;
+import org.fxmisc.richtext.event.MouseOverTextEvent;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -31,6 +33,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import TAB_TO_XML.App;
@@ -41,30 +44,35 @@ public class Controller implements Initializable {
 	Desktop screen = Desktop.getDesktop();
 	File tablature;
 	File xmlFile;
+	File textFile;
 	BufferedReader input;
 	StreamResult output;
-	FileChooser fc, saveFile;
+	FileChooser fc, saveFile, saveEdits;
 	static String obtainText;
+	static ArrayList<Integer> getErrors = new ArrayList<>();
+	static ArrayList<Integer> storeLine = new ArrayList<>();
+	static ArrayList<Integer> storeCharacter = new ArrayList<>();
+	static boolean pressed = false;
 
 	@FXML
-	Button browse, convert, save;
+	Button browse, convert, save, edits;
 
 	@FXML
 	Label path, getInstrument;
 
 	@FXML
 	TextArea view, customization;
-	
-	@FXML
-    private CodeArea write;
 
-	
+	@FXML
+	private CodeArea write, anotherCodeArea;
+
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		save.setDisable(true);
 		write.setStyle("-fx-font-family: Monospace; -fx-font-size: 12pt; -fx-font-weight: bold;");
 		write.setParagraphGraphicFactory(LineNumberFactory.get(write));
-        new ErrorHighlightingInput(write).enableHighlighting();
+		new ErrorHighlightingInput(write).enableHighlighting();
 	}
 
 
@@ -77,6 +85,7 @@ public class Controller implements Initializable {
 
 	@FXML
 	public void handleButtonBrowse(ActionEvent event) {
+		pressed = false;
 		save.setDisable(true);
 		write.clear();
 		getInstrument.setText("");
@@ -97,11 +106,13 @@ public class Controller implements Initializable {
 				else if (instrument.equals("Bass")) getInstrument.setText("Instrument: Bass");
 				else getInstrument.setText("No Instrument Found");
 				browse.setDisable(false);
+				pressed = true;
 			} 
 			catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		else getInstrument.setText("");
 		browse.setDisable(false);
 	}
 
@@ -129,6 +140,7 @@ public class Controller implements Initializable {
 				save.setDisable(false);
 			}
 			else {
+				getInstrument.setText("");
 				Alert errorAlert = new Alert(AlertType.ERROR); 
 				errorAlert.setHeaderText("Input not valid!"); 
 				errorAlert.setContentText("Provide text file or paste tablature on the textbox to your left."); 
@@ -167,19 +179,50 @@ public class Controller implements Initializable {
 				errorAlert.showAndWait();
 			}
 		}
-		catch(Exception e) {
-		}
+		catch(Exception e) {}
 	}
-
-
-//	public void handleErrors(String error) {
-//		 switch (error) {
-//         case "Level 1 - Minimal Error Checking" -> ErrorHighlightingInput.ERROR_SENSITIVITY = 1;
-//         case "Level 3 - Advanced Error Checking" -> ErrorHighlightingInput.ERROR_SENSITIVITY = 3;
-//         case "Level 4 - Detailed Error Checking" -> ErrorHighlightingInput.ERROR_SENSITIVITY = 4;
-//         default -> Input.ERROR_SENSITIVITY = 2;
-//	}
-
+	
+	@FXML
+	public void handleButtonEdits(ActionEvent event) {
+		write.setEditable(false);
+		if (!pressed) {
+			saveEdits = new FileChooser();
+			saveEdits.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
+			textFile = saveEdits.showSaveDialog(null);
+			PrintWriter write = null;
+			try {
+				if (textFile.getAbsolutePath() != null) {
+					write = new PrintWriter(textFile.getAbsolutePath());
+					write.println(this.write.getText());
+					write.close();
+				}
+				else {
+					Alert errorAlert = new Alert(AlertType.ERROR); 
+					errorAlert.setHeaderText("File cannot be saved!"); 
+					errorAlert.setContentText("An error occured. Please try again"); 
+					errorAlert.showAndWait();
+				}
+			}
+			catch(Exception e) {}
+		}
+		else {
+			PrintWriter overwrite = null;
+			try {
+				overwrite = new PrintWriter(tablature.getAbsolutePath());
+				overwrite.println(this.write.getText());
+				overwrite.close();
+			}
+			catch(Exception e) {}
+		}
+		write.setEditable(true);
+	}
+	/**
+	 * This method just opens up a popup (which is a different scene). The idea for this was to open up 
+	 * a pop-up so we can add time signatures and whatever
+	 * @param fxml which is the scene fxml file
+	 * @param name title of the scene
+	 * @return
+	 */
 	public Window openNewWindow(String fxml, String name) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getClassLoader().getResource(fxml));
@@ -199,5 +242,151 @@ public class Controller implements Initializable {
 		return null;
 	}
 
+	/**
+	 * This method validates the entire guitar tablature and adds certain numbers to the arraylist.
+	 * It also stores the line number at which the error is occuring.
+	 * 1 - length is not right (major)
+	 * 2 - incorrect tunings (anything above a G) (medium)
+	 * 3 - symbols are not right (p, h, s, g, etc) (medium)
+	 * 4 - Harmonics are not right (no ending bracket, starting bracket, etc) (high)
+	 * 5 - if symbols are there, but its not right (for example, they put p5 instead of 2p5). (high)
+	 * @param guitarTab
+	 * @return
+	 */
+	public static void validateGuitarTab(String guitarTab) {
+		getErrors.clear();
+		storeLine.clear();
+		storeCharacter.clear();
+		Scanner guitar = new Scanner(guitarTab);
+		ArrayList<String> errorGuitar = new ArrayList<>();
+		while (guitar.hasNextLine()) 
+			errorGuitar.add(guitar.nextLine());
+		lengthOK(errorGuitar);
+		guitarTuningsOK(errorGuitar);
+		harmonicsOK(errorGuitar);
+		symbolsOK(errorGuitar);
+		guitar.close();
+	}
+	
+	public static void validateBassTab(String bassTab) {
+		Scanner bass = new Scanner(bassTab);
+		ArrayList<String> errorBass = new ArrayList<>();
+		while (bass.hasNextLine()) 
+			errorBass.add(bass.next());
+		lengthOK(errorBass);
+		harmonicsOK(errorBass);
+		symbolsOK(errorBass);
+		bass.close();
+	}
+
+	public static void lengthOK(ArrayList<String> errorGuitar) {
+		for (int i = 0; i < errorGuitar.size() - 1; i++) {
+			//if block to check if the lines are right
+			if (errorGuitar.get(i).length() != errorGuitar.get(i + 1).length()) {
+				getErrors.add(1);
+				if (errorGuitar.get(i).length() > errorGuitar.get(i + 1).length()) {
+					storeLine.add(i);
+					storeCharacter.add(1);
+				}
+				else {
+					storeLine.add(i + 1);
+					storeCharacter.add(1);
+				}
+			}
+		}
+	}
+
+	public static void guitarTuningsOK(ArrayList<String> errorGuitar) {
+		for (int i = 0; i < errorGuitar.size(); i++) {
+			//if block to check if the tunings are right
+			if ((errorGuitar.get(i).charAt(0) >= 65 && errorGuitar.get(i).charAt(0) <= 71) || (errorGuitar.get(i).charAt(0) >= 97 && errorGuitar.get(i).charAt(0) <= 103)) {
+				getErrors.add(2);
+				storeLine.add(i);
+				storeCharacter.add(0);
+			}
+		}
+	}
+
+	public static void harmonicsOK(ArrayList<String> errorGuitar) {
+		for (int i = 0; i < errorGuitar.size(); i++) {
+			for (int j = 0; j < errorGuitar.get(i).length(); j++) {
+				//harmonics check (brackets are there, or is there a digit inside the harmonics and stuff
+				if (errorGuitar.get(i).charAt(j) == '[' && errorGuitar.get(i).contains("]")) {
+					if (!Character.isDigit(errorGuitar.get(i).charAt(j + 1))) {
+						getErrors.add(4);
+						storeLine.add(i);
+						storeCharacter.add(j + 1);
+					}
+				}
+				else {
+					if ((errorGuitar.get(i).contains("[") && !errorGuitar.get(i).contains("]")) || 
+							(errorGuitar.get(i).contains("]") && !errorGuitar.get(i).contains("["))) {
+						getErrors.add(4);
+						storeLine.add(i);
+						storeCharacter.add(j);
+					}
+				}
+			}
+		}
+	}
+
+	public static void symbolsOK(ArrayList<String> errorGuitar) {
+		for (int i = 0; i < errorGuitar.size(); i++) {
+			for (int j = 0; j < errorGuitar.get(0).length(); j++) {
+				//if block to check if the tab includes any random characters it cannot parse
+				if (errorGuitar.get(i).charAt(j) == 'x' || errorGuitar.get(i).charAt(j) == 'o' ||
+						errorGuitar.get(i).charAt(j) == 'v' || errorGuitar.get(i).charAt(j) == 'b') {
+					getErrors.add(3);
+					storeLine.add(i);
+					storeCharacter.add(j);
+				}
+				//if block to check for digits behind and in front of the pull offs and hammer-ons
+				if (errorGuitar.get(i).charAt(j) == 'p' || errorGuitar.get(i).charAt(j) == 'P' || 
+						errorGuitar.get(i).charAt(j) == 'h' || errorGuitar.get(i).charAt(j) == 'H') {
+					if (!Character.isDigit(errorGuitar.get(i).charAt(j - 1)) && 
+							!Character.isDigit(errorGuitar.get(i).charAt(j + 1))) {
+						getErrors.add(5);
+						storeLine.add(i);
+						storeCharacter.add(j + 1);
+					}
+				}
+				//if block to check for grace notes and slides
+				if (errorGuitar.get(i).charAt(j) == 'g' || errorGuitar.get(i).charAt(j) == 's') {
+					if (!Character.isDigit(errorGuitar.get(i).charAt(j + 1))) {
+						getErrors.add(5);
+						storeLine.add(i);
+						storeCharacter.add(j + 1);
+					}
+				}
+			}
+		}
+	}
+
+	public void drumSymbolsOK(ArrayList<String> errorDrums) {
+		for (int i = 0; i < errorDrums.size(); i++) {
+
+		}
+	}
+	
+	public void textAreaPopups(ArrayList<Integer> errors) {
+		write.setParagraphGraphicFactory(LineNumberFactory.get(write));
+		new ErrorHighlightingInput(write).enableHighlighting();
+		anotherCodeArea = write;
+		Popup popup = new Popup();
+		Label message = new Label();
+		message.setStyle("-fx-background-color: black; -fx-text-fill: white; -fx-font-size: 5pt;");
+		popup.getContent().add(message);
+		write.addEventHandler(MouseOverTextEvent.MOUSE_OVER_TEXT_BEGIN, e -> {
+			String messagePop = ErrorHighlightingInput.message;
+			if (messagePop.isEmpty()) 
+				return;
+			Point2D point = e.getScreenPosition();
+			popup.show(popup, point.getX(), point.getY() - 10);
+			
+		});
+		write.addEventHandler(MouseOverTextEvent.MOUSE_OVER_TEXT_END, e ->{
+			popup.hide();
+		});
+	}
 
 }
