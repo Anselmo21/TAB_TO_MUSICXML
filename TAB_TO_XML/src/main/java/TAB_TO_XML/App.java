@@ -256,8 +256,8 @@ public class App {
 			attributes.setStaffDetails(staffDetails);
 
 			BassModel.Time time = new BassModel.Time();
-			time.setBeats("4");
-			time.setBeatType("4");
+			time.setBeats(timeSig[0].toString());
+			time.setBeatType(timeSig[1].toString());
 			attributes.setTime(time);
 
 			newMeasure.setAttributes(attributes);
@@ -721,8 +721,8 @@ public class App {
 			attributes.setStaffDetails(staffDetails);
 
 			guitarModel.Time time = new guitarModel.Time();
-			time.setBeats("4");
-			time.setBeatType("4");
+			time.setBeats(timeSig[0].toString());
+			time.setBeatType(timeSig[1].toString());
 			attributes.setTime(time);
 
 			newMeasure.setAttributes(attributes);
@@ -883,15 +883,15 @@ public class App {
 					note.get(note.size() - 1).setVoice("1");
 
 					// if the note is length 2, it contains a sharp
-					if (GuitarParser.stepCount(x, Character.getNumericValue(character)).length() == 2) {
+					if (GuitarParser.stepCount(x, Character.getNumericValue(character), tuningSteps).length() == 2) {
 						guitarModel.AlteredPitch pitch = new guitarModel.AlteredPitch();
 						pitch.setAlter("1");
-						pitch.setStep(GuitarParser.stepCount(x, Character.getNumericValue(character)).substring(0, 1));
+						pitch.setStep(GuitarParser.stepCount(x, Character.getNumericValue(character), tuningSteps).substring(0, 1));
 						pitch.setOctave(GuitarParser.octaveCount(x, Character.getNumericValue(character)));
 						note.get(note.size() - 1).setPitch(pitch);
 					} else {
 						guitarModel.Pitch pitch = new guitarModel.Pitch();
-						pitch.setStep(GuitarParser.stepCount(x, Character.getNumericValue(character)));
+						pitch.setStep(GuitarParser.stepCount(x, Character.getNumericValue(character), tuningSteps));
 						pitch.setOctave(GuitarParser.octaveCount(x, Character.getNumericValue(character)));
 						note.get(note.size() - 1).setPitch(pitch);
 					}
