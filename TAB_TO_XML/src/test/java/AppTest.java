@@ -1592,7 +1592,7 @@ class AppTest {
 				+ "HT|----------------|----oo----------|\n"
 				+ "MT|----------------|------oo--------|\n"
 				+ "BD|o-------o-------|o-------o-------|");
-		String actual = App.drumTabToXML(tabAsList);
+		String actual = App.drumTabToXML(tabAsList, null);
 		String expected = "<score-partwise version=\"3.1\">\n"
 				+ "  <part-list>\n"
 				+ "    <score-part id=\"P1\">\n"

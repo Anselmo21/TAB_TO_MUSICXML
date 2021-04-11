@@ -16,7 +16,7 @@ public class Measure {
 	Attributes attributes;
 	
     @JacksonXmlElementWrapper(useWrapping = false)
-	ArrayList<Note> note;
+	ArrayList<Object> note;
 	Backup backup;
 	Barline barline;
 	
@@ -47,10 +47,10 @@ public class Measure {
 	public void setNumber(int number) {
 		this.number = number;
 	}
-	public ArrayList<Note> getNote() {
+	public ArrayList<Object> getNote() {
 		return note;
 	}
-	public void setNote(ArrayList<Note> note) {
+	public void setNote(ArrayList<Object> note) {
 		this.note = note;
 	}
 	public Attributes getAttributes() {
