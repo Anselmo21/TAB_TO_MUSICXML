@@ -304,7 +304,7 @@ public class App {
 
 					if (isGrace == false) {
 						note.get(note.size() - 1).setDuration(duration.toString());
-						note.get(note.size() - 1).setType(BParser.typeDeclare(duration));
+						note.get(note.size() - 1).setType(BParser.typeDeclare(duration, division));
 					}
 
 					note.get(note.size() - 1).setVoice("1");
@@ -877,7 +877,7 @@ public class App {
 
 					if (isGrace == false) {
 						note.get(note.size() - 1).setDuration(duration.toString());
-						note.get(note.size() - 1).setType(GuitarParser.typeDeclare(duration));
+						note.get(note.size() - 1).setType(GuitarParser.typeDeclare(duration, division));
 					}
 
 					note.get(note.size() - 1).setVoice("1");

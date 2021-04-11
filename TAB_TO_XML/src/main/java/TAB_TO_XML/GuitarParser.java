@@ -86,9 +86,24 @@ public class GuitarParser {
 	 * @param parse is the array list of strings that contains a whole line of notes
 	 * @return an String that represents the type of the note.
 	 */
-	public static String typeDeclare(int duration) {
-		String[] types = new String[] { "", "eighth", "quarter", "quarter and eighth", "half", "eighth and half", "quarter and half", "", "whole" };
-		return types[duration];
+	public static String typeDeclare(int duration, int division) {
+		double noteValue = (4.0 * (double) division) / duration;
+		if (noteValue >= 1024 ) {return "1024th";} 
+		else if (noteValue >= 512) {return "512th"; }
+		else if (noteValue >= 256) { return "256th"; } 
+		else if (noteValue >= 128) { return "128th"; } 
+		else if (noteValue >= 64) { return "64th"; } 
+		else if (noteValue >= 32) { return "32nd"; } 
+		else if (noteValue >= 16) { return "16th"; } 
+		else if (noteValue >= 8) { return "8th"; } 
+		else if (noteValue >= 4) { return "quarter";} 
+		else if (noteValue >= 2) { return "half" ; } 
+		else if (noteValue >= 1) { return "whole" ; } 
+		else if (noteValue >= 0.5) { return "breve"; } 
+		else if (noteValue >= 0.25) { return "long"; } 
+		else if (noteValue >= 0.125) {return "maxima"; }
+		return ""; 
+		
 	}
 
 	public static String octaveCount(int row, int column) {
