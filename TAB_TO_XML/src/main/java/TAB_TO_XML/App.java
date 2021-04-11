@@ -187,7 +187,7 @@ public class App {
 		BassModel.Measure newMeasure = new BassModel.Measure();
 		newMeasure.setNumber(measureNumber);
 		Integer[] timeSig = timeSigs.getOrDefault(measureNumber, new Integer[] { 4, 4 });
-		int division = BParser.divisionCount(meas.get(0), timeSig[0]);
+		int division = BParser.divisionCount(meas.get(2), timeSig[0]);
 
 		// if first measure, set the attributes
 		if (measureNumber == 1) {
@@ -630,7 +630,7 @@ public class App {
 		guitarModel.Measure newMeasure = new guitarModel.Measure();
 		newMeasure.setNumber(measureNumber);
 		Integer[] timeSig = timeSigs.getOrDefault(measureNumber, new Integer[] { 4, 4 });
-		int division = GuitarParser.divisionCount(meas.get(0), timeSig[0]);
+		int division = GuitarParser.divisionCount(meas.get(2), timeSig[0]);
 
 		// Repeating Measures
 		Boolean forwardRepeatExist = false;

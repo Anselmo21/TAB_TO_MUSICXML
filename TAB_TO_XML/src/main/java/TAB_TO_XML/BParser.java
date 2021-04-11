@@ -50,6 +50,8 @@ import Interface.Controller;
 		 * @return an integer that represents the division of the whole tablature.
 		 */
 		public static int divisionCount(String line, int numerator) {
+			line = line.replaceAll("|", "");
+			line = line.replaceAll("*", "");
 			return line.length() / numerator; 
 		}
 
