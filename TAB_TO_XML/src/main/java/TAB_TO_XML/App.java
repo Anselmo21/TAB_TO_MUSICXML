@@ -737,6 +737,8 @@ public class App {
 		int BeforenumberH = 0; // for hammer ons ""
 		int AfternumberP = 0; // for pull offs (after)
 		int AfternumberH = 0; // for hammer ons ""
+		int BeforenumberS = 0;
+		int AfternumberS = 0; 
 		ArrayList<guitarModel.Note> note = new ArrayList<guitarModel.Note>();
 		int numVarRepeats = 0; // Number of Variable Repeats
 		// iter through each measure
@@ -797,10 +799,12 @@ public class App {
 					}
 					
 					else { 
+						
 						AfternumberP = 0; 
 						
 					}
 					
+					// Incrementing numbers for consecutive occurrences of Hammer ons
 					if (meas.get(x).charAt(nextColumn) == 'h' || meas.get(x).charAt(nextColumn) == 'H') {
 					
 						BeforenumberH++;
@@ -818,8 +822,25 @@ public class App {
 						AfternumberH = 0; 
 					}
 			
-				
+					//Incrementing numbers for consecutive occurrences of Slides
+					if (meas.get(x).charAt(nextColumn) == 's') {
+						
+						BeforenumberS++;
+						
+					}
+					else { 
+						BeforenumberS = 0;
+					}
+					if (meas.get(x).charAt(prevColumn) == 's') { 
+						
+						AfternumberS++;
 					
+					}
+					else { 
+						AfternumberS = 0; 
+					}
+				
+					// if it's a double digit fret tuning
 					if (Character.isDigit(meas.get(x).charAt(nextColumn))) {
 						isDoubleDigit = true;
 						doubleDigit = new StringBuilder("").append(character).append(meas.get(x).charAt(nextColumn))
@@ -1012,7 +1033,7 @@ public class App {
 						// Slide Techniques: START
 						if (meas.get(x).charAt(nextColumn) == 's') {
 							guitarModel.Slides sd = new guitarModel.Slides();
-							sd.setNumber(1);
+							sd.setNumber(BeforenumberS);
 
 							sd.setType("start");
 							slideList.add(sd);
@@ -1021,7 +1042,7 @@ public class App {
 						// Slide Techniques: END
 						if (meas.get(x).charAt(prevColumn) == 's') {
 							guitarModel.Slides sl1 = new guitarModel.Slides();
-							sl1.setNumber(1);
+							sl1.setNumber(AfternumberS);
 							sl1.setType("stop");
 							slideList.add(sl1);
 							notations.setSlides(slideList);
