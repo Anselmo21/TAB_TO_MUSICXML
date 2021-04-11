@@ -60,18 +60,21 @@ import Interface.Controller;
 		 * @param parse is the array list of strings that contains a whole line of notes
 		 * @return an String that represents the fret of the note.
 		 */
-		public static String stepCount(int row, int column) {
+		public static String stepCount(int row, int column, ArrayList<String> tuningSteps) {
 
 			String[][] fretboard = new String[][] {
-				{ "G2", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G" },
-
-				{ "D2", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D" },
-
-				{ "A1", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A" },
-
-				{ "E1", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" }};
+				{ "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G" },
+				{ "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D" },
+				{ "A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A" },
+				{ "E", "F", "F#", "G", "G#", "A", "A#", "B", "C", "C#", "D", "D#", "E" }};
 				
-				return fretboard[row][column];
+			for (int i = 0; i < fretboard.length; i++) {
+				if (fretboard[i][0].equals(tuningSteps.get(row))) {
+					return fretboard[i][column];
+				}
+			}
+			
+			return fretboard[row][column];
 		}
 
 		/**

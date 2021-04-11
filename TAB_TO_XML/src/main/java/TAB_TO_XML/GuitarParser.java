@@ -73,7 +73,7 @@ public class GuitarParser {
 			}
 		}
 		
-		return null;
+		return fretboard[row][column];
 		
 	}
 

@@ -310,15 +310,15 @@ public class App {
 					note.get(note.size() - 1).setVoice("1");
 
 					// if the note is length 2, it contains a sharp
-					if (BParser.stepCount(x, Character.getNumericValue(character)).length() == 2) {
+					if (BParser.stepCount(x, Character.getNumericValue(character), tuningSteps).length() == 2) {
 						BassModel.AlteredPitch pitch = new BassModel.AlteredPitch();
 						pitch.setAlter("1");
-						pitch.setStep(BParser.stepCount(x, Character.getNumericValue(character)).substring(0, 1));
+						pitch.setStep(BParser.stepCount(x, Character.getNumericValue(character), tuningSteps).substring(0, 1));
 						pitch.setOctave(BParser.octaveCount(x, Character.getNumericValue(character)));
 						note.get(note.size() - 1).setPitch(pitch);
 					} else {
 						BassModel.Pitch pitch = new BassModel.Pitch();
-						pitch.setStep(BParser.stepCount(x, Character.getNumericValue(character)));
+						pitch.setStep(BParser.stepCount(x, Character.getNumericValue(character), tuningSteps));
 						pitch.setOctave(BParser.octaveCount(x, Character.getNumericValue(character)));
 						note.get(note.size() - 1).setPitch(pitch);
 					}
