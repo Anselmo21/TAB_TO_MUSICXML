@@ -728,6 +728,79 @@ public class App {
 			newMeasure.setAttributes(attributes);
 		} else {
 			guitarModel.Attributes attributes = new guitarModel.Attributes();
+			guitarModel.StaffDetails staffDetails = new guitarModel.StaffDetails();
+			staffDetails.setStaffLines("6");
+			// staff tunings
+			ArrayList<guitarModel.StaffTuning> staffTunings = new ArrayList<guitarModel.StaffTuning>();
+
+			for (int i = 0; i < tuningSteps.size(); i++) {
+				guitarModel.StaffTuning staffTuning0 = new guitarModel.StaffTuning();
+				staffTuning0.setLine(i + 1);
+				if (!tuningSteps.get(i).equals("")) {
+					staffTuning0.setTuningStep(tuningSteps.get(i));
+				} else {
+					switch (i) {
+					case 0:
+						staffTuning0.setTuningStep("E");
+						break;
+					case 1:
+						staffTuning0.setTuningStep("A");
+						break;
+
+					case 2:
+						staffTuning0.setTuningStep("D");
+						break;
+
+					case 3:
+						staffTuning0.setTuningStep("G");
+						break;
+
+					case 4:
+						staffTuning0.setTuningStep("B");
+						break;
+
+					case 5:
+						staffTuning0.setTuningStep("E");
+						break;
+					}
+				}
+
+				switch (i) {
+				case 0:
+					staffTuning0.setTuningOctave("2");
+					break;
+				case 1:
+					staffTuning0.setTuningOctave("2");
+					break;
+
+				case 2:
+					staffTuning0.setTuningOctave("3");
+					break;
+
+				case 3:
+					staffTuning0.setTuningOctave("3");
+					break;
+
+				case 4:
+					staffTuning0.setTuningOctave("3");
+					break;
+
+				case 5:
+					staffTuning0.setTuningOctave("4");
+					break;
+				}
+
+				staffTunings.add(staffTuning0);
+			}
+
+			staffDetails.setStaffTunings(staffTunings);
+			attributes.setStaffDetails(staffDetails);
+
+			guitarModel.Time time = new guitarModel.Time();
+			time.setBeats(timeSig[0].toString());
+			time.setBeatType(timeSig[1].toString());
+			attributes.setTime(time);
+			
 			attributes.setDivisions(division);
 			newMeasure.setAttributes(attributes);
 		}
