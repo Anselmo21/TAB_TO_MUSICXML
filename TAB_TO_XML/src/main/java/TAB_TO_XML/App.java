@@ -263,6 +263,56 @@ public class App {
 			newMeasure.setAttributes(attributes);
 		} else {
 			BassModel.Attributes attributes = new BassModel.Attributes();
+			BassModel.StaffDetails staffDetails = new BassModel.StaffDetails();
+			staffDetails.setStaffLines("4");
+
+			// staff tunings
+			ArrayList<BassModel.StaffTuning> staffTunings = new ArrayList<BassModel.StaffTuning>();
+
+			for (int i = 0; i < tuningSteps.size(); i++) {
+				BassModel.StaffTuning staffTuning0 = new BassModel.StaffTuning();
+				staffTuning0.setLine(i + 1);
+				if (!tuningSteps.get(i).equals("")) {
+					staffTuning0.setTuningStep(tuningSteps.get(i));
+				} else {
+					switch (i) {
+					case 0:
+						staffTuning0.setTuningStep("E");
+						break;
+					case 1:
+						staffTuning0.setTuningStep("A");
+						break;
+
+					case 2:
+						staffTuning0.setTuningStep("D");
+						break;
+
+					case 3:
+						staffTuning0.setTuningStep("G");
+						break;
+					}
+				}
+
+				switch (i) {
+				case 0:
+					staffTuning0.setTuningOctave("1");
+					break;
+				case 1:
+					staffTuning0.setTuningOctave("1");
+					break;
+
+				case 2:
+					staffTuning0.setTuningOctave("2");
+					break;
+
+				case 3:
+					staffTuning0.setTuningOctave("3");
+					break;
+				}
+				staffTunings.add(staffTuning0);
+			}
+			staffDetails.setStaffTunings(staffTunings);
+			attributes.setStaffDetails(staffDetails);
 			attributes.setDivisions(division);
 			newMeasure.setAttributes(attributes);
 		}
