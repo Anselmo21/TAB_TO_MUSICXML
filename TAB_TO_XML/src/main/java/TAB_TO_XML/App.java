@@ -99,13 +99,28 @@ public class App {
 			if (command.length == 2) {
 				try {
 					if (command[0].equals("*")) {
-						for (int i = 1; i < 200; i++) {
+						for (int i = 1; i < 999; i++) {
 							String[] temp = command[1].split("/");
 							if (temp.length == 2) {
 								Integer[] timeSignature = new Integer[2];
 								timeSignature[0] = Integer.parseInt(temp[0]);
 								timeSignature[1] = Integer.parseInt(temp[1]);
 								map.put(i, timeSignature);
+							}
+						}
+					}
+					else if (command[0].contains("-")) {
+						String[] range = command[0].split("-");
+						
+						if (range.length == 2 && Integer.parseInt(range[0]) <= Integer.parseInt(range[1])) {
+							for (int i = Integer.parseInt(range[0]); i <= Integer.parseInt(range[1]); i++) {
+								String[] temp = command[1].split("/");
+								if (temp.length == 2) {
+									Integer[] timeSignature = new Integer[2];
+									timeSignature[0] = Integer.parseInt(temp[0]);
+									timeSignature[1] = Integer.parseInt(temp[1]);
+									map.put(i, timeSignature);
+								}
 							}
 						}
 					}
