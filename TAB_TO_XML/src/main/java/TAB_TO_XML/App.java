@@ -96,16 +96,30 @@ public class App {
 
 		for (String line : lines) {
 			String[] command = line.split(":");
-			if (command.length >= 2) {
+			if (command.length == 2) {
 				try {
-					int measure = Integer.parseInt(command[0]);
-					String[] temp = command[1].split("/");
-					if (temp.length == 2) {
-						Integer[] timeSignature = new Integer[2];
-						timeSignature[0] = Integer.parseInt(temp[0]);
-						timeSignature[1] = Integer.parseInt(temp[1]);
-						map.put(measure, timeSignature);
+					if (command[0].equals("*")) {
+						for (int i = 1; i < 200; i++) {
+							String[] temp = command[1].split("/");
+							if (temp.length == 2) {
+								Integer[] timeSignature = new Integer[2];
+								timeSignature[0] = Integer.parseInt(temp[0]);
+								timeSignature[1] = Integer.parseInt(temp[1]);
+								map.put(i, timeSignature);
+							}
+						}
 					}
+					else {
+						int measure = Integer.parseInt(command[0]);
+						String[] temp = command[1].split("/");
+						if (temp.length == 2) {
+							Integer[] timeSignature = new Integer[2];
+							timeSignature[0] = Integer.parseInt(temp[0]);
+							timeSignature[1] = Integer.parseInt(temp[1]);
+							map.put(measure, timeSignature);
+						}
+					}
+
 				} catch (NumberFormatException ex) {
 					ex.printStackTrace();
 				}
@@ -313,6 +327,10 @@ public class App {
 			}
 			staffDetails.setStaffTunings(staffTunings);
 			attributes.setStaffDetails(staffDetails);
+			BassModel.Time time = new BassModel.Time();
+			time.setBeats(timeSig[0].toString());
+			time.setBeatType(timeSig[1].toString());
+			attributes.setTime(time);
 			attributes.setDivisions(division);
 			newMeasure.setAttributes(attributes);
 		}
