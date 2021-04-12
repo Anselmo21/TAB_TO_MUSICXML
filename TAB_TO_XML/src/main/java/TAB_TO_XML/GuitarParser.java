@@ -152,6 +152,7 @@ public class GuitarParser {
 			ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
 			ArrayList<String> eachSection = new ArrayList<String>();
 			
+			String line="";
 
 			// assumes that all the measures have 17 dashes/notes excluding the vertical lines
 			for (int z = 1; z < input.size(); z=z+6){
@@ -162,14 +163,20 @@ public class GuitarParser {
 							while(!(input.get(j+z-1).subSequence(count, count+1).equals("|"))) {
 								count++;
 							}
-							eachSection.add(splitter(input.get(j+z-1),count,i));
+							line=splitter(input.get(j+z-1),count,i);
+							if(!(line.equals("")))
+								eachSection.add(line);
 						} 
 						else {
-							eachSection.add(splitter(input.get(j+z-1),0,i));
+							line=splitter(input.get(j+z-1),0,i);
+							if(!(line.equals("")))
+								eachSection.add(line);
 						}
 					}
-					sections.add(eachSection);
-					eachSection = new ArrayList<String>();
+					if(!(line.equals(""))) {
+						sections.add(eachSection);
+						eachSection = new ArrayList<String>();
+					}
 				}
 			}
 			
@@ -194,7 +201,23 @@ public class GuitarParser {
 						end=i;
 				}
 			}
-			return note.substring(start, end+1);
+			if (start+1==end)
+				return "";
+			else {
+				if(start>0 && end<(note.length()-1) && note.substring(start-1, start).equals("|")
+						&& note.substring(end+1, end+2).equals("|")) {
+					return "|"+note.substring(start+1, end)+"|";
+				}
+				if(start>0 &&  note.substring(start-1, start).equals("|")){
+					return "|"+note.substring(start+1, end);
+				}
+				if(end==(note.length()-2) && note.substring(end+1, end+2).equals("|")) {
+					return note.substring(start+1, end)+"|";
+				}
+				else {
+					return note.substring(start+1, end);
+				}
+			}
 		}
 
 
