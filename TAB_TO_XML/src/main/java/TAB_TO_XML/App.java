@@ -859,13 +859,13 @@ public class App {
 				}
 			}
 			// set last measure to have barline values
-			if (isThereRepeat == false) {
-				guitarModel.BackwardBarline onebarline = new guitarModel.BackwardBarline();
-				onebarline.setBarStyle("light-heavy");
-				onebarline.setLocation("right");
-				measures.get(measures.size() - 1).setBackwardBarline(onebarline);
-
-			}
+//			if (isThereRepeat == false) {
+//				guitarModel.BackwardBarline onebarline = new guitarModel.BackwardBarline();
+//				onebarline.setBarStyle("light-heavy");
+//				onebarline.setLocation("right");
+//				measures.get(measures.size() - 1).setBackwardBarline(onebarline);
+//
+//			}
 
 //			
 //			
@@ -1098,19 +1098,20 @@ public class App {
 				// Repeats: Variable Number Of Times
 				if (Character.isDigit(character) && y == meas.get(0).length() - 1) {
 					variableRepeatExist = true;
-					numVarRepeats = character;
+					numVarRepeats = Character.getNumericValue(character);
+					break;
 				}
 
 				// Repeats: Forward Direction
 				if (character == '|' && meas.get(x).charAt(nextColumn) == '*') {
 					forwardRepeatExist = true;
-
 				}
+				
 				// Repeats: Backward Direction
-				else if (character == '|' && meas.get(x).charAt(prevColumn) == '*') {
+				else if (character == '*' && meas.get(x).charAt(nextColumn) == '|') {
 					backwardRepeatExist = true;
-
 				}
+				System.out.println(backwardRepeatExist);
 
 				// Variables to store double digit frets
 				String doubleDigit = "";
@@ -1517,21 +1518,27 @@ public class App {
 			barForward.setBarStyle("heavy-light");
 			guitarModel.GuitarRepeat repeatForward = new guitarModel.GuitarRepeat();
 			repeatForward.setDirection("forward");
+			barForward.setRepeat(repeatForward);
 			newMeasure.setForwardBarline(barForward);
 			isThereRepeat = true;
 		}
 
+//		System.out.println(backwardRepeatExist);
 		if (backwardRepeatExist == true) {
 			guitarModel.BackwardBarline barBackward = new guitarModel.BackwardBarline();
 			barBackward.setLocation("right");
 			barBackward.setBarStyle("light-heavy");
 			guitarModel.GuitarRepeat repeatBackward = new guitarModel.GuitarRepeat();
 			repeatBackward.setDirection("backward");
+			barBackward.setRepeat(repeatBackward);
 			newMeasure.setBackwardBarline(barBackward);
 			isThereRepeat = true;
 		}
 		if (backwardRepeatExist == false && forwardRepeatExist == false && variableRepeatExist == false) {
-			isThereRepeat = false;
+			guitarModel.BackwardBarline onebarline = new guitarModel.BackwardBarline();
+			onebarline.setBarStyle("light-heavy");
+			onebarline.setLocation("right");
+			newMeasure.setBackwardBarline(onebarline);
 		}
 
 		newMeasure.setNote(note);

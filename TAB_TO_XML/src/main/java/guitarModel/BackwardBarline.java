@@ -1,8 +1,10 @@
 package guitarModel;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+@JsonPropertyOrder({ "bar-style", "repeat" })
 public class BackwardBarline {
 
 	@JacksonXmlProperty(isAttribute=true)
@@ -15,9 +17,6 @@ public class BackwardBarline {
 	@JacksonXmlProperty(localName = "repeat")
 	private GuitarRepeat repeat;
 	
-	public void setGuitarRepeat(GuitarRepeat r ) { 
-		this.repeat  = r; 
-	}
 	
 	public BackwardBarline() {}
 	public BackwardBarline(String location, String barStyle) {
@@ -41,4 +40,8 @@ public class BackwardBarline {
 	public void setBarStyle(String barStyle) {
 		this.barStyle = barStyle;
 	}
+	public void setRepeat(GuitarRepeat r ) { 
+		this.repeat  = r; 
+	}
+	
 }
