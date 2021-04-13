@@ -202,7 +202,7 @@ public class App {
 
 			mapper.enable(SerializationFeature.INDENT_OUTPUT);
 			// mapper.writeValue(new File("./Streamresult.musicxml"), scorePartwise);
-			return mapper.writeValueAsString(scorePartwise);
+			return mapper.writeValueAsString(scorePartwise).replace("backwardBarline", "barline");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -385,6 +385,7 @@ public class App {
 				if (Character.isDigit(character) && y == meas.get(0).length() - 1) {
 					variableRepeatExist = true;
 					numVarRepeats = character;
+					break;
 				}
 
 				// Repeats: Forward Direction
@@ -616,7 +617,7 @@ public class App {
 
 						}
 						System.out.println(isDoubleDigit);
-						if (isDoubleDigit == true) {
+						if (isDoubleDigit != true) {
 
 							tech.setFret(correctDoubleDigit);
 						}
@@ -770,15 +771,9 @@ public class App {
 						notations.setTechnical(technical);
 						note.get(note.size() - 1).setNotations(notations);
 					}
-					technical.setFret("" + character);
-					Integer stringNumber = (x + 1);
-					technical.setString(stringNumber.toString());
-					notations.setTechnical(technical);
-					note.get(note.size() - 1).setNotations(notations);
-
-					// set has note in the column to true
 
 				}
+				// set has note in the column to true
 				hasPrevColNote = true;
 			}
 		}
