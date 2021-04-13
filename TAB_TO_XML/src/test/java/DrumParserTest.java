@@ -522,32 +522,118 @@ class DrumParserTest {
 		a.add("SD|----o----o--o---|");
 		a.add("B |o--o----o--o--o-|");
 		c = DParser.collectionToMeasureRepeatedMeasure(a);
-		int b = 4;
+		int b = 1;
 		assertEquals(b, c.get(0));
 	}
 	
 	@Test
 	public void test_collectionToMeasureRepeatedMeasure_02() {
 		ArrayList<String> a = new ArrayList<>();
-		ArrayList<ArrayList<String>> b = new ArrayList<>();
-		ArrayList<String> c = new ArrayList<>();
+		ArrayList<Integer> c = new ArrayList<>();
 		a.add("  |------------REPEAT-7X------------|");
 		a.add("C |xx--------------|----------------|xx--------------|----------------|");
 		a.add("HH|----x-x-x-x-x-x-|x-x-x-x-xox-x-x-|----x-x-x-x-x-x-|----------x-x-x-|");
 		a.add("T |----------------|----------------|----------------|--o-------------|");
 		a.add("SD|----------------|----------------|----------------|o----o--f-------|");
 		a.add("B |oo--------------|----------------|oo--------------|-------o-o-oo-o-|");
-		b = DParser.collectionToMeasure(a);
-		c.add("---------x--x-----");
-		c.add("x--x-xx-----------");
-		c.add("------------oo----");
-		c.add("---------o--o-----");
-		c.add("--------------o-o-");
-		c.add("o----------o------");
-		assertEquals(b.get(1).get(3), c.get(3));
+		c = DParser.collectionToMeasureRepeatedMeasure(a);
+		int b = 1;
+		assertEquals(b, c.get(0));
 	}
 	
 	/*******************************************************************/
-
+	
+	@Test
+	public void test_collectionToMeasureRepeatedAmount_01() {
+		ArrayList<String> a = new ArrayList<>();
+		ArrayList<Integer> c = new ArrayList<>();
+		a.add("  |----REPEAT-7X---|");
+		a.add("C |x---------------|");
+		a.add("HH|--x-x-x-x-x-x-x-|");
+		a.add("SD|----o----o--o---|");
+		a.add("B |o--o----o--o--o-|");
+		c = DParser.collectionToMeasureRepeatedAmount(a);
+		int b = 7;
+		assertEquals(b, c.get(0));
+	}
+	
+	@Test
+	public void test_collectionToMeasureRepeatedAmount_02() {
+		ArrayList<String> a = new ArrayList<>();
+		ArrayList<Integer> c = new ArrayList<>();
+		a.add("  |------------REPEAT-7X------------|");
+		a.add("C |xx--------------|----------------|xx--------------|----------------|");
+		a.add("HH|----x-x-x-x-x-x-|x-x-x-x-xox-x-x-|----x-x-x-x-x-x-|----------x-x-x-|");
+		a.add("T |----------------|----------------|----------------|--o-------------|");
+		a.add("SD|----------------|----------------|----------------|o----o--f-------|");
+		a.add("B |oo--------------|----------------|oo--------------|-------o-o-oo-o-|");
+		c = DParser.collectionToMeasureRepeatedAmount(a);
+		int b = 7;
+		assertEquals(b, c.get(0));
+	}
+	
+	/*******************************************************************/
+	
+	@Test
+	public void test_measureSize_01() {
+		ArrayList<String> a = new ArrayList<>();
+		int c;
+		a.add("C |x--------x--------|---------x--x-----|x--------x--------|---------x--x-----|");
+		a.add("R |------x-----x--x--|x--x-xx-----------|---x-xx-----x-xx--|x--x-xx-----------|");
+		a.add("SD|---------o--------|---------o--o-----|---------o--------|---------o--o-----|");
+		a.add("FT|------------------|--------------o-o-|------------------|--------------oo--|");
+		a.add("B |o----------------o|o----------o------|o-----------------|o----------oo-----|");
+		c = DParser.measureSize(a.get(0), 3);
+		int b = 19;
+		assertEquals(b, c);
+	}
+	
+	@Test
+	public void test_measureSize_02() {
+		ArrayList<String> a = new ArrayList<>();
+		int c;
+		a.add("  |------------REPEAT-7X------------|");
+		a.add("C |xx--------------|----------------|xx--------------|----------------|");
+		a.add("HH|----x-x-x-x-x-x-|x-x-x-x-xox-x-x-|----x-x-x-x-x-x-|----------x-x-x-|");
+		a.add("T |----------------|----------------|----------------|--o-------------|");
+		a.add("SD|----------------|----------------|----------------|o----o--f-------|");
+		a.add("B |oo--------------|----------------|oo--------------|-------o-o-oo-o-|");
+		c = DParser.measureSize(a.get(1), 20);
+		int b = 17;
+		assertEquals(b, c);
+	}
+	
+	/*******************************************************************/
+	
+	@Test
+	public void test_augInput_01() {
+		ArrayList<String> a = new ArrayList<>();
+		int c;
+		a.add("C |x--------x--------|---------x--x-----|x--------x--------|---------x--x-----|");
+		a.add("R |------x-----x--x--|x--x-xx-----------|---x-xx-----x-xx--|x--x-xx-----------|");
+		a.add("SD|---------o--------|---------o--o-----|---------o--------|---------o--o-----|");
+		a.add("FT|------------------|--------------o-o-|------------------|--------------oo--|");
+		a.add("B |o----------------o|o----------o------|o-----------------|o----------oo-----|");
+		c = DParser.measureSize(a.get(0), 3);
+		int b = 19;
+		assertEquals(b, c);
+	}
+	
+	@Test
+	public void test_augInput_02() {
+		ArrayList<String> a = new ArrayList<>();
+		int c;
+		a.add("  |------------REPEAT-7X------------|");
+		a.add("C |xx--------------|----------------|xx--------------|----------------|");
+		a.add("HH|----x-x-x-x-x-x-|x-x-x-x-xox-x-x-|----x-x-x-x-x-x-|----------x-x-x-|");
+		a.add("T |----------------|----------------|----------------|--o-------------|");
+		a.add("SD|----------------|----------------|----------------|o----o--f-------|");
+		a.add("B |oo--------------|----------------|oo--------------|-------o-o-oo-o-|");
+		c = DParser.measureSize(a.get(1), 20);
+		int b = 17;
+		assertEquals(b, c);
+	}
+	
+	/*******************************************************************/
 
 }

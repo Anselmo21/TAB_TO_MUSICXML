@@ -392,14 +392,14 @@ public class DParser {
 						if (input.get(0).charAt(k) == '-') {
 							ispartofrepeat = true;
 							meascount++;
-							if (input.get(0).charAt(measuresize + 1) == '|' && partofrepeat == false) {
+							if (input.get(0).charAt(z + measuresize) == '|' && partofrepeat == false) {
 								sections.add(4);
-							} else if (input.get(0).charAt(measuresize + 1) != '|' && partofrepeat) {
+							} else if (input.get(0).charAt(z + measuresize) != '|' && partofrepeat) {
 								sections.add(3);
-							} else if (input.get(0).charAt(measuresize + 1) != '|' && partofrepeat == false) {
+							} else if (input.get(0).charAt(z + measuresize) != '|' && partofrepeat == false) {
 								sections.add(1);
 								partofrepeat = true;
-							} else if (input.get(0).charAt(measuresize + 1) == '|' && partofrepeat) {
+							} else if (input.get(0).charAt(z + measuresize) == '|' && partofrepeat) {
 								sections.add(2);
 								partofrepeat = false;
 							}
@@ -463,15 +463,15 @@ public class DParser {
 						if (input.get(0).charAt(k) == '-') {
 							ispartofrepeat = true;
 							meascount++;
-							if (input.get(0).charAt(measuresize + 1) == '|' && partofrepeat == false) {
+							if (input.get(0).charAt(measuresize + z) == '|' && partofrepeat == false) {
 								sections.add(Integer.parseInt(input.get(0).replaceAll("[^0-9]", "")));
 								partofrepeat = true;
-							} else if (input.get(0).charAt(measuresize + 1) != '|' && partofrepeat) {
+							} else if (input.get(0).charAt(measuresize + z) != '|' && partofrepeat) {
 								sections.add(0);
-							} else if (input.get(0).charAt(measuresize + 1) != '|' && partofrepeat == false) {
+							} else if (input.get(0).charAt(measuresize + z) != '|' && partofrepeat == false) {
 								sections.add(Integer.parseInt(input.get(0).replaceAll("[^0-9]", "")));
 								partofrepeat = true;
-							} else if (input.get(0).charAt(measuresize + 1) == '|' && partofrepeat) {
+							} else if (input.get(0).charAt(measuresize + z) == '|' && partofrepeat) {
 								sections.add(0);
 								partofrepeat = false;
 							}
@@ -503,7 +503,7 @@ public class DParser {
 		return sections;
 	}
 
-	private static int measureSize(String in, int index) {
+	public static int measureSize(String in, int index) {
 		int measuresize = 1;
 		for (int i = index; i < in.length() - 1; i++) {
 			if (in.charAt(i) != '|') {
@@ -515,7 +515,7 @@ public class DParser {
 		return measuresize;
 	}
 
-	private static ArrayList<String> augInput(ArrayList<String> input) {
+	public static ArrayList<String> augInput(ArrayList<String> input) {
 
 		ArrayList<String> in = new ArrayList<String>();
 
