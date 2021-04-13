@@ -12,7 +12,7 @@ import guitarModel.ForwardBarline;
 import guitarModel.GuitarDirection;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-@JsonPropertyOrder({ "number", "attributes", "forwardBarline", "GuitarDirection", "note", "backup", "noteBack", "backwardBarline" })
+@JsonPropertyOrder({ "number", "attributes", "forwardBarline", "direction", "note", "backup", "noteBack", "backwardBarline" })
 public class Measure {
 	@JacksonXmlProperty(isAttribute = true)
 	int number;
@@ -99,5 +99,4 @@ public class Measure {
 	public void setDirection(GuitarDirection direction) {
 		this.direction = direction;
 	}
-
 }
