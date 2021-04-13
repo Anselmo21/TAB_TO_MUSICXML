@@ -781,15 +781,9 @@ public class App {
 						notations.setTechnical(technical);
 						note.get(note.size() - 1).setNotations(notations);
 					}
-					technical.setFret("" + character);
-					Integer stringNumber = (x + 1);
-					technical.setString(stringNumber.toString());
-					notations.setTechnical(technical);
-					note.get(note.size() - 1).setNotations(notations);
-
-					// set has note in the column to true
 
 				}
+				// set has note in the column to true
 				hasPrevColNote = true;
 			}
 		}
