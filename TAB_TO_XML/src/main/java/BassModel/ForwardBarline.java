@@ -15,7 +15,7 @@ public class ForwardBarline {
 	@JacksonXmlProperty(localName = "repeat")
 	private BassRepeat repeat;
 	
-	public void setGuitarRepeat(BassRepeat r ) { 
+	public void setBassRepeat(BassRepeat r ) { 
 		this.repeat  = r; 
 	}
 	

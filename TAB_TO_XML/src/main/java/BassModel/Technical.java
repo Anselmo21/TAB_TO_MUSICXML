@@ -3,13 +3,14 @@ package BassModel;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 import guitarModel.HammerOn;
 import guitarModel.PullOff;
 
-
+@JsonPropertyOrder({"harmonic", "pulloff", "hammer", "string", "fret"})
 public class Technical {
 	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	String string;

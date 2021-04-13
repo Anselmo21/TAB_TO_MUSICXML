@@ -190,13 +190,13 @@ public class App {
 				}
 			}
 
-			if (isThereRepeat == false) {
-				BassModel.BackwardBarline onebarline = new BassModel.BackwardBarline();
-				onebarline.setBarStyle("light-heavy");
-				onebarline.setLocation("right");
-				measures.get(measures.size() - 1).setBackwardBarline(onebarline);
-
-			}
+//			if (isThereRepeat == false) {
+//				BassModel.BackwardBarline onebarline = new BassModel.BackwardBarline();
+//				onebarline.setBarStyle("light-heavy");
+//				onebarline.setLocation("right");
+//				measures.get(measures.size() - 1).setBackwardBarline(onebarline);
+//
+//			}
 
 
 			parts.get(0).setMeasures(measures);
@@ -371,7 +371,7 @@ public class App {
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
 			Boolean hasPrevColNote = false;
-			Boolean isDoubleDigit = false;
+			
 			Boolean isGrace = false;
 			int nextColumn1 = 0;
 			int prevColumn1 = 0;
@@ -383,7 +383,7 @@ public class App {
 			}
 			for (int x = meas.size() - 1; x >= 0; x--) {
 				char character = meas.get(x).charAt(y);
-
+				Boolean isDoubleDigit = false;
 				// Repeats: Variable Number Of Times
 				if (Character.isDigit(character) && y == meas.get(0).length() - 1) {
 					variableRepeatExist = true;
@@ -461,23 +461,7 @@ public class App {
 							AfternumberS = 0; 
 						}
 					
-						// if it's a double digit fret tuning
-						if (Character.isDigit(meas.get(x).charAt(nextColumn1))) {
-							isDoubleDigit = true;
-							doubleDigit = new StringBuilder("").append(character).append(meas.get(x).charAt(nextColumn1))
-									.append("").toString(); // concatenates the two digits
-							int numRepresentation = Integer.parseInt(doubleDigit);
-							correctDoubleDigit = String.valueOf(numRepresentation);
-
-							// Skip the digit in the nextColumn in our iteration provided we don't go over
-							// the length
-							if (y + 1 < meas.get(0).length()) {
-
-								y++;
-
-							}
-
-						}
+					
 					if (meas.get(x).charAt(prevColumn1) == 'g') {
 						isGrace = true;
 						BassGraceNote grace1 = new BassModel.BassGraceNote();
@@ -525,8 +509,10 @@ public class App {
 					// Natural Harmonics or not
 
 					if (meas.get(x).charAt(prevColumn1) == '[' && meas.get(x).charAt(nextColumn1) == ']') {
-
-						tech.setHarmonics();
+						BassModel.BassHarmonic h = new BassModel.BassHarmonic();
+						h.setNatural();
+						tech.setHarmonics(h);
+						
 
 						// Slide Techniques: START
 						if (meas.get(x).charAt(nextColumn1) == 's') {
@@ -614,12 +600,36 @@ public class App {
 							tech.setHammer(hammerList);
 							notations.setSlur(slur);
 						}
+						// if it's a double digit fret tuning
+						if (Character.isDigit(meas.get(x).charAt(nextColumn1))) {
+				
+							doubleDigit = new StringBuilder("").append(character).append(meas.get(x).charAt(nextColumn1)).append("").toString(); // concatenates the two digits
+							int numRepresentation = Integer.parseInt(doubleDigit);
+							
+							correctDoubleDigit = String.valueOf(numRepresentation);
+						
+							// Skip the digit in the nextColumn in our iteration provided we don't go over
+							// the length
+							if (y + 1 < meas.get(0).length()) {
+								
+								y++;
+
+							}
+							if (x-1 >= 0) { 
+								if (!Character.isDigit(meas.get(x-1).charAt(y))) {
+									y--;
+								}
+								}
+							isDoubleDigit = true;
+
+						}
+						System.out.println(isDoubleDigit);
 						if (isDoubleDigit == true) {
 
 							tech.setFret(correctDoubleDigit);
 						}
 						
-							else {
+						else {
 						tech.setFret("" + character);
 						}
 						Integer stringNumber = (x + 1);
@@ -736,6 +746,29 @@ public class App {
 							notations.setSlur(slur);
 							}
 						}
+						// if it's a double digit fret tuning
+						if (Character.isDigit(meas.get(x).charAt(nextColumn1))) {
+							System.out.println("reached");
+							doubleDigit = new StringBuilder("").append(character).append(meas.get(x).charAt(nextColumn1))
+									.append("").toString(); // concatenates the two digits
+							int numRepresentation = Integer.parseInt(doubleDigit);
+							correctDoubleDigit = String.valueOf(numRepresentation);
+
+							// Skip the digit in the nextColumn in our iteration provided we don't go over
+							// the length
+							if (y + 1 < meas.get(0).length()) {
+								
+								y++;
+
+							}
+							if (x-1 >= 0) { 
+								if (!Character.isDigit(meas.get(x-1).charAt(y))) {
+									y--;
+								}
+								}
+							isDoubleDigit = true;
+
+						}
 						if (isDoubleDigit == true) {
 
 							technical.setFret(correctDoubleDigit);
@@ -781,6 +814,7 @@ public class App {
 			barForward.setBarStyle("heavy-light");
 			BassModel.BassRepeat repeatForward = new BassModel.BassRepeat();
 			repeatForward.setDirection("forward");
+			barForward.setBassRepeat(repeatForward);
 			newMeasure.setForwardBarline(barForward);
 			isThereRepeat = true;
 		}
@@ -791,11 +825,16 @@ public class App {
 			barBackward.setBarStyle("light-heavy");
 			BassModel.BassRepeat repeatBackward = new BassModel.BassRepeat();
 			repeatBackward.setDirection("backward");
+			barBackward.setBassRepeat(repeatBackward);
 			newMeasure.setBackwardBarline(barBackward);
 			isThereRepeat = true;
 		}
 		if (backwardRepeatExist == false && forwardRepeatExist == false && variableRepeatExist == false) {
 			isThereRepeat = false;
+			BassModel.BackwardBarline onebarline = new BassModel.BackwardBarline();
+			onebarline.setBarStyle("light-heavy");
+			onebarline.setLocation("right");
+			newMeasure.setBackwardBarline(onebarline);
 		}
 
 
@@ -1079,7 +1118,7 @@ public class App {
 			
 			Boolean hasPrevHammer = false; //reset automatically when new col is reached
 			Boolean hasPrevPull = false; // same condition above 
-			Boolean isDoubleDigit = false;
+		
 			Boolean hasPrevColNote = false;
 			Boolean isGrace = false;
 			int nextColumn = 0;
@@ -1092,7 +1131,7 @@ public class App {
 			}
 			for (int x = meas.size() - 1; x >= 0; x--) {
 				
-				
+				boolean isDoubleDigit = false;
 				char character = meas.get(x).charAt(y);
 				
 				// Repeats: Variable Number Of Times
@@ -1111,7 +1150,7 @@ public class App {
 				else if (character == '*' && meas.get(x).charAt(nextColumn) == '|') {
 					backwardRepeatExist = true;
 				}
-				System.out.println(backwardRepeatExist);
+
 
 				// Variables to store double digit frets
 				String doubleDigit = "";
@@ -1182,15 +1221,22 @@ public class App {
 						int numRepresentation = Integer.parseInt(doubleDigit);
 						correctDoubleDigit = String.valueOf(numRepresentation);
 
+				//		hasPrevColNote = true;
 						// Skip the digit in the nextColumn in our iteration provided we don't go over
 						// the length
+						
 						if (y + 1 < meas.get(0).length()) {
-
 							y++;
-
+							
+						}
+						if (x-1 >= 0) { 
+						if (!Character.isDigit(meas.get(x-1).charAt(y))) {
+							y--;
+						}
 						}
 
 					}
+					
 					// if it's a graced note
 					if (meas.get(x).charAt(prevColumn) == 'g') {
 						isGrace = true;
@@ -1239,7 +1285,7 @@ public class App {
 					ArrayList<guitarModel.Slides> slideList = new ArrayList<guitarModel.Slides>();
 
 					// Natural Harmonics or not
-					if (meas.get(x).charAt(prevColumn) == '[' && meas.get(x).charAt(nextColumn) == ']') {
+					if (meas.get(x).charAt(prevColumn) == '[' && meas.get(x).charAt(nextColumn) == ']' || meas.get(x).charAt(prevColumn) == '[' && meas.get(x).charAt(nextColumn + 1) == ']') {
 						guitarModel.Harmonic h = new guitarModel.Harmonic();
 						h.setNatural();
 						tech.setHarmonics(h);
