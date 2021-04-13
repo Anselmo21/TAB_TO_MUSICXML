@@ -16,16 +16,18 @@ import javafx.scene.control.TextArea;
 
 public class ErrorHighlightingInput {
 
-	private static String textOnArea = "";
 	protected static ExecutorService executor = Executors.newSingleThreadExecutor();
 	private CodeArea codeArea;
 	public static CodeArea getArea;
+	private TextArea textarea;
+	public static TextArea getTextArea;
 	private static TreeMap<Range, Integer> errorsOnTab = new TreeMap<>();
 	static String message;
 
-	public ErrorHighlightingInput(CodeArea textArea){
+	public ErrorHighlightingInput(CodeArea textArea, TextArea textarea){
 		this.codeArea = textArea;
 		getArea = this.codeArea;
+		this.textarea = textarea;
 	}
 
 	public Task<StyleSpans<Collection<String>>> computeHighlightingAsync() {
@@ -51,7 +53,6 @@ public class ErrorHighlightingInput {
 		else;
 		errorsOnTab = fillTreeMap(errorsOnTab, text);
 		StyleSpansBuilder<Collection<String>> spansBuilder = new StyleSpansBuilder<>();
-		textOnArea = text;
 		ArrayList<Range> errorRanges = new ArrayList<>(errorsOnTab.keySet());
 		int errorEnd = 0;
 		for (int i = 0; i < errorRanges.size(); i++) {

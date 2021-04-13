@@ -75,7 +75,7 @@ public class Controller implements Initializable {
 		save.setDisable(true);
 		write.setStyle("-fx-font-family: Monospace; -fx-font-size: 12pt; -fx-font-weight: bold;");
 		write.setParagraphGraphicFactory(LineNumberFactory.get(write));
-		new ErrorHighlightingInput(write).enableHighlighting();
+		new ErrorHighlightingInput(write, view).enableHighlighting();
 	}
 
 
@@ -162,7 +162,8 @@ public class Controller implements Initializable {
 	@FXML
 	public void handleButtonSave(ActionEvent event) {
 		saveFile = new FileChooser();
-		saveFile.getExtensionFilters().add(new ExtensionFilter("musicXML files", "*.musicxml"));
+		saveFile.getExtensionFilters().add(new ExtensionFilter("musicXML file", "*.musicxml"));
+		saveFile.getExtensionFilters().add(new ExtensionFilter("MXL file", "*.mxl"));
 		xmlFile = saveFile.showSaveDialog(null);
 		PrintWriter write = null;
 		try {
@@ -388,7 +389,7 @@ public class Controller implements Initializable {
 	
 	public void textAreaPopups(ArrayList<Integer> errors) {
 		write.setParagraphGraphicFactory(LineNumberFactory.get(write));
-		new ErrorHighlightingInput(write).enableHighlighting();
+		new ErrorHighlightingInput(write, view).enableHighlighting();
 		anotherCodeArea = write;
 		Popup popup = new Popup();
 		Label message = new Label();
