@@ -145,6 +145,7 @@ public class App {
 	}
 
 	public static String bassTabToXML(ArrayList<String> tabAsList, HashMap<Integer, Integer[]> timeSigs) {
+		boolean isThereRepeat = false;
 		try {
 			ObjectMapper mapper = new XmlMapper();
 
@@ -184,16 +185,19 @@ public class App {
 				for (int j = 0; j < measuresOfCollection.size(); j++) {
 					measureCount++;
 					BassModel.Measure newMeasure = parseBassMeasure(measuresOfCollection.get(j), measureCount,
-							tuningSteps, timeSigs);
+							tuningSteps, timeSigs,isThereRepeat);
 					measures.add(newMeasure);
 				}
 			}
 
-			// set last measure to have barline values
-			BassModel.Barline barline = new BassModel.Barline();
-			barline.setBarStyle("light-heavy");
-			barline.setLocation("right");
-			measures.get(measures.size() - 1).setBarline(barline);
+			if (isThereRepeat == false) {
+				BassModel.BackwardBarline onebarline = new BassModel.BackwardBarline();
+				onebarline.setBarStyle("light-heavy");
+				onebarline.setLocation("right");
+				measures.get(measures.size() - 1).setBackwardBarline(onebarline);
+
+			}
+
 
 			parts.get(0).setMeasures(measures);
 
@@ -211,13 +215,17 @@ public class App {
 	}
 
 	private static BassModel.Measure parseBassMeasure(ArrayList<String> meas, int measureNumber,
-			ArrayList<String> tuningSteps, HashMap<Integer, Integer[]> timeSigs) {
+			ArrayList<String> tuningSteps, HashMap<Integer, Integer[]> timeSigs, boolean isThereRepeat) {
 
 		BassModel.Measure newMeasure = new BassModel.Measure();
 		newMeasure.setNumber(measureNumber);
 		Integer[] timeSig = timeSigs.getOrDefault(measureNumber, new Integer[] { 4, 4 });
 		int division = BParser.divisionCount(meas.get(2), timeSig[0]);
 
+		//For Repeats
+		Boolean forwardRepeatExist = false;
+		Boolean backwardRepeatExist = false;
+		Boolean variableRepeatExist = false;
 		// if first measure, set the attributes
 		if (measureNumber == 1) {
 			BassModel.Attributes attributes = new BassModel.Attributes();
@@ -350,13 +358,20 @@ public class App {
 			newMeasure.setAttributes(attributes);
 		}
 
-		newMeasure.setBarline(null);
+//		newMeasure.setBarline(null);
 
+		int BeforenumberP = 0; // for pull offs (before)
+		int BeforenumberH = 0; // for hammer ons ""
+		int AfternumberP = 0; // for pull offs (after)
+		int AfternumberH = 0; // for hammer ons ""
+		int BeforenumberS = 0;
+		int AfternumberS = 0; 
 		ArrayList<BassModel.Note> note = new ArrayList<BassModel.Note>();
-
+		int numVarRepeats = 0; 
 		// iter through each measure
 		for (int y = 0; y < meas.get(0).length(); y++) {
 			Boolean hasPrevColNote = false;
+			Boolean isDoubleDigit = false;
 			Boolean isGrace = false;
 			int nextColumn1 = 0;
 			int prevColumn1 = 0;
@@ -369,7 +384,100 @@ public class App {
 			for (int x = meas.size() - 1; x >= 0; x--) {
 				char character = meas.get(x).charAt(y);
 
+				// Repeats: Variable Number Of Times
+				if (Character.isDigit(character) && y == meas.get(0).length() - 1) {
+					variableRepeatExist = true;
+					numVarRepeats = character;
+				}
+
+				// Repeats: Forward Direction
+				if (character == '|' && meas.get(x).charAt(nextColumn1) == '*') {
+					forwardRepeatExist = true;
+
+				}
+				// Repeats: Backward Direction
+				else if (character == '|' && meas.get(x).charAt(prevColumn1) == '*') {
+					backwardRepeatExist = true;
+				}
+				
+				String doubleDigit = "";
+				String correctDoubleDigit = "";
 				if (Character.isDigit(character)) {
+					// Variables to store double digit frets
+					
+						// if it's a double digit fret tuning
+						if (meas.get(x).charAt(nextColumn1) == 'p' || meas.get(x).charAt(nextColumn1) == 'P') { 
+							BeforenumberP++;
+							
+						}
+						else { 
+							BeforenumberP = 0;
+						}
+						
+						if (meas.get(x).charAt(prevColumn1) == 'p' || meas.get(x).charAt(prevColumn1) == 'P') { 
+							AfternumberP++;
+							
+						}
+						
+						else { 
+							
+							AfternumberP = 0; 
+							
+						}
+						
+						// Incrementing numbers for consecutive occurrences of Hammer ons
+						if (meas.get(x).charAt(nextColumn1) == 'h' || meas.get(x).charAt(nextColumn1) == 'H') {
+						
+							BeforenumberH++;
+							
+						}
+						else { 
+							BeforenumberH = 0;
+						}
+						if (meas.get(x).charAt(prevColumn1) == 'h' || meas.get(x).charAt(prevColumn1) == 'H') { 
+							AfternumberH++;
+							
+							
+						}
+						else { 
+							AfternumberH = 0; 
+						}
+				
+						//Incrementing numbers for consecutive occurrences of Slides
+						if (meas.get(x).charAt(nextColumn1) == 's') {
+							
+							BeforenumberS++;
+							
+						}
+						else { 
+							BeforenumberS = 0;
+						}
+						if (meas.get(x).charAt(prevColumn1) == 's') { 
+							
+							AfternumberS++;
+						
+						}
+						else { 
+							AfternumberS = 0; 
+						}
+					
+						// if it's a double digit fret tuning
+						if (Character.isDigit(meas.get(x).charAt(nextColumn1))) {
+							isDoubleDigit = true;
+							doubleDigit = new StringBuilder("").append(character).append(meas.get(x).charAt(nextColumn1))
+									.append("").toString(); // concatenates the two digits
+							int numRepresentation = Integer.parseInt(doubleDigit);
+							correctDoubleDigit = String.valueOf(numRepresentation);
+
+							// Skip the digit in the nextColumn in our iteration provided we don't go over
+							// the length
+							if (y + 1 < meas.get(0).length()) {
+
+								y++;
+
+							}
+
+						}
 					if (meas.get(x).charAt(prevColumn1) == 'g') {
 						isGrace = true;
 						BassGraceNote grace1 = new BassModel.BassGraceNote();
@@ -506,7 +614,14 @@ public class App {
 							tech.setHammer(hammerList);
 							notations.setSlur(slur);
 						}
+						if (isDoubleDigit == true) {
+
+							tech.setFret(correctDoubleDigit);
+						}
+						
+							else {
 						tech.setFret("" + character);
+						}
 						Integer stringNumber = (x + 1);
 						tech.setString(stringNumber.toString());
 						notations.setTechnical(tech);
@@ -521,7 +636,7 @@ public class App {
 						// Slide Techniques: START
 						if (meas.get(x).charAt(nextColumn1) == 's') {
 							BassModel.BassSlide sd = new BassModel.BassSlide();
-							sd.setNumber(1);
+							sd.setNumber(BeforenumberS);
 
 							sd.setType("start");
 							slideList.add(sd);
@@ -530,7 +645,7 @@ public class App {
 						// Slide Techniques: END
 						if (meas.get(x).charAt(prevColumn1) == 's') {
 							BassModel.BassSlide sl1 = new BassModel.BassSlide();
-							sl1.setNumber(1);
+							sl1.setNumber(AfternumberS);
 							sl1.setType("stop");
 							slideList.add(sl1);
 							notations.setSlides(slideList);
@@ -539,17 +654,22 @@ public class App {
 								&& Character.isDigit(meas.get(x).charAt(prevColumn1))
 								&& Character.isDigit(meas.get(x).charAt(nextColumn1))) {
 							BassModel.BassPullOff pl = new BassModel.BassPullOff();
-							pl.setNumber(1);
+							pl.setNumber(BeforenumberP);
 							pl.setType("start");
 							pl.setSymbol("P");
 							pullList.add(pl);
-
+							if (meas.get(x).charAt(prevColumn1) == 'p' || meas.get(x).charAt(prevColumn1) == 'P') {
+								technical.setPulloff(pullList);
+							}
+							
+							else {
 							BassModel.BassSlur su = new BassModel.BassSlur();
-							su.setNumber(1);
+							su.setNumber(BeforenumberP);
 							// su.setPlacement("above");
 							su.setType("start");
 							technical.setPulloff(pullList);
 							notations.setSlur(su);
+							}
 
 						}
 
@@ -558,15 +678,20 @@ public class App {
 								&& Character.isDigit(meas.get(x).charAt(prevColumn1))
 								&& Character.isDigit(meas.get(x).charAt(nextColumn1))) {
 							BassModel.BassPullOff pull = new BassModel.BassPullOff();
-							pull.setNumber(1);
+							pull.setNumber(AfternumberP);
 							pull.setType("stop");
+							
 							pullList.add(pull);
+							if (meas.get(x).charAt(nextColumn1) == 'p' || meas.get(x).charAt(nextColumn1) == 'P') {
+								technical.setPulloff(pullList);
+							}
+							else { 
 							BassModel.BassSlur sl = new BassModel.BassSlur();
-							sl.setNumber(1);
+							sl.setNumber(AfternumberP);
 							sl.setType("stop");
 							technical.setPulloff(pullList);
 							notations.setSlur(sl);
-
+							}
 						}
 
 						// Hammer-on technique: START
@@ -575,16 +700,20 @@ public class App {
 								&& Character.isDigit(meas.get(x).charAt(nextColumn1))) {
 
 							BassModel.BassHammer ham = new BassModel.BassHammer();
-							ham.setNumber(1);
+							ham.setNumber(BeforenumberH);
 							ham.setType("start");
 							ham.setSymbol("H");
 							hammerList.add(ham);
-
+							if (meas.get(x).charAt(prevColumn1) == 'h' || meas.get(x).charAt(prevColumn1) == 'H') { 
+								technical.setHammer(hammerList);
+							}
+							else { 
 							BassModel.BassSlur sr = new BassModel.BassSlur();
-							sr.setNumber(1);
+							sr.setNumber(BeforenumberH);
 							sr.setType("start");
 							technical.setHammer(hammerList);
 							notations.setSlur(sr);
+							}
 						}
 
 						// Hammer-on technique: END
@@ -592,18 +721,28 @@ public class App {
 								&& Character.isDigit(meas.get(x).charAt(prevColumn1))
 								&& Character.isDigit(meas.get(x).charAt(nextColumn1))) {
 							BassModel.BassHammer hammer = new BassModel.BassHammer();
-							hammer.setNumber(1);
+							hammer.setNumber(AfternumberH);
 							hammer.setType("stop");
 
 							hammerList.add(hammer);
-
+							if (meas.get(x).charAt(nextColumn1) == 'h' || meas.get(x).charAt(nextColumn1) == 'H') {
+								technical.setHammer(hammerList);
+							}
+							else {
 							BassModel.BassSlur slur = new BassModel.BassSlur();
-							slur.setNumber(1);
+							slur.setNumber(AfternumberH);
 							slur.setType("stop");
 							technical.setHammer(hammerList);
 							notations.setSlur(slur);
+							}
 						}
+						if (isDoubleDigit == true) {
+
+							technical.setFret(correctDoubleDigit);
+						}
+						else {
 						technical.setFret("" + character);
+						}
 						Integer stringNumber = (x + 1);
 						technical.setString(stringNumber.toString());
 						notations.setTechnical(technical);
@@ -621,6 +760,44 @@ public class App {
 				hasPrevColNote = true;
 			}
 		}
+		if (variableRepeatExist == true) {
+			BassModel.BassDirection dir = new BassModel.BassDirection();
+			dir.setPlacement("above");
+			BassModel.BassDirectionType dirType = new BassModel.BassDirectionType();
+			BassModel.BassWords gWord = new BassModel.BassWords();
+			gWord.setRelativeX();
+			gWord.setRelativeY();
+			gWord.setRepeatText(numVarRepeats);
+			dirType.setWord(gWord);
+			dir.setDirectionType(dirType);
+			newMeasure.setDirection(dir);
+			isThereRepeat = true;
+
+		}
+
+		if (forwardRepeatExist == true) {
+			BassModel.ForwardBarline barForward = new BassModel.ForwardBarline();
+			barForward.setLocation("left");
+			barForward.setBarStyle("heavy-light");
+			BassModel.BassRepeat repeatForward = new BassModel.BassRepeat();
+			repeatForward.setDirection("forward");
+			newMeasure.setForwardBarline(barForward);
+			isThereRepeat = true;
+		}
+
+		if (backwardRepeatExist == true) {
+			BassModel.BackwardBarline barBackward = new BassModel.BackwardBarline();
+			barBackward.setLocation("right");
+			barBackward.setBarStyle("light-heavy");
+			BassModel.BassRepeat repeatBackward = new BassModel.BassRepeat();
+			repeatBackward.setDirection("backward");
+			newMeasure.setBackwardBarline(barBackward);
+			isThereRepeat = true;
+		}
+		if (backwardRepeatExist == false && forwardRepeatExist == false && variableRepeatExist == false) {
+			isThereRepeat = false;
+		}
+
 
 		newMeasure.setNote(note);
 
