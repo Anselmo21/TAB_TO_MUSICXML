@@ -1686,7 +1686,7 @@ public class App {
 				for (int j = 0; j < measuresOfCollection.size(); j++) {
 					measureCount++;
 					DrumModel.Measure newMeasure = parseDrumMeasure(measuresOfCollection.get(j), instrumentIDs.get(j),
-							repeatedmeasures.get(j), numberofrepeats.get(j), measureCount, isThereRepeat);
+							repeatedmeasures.get(j), numberofrepeats.get(j), measureCount, timeSigs, isThereRepeat);
 					measures.add(newMeasure);
 				}
 			}
@@ -1713,15 +1713,16 @@ public class App {
 	}
 
 	private static DrumModel.Measure parseDrumMeasure(ArrayList<String> meas, ArrayList<String> IDs,
-			Integer repeatedmeasures, Integer repeatedAmount, int measureNumber, boolean isThereRepeat) {
+			Integer repeatedmeasures, Integer repeatedAmount, int measureNumber, HashMap<Integer, Integer[]> timeSigs, boolean isThereRepeat) {
 
 		DrumModel.Measure newMeasure = new DrumModel.Measure();
 		newMeasure.setNumber(measureNumber);
-		int division = DParser.divisionCount(meas.get(0), 4);
+		Integer[] timeSig = timeSigs.getOrDefault(measureNumber, new Integer[] { 4, 4 });
+		int division = DParser.divisionCount(meas.get(2), timeSig[0]);
 
+		DrumModel.Attributes attributes = new DrumModel.Attributes();
 		// if first measure, set the attributes
 		if (measureNumber == 1) {
-			DrumModel.Attributes attributes = new DrumModel.Attributes();
 			DrumModel.Clef clef = new DrumModel.Clef();
 			clef.setSign("percussion");
 			clef.setLine("2");
@@ -1740,7 +1741,13 @@ public class App {
 
 			newMeasure.setAttributes(attributes);
 		} else {
-			newMeasure.setAttributes(null);
+			DrumModel.Time time = new DrumModel.Time();
+			time.setBeats(timeSig[0].toString());
+			time.setBeatType(timeSig[1].toString());
+			attributes.setTime(time);
+
+			attributes.setDivisions(division);
+			newMeasure.setAttributes(attributes);
 		}
 
 		ArrayList<Object> note = new ArrayList<Object>();
