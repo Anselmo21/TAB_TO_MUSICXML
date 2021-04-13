@@ -148,21 +148,38 @@ import Interface.Controller;
 			ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
 			ArrayList<String> eachSection = new ArrayList<String>();
 			
+			String line="";
+
 			// assumes that all the measures have 17 dashes/notes excluding the vertical lines
 			for (int z = 1; z < input.size(); z=z+4){
-				for (int i = 0; i < (input.get(0).length()-1)/21; i++) {	
+				for (int i = 0; i < (input.get(z-1).split("\\|").length-1); i++) {	
 					for (int j = 0; j < 4; j++) {
-						eachSection.add(input.get(j+z-1).substring(1+21*i, 21*(i+1)));
-						
+						if (!(input.get(j+z-1).subSequence(0, 1).equals("|"))) {
+							int count=0;
+							while(!(input.get(j+z-1).subSequence(count, count+1).equals("|"))) {
+								count++;
+							}
+							line=splitter(input.get(j+z-1),count,i);
+							if(!(line.equals("")))
+								eachSection.add(line);
+						} 
+						else {
+							line=splitter(input.get(j+z-1),0,i);
+							if(!(line.equals("")))
+								eachSection.add(line);
+						}
 					}
-				
-					sections.add(eachSection);
-					eachSection = new ArrayList<String>();
+					if(!(line.equals(""))) {
+						sections.add(eachSection);
+						eachSection = new ArrayList<String>();
+					}
 				}
 			}
 			
+
 			// returns  2d array of substrings of the measure excluding the vertical lines	
 			return sections;
+<<<<<<< HEAD
 					
 //			ArrayList<ArrayList<String>> sections = new ArrayList<ArrayList<String>>();
 //			ArrayList<String> eachSection = new ArrayList<String>();
@@ -230,7 +247,45 @@ import Interface.Controller;
 					return note.substring(start+1, end);
 				}
 			}
+=======
+			//test push
+												
+
+>>>>>>> branch 'develop' of https://github.com/RafaelDolores/EECS2311_GROUP5_TAB_TO_MUSICXML
 		}
+
+		private static String splitter(String note, int count,int element) { 
+			note=note.substring(count);
+			int digits=0;
+			int start=0,end=0;
+			for (int i = 0; i < note.length(); i++) { 
+				if (note.subSequence(i, i+1).equals("|")) { 
+					digits++;
+					if (digits==element+1)
+						start=i;
+					else if(digits==element+2)
+						end=i;
+				}
+			}
+			if (start+1==end)
+				return "";
+			else {
+				if(start>0 && end<(note.length()-1) && note.substring(start-1, start).equals("|")
+						&& note.substring(end+1, end+2).equals("|")) {
+					return "|"+note.substring(start+1, end)+"|";
+				}
+				if(start>0 &&  note.substring(start-1, start).equals("|")){
+					return "|"+note.substring(start+1, end);
+				}
+				if(end==(note.length()-2) && note.substring(end+1, end+2).equals("|")) {
+					return note.substring(start+1, end)+"|";
+				}
+				else {
+					return note.substring(start+1, end);
+				}
+			}
+		}
+
 		
 		public static String parseAlter(String note) { 
 			
