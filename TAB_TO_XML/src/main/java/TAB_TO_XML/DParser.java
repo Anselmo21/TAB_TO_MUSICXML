@@ -91,19 +91,19 @@ public class DParser {
 				"", "whole" };
 		return types[duration];
 	}
-	
+
 	public static String typeDeclareGrace(int duration) {
-		String[] types = new String[] { "", "", "16th", "", "eighth", "", "", "", "quarter", "", "", "", "", "", "",
-				"", "whole" };
+		String[] types = new String[] { "", "", "16th", "", "eighth", "", "", "", "quarter", "", "", "", "", "", "", "",
+				"whole" };
 		return types[duration];
 	}
-	
+
 	public static String typeDeclareTwoGrace(int duration) {
-		String[] types = new String[] { "", "", "", "", "16th", "", "", "", "eighth", "", "", "", "", "", "",
-				"", "whole" };
+		String[] types = new String[] { "", "", "", "", "16th", "", "", "", "eighth", "", "", "", "", "", "", "",
+				"whole" };
 		return types[duration];
 	}
-	
+
 	public static String identifyID(String ID, Character Character) {
 		String[] Symbols = new String[] { "CC", "C ", "R ", "Rd", "RD", "T ", "HT", "t ", "MT", "SN", "SD", "FT", "BD",
 				"B " };
@@ -145,13 +145,13 @@ public class DParser {
 			if (type == "16th") {
 				if (column > 0 && column < parse.get(0).length() - 1) {
 					int statenum = 0;
-					for (int i = parse.size()-2; i >= 0; i--) {
+					for (int i = parse.size() - 2; i >= 0; i--) {
 						if (parse.get(i).charAt(column + 1) == 'x' || parse.get(i).charAt(column + 1) == 'o') {
 							statenum += 2;
 							break;
 						}
 					}
-					for (int i = parse.size()-2; i >= 0; i--) {
+					for (int i = parse.size() - 2; i >= 0; i--) {
 						if (parse.get(i).charAt(column - 1) == 'x' || parse.get(i).charAt(column - 1) == 'o') {
 							statenum += 1;
 							break;
@@ -174,13 +174,13 @@ public class DParser {
 			} else if (type == "eighth") {
 				if (column > 1 && column < parse.get(0).length() - 2) {
 					int statenum = 0;
-					for (int i = parse.size()-2; i >= 0; i--) {
+					for (int i = parse.size() - 2; i >= 0; i--) {
 						if (parse.get(i).charAt(column + 2) == 'x' || parse.get(i).charAt(column + 2) == 'o') {
 							statenum += 2;
 							break;
 						}
 					}
-					for (int i = parse.size()-2; i >= 0; i--) {
+					for (int i = parse.size() - 2; i >= 0; i--) {
 						if (parse.get(i).charAt(column - 2) == 'x' || parse.get(i).charAt(column - 2) == 'o') {
 							statenum += 1;
 							break;
@@ -283,34 +283,21 @@ public class DParser {
 
 		ArrayList<String> in = new ArrayList<String>();
 
-		int o = input.get(0).length();
+		in = augInput(input);
 
-		for (int i = 0; i < input.size() - 1; i++) {
-			if (input.get(i).subSequence(0, 2).equals("Hf") || input.get(i).subSequence(0, 2).equals("HF")) {
-				break;
-			} else if (!(input.get(i).contains("REPEAT"))) {
-				in.add(input.get(i).substring(2, o));
+		int measuresize;
+		int subsize = 0;
+		for (int z = 0; z < in.get(0).length()-1; z = z + measuresize) {
+			measuresize = measureSize(in.get(0), z + 1);
+			for (int j = 0; j < in.size(); j++) {
+				System.out.println(in.get(j).substring(1 + subsize, subsize + measuresize));
+				eachSection.add(in.get(j).substring(1 + subsize, subsize + measuresize));
 			}
-		}
-
-		// assumes that all the measures have 16 dashes/notes excluding the vertical
-		// lines
-		for (int z = 1; z < in.size(); z = z + (in.size())) {
-			for (int i = 0; i < (in.get(0).length() - 1) / 17; i++) {
-				for (int j = 0; j < in.size(); j++) {
-					if (!(in.get(j + z - 1).subSequence(0, 1).equals("|"))) {
-						int count = 0;
-						while (!(in.get(j + z - 1).subSequence(count, count + 1).equals("|"))) {
-							count++;
-						}
-						eachSection.add(in.get(j + z - 1).substring(1 + 17 * i + count, 17 * (i + 1) + count));
-					} else {
-						eachSection.add(in.get(j + z - 1).substring(1 + 17 * i, 17 * (i + 1)));
-					}
-				}
-				sections.add(eachSection);
-				eachSection = new ArrayList<String>();
-			}
+			sections.add(eachSection);
+			eachSection = new ArrayList<String>();
+			subsize = subsize + measuresize;
+			measuresize = measureSize(in.get(0), z + 1);
+			System.out.println(measuresize);
 		}
 		// returns 2d array of substrings of the measure excluding the vertical lines
 		return sections;
@@ -322,32 +309,191 @@ public class DParser {
 		ArrayList<String> eachSection = new ArrayList<String>();
 
 		ArrayList<String> in = new ArrayList<String>();
+		ArrayList<String> in2 = new ArrayList<String>();
+
+		in = augInput(input);
 
 		for (int i = 0; i < input.size() - 1; i++) {
 			if (!(input.get(i).contains("REPEAT"))) {
-				in.add(input.get(i));
+				in2.add(input.get(i));
 			} else if (input.get(i).subSequence(0, 2).equals("Hf") || input.get(i).subSequence(0, 2).equals("HF")) {
 				break;
 			}
 		}
 
-		// assumes that all the measures have 16 dashes/notes excluding the vertical
-		// lines
-		for (int z = 1; z < in.size(); z = z + in.size()) {
-			for (int i = 0; i < (in.get(0).length() - 1) / 17; i++) {
-				for (int j = 0; j < in.size(); j++) {
-					int count = 0;
-					while (!(in.get(j + z - 1).subSequence(count, count + 1).equals("|"))) {
-						count++;
+		int measuresize;
+		for (int z = 0; z < in.get(0).length()-1; z = z + measuresize) {
+			measuresize = measureSize(in.get(0), z + 1);
+			for (int j = 0; j < in2.size(); j++) {
+				eachSection.add(in2.get(j).substring(0, 2));
+			}
+			sections.add(eachSection);
+			eachSection = new ArrayList<String>();
+			measuresize = measureSize(in.get(0), z + 1);
+		}
+		// returns 2d array of substrings of the ID of the instruments
+		return sections;
+	}
+
+	public static ArrayList<Integer> collectionToMeasureRepeatedMeasure(ArrayList<String> input) {
+
+		ArrayList<Integer> sections = new ArrayList<Integer>();
+		ArrayList<String> in = new ArrayList<String>();
+
+		in = augInput(input);
+
+		int measuresize;
+		int measnum = 0;
+		int meascount = 0;
+		boolean partofrepeat = false;
+		boolean ispartofrepeat = false;
+		
+		for (int i = 0; i < in.get(0).length(); i++) {
+			if (in.get(0).charAt(i) == '|') {
+				measnum++;
+			}
+		}
+		
+		if (input.get(0).contains("REPEAT")) {
+			for (int z = 0; z < in.get(0).length()-1; z = z + measuresize) {
+				measuresize = measureSize(in.get(0), z + 1);
+				if (input.get(0).length() >= z + measuresize) {
+					for (int k = z; k < z + measuresize; k++) {
+						if (input.get(0).charAt(k) == '-') {
+							ispartofrepeat = true;
+							meascount++;
+							if (input.get(0).charAt(measuresize + 1) == '|' && partofrepeat == false) {
+								sections.add(4);
+							} else if (input.get(0).charAt(measuresize + 1) != '|' && partofrepeat) {
+								sections.add(3);
+							} else if (input.get(0).charAt(measuresize + 1) != '|' && partofrepeat == false) {
+								sections.add(1);
+								partofrepeat = true;
+							} else if (input.get(0).charAt(measuresize + 1) == '|' && partofrepeat) {
+								sections.add(2);
+								partofrepeat = false;
+							}
+							break;
+						}
 					}
-					eachSection.add(in.get(j + z - 1).substring(0, count));
+					if (ispartofrepeat == false) {
+						sections.add(0);
+					}
+					ispartofrepeat = false;
+				}	else {
+					if (meascount < measnum) {
+						for (int i = meascount; i <= measnum; i++) {
+							sections.add(0);
+						}
+					}
 				}
-				sections.add(eachSection);
-				eachSection = new ArrayList<String>();
+				measuresize = measureSize(in.get(0), z + 1);
+			}
+		} else {
+			for (int i = 0; i < in.get(0).length(); i++) {
+				if (input.get(0).charAt(i) == '|') {
+					sections.add(0);
+				}
 			}
 		}
 		// returns 2d array of substrings of the ID of the instruments
 		return sections;
+	}
+
+	public static ArrayList<Integer> collectionToMeasureRepeatedAmount(ArrayList<String> input) {
+
+		ArrayList<Integer> sections = new ArrayList<Integer>();
+		ArrayList<String> in = new ArrayList<String>();
+
+		in = augInput(input);
+
+		int measuresize;
+		int measnum = 0;
+		int meascount = 0;
+		boolean partofrepeat = false;
+		boolean ispartofrepeat = false;
+		
+		for (int i = 0; i < in.get(0).length(); i++) {
+			if (in.get(0).charAt(i) == '|') {
+				measnum++;
+			}
+		}
+		
+		if (input.get(0).contains("REPEAT")) {
+			for (int z = 0; z < in.get(0).length(); z = z + measuresize) {
+				measuresize = measureSize(in.get(0), z + 1);
+				if (input.get(0).length() >= z + measuresize) {
+					for (int k = z; k < z + measuresize; k++) {
+						if (input.get(0).charAt(k) == '-') {
+							ispartofrepeat = true;
+							meascount++;
+							if (input.get(0).charAt(measuresize + 1) == '|' && partofrepeat == false) {
+								sections.add(Integer.parseInt(input.get(0).replaceAll("[^0-9]", "")));
+								partofrepeat = true;
+							} else if (input.get(0).charAt(measuresize + 1) != '|' && partofrepeat) {
+								sections.add(0);
+							} else if (input.get(0).charAt(measuresize + 1) != '|' && partofrepeat == false) {
+								sections.add(Integer.parseInt(input.get(0).replaceAll("[^0-9]", "")));
+								partofrepeat = true;
+							} else if (input.get(0).charAt(measuresize + 1) == '|' && partofrepeat) {
+								sections.add(0);
+								partofrepeat = false;
+							}
+							break;
+						}
+					}
+					if (ispartofrepeat == false) {
+						sections.add(0);
+					}
+					ispartofrepeat = false;
+				}	else {
+					if (meascount < measnum) {
+						for (int i = meascount; i <= measnum; i++) {
+							sections.add(0);
+						}
+					}
+				}
+
+				measuresize = measureSize(in.get(0), z + 1);
+			}
+		} else {
+			for (int i = 0; i < in.get(0).length(); i++) {
+				if (input.get(0).charAt(i) == '|') {
+					sections.add(0);
+				}
+			}
+		}
+		// returns 2d array of substrings of the ID of the instruments
+		return sections;
+	}
+
+	private static int measureSize(String in, int index) {
+		int measuresize = 1;
+		for (int i = index; i < in.length() - 1; i++) {
+			if (in.charAt(i) != '|') {
+				measuresize++;
+			} else {
+				break;
+			}
+		}
+		return measuresize;
+	}
+
+	private static ArrayList<String> augInput(ArrayList<String> input) {
+
+		ArrayList<String> in = new ArrayList<String>();
+
+		int o = input.get(input.size() - 2).length();
+
+		for (int i = 0; i < input.size() - 1; i++) {
+			if (!(input.get(i).contains("REPEAT"))) {
+				in.add(input.get(i).substring(2, o));
+			} else if (input.get(i).subSequence(0, 2).equals("Hf") || input.get(i).subSequence(0, 2).equals("HF")) {
+				break;
+			}
+		}
+
+		return in;
 	}
 
 	public static boolean isChord(ArrayList<String> line, char note) {

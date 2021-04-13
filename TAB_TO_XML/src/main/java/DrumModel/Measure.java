@@ -7,20 +7,30 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
+import guitarModel.BackwardBarline;
+import guitarModel.ForwardBarline;
+import guitarModel.GuitarDirection;
+
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-@JsonPropertyOrder({"number", "attributes", "note", "backup", "noteBack", "barline"})
+@JsonPropertyOrder({ "number", "attributes", "forwardBarline", "GuitarDirection", "note", "backup", "noteBack", "backwardBarline" })
 public class Measure {
-	@JacksonXmlProperty(isAttribute=true)
+	@JacksonXmlProperty(isAttribute = true)
 	int number;
 
 	Attributes attributes;
-	
-    @JacksonXmlElementWrapper(useWrapping = false)
+
+	@JacksonXmlElementWrapper(useWrapping = false)
 	ArrayList<Object> note;
 	Backup backup;
-	Barline barline;
 	
-    @JacksonXmlElementWrapper(useWrapping = false)
+	@JacksonXmlProperty(localName = "direction")
+	private GuitarDirection direction;
+
+	@JacksonXmlProperty(localName = "barline")
+	private ForwardBarline forwardBarline;
+	private BackwardBarline backwardBarline;
+
+	@JacksonXmlElementWrapper(useWrapping = false)
 	ArrayList<Object> noteBack;
 
 	public ArrayList<Object> getNoteBack() {
@@ -39,32 +49,55 @@ public class Measure {
 		this.backup = backup;
 	}
 
-	public Measure() {}
-	
+	public Measure() {
+	}
+
 	public int getNumber() {
 		return number;
 	}
+
 	public void setNumber(int number) {
 		this.number = number;
 	}
+
 	public ArrayList<Object> getNote() {
 		return note;
 	}
+
 	public void setNote(ArrayList<Object> note) {
 		this.note = note;
 	}
+
 	public Attributes getAttributes() {
 		return attributes;
 	}
+
 	public void setAttributes(Attributes attributes) {
 		this.attributes = attributes;
 	}
-	public Barline getBarline() {
-		return barline;
-	}
-	public void setBarline(Barline barline) {
-		this.barline = barline;
+
+	public ForwardBarline getForwardBarline() {
+		return forwardBarline;
 	}
 
+	public void setForwardBarline(ForwardBarline forwardBarline) {
+		this.forwardBarline = forwardBarline;
+	}
+	
+	public BackwardBarline getBackwardBarline() {
+		return backwardBarline;
+	}
+
+	public void setBackwardBarline(BackwardBarline backwardBarline) {
+		this.backwardBarline = backwardBarline;
+	}
+	
+	public GuitarDirection getDirection() {
+		return direction;
+	}
+	
+	public void setDirection(GuitarDirection direction) {
+		this.direction = direction;
+	}
 
 }

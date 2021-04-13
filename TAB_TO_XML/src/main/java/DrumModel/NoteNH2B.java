@@ -118,14 +118,6 @@ public class NoteNH2B extends Note{
 		return location1;
 	}
 	
-	public void setBeam2(Beam beam) {
-		this.beam[1] = beam;
-	}
-	
-	public Beam getBeam2() {
-		return beam[1];
-	}
-	
 	public void setLocation2(String location) {
 		this.location2 = location;
 	}
