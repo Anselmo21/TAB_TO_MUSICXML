@@ -1,21 +1,38 @@
 package Interface;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.io.File;
+
+import org.fxmisc.richtext.CodeArea;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.matcher.control.LabeledMatchers;
 
+import TAB_TO_XML.App;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.IndexRange;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 
 @ExtendWith(ApplicationExtension.class)
 public class RunnerTest {
+	
+	@Mock
+	FileChooser fileChooser = Mockito.mock(FileChooser.class);
 	
 	@Start
 	public void start(Stage primaryStage) throws Exception{
@@ -30,18 +47,33 @@ public class RunnerTest {
 	}
 	
 	@Test
-	void browseButton(FxRobot robot) {
+	void browseButtonConvert(FxRobot robot) {
 		robot.clickOn("#browse");
-		FxAssert.verifyThat("#browse", LabeledMatchers.hasText("Browse File"));
+		File input = new File(getClass().getClassLoader().getResource("example.txt").getPath());
+		FxAssert.verifyThat("#browse", LabeledMatchers.hasText("Browse..."));
 	}
 	
 	@Test
-	void convertButton(FxRobot robot) {
+	void saveButtonAndConvert(FxRobot robot) {
+		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				String newText = "CC|x---------------|--------x-------|\r\n"
+						+ "HH|--x-x-x-x-x-x-x-|----------------|\r\n"
+						+ "SD|----o-------o---|oooo------------|\r\n"
+						+ "HT|----------------|----oo----------|\r\n"
+						+ "MT|----------------|------oo--------|\r\n"
+						+ "BD|o-------o-------|o-------o-------|";
+				codeArea.replaceText(new IndexRange(0, codeArea.getText().length()), newText);
+			}
+			
+		});
+		robot.clickOn("#convert");
 		FxAssert.verifyThat("#convert", LabeledMatchers.hasText("Convert"));
-	}
-	
-	@Test
-	void saveButton(FxRobot robot) {
-		FxAssert.verifyThat("#save", LabeledMatchers.hasText("Save File"));
+		FxAssert.verifyThat("#getInstrument", LabeledMatchers.hasText("Instrument: " + App.getInstrument(codeArea.getText())));
+		robot.clickOn("#save");
+		FxAssert.verifyThat("#save", LabeledMatchers.hasText("Export"));
 	}
 }

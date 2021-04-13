@@ -24,12 +24,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
@@ -49,6 +51,7 @@ public class Controller implements Initializable {
 	StreamResult output;
 	FileChooser fc, saveFile, saveEdits;
 	static String obtainText;
+	static String message = "";
 	static ArrayList<Integer> getErrors = new ArrayList<>();
 	static ArrayList<Integer> storeLine = new ArrayList<>();
 	static ArrayList<Integer> storeCharacter = new ArrayList<>();
@@ -253,7 +256,8 @@ public class Controller implements Initializable {
 	 * @param guitarTab
 	 * @return
 	 */
-	public static void validateGuitarTab(String guitarTab) {
+	public static boolean validateGuitarTab(String guitarTab) {
+		boolean invalid = false;
 		getErrors.clear();
 		storeLine.clear();
 		storeCharacter.clear();
@@ -261,84 +265,94 @@ public class Controller implements Initializable {
 		ArrayList<String> errorGuitar = new ArrayList<>();
 		while (guitar.hasNextLine()) 
 			errorGuitar.add(guitar.nextLine());
-		lengthOK(errorGuitar);
-		guitarTuningsOK(errorGuitar);
-		harmonicsOK(errorGuitar);
-		symbolsOK(errorGuitar);
-		guitar.close();
+		try {
+			if (!lengthOK(errorGuitar) && !guitarTuningsOK(errorGuitar) && !harmonicsOK(errorGuitar) && !symbolsOK(errorGuitar))
+			invalid = true;
+			guitar.close();
+		}
+		catch(Exception e) {
+			
+		}
+		return invalid;
 	}
 	
-	public static void validateBassTab(String bassTab) {
+	public static boolean validateBassTab(String bassTab) {
+		boolean invalid = false;
 		Scanner bass = new Scanner(bassTab);
 		ArrayList<String> errorBass = new ArrayList<>();
 		while (bass.hasNextLine()) 
 			errorBass.add(bass.next());
-		lengthOK(errorBass);
-		harmonicsOK(errorBass);
-		symbolsOK(errorBass);
+		try {
+		if (!lengthOK(errorBass) && !harmonicsOK(errorBass) && !symbolsOK(errorBass)) {
+			invalid = true;
+		}
 		bass.close();
+		}
+		catch (Exception e) {}
+		return invalid;
 	}
 
-	public static void lengthOK(ArrayList<String> errorGuitar) {
+	public static boolean lengthOK(ArrayList<String> errorGuitar) {
+		boolean ok = true;
 		for (int i = 0; i < errorGuitar.size() - 1; i++) {
 			//if block to check if the lines are right
 			if (errorGuitar.get(i).length() != errorGuitar.get(i + 1).length()) {
 				getErrors.add(1);
-				if (errorGuitar.get(i).length() > errorGuitar.get(i + 1).length()) {
-					storeLine.add(i);
-					storeCharacter.add(1);
-				}
-				else {
-					storeLine.add(i + 1);
-					storeCharacter.add(1);
-				}
+				storeLine.add(i);
+				storeCharacter.add(0);
+				ok = false;
+				message += "Length of tablature is incorrect at " + i + "\n";
 			}
 		}
+		return ok;
 	}
 
-	public static void guitarTuningsOK(ArrayList<String> errorGuitar) {
+	public static boolean guitarTuningsOK(ArrayList<String> errorGuitar) {
+		boolean ok = true;
 		for (int i = 0; i < errorGuitar.size(); i++) {
 			//if block to check if the tunings are right
 			if ((errorGuitar.get(i).charAt(0) >= 65 && errorGuitar.get(i).charAt(0) <= 71) || (errorGuitar.get(i).charAt(0) >= 97 && errorGuitar.get(i).charAt(0) <= 103)) {
 				getErrors.add(2);
 				storeLine.add(i);
 				storeCharacter.add(0);
+				ok = false;
+				message += "Tuning of tablature is incorrect at " + i + "\n";
 			}
 		}
+		return ok;
 	}
 
-	public static void harmonicsOK(ArrayList<String> errorGuitar) {
+	public static boolean harmonicsOK(ArrayList<String> errorGuitar) {
+		boolean ok = true;
 		for (int i = 0; i < errorGuitar.size(); i++) {
-			for (int j = 0; j < errorGuitar.get(i).length(); j++) {
+			for (int j = 0; j < errorGuitar.get(i).length() - 1; j++) {
 				//harmonics check (brackets are there, or is there a digit inside the harmonics and stuff
 				if (errorGuitar.get(i).charAt(j) == '[' && errorGuitar.get(i).contains("]")) {
 					if (!Character.isDigit(errorGuitar.get(i).charAt(j + 1))) {
 						getErrors.add(4);
 						storeLine.add(i);
 						storeCharacter.add(j + 1);
-					}
-				}
-				else {
-					if ((errorGuitar.get(i).contains("[") && !errorGuitar.get(i).contains("]")) || 
-							(errorGuitar.get(i).contains("]") && !errorGuitar.get(i).contains("["))) {
-						getErrors.add(4);
-						storeLine.add(i);
-						storeCharacter.add(j);
+						ok = false;
+						message += "Harmonics is incorrect at " + i + " line at" + j+1 + " character" + "\n";
 					}
 				}
 			}
 		}
+		return ok;
 	}
 
-	public static void symbolsOK(ArrayList<String> errorGuitar) {
+	public static boolean symbolsOK(ArrayList<String> errorGuitar) {
+		boolean ok = true;
 		for (int i = 0; i < errorGuitar.size(); i++) {
-			for (int j = 0; j < errorGuitar.get(0).length(); j++) {
+			for (int j = 0; j < errorGuitar.get(0).length() - 1; j++) {
 				//if block to check if the tab includes any random characters it cannot parse
 				if (errorGuitar.get(i).charAt(j) == 'x' || errorGuitar.get(i).charAt(j) == 'o' ||
 						errorGuitar.get(i).charAt(j) == 'v' || errorGuitar.get(i).charAt(j) == 'b') {
 					getErrors.add(3);
 					storeLine.add(i);
 					storeCharacter.add(j);
+					ok = false;
+					message += "Unsupported symbols used at " + i + " line at " + j+1 + " character " + "\n";
 				}
 				//if block to check for digits behind and in front of the pull offs and hammer-ons
 				if (errorGuitar.get(i).charAt(j) == 'p' || errorGuitar.get(i).charAt(j) == 'P' || 
@@ -348,6 +362,8 @@ public class Controller implements Initializable {
 						getErrors.add(5);
 						storeLine.add(i);
 						storeCharacter.add(j + 1);
+						ok = false;
+						message += "Supported symbols are incorrect implemented at " + i + " line at " + j+1 + " character " + "\n";
 					}
 				}
 				//if block to check for grace notes and slides
@@ -356,10 +372,12 @@ public class Controller implements Initializable {
 						getErrors.add(5);
 						storeLine.add(i);
 						storeCharacter.add(j + 1);
+						ok = false;
 					}
 				}
 			}
 		}
+		return ok;
 	}
 
 	public void drumSymbolsOK(ArrayList<String> errorDrums) {
@@ -381,7 +399,7 @@ public class Controller implements Initializable {
 			if (messagePop.isEmpty()) 
 				return;
 			Point2D point = e.getScreenPosition();
-			popup.show(popup, point.getX(), point.getY() - 10);
+			popup.show(popup, point.getX(), point.getY() + 10);
 			
 		});
 		write.addEventHandler(MouseOverTextEvent.MOUSE_OVER_TEXT_END, e ->{

@@ -19,11 +19,13 @@ public class ErrorHighlightingInput {
 	private static String textOnArea = "";
 	protected static ExecutorService executor = Executors.newSingleThreadExecutor();
 	private CodeArea codeArea;
+	public static CodeArea getArea;
 	private static TreeMap<Range, Integer> errorsOnTab = new TreeMap<>();
 	static String message;
 
 	public ErrorHighlightingInput(CodeArea textArea){
 		this.codeArea = textArea;
+		getArea = this.codeArea;
 	}
 
 	public Task<StyleSpans<Collection<String>>> computeHighlightingAsync() {
@@ -61,9 +63,6 @@ public class ErrorHighlightingInput {
 	         errorEnd = range.getEnd();
 		}
 		spansBuilder.add(Collections.emptyList(), text.length() - errorEnd);
-//		spansBuilder.add(Collections.emptyList(), 5);
-//		spansBuilder.add(Collections.singleton("highPriorityError"), 5);
-//		spansBuilder.add(Collections.emptyList(), text.length() - 10);
 		return spansBuilder.create();
 	}
 
