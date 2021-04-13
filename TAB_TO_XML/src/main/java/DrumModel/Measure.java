@@ -28,6 +28,7 @@ public class Measure {
 
 	@JacksonXmlProperty(localName = "barline")
 	private ForwardBarline forwardBarline;
+	
 	private BackwardBarline backwardBarline;
 
 	@JacksonXmlElementWrapper(useWrapping = false)
@@ -95,7 +96,6 @@ public class Measure {
 	public GuitarDirection getDirection() {
 		return direction;
 	}
-	
 	public void setDirection(GuitarDirection direction) {
 		this.direction = direction;
 	}

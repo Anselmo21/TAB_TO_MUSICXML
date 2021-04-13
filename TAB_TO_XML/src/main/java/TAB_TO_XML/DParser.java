@@ -53,10 +53,10 @@ public class DParser {
 	}
 
 	/**
-	 * Counts the division of the whole tablature
+	 * Counts the division of the whole measure
 	 * 
 	 * @param parse is the array list of strings that contains a whole line of notes
-	 * @return an integer that represents the division of the whole tablature.
+	 * @return an integer that represents the division of the whole measure.
 	 */
 	public static int divisionCount(String line, int numerator) {
 		return line.length() / numerator;
@@ -86,22 +86,46 @@ public class DParser {
 	 * @param parse is the array list of strings that contains a whole line of notes
 	 * @return an String that represents the type of the note.
 	 */
-	public static String typeDeclare(int duration) {
-		String[] types = new String[] { "", "16th", "eighth", "", "quarter", "", "", "", "half", "", "", "", "", "", "",
-				"", "whole" };
-		return types[duration];
+	public static String typeDeclare(int duration, int linelength) {
+		String type = null;
+		if (duration >= linelength && duration < linelength * 2) {
+			type = "whole";
+		}	else if (duration >= linelength / 2 && duration < linelength) {
+			type = "half";
+		}	else if (duration >= linelength / 4 && duration < linelength / 2) {
+			type = "quarter";
+		}	else if (duration >= linelength / 8 && duration < linelength / 4) {
+			type = "eighth";
+		}	else if (duration >= linelength / 16 && duration < linelength /8) {
+			type = "16th";
+		}
+		return type;
 	}
 
-	public static String typeDeclareGrace(int duration) {
-		String[] types = new String[] { "", "", "16th", "", "eighth", "", "", "", "quarter", "", "", "", "", "", "", "",
-				"whole" };
-		return types[duration];
+	public static String typeDeclareGrace(String type) {
+		String gtype = null;
+		if (type.equals("whole")) {
+			gtype = "half";
+		}	else if (type.equals("half")) {
+			gtype = "quarter";
+		}	else if (type.equals("quarter")) {
+			gtype = "eighth";
+		}	else if (type.equals("eighth")) {
+			gtype = "16th";
+		}
+		return gtype;
 	}
 
-	public static String typeDeclareTwoGrace(int duration) {
-		String[] types = new String[] { "", "", "", "", "16th", "", "", "", "eighth", "", "", "", "", "", "", "",
-				"whole" };
-		return types[duration];
+	public static String typeDeclareTwoGrace(String type) {
+		String gtype = null;
+		if (type.equals("whole")) {
+			gtype = "quarter";
+		}	else if (type.equals("half")) {
+			gtype = "eighth";
+		}	else if (type.equals("quarter")) {
+			gtype = "16th";
+		}
+		return gtype;
 	}
 
 	public static String identifyID(String ID, Character Character) {
@@ -290,14 +314,12 @@ public class DParser {
 		for (int z = 0; z < in.get(0).length()-1; z = z + measuresize) {
 			measuresize = measureSize(in.get(0), z + 1);
 			for (int j = 0; j < in.size(); j++) {
-				System.out.println(in.get(j).substring(1 + subsize, subsize + measuresize));
 				eachSection.add(in.get(j).substring(1 + subsize, subsize + measuresize));
 			}
 			sections.add(eachSection);
 			eachSection = new ArrayList<String>();
 			subsize = subsize + measuresize;
 			measuresize = measureSize(in.get(0), z + 1);
-			System.out.println(measuresize);
 		}
 		// returns 2d array of substrings of the measure excluding the vertical lines
 		return sections;
@@ -335,6 +357,14 @@ public class DParser {
 		return sections;
 	}
 
+	/**
+	 * Method used to find the measures that are repeated
+	 * 
+	 * @param input is the array list of strings that contains whole lines of notes
+	 * @return an arraylist of intgers that contains 0, 1, 2, 3 and 4 (0 is when the measure is not repeated, 1 is when the measure is the starting of a repeat
+	 * 2 is when the repeat ends on that measure, 3 is when the measure is inbetween a repeat of two measures and 4 is when the repeat begins and ends within
+	 * that measure)
+	 */
 	public static ArrayList<Integer> collectionToMeasureRepeatedMeasure(ArrayList<String> input) {
 
 		ArrayList<Integer> sections = new ArrayList<Integer>();
@@ -400,6 +430,12 @@ public class DParser {
 		return sections;
 	}
 
+	/**
+	 * Method used to find the number of times the measures are repeated
+	 * 
+	 * @param input is the array list of strings that contains whole lines of notes
+	 * @return an arraylist of intgers that contains either 0 which means no repeat and integers that represents the number of repeats
+	 */
 	public static ArrayList<Integer> collectionToMeasureRepeatedAmount(ArrayList<String> input) {
 
 		ArrayList<Integer> sections = new ArrayList<Integer>();
