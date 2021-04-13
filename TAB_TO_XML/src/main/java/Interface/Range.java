@@ -24,7 +24,9 @@ public class Range implements Comparable<Range> {
 	}
 
 	public boolean overlaps(Range other) {
-		return (this.end<=other.end && this.end>other.start) || (this.start>=other.start && this.start<other.end) || this.contains(other) || other.contains(this);
+		return (this.end <= other.end && this.end > other.start) || 
+					(this.start >= other.start && this.start < other.end) || 
+						this.contains(other) || other.contains(this);
 	}
 
 	@Override

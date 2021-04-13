@@ -38,6 +38,7 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     testCompile 'org.testfx:testfx-core:4.0.16-alpha'
     testCompile 'org.testfx:testfx-junit5:4.0.16-alpha'
+    implementation 'org.mockito:mockito-android:3.9.0'
     testCompile group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
 }
 
