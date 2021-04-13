@@ -388,6 +388,7 @@ public class App {
 				if (Character.isDigit(character) && y == meas.get(0).length() - 1) {
 					variableRepeatExist = true;
 					numVarRepeats = character;
+					break;
 				}
 
 				// Repeats: Forward Direction
@@ -624,7 +625,7 @@ public class App {
 
 						}
 						System.out.println(isDoubleDigit);
-						if (isDoubleDigit == true) {
+						if (isDoubleDigit != true) {
 
 							tech.setFret(correctDoubleDigit);
 						}
