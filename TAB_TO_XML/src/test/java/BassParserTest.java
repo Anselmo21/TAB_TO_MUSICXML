@@ -63,12 +63,14 @@ class BassParserTest {
 	
 	@Test
 	public void test_divisionCount_01() {
+		//Assume a 4/4 time signature
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-0---------------");
 		a.add("-0---------------");
 		a.add("-1---------------");
 		a.add("-2---------------");
-		int b = BParser.divisionCount(a);
+		String temp = a.get(0);
+		int b = BParser.divisionCount(temp,4);
 		int c = 2;
 		assertEquals(b, c);
 		
@@ -76,12 +78,14 @@ class BassParserTest {
 	
 	@Test
 	public void test_divisionCount_02() {
+		//Assume a 4/4 time signature 
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		int b = BParser.divisionCount(a);
+		String temp = a.get(0);
+		int b = BParser.divisionCount(temp,4);
 		int c = 2;
 		assertEquals(b, c);
 		
@@ -96,7 +100,7 @@ class BassParserTest {
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.stepCount(2, Character.getNumericValue(a.get(2).charAt(7)));
+		String b = BParser.stepCount(0,0,a);
 		String c = "A#";
 		assertEquals(b, c);
 	}
@@ -108,7 +112,7 @@ class BassParserTest {
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.stepCount(3, Character.getNumericValue(a.get(3).charAt(5)));
+		String b = BParser.stepCount(0,0,a);
 		String c = "F#";
 		assertEquals(b, c);
 	}
@@ -148,7 +152,7 @@ class BassParserTest {
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.parseAlter(BParser.stepCount(2, Character.getNumericValue(a.get(2).charAt(7))));
+		String b = BParser.parseAlter(BParser.stepCount(0,0,a));
 		String c = "1";
 		assertEquals(b, c);
 	}
@@ -160,7 +164,7 @@ class BassParserTest {
 		a.add("---------0---0---");
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
-		String b = BParser.parseAlter(BParser.stepCount(0, Character.getNumericValue(a.get(0).charAt(11))));
+		String b = BParser.parseAlter(BParser.stepCount(0, 0,a));
 		String c = "0";
 		assertEquals(b, c);
 	}

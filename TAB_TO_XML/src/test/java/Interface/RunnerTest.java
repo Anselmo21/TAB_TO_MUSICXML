@@ -32,9 +32,6 @@ import javafx.stage.Stage;
 @ExtendWith(ApplicationExtension.class)
 public class RunnerTest {
 	
-	@Mock
-	FileChooser fileChooser = Mockito.mock(FileChooser.class);
-	
 	@Start
 	public void start(Stage primaryStage) throws Exception{
 		Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Interface/Intro.fxml"));
@@ -48,20 +45,19 @@ public class RunnerTest {
 	}
 	
 	@Test
-	void browseButton(FxRobot robot) {
+	void browseButtonTest(FxRobot robot) {
 		robot.clickOn("#browse");
-		File input = new File(getClass().getClassLoader().getResource("example.txt").getPath());
 		FxAssert.verifyThat("#browse", LabeledMatchers.hasText("Browse..."));
 	}
 	
 	@Test
-	void saveAndConvertForDrums(FxRobot robot) {
+	void saveButtonTest(FxRobot robot) {
 		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
 		Platform.runLater(new Runnable() {
 
 			@Override
 			public void run() {
-				String newText = "CC|x---------------|--------x-------|\r\n"
+				String newText = "CC|x----x-----x--x-|--------x-------|\r\n"
 						+ "HH|--x-x-x-x-x-x-x-|----------------|\r\n"
 						+ "SD|----o-------o---|oooo------------|\r\n"
 						+ "HT|----------------|----oo----------|\r\n"
@@ -69,29 +65,70 @@ public class RunnerTest {
 						+ "BD|o-------o-------|o-------o-------|";
 				codeArea.replaceText(new IndexRange(0, codeArea.getText().length()), newText);
 			}
-			
 		});
 		robot.clickOn("#convert");
-		FxAssert.verifyThat("#convert", LabeledMatchers.hasText("Convert"));
-		FxAssert.verifyThat("#getInstrument", LabeledMatchers.hasText("Instrument: " + App.getInstrument(codeArea.getText())));
-		robot.clickOn("#save");
-		FxAssert.verifyThat("#save", LabeledMatchers.hasText("Export"));
+		robot.clickOn("#edits");
+		FxAssert.verifyThat("#edits", LabeledMatchers.hasText("Save..."));
+		
 	}
 	
+//	@Test
+//	void exportAndConvertForDrumsTest(FxRobot robot) {
+//		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
+//		Platform.runLater(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				String newText = "CC|x---------------|--------x-------|\r\n"
+//						+ "HH|--x-x-x-x-x-x-x-|----------------|\r\n"
+//						+ "SD|----o-------o---|oooo------------|\r\n"
+//						+ "HT|----------------|----oo----------|\r\n"
+//						+ "MT|----------------|------oo--------|\r\n"
+//						+ "BD|o-------o-------|o-------o-------|";
+//				codeArea.replaceText(new IndexRange(0, codeArea.getText().length()), newText);
+//			}
+//			
+//		});
+//		robot.clickOn("#convert");
+//		FxAssert.verifyThat("#convert", LabeledMatchers.hasText("Convert"));
+//		robot.clickOn("#save");
+//		FxAssert.verifyThat("#save", LabeledMatchers.hasText("Export"));
+//	}
+	
+//	@Test
+//	void exportAndConvertForGuitarTest(FxRobot robot) {
+//		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
+//		Platform.runLater(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				String newText = "E|---------------------------|-15p12-10p9-12p10-6p5-8p6-----|\r\n"
+//						+ "B|---------------------------|--------------------------8-5-|\r\n"
+//						+ "G|---------------------------|------------------------------|\r\n"
+//						+ "D|--[7]----------------------|------------------------------|\r\n"
+//						+ "A|--[7]----------------------|------------------------------|\r\n"
+//						+ "D|--[7]----------------------|------------------------------|";
+//				codeArea.replaceText(new IndexRange(0, codeArea.getText().length()), newText);
+//			}
+//			
+//		});
+//		robot.clickOn("#convert");
+//		FxAssert.verifyThat("#convert", LabeledMatchers.hasText("Convert"));
+//		robot.clickOn("#save");
+//		FxAssert.verifyThat("#save", LabeledMatchers.hasText("Export"));
+//	}
+	
 	@Test
-	void saveAndConvertForGuitar(FxRobot robot) {
+	void exportAndConvertForBassGuitarTest(FxRobot robot) {
 		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
-		TextArea textArea = Interface.ErrorHighlightingInput.getTextArea;
 		Platform.runLater(new Runnable() {
 
 			@Override
 			public void run() {
-				String newText = "E|---------------------------|-15p12-10p9-12p10-6p5-8p6-----|\r\n"
-						+ "B|---------------------------|--------------------------8-5-|\r\n"
-						+ "G|---------------------------|------------------------------|\r\n"
-						+ "D|--[7]----------------------|------------------------------|\r\n"
-						+ "A|--[7]----------------------|------------------------------|\r\n"
-						+ "D|--[7]----------------------|------------------------------|";
+				String newText = "|---------------------------|-15p12-10p9-12p10-6p5-8p6-----|\r\n"
+						+ "|---------------------------|--------------------------8-5-|\r\n"
+						+ "|---------------------------|------------------------------|\r\n"
+						+ "|--[7]----------------------|------------------------------|\r\n";
 				codeArea.replaceText(new IndexRange(0, codeArea.getText().length()), newText);
 			}
 			
@@ -102,4 +139,5 @@ public class RunnerTest {
 		robot.clickOn("#save");
 		FxAssert.verifyThat("#save", LabeledMatchers.hasText("Export"));
 	}
+	
 }

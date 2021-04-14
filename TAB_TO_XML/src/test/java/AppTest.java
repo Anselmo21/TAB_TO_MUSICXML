@@ -4820,15 +4820,17 @@ class AppTest {
 	
 	@Test
 	public void drumTabToXMLTest1() {
-		ArrayList<String> tabAsList = App.getFileList(
-				"CC|x---------------|--------x-------|\n"
+		String tab = "CC|x---------------|--------x-------|\n"
 				+ "HH|--x-x-x-x-x-x-x-|----------------|\n"
 				+ "SD|----o-------o---|oooo------------|\n"
 				+ "HT|----------------|----oo----------|\n"
 				+ "MT|----------------|------oo--------|\n"
-				+ "BD|o-------o-------|o-------o-------|");
-		String actual = App.drumTabToXML(tabAsList, null);
-		String expected = "<score-partwise version=\"3.1\">\n"
+				+ "BD|o-------o-------|o-------o-------|";
+		String customization = "";
+		String actual = App.runConversion(tab, customization);
+		String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+				+ "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">\n"
+				+ "<score-partwise version=\"3.1\">\n"
 				+ "  <part-list>\n"
 				+ "    <score-part id=\"P1\">\n"
 				+ "      <part-name>Drumset</part-name>\n"
@@ -5077,6 +5079,13 @@ class AppTest {
 				+ "        </note>\n"
 				+ "      </measure>\n"
 				+ "    <measure number=\"2\">\n"
+				+ "      <attributes>\n"
+				+ "        <divisions>4</divisions>\n"
+				+ "        <time>\n"
+				+ "          <beats>4</beats>\n"
+				+ "          <beat-type>4</beat-type>\n"
+				+ "          </time>\n"
+				+ "        </attributes>\n"
 				+ "      <note>\n"
 				+ "        <unpitched>\n"
 				+ "          <display-step>C</display-step>\n"
