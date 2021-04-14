@@ -72,28 +72,28 @@ public class RunnerTest {
 		
 	}
 	
-//	@Test
-//	void exportAndConvertForDrumsTest(FxRobot robot) {
-//		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
-//		Platform.runLater(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				String newText = "CC|x---------------|--------x-------|\r\n"
-//						+ "HH|--x-x-x-x-x-x-x-|----------------|\r\n"
-//						+ "SD|----o-------o---|oooo------------|\r\n"
-//						+ "HT|----------------|----oo----------|\r\n"
-//						+ "MT|----------------|------oo--------|\r\n"
-//						+ "BD|o-------o-------|o-------o-------|";
-//				codeArea.replaceText(new IndexRange(0, codeArea.getText().length()), newText);
-//			}
-//			
-//		});
-//		robot.clickOn("#convert");
-//		FxAssert.verifyThat("#convert", LabeledMatchers.hasText("Convert"));
-//		robot.clickOn("#save");
-//		FxAssert.verifyThat("#save", LabeledMatchers.hasText("Export"));
-//	}
+	@Test
+	void exportAndConvertForDrumsTest(FxRobot robot) {
+		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				String newText = "CC|x---------------|--------x-------|\r\n"
+						+ "HH|--x-x-x-x-x-x-x-|----------------|\r\n"
+						+ "SD|----o-------o---|oooo------------|\r\n"
+						+ "HT|----------------|----oo----------|\r\n"
+						+ "MT|----------------|------oo--------|\r\n"
+						+ "BD|o-------o-------|o-------o-------|";
+				codeArea.replaceText(new IndexRange(0, codeArea.getText().length()), newText);
+			}
+			
+		});
+		robot.clickOn("#convert");
+		FxAssert.verifyThat("#convert", LabeledMatchers.hasText("Convert"));
+		robot.clickOn("#save");
+		FxAssert.verifyThat("#save", LabeledMatchers.hasText("Export"));
+	}
 	
 	@Test
 	void exportAndConvertForGuitarTest(FxRobot robot) {
