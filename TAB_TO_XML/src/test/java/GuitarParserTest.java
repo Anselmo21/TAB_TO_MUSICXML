@@ -71,6 +71,7 @@ class GuitarParserTest {
 	
 	@Test
 	public void test_divisionCount_01() {
+		// Suppose the time signature is 4/4
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-0---------------");
 		a.add("-0---------------");
@@ -78,7 +79,9 @@ class GuitarParserTest {
 		a.add("-2---------------");
 		a.add("-2---------------");
 		a.add("-0---------------");
-		int b = GuitarParser.divisionCount(a);
+		
+		String temp = a.get(0);
+		int b = GuitarParser.divisionCount(temp,4);
 		int c = 2;
 		assertEquals(b, c);
 		
@@ -86,6 +89,7 @@ class GuitarParserTest {
 	
 	@Test
 	public void test_divisionCount_02() {
+		// Suppose the time signature is 4/4
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
@@ -93,7 +97,9 @@ class GuitarParserTest {
 		a.add("-----2-----------");
 		a.add("---2-------------");
 		a.add("-0---------------");
-		int b = GuitarParser.divisionCount(a);
+		String temp = a.get(0);
+	
+		int b = GuitarParser.divisionCount(temp,4);
 		int c = 2;
 		assertEquals(b, c);
 		
@@ -103,6 +109,7 @@ class GuitarParserTest {
 	
 	@Test
 	public void test_stepCount_01() {
+		// Suppose the time signature is 4/4 like the one given in the course website
 		ArrayList<String> a = new ArrayList<>();
 		a.add("-----------0-----");
 		a.add("---------0---0---");
@@ -110,8 +117,11 @@ class GuitarParserTest {
 		a.add("-----2-----------");
 		a.add("---2-------------");
 		a.add("-0---------------");
-		String b = GuitarParser.stepCount(4, Character.getNumericValue(a.get(4).charAt(3)));
-		String c = "B";
+		/*
+		 * Suppose we choose the 0 note in the beginning
+		 */
+		String b = GuitarParser.stepCount(0,1,a);
+		String c = "E";
 		assertEquals(b, c);
 	}
 	
@@ -124,7 +134,7 @@ class GuitarParserTest {
 		a.add("-----2-----------");
 		a.add("---2-------------");
 		a.add("-0---------------");
-		String b = GuitarParser.stepCount(2, Character.getNumericValue(a.get(2).charAt(7)));
+		String b = GuitarParser.stepCount(4,8,a);
 		String c = "G#";
 		assertEquals(b, c);
 	}
@@ -171,7 +181,7 @@ class GuitarParserTest {
 		a.add("-----2-----------");
 		a.add("---2-------------");
 		a.add("-0---------------");
-		String b = GuitarParser.parseAlter(GuitarParser.stepCount(2, Character.getNumericValue(a.get(2).charAt(7))));
+		String b = GuitarParser.parseAlter(GuitarParser.stepCount(4,8,a));
 		String c = "1";
 		assertEquals(b, c);
 	}
@@ -185,8 +195,8 @@ class GuitarParserTest {
 		a.add("-----2-----------");
 		a.add("---2-------------");
 		a.add("-0---------------");
-		String b = GuitarParser.parseAlter(GuitarParser.stepCount(4, Character.getNumericValue(a.get(4).charAt(3))));
-		String c = "0";
+		String b = GuitarParser.parseAlter(GuitarParser.stepCount(4,16,a));
+		String c = "1";
 		assertEquals(b, c);
 	}
 	
