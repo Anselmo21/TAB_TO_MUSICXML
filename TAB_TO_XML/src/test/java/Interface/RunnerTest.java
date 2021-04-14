@@ -32,9 +32,6 @@ import javafx.stage.Stage;
 @ExtendWith(ApplicationExtension.class)
 public class RunnerTest {
 	
-	@Mock
-	FileChooser fileChooser = Mockito.mock(FileChooser.class);
-	
 	@Start
 	public void start(Stage primaryStage) throws Exception{
 		Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Interface/Intro.fxml"));
@@ -50,12 +47,33 @@ public class RunnerTest {
 	@Test
 	void browseButton(FxRobot robot) {
 		robot.clickOn("#browse");
-		File input = new File(getClass().getClassLoader().getResource("example.txt").getPath());
 		FxAssert.verifyThat("#browse", LabeledMatchers.hasText("Browse..."));
 	}
 	
 	@Test
-	void saveAndConvertForDrums(FxRobot robot) {
+	void saveButton (FxRobot robot) {
+		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				String newText = "CC|x---------------|--------x-------|\r\n"
+						+ "HH|--x-x-x-x-x-x-x-|----------------|\r\n"
+						+ "SD|----o-------o---|oooo------------|\r\n"
+						+ "HT|----------------|----oo----------|\r\n"
+						+ "MT|----------------|------oo--------|\r\n"
+						+ "BD|o-------o-------|o-------o-------|";
+				codeArea.replaceText(new IndexRange(0, codeArea.getText().length()), newText);
+			}
+		});
+		
+		robot.clickOn("#edits");
+		FxAssert.verifyThat("#edits", LabeledMatchers.hasText("Save..."));
+		
+	}
+	
+	@Test
+	void exportAndConvertForDrums(FxRobot robot) {
 		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
 		Platform.runLater(new Runnable() {
 
@@ -79,7 +97,7 @@ public class RunnerTest {
 	}
 	
 	@Test
-	void saveAndConvertForGuitar(FxRobot robot) {
+	void exportAndConvertForGuitar(FxRobot robot) {
 		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
 		TextArea textArea = Interface.ErrorHighlightingInput.getTextArea;
 		Platform.runLater(new Runnable() {
@@ -102,4 +120,28 @@ public class RunnerTest {
 		robot.clickOn("#save");
 		FxAssert.verifyThat("#save", LabeledMatchers.hasText("Export"));
 	}
+	
+	@Test
+	void exportAndConvertForBassGuitar(FxRobot robot) {
+		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
+		TextArea textArea = Interface.ErrorHighlightingInput.getTextArea;
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				String newText = "|---------------------------|-15p12-10p9-12p10-6p5-8p6-----|\r\n"
+						+ "|---------------------------|--------------------------8-5-|\r\n"
+						+ "|---------------------------|------------------------------|\r\n"
+						+ "|--[7]----------------------|------------------------------|\r\n";
+				codeArea.replaceText(new IndexRange(0, codeArea.getText().length()), newText);
+			}
+			
+		});
+		robot.clickOn("#convert");
+		FxAssert.verifyThat("#convert", LabeledMatchers.hasText("Convert"));
+		FxAssert.verifyThat("#getInstrument", LabeledMatchers.hasText("Instrument: " + App.getInstrument(codeArea.getText())));
+		robot.clickOn("#save");
+		FxAssert.verifyThat("#save", LabeledMatchers.hasText("Export"));
+	}
+	
 }

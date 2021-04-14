@@ -63,7 +63,10 @@ public class ErrorHighlightingInput {
 	         spansBuilder.add(Collections.singleton(styleClass), range.getSize());
 	         errorEnd = range.getEnd();
 		}
-		spansBuilder.add(Collections.emptyList(), text.length() - errorEnd);
+		try {
+			spansBuilder.add(Collections.emptyList(), text.length() - errorEnd);
+		}
+		catch(Exception e) {}
 		return spansBuilder.create();
 	}
 

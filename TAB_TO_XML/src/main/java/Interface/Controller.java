@@ -73,6 +73,7 @@ public class Controller implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		save.setDisable(true);
+		edits.setDisable(true);
 		write.setStyle("-fx-font-family: Monospace; -fx-font-size: 12pt; -fx-font-weight: bold;");
 		write.setParagraphGraphicFactory(LineNumberFactory.get(write));
 		new ErrorHighlightingInput(write, view).enableHighlighting();
@@ -90,6 +91,7 @@ public class Controller implements Initializable {
 	public void handleButtonBrowse(ActionEvent event) {
 		pressed = false;
 		save.setDisable(true);
+		edits.setDisable(true);
 		write.clear();
 		getInstrument.setText("");
 		fc = new FileChooser();
@@ -117,6 +119,7 @@ public class Controller implements Initializable {
 		}
 		else getInstrument.setText("");
 		browse.setDisable(false);
+		edits.setDisable(false);
 	}
 
 
@@ -153,6 +156,7 @@ public class Controller implements Initializable {
 		}
 		catch (Exception e) {
 		}
+		edits.setDisable(false);
 	}
 
 	/**
@@ -185,15 +189,25 @@ public class Controller implements Initializable {
 		}
 		catch(Exception e) {}
 	}
-	
+
 	@FXML
 	public void handleButtonEdits(ActionEvent event) {
 		write.setEditable(false);
 		if (!pressed) {
+			PrintWriter write = null;
+			try {
+				if (textFile.getAbsolutePath() != null) {
+					write = new PrintWriter(textFile.getAbsolutePath());
+					write.println(this.write.getText());
+					write.close();
+					this.write.setEditable(true);
+					return;
+				}
+			}
+			catch(Exception e) {}
 			saveEdits = new FileChooser();
 			saveEdits.getExtensionFilters().add(new ExtensionFilter("Text Files", "*.txt"));
 			textFile = saveEdits.showSaveDialog(null);
-			PrintWriter write = null;
 			try {
 				if (textFile.getAbsolutePath() != null) {
 					write = new PrintWriter(textFile.getAbsolutePath());
@@ -268,15 +282,15 @@ public class Controller implements Initializable {
 			errorGuitar.add(guitar.nextLine());
 		try {
 			if (!lengthOK(errorGuitar) && !guitarTuningsOK(errorGuitar) && !harmonicsOK(errorGuitar) && !symbolsOK(errorGuitar))
-			invalid = true;
+				invalid = true;
 			guitar.close();
 		}
 		catch(Exception e) {
-			
+
 		}
 		return invalid;
 	}
-	
+
 	public static boolean validateBassTab(String bassTab) {
 		boolean invalid = false;
 		Scanner bass = new Scanner(bassTab);
@@ -284,10 +298,10 @@ public class Controller implements Initializable {
 		while (bass.hasNextLine()) 
 			errorBass.add(bass.next());
 		try {
-		if (!lengthOK(errorBass) && !harmonicsOK(errorBass) && !symbolsOK(errorBass)) {
-			invalid = true;
-		}
-		bass.close();
+			if (!lengthOK(errorBass) && !harmonicsOK(errorBass) && !symbolsOK(errorBass)) {
+				invalid = true;
+			}
+			bass.close();
 		}
 		catch (Exception e) {}
 		return invalid;
@@ -386,7 +400,7 @@ public class Controller implements Initializable {
 
 		}
 	}
-	
+
 	public void textAreaPopups(ArrayList<Integer> errors) {
 		write.setParagraphGraphicFactory(LineNumberFactory.get(write));
 		new ErrorHighlightingInput(write, view).enableHighlighting();
@@ -401,7 +415,7 @@ public class Controller implements Initializable {
 				return;
 			Point2D point = e.getScreenPosition();
 			popup.show(popup, point.getX(), point.getY() + 10);
-			
+
 		});
 		write.addEventHandler(MouseOverTextEvent.MOUSE_OVER_TEXT_END, e ->{
 			popup.hide();
