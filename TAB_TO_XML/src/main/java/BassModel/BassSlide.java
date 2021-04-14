@@ -1,19 +1,15 @@
 package BassModel;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class Slur {
-
-	@JacksonXmlProperty(isAttribute=true)
-	int number;
-	
-	@JacksonXmlProperty(isAttribute=true) 
-	String placement;
+public class BassSlide {
 	
 	@JacksonXmlProperty(isAttribute=true)
-	String type; 
+	private int number;
+	
+	@JacksonXmlProperty(isAttribute=true)
+	private String type; 
+	
 	
 	public void setNumber(int number) { 
 		
@@ -26,17 +22,7 @@ public class Slur {
 		
 	}
 	
-	public void setPlacement(String p) { 
-		
-		placement = p; 
-		
-	}
-	
-	public String getPlacement() { 
-		
-		return placement; 
-		
-	}
+
 	
 	public void setType(String t) { 
 		

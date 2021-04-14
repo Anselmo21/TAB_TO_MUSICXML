@@ -20,14 +20,15 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-
 public class Runner extends Application {
 
 	static TextArea textArea;
 	WindowEvent window;
+	public static Stage stage;
 
 	@Override
-	public void start(Stage primaryStage) throws Exception{
+	public void start(Stage primaryStage) throws Exception {
+		stage = primaryStage;
 		Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Interface/Intro.fxml"));
 		primaryStage.setTitle("Allegro Tab Converter");
 		Scene scene = new Scene(root, 935, 700);
@@ -65,8 +66,8 @@ public class Runner extends Application {
 			try {
 				if (xmlFile.getAbsolutePath() != null) {
 					print = new PrintWriter(xmlFile.getAbsolutePath());
-					
 					print.println(Controller.obtainText);
+					
 					Alert saveAlert = new Alert(AlertType.CONFIRMATION); //creates a displayable error allert window
 					saveAlert.setHeaderText("The converted file has been saved to " + xmlFile.getAbsolutePath()); 
 					saveAlert.setContentText("Thank you for using Allegro Tab Converter!"); //Shows this stage and waits for it to be hidden (closed) before returning to the caller.
@@ -85,5 +86,3 @@ public class Runner extends Application {
 		else e.consume();
 	}
 }
-
-

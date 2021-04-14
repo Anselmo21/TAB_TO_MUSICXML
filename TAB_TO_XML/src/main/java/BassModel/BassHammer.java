@@ -1,17 +1,18 @@
 package BassModel;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 
-public class HammerOn {
+public class BassHammer {
+	@JacksonXmlProperty(isAttribute=true)
+	private int number;
 	
 	@JacksonXmlProperty(isAttribute=true)
-	int number;
+	private String type; 
+
 	
-	@JacksonXmlProperty(isAttribute=true)
-	String type; 
-	
-	//This field stores the symbol associated to the hammer on...which is either h or H
-	String symbol;
+	@JacksonXmlText
+	private String symbol; 
 	
 	public int getNumber() {
 		
@@ -45,7 +46,7 @@ public class HammerOn {
 	
 	public String getSymbol() { 
 		
-		return symbol;
+	return symbol;
 		
-	}
+}
 }

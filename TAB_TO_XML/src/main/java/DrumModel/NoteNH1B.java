@@ -3,15 +3,15 @@ package DrumModel;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-@JsonPropertyOrder({"unpitch", "duration", "instrument", "voice", "type", "stem", "notehead", "beam"})
+@JsonPropertyOrder({"unpitched", "duration", "instrument", "voice", "type", "stem", "notehead", "beam"})
 public class NoteNH1B extends Note{
 	@JacksonXmlProperty(isAttribute=true)
 	String location;
 	
 	@JacksonXmlProperty(localName = "beam")
-	String beam;
+	Beam beam;
 	
-	Unpitched unpitch;
+	Unpitched unpitched;
 	String duration; 
 	Instrument instrument;
 	String voice; 
@@ -19,14 +19,14 @@ public class NoteNH1B extends Note{
 	String stem;
 	String notehead;
 	
-	public void setUnpitch(Unpitched pitch) { 
-		unpitch = pitch;
+	public void setUnpitched(Unpitched pitch) { 
+		unpitched = pitch;
 		
 	}
 	
-	public Unpitched getUnpitch() { 
+	public Unpitched getUnpitched() { 
 		
-		return unpitch;
+		return unpitched;
 		
 	}
 	
@@ -89,19 +89,19 @@ public class NoteNH1B extends Note{
 		
 	}
 	
-	public void setNoteHead(String notehead) {
+	public void setNotehead(String notehead) {
 		this.notehead = notehead;
 	}
 	
-	public String getNoteHead() {
+	public String getNotehead() {
 		return notehead;
 	}
 	
-	public void setBeam(String beam) {
+	public void setBeam(Beam beam) {
 		this.beam = beam;
 	}
 	
-	public String getBeam() {
+	public Beam getBeam() {
 		return beam;
 	}
 	
@@ -114,19 +114,5 @@ public class NoteNH1B extends Note{
 	}
 	
 	public NoteNH1B() {}
-	public NoteNH1B(Unpitched pitch, String duration, String voice, String stem, String type, Instrument instrument, String notehead, String beam, String location) {
-		
-		super();
-		this.beam = beam;
-		this.location = location;
-		this.instrument = instrument;
-		this.unpitch = pitch;
-		this.duration = duration;
-		this.voice = voice;
-		this.type = type;
-		this.stem = stem;
-		this.voice = voice;
-		this.notehead = notehead;
-		
-	}
+
 }

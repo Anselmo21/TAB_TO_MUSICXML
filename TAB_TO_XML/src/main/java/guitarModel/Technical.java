@@ -7,27 +7,30 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-@JsonPropertyOrder({"pulloff", "hammer", "string", "fret"})
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonPropertyOrder({"harmonic", "pulloff", "hammer", "string", "fret"})
 public class Technical {
-	private String string;
-	private String fret;
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	protected String string;
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	protected String fret;
 	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JacksonXmlProperty(localName = "hammer-on")
 	@JacksonXmlElementWrapper(useWrapping = false)
-	private ArrayList<HammerOn> hammer; 
+	protected ArrayList<HammerOn> hammer; 
 	
 	/*
 	 * This has to be an array list because for some reason some notes have
 	 * 2 pull offs and I'm not sure how much more it can have
 	 * 
 	 */
-	
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
 	@JacksonXmlElementWrapper(useWrapping = false)
 	@JacksonXmlProperty(localName = "pull-off")
-	private ArrayList<PullOff> pulloff;
+	protected ArrayList<PullOff> pulloff;
 	
 	
+
 	
 	public ArrayList<HammerOn> getHammer() {
 		
@@ -66,5 +69,6 @@ public class Technical {
 		pulloff = pullList;
 		
 	}
+
 
 }

@@ -1,23 +1,22 @@
 package DrumModel;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
-@JsonPropertyOrder({"unpitch", "duration", "instrument", "voice", "type", "stem", "notehead", "beam1", "beam2"})
+@JsonPropertyOrder({"unpitched", "duration", "instrument", "voice", "type", "stem", "notehead", "beam[0]", "beam[1]"})
 public class NoteNH2B extends Note{
 	@JacksonXmlProperty(isAttribute=true)
 	String location1;
 	
-	@JacksonXmlProperty(localName = "beam1")
-	String beam1;
+	@JacksonXmlProperty(localName = "beam")
+	@JacksonXmlElementWrapper(useWrapping = false)
+	Beam[] beam = new Beam[2];
 	
 	@JacksonXmlProperty(isAttribute=true)
 	String location2;
 	
-	@JacksonXmlProperty(localName = "beam2")
-	String beam2;
-	
-	Unpitched unpitch;
+	Unpitched unpitched;
 	String duration; 
 	Instrument instrument;
 	String voice; 
@@ -25,14 +24,14 @@ public class NoteNH2B extends Note{
 	String stem;
 	String notehead;
 	
-	public void setUnpitch(Unpitched pitch) { 
-		unpitch = pitch;
+	public void setUnpitched(Unpitched pitch) { 
+		unpitched = pitch;
 		
 	}
 	
-	public Unpitched getUnpitch() { 
+	public Unpitched getUnpitched() { 
 		
-		return unpitch;
+		return unpitched;
 		
 	}
 	
@@ -95,20 +94,20 @@ public class NoteNH2B extends Note{
 		
 	}
 	
-	public void setNoteHead(String notehead) {
+	public void setNotehead(String notehead) {
 		this.notehead = notehead;
 	}
 	
-	public String getNoteHead() {
+	public String getNotehead() {
 		return notehead;
 	}
 	
-	public void setBeam1(String beam) {
-		this.beam1 = beam;
+	public void setBeam(Beam beam, int beamnum) {
+		this.beam[beamnum] = beam;
 	}
 	
-	public String getBeam1() {
-		return beam1;
+	public Beam[] getBeam() {
+		return beam;
 	}
 	
 	public void setLocation1(String location) {
@@ -117,14 +116,6 @@ public class NoteNH2B extends Note{
 	
 	public String getLocation1() {
 		return location1;
-	}
-	
-	public void setBeam2(String beam) {
-		this.beam2 = beam;
-	}
-	
-	public String getBeam2() {
-		return beam2;
 	}
 	
 	public void setLocation2(String location) {
@@ -136,21 +127,5 @@ public class NoteNH2B extends Note{
 	}
 	
 	public NoteNH2B() {}
-	public NoteNH2B(Unpitched pitch, String duration, String voice, String stem, String type, Instrument instrument, String notehead, String beam1, String location1, String beam2, String location2) {
-		
-		super();
-		this.beam1 = beam1;
-		this.location1 = location1;
-		this.beam2 = beam2;
-		this.location2 = location2;
-		this.instrument = instrument;
-		this.unpitch = pitch;
-		this.duration = duration;
-		this.voice = voice;
-		this.type = type;
-		this.stem = stem;
-		this.voice = voice;
-		this.notehead = notehead;
-		
-	}
+
 }

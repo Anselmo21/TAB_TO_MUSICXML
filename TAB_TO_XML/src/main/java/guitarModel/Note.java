@@ -1,5 +1,6 @@
 package guitarModel;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+
 public class Note {
 	private Pitch pitch;
 	private String duration;

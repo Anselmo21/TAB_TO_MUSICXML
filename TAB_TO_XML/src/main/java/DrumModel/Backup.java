@@ -1,6 +1,6 @@
 package DrumModel;
 
-public class Backup {
+public class Backup{
 	String duration; 
 	
 	
@@ -17,10 +17,5 @@ public class Backup {
 	}
 	
 	public Backup() {}
-	public Backup(String duration) {
-		
-		super();
-		this.duration = duration;
 
-	}
 }
