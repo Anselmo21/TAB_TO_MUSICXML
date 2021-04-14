@@ -121,7 +121,7 @@ class GuitarParserTest {
 		 * Suppose we choose the 0 note in the beginning
 		 */
 		String b = GuitarParser.stepCount(0,1,a);
-		String c = "E";
+		String c = "F";
 		assertEquals(b, c);
 	}
 	
@@ -135,7 +135,7 @@ class GuitarParserTest {
 		a.add("---2-------------");
 		a.add("-0---------------");
 		String b = GuitarParser.stepCount(4,8,a);
-		String c = "G#";
+		String c = "F";
 		assertEquals(b, c);
 	}
 	
@@ -182,7 +182,7 @@ class GuitarParserTest {
 		a.add("---2-------------");
 		a.add("-0---------------");
 		String b = GuitarParser.parseAlter(GuitarParser.stepCount(4,8,a));
-		String c = "1";
+		String c = "0";
 		assertEquals(b, c);
 	}
 	
@@ -195,8 +195,8 @@ class GuitarParserTest {
 		a.add("-----2-----------");
 		a.add("---2-------------");
 		a.add("-0---------------");
-		String b = GuitarParser.parseAlter(GuitarParser.stepCount(4,16,a));
-		String c = "1";
+		String b = GuitarParser.parseAlter(GuitarParser.stepCount(4,12,a));
+		String c = "0";
 		assertEquals(b, c);
 	}
 	

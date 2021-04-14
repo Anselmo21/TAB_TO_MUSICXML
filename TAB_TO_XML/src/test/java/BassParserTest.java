@@ -71,7 +71,7 @@ class BassParserTest {
 		a.add("-2---------------");
 		String temp = a.get(0);
 		int b = BParser.divisionCount(temp,4);
-		int c = 2;
+		int c = 4;
 		assertEquals(b, c);
 		
 	}
@@ -86,7 +86,7 @@ class BassParserTest {
 		a.add("-----2-----------");
 		String temp = a.get(0);
 		int b = BParser.divisionCount(temp,4);
-		int c = 2;
+		int c = 4;
 		assertEquals(b, c);
 		
 	}
@@ -101,7 +101,7 @@ class BassParserTest {
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
 		String b = BParser.stepCount(0,0,a);
-		String c = "A#";
+		String c = "G";
 		assertEquals(b, c);
 	}
 	
@@ -113,7 +113,7 @@ class BassParserTest {
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
 		String b = BParser.stepCount(0,0,a);
-		String c = "F#";
+		String c = "G";
 		assertEquals(b, c);
 	}
 	
@@ -153,7 +153,7 @@ class BassParserTest {
 		a.add("-------1-------1-");
 		a.add("-----2-----------");
 		String b = BParser.parseAlter(BParser.stepCount(0,0,a));
-		String c = "1";
+		String c = "0";
 		assertEquals(b, c);
 	}
 	
