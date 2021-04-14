@@ -60,7 +60,7 @@ public class ErrorHighlightingInput {
 			int priority = errorsOnTab.get(range);
 			 String styleClass = getErrorStyleClass(priority);
 	         spansBuilder.add(Collections.emptyList(), range.getStart() - errorEnd);
-	         spansBuilder.add(Collections.singleton(styleClass), range.getSize());
+	        // spansBuilder.add(Collections.singleton(styleClass), range.getSize());
 	         errorEnd = range.getEnd();
 		}
 		try {
