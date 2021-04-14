@@ -45,13 +45,13 @@ public class RunnerTest {
 	}
 	
 	@Test
-	void browseButton(FxRobot robot) {
+	void browseButtonTest(FxRobot robot) {
 		robot.clickOn("#browse");
 		FxAssert.verifyThat("#browse", LabeledMatchers.hasText("Browse..."));
 	}
 	
 	@Test
-	void saveButton (FxRobot robot) {
+	void saveButtonTest(FxRobot robot) {
 		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
 		Platform.runLater(new Runnable() {
 
@@ -73,7 +73,7 @@ public class RunnerTest {
 	}
 	
 	@Test
-	void exportAndConvertForDrums(FxRobot robot) {
+	void exportAndConvertForDrumsTest(FxRobot robot) {
 		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
 		Platform.runLater(new Runnable() {
 
@@ -97,7 +97,7 @@ public class RunnerTest {
 	}
 	
 	@Test
-	void exportAndConvertForGuitar(FxRobot robot) {
+	void exportAndConvertForGuitarTest(FxRobot robot) {
 		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
 		TextArea textArea = Interface.ErrorHighlightingInput.getTextArea;
 		Platform.runLater(new Runnable() {
@@ -122,7 +122,7 @@ public class RunnerTest {
 	}
 	
 	@Test
-	void exportAndConvertForBassGuitar(FxRobot robot) {
+	void exportAndConvertForBassGuitarTest(FxRobot robot) {
 		CodeArea codeArea = Interface.ErrorHighlightingInput.getArea;
 		TextArea textArea = Interface.ErrorHighlightingInput.getTextArea;
 		Platform.runLater(new Runnable() {
